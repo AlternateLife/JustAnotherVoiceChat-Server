@@ -2,7 +2,7 @@
 
 namespace AlternateVoice.Server.Managers
 {
-    public class VoiceServer : IVoiceServer
+    internal class VoiceServer : IVoiceServer
     {
         
         
