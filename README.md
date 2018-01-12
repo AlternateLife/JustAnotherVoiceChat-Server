@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a voice chat for multiplayer games. It is using teamspeak for voice communication including positional audio. It is build for [gt-mp](gt-mp.net) but can be used for other games or mods as well.
+This is a voice chat for multiplayer games. It is using teamspeak for voice communication including positional audio. It is build for [gt-mp](http://gt-mp.net) but can be used for other games or mods as well.
 
 ## Requirements
 
