@@ -41,13 +41,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlternateVoice.Server\AlternateVoice.Server.csproj">
-      <Project>{3523b5c4-ff62-4d7c-8319-bb7fbecf8f51}</Project>
-      <Name>AlternateVoice.Server</Name>
-    </ProjectReference>
+    <Folder Include="src" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src" />
+    <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj">
+      <Project>{3523b5c4-ff62-4d7c-8319-bb7fbecf8f51}</Project>
+      <Name>AlternateVoice.Server.Wrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

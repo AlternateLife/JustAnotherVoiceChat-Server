@@ -2,8 +2,10 @@
 {
     public struct VoiceHandle
     {
-
-        private ushort Identifer { get; }
+        
+        public bool IsEmpty => Identifer == 0;
+        
+        internal ushort Identifer { get; }
 
         public VoiceHandle(ushort identifer)
         {
@@ -34,6 +36,11 @@
         public static bool operator !=(VoiceHandle left, VoiceHandle right)
         {
             return !left.Equals(right);
+        }
+
+        public static VoiceHandle Empty()
+        {
+            return new VoiceHandle(0);
         }
     }
 }
