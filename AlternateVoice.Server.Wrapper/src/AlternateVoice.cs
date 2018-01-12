@@ -1,7 +1,7 @@
-﻿using AlternateVoice.Server.Elements;
-using AlternateVoice.Server.Interfaces;
+﻿using AlternateVoice.Server.Wrapper.Elements;
+using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server
+namespace AlternateVoice.Server.Wrapper
 {
     public static class AlternateVoice
     {

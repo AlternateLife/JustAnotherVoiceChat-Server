@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlternateVoice.Server.Interfaces
+namespace AlternateVoice.Server.Wrapper.Interfaces
 {
     public interface IVoiceGroup : IDisposable
     {

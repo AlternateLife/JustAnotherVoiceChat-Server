@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlternateVoice.Server.Interfaces;
-using AlternateVoice.Server.Structs;
+using AlternateVoice.Server.Wrapper.Interfaces;
+using AlternateVoice.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Elements
+namespace AlternateVoice.Server.Wrapper.Elements
 {
     public class VoiceClient : IVoiceClient
     {

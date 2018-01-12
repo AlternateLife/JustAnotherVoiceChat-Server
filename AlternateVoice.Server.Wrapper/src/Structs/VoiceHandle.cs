@@ -1,4 +1,4 @@
-﻿namespace AlternateVoice.Server.Structs
+﻿namespace AlternateVoice.Server.Wrapper.Structs
 {
     public struct VoiceHandle
     {
