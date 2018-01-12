@@ -2,7 +2,7 @@
 
 namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
 {
-    public partial class VoiceServer
+    internal partial class VoiceServer
     {
         public event Delegates.EmptyEvent OnServerStarted;
         public event Delegates.EmptyEvent OnServerStopping;

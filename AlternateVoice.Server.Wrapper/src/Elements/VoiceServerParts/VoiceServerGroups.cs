@@ -5,7 +5,7 @@ using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
 {
-    public partial class VoiceServer
+    internal partial class VoiceServer
     {
         
         private readonly List<VoiceGroup> _groups = new List<VoiceGroup>();
