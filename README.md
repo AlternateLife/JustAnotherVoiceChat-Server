@@ -15,5 +15,5 @@ This is a voice chat for multiplayer games. It is using teamspeak for voice comm
 
 ## Authors
 
-Micky5991
-MarkAtk
+Micky5991  
+MarkAtk  
