@@ -6,7 +6,7 @@ using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Elements
 {
-    public class VoiceGroup : IVoiceGroup
+    internal class VoiceGroup : IVoiceGroup
     {
         public event Delegates.ClientEvent OnClientJoined;
         public event Delegates.ClientEvent OnClientLeft;
