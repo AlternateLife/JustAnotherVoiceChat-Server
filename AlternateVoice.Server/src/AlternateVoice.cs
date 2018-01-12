@@ -1,25 +1,25 @@
-﻿using AlternateVoice.Server.Interfaces;
-using AlternateVoice.Server.Managers;
+﻿using AlternateVoice.Server.Elements;
+using AlternateVoice.Server.Interfaces;
 
 namespace AlternateVoice.Server
 {
     public static class AlternateVoice
     {
 
-        private static IVoiceServer _voiceServer;
-
-        public static IVoiceServer Server
+        public static IVoiceServer Server { get; private set; }
+        
+        public static IVoiceServer CreateServer(string hostname, ushort port, int channelId)
         {
-            get
+            if (Server == null)
             {
-                if (_voiceServer == null)
-                {
-                    _voiceServer = new VoiceServer();
-                }
-                
-                return _voiceServer;
-            } 
+                return null;
+            }
+            
+            Server = new VoiceServer(hostname, port, channelId);
+
+            return Server;
         }
+        
         
     }
 }
