@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AlternateVoice.Server.Structs;
+using AlternateVoice.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Interfaces
+namespace AlternateVoice.Server.Wrapper.Interfaces
 {
     public interface IVoiceServer
     {

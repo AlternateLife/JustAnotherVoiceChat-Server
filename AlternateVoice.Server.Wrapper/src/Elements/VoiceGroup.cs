@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AlternateVoice.Server.Interfaces;
+using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Elements
+namespace AlternateVoice.Server.Wrapper.Elements
 {
     public class VoiceGroup : IVoiceGroup
     {
