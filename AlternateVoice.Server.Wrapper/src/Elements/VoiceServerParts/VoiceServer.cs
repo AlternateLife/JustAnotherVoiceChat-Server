@@ -4,7 +4,7 @@ using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
 {
-    public partial class VoiceServer : IVoiceServer
+    internal partial class VoiceServer : IVoiceServer
     {
         
         public string Hostname { get; }
