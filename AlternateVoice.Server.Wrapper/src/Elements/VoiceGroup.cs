@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using AlternateVoice.Server.Wrapper.Elements.VoiceServerParts;
 using AlternateVoice.Server.Wrapper.Interfaces;
+using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Elements
 {
     public class VoiceGroup : IVoiceGroup
     {
+        public event Delegates.ClientEvent OnClientJoined;
+        public event Delegates.ClientEvent OnClientLeft;
         
-        public IEnumerable<IVoiceClient> Clients { get; }
+        private readonly VoiceServer _server;
+        private readonly IDictionary<VoiceHandle, IVoiceClient> _clients = new Dictionary<VoiceHandle, IVoiceClient>();
 
-        internal VoiceGroup()
+        public IEnumerable<IVoiceClient> Clients
         {
-            
+            get
+            {
+                lock (_clients)
+                {
+                    return _clients.Values;
+                }
+            }
+        }
+        
+        internal VoiceGroup(VoiceServer server)
+        {
+            _server = server;
         }
 
         public void AddClient(IVoiceClient client)
@@ -20,8 +36,13 @@ namespace AlternateVoice.Server.Wrapper.Elements
             {
                 throw new ArgumentNullException(nameof(client));
             }
+
+            lock (_clients)
+            {
+                _clients.Add(client.Handle, client);
+            }
             
-            
+            _server.FireClientJoinedGroup(client, this);
         }
 
         public void RemoveClient(IVoiceClient client)
@@ -31,7 +52,12 @@ namespace AlternateVoice.Server.Wrapper.Elements
                 throw new ArgumentNullException(nameof(client));
             }
             
+            _server.FireClientLeftGroup(client, this);
             
+            lock (_clients)
+            {
+                _clients.Remove(client.Handle);
+            }
         }
 
         public bool HasClient(IVoiceClient client)
@@ -41,12 +67,25 @@ namespace AlternateVoice.Server.Wrapper.Elements
                 throw new ArgumentNullException(nameof(client));
             }
 
-            return false;
+            lock (_clients)
+            {
+                return _clients.ContainsKey(client.Handle);
+            }
         }
 
         public void Dispose()
         {
+            foreach (var client in Clients)
+            {
+                _server.FireClientLeftGroup(client, this);
+            }
+
+            OnClientJoined = null;
+            OnClientLeft = null;
             
+            _clients.Clear();
+            
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,10 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceServer
+    public interface IVoiceServer : IDisposable
     {
+        event Delegates.EmptyEvent OnServerStarted;
+        event Delegates.EmptyEvent OnServerStopping;
+        
+        event Delegates.ClientEvent OnClientConnecting;
+        event Delegates.ClientDisconnected OnClientDisconnected;
+
+        event Delegates.ClientEvent OnClientAdded;
+        event Delegates.ClientEvent OnClientRemoved;
         
         void Start();
         void Stop();

@@ -1,4 +1,4 @@
-﻿using AlternateVoice.Server.Wrapper.Elements;
+﻿using AlternateVoice.Server.Wrapper.Elements.VoiceServerParts;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper

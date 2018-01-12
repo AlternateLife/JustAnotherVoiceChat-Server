@@ -5,6 +5,9 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 {
     public interface IVoiceGroup : IDisposable
     {
+
+        event Delegates.ClientEvent OnClientJoined;
+        event Delegates.ClientEvent OnClientLeft;
         
         IEnumerable<IVoiceClient> Clients { get; }
 
