@@ -6,7 +6,7 @@ using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Elements
 {
-    public class VoiceClient : IVoiceClient
+    internal class VoiceClient : IVoiceClient
     {
         private readonly IVoiceServer _server;
 
