@@ -3,6 +3,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>6</LangVersion>
+    <AssemblyName>AlternateVoice.Server.Dummy</AssemblyName>
+    <RootNamespace>AlternateVoice.Server.Dummy</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />

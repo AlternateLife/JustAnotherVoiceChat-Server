@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.Wrapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.GTMP", "AlternateVoice.Server.GTMP\AlternateVoice.Server.GTMP.csproj", "{7362E09D-6D62-493B-86FF-00544D5967F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateLife.Server.Dummy", "AlternateLife.Server.Dummy\AlternateLife.Server.Dummy.csproj", "{3195371E-03B7-4CDF-A587-2B9BE98940E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.Dummy", "AlternateVoice.Server.Dummy\AlternateVoice.Server.Dummy.csproj", "{3195371E-03B7-4CDF-A587-2B9BE98940E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
