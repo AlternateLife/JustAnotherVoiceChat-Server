@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Net;
 using AlternateVoice.Server.GTMP.Elements;
 using AlternateVoice.Server.GTMP.Exceptions;
 using AlternateVoice.Server.GTMP.Interfaces;
@@ -13,7 +11,7 @@ namespace AlternateVoice.Server.GTMP
 
         private static ConcurrentDictionary<Type, IGtmpVoiceElement> _dependencies;
 
-        public static T Make<T>() where T : class, IGtmpVoiceElement
+        public static T Create<T>() where T : class, IGtmpVoiceElement
         {
             var type = typeof(T);
 
@@ -25,7 +23,7 @@ namespace AlternateVoice.Server.GTMP
             return default(T);
         }
 
-        public static T Get<T>() where T : class, IGtmpVoiceElement
+        public static T GetOrCreate<T>() where T : class, IGtmpVoiceElement
         {
             if (_dependencies == null)
             {
@@ -40,7 +38,7 @@ namespace AlternateVoice.Server.GTMP
                 return (T) result;
             }
 
-            result = Make<T>();
+            result = Create<T>();
             if (!_dependencies.TryAdd(elemenType, result))
             {
                 throw new GtmpElementCreationException(elemenType);
