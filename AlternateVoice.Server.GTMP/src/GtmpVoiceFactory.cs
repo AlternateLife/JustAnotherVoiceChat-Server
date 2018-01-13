@@ -8,7 +8,7 @@ using AlternateVoice.Server.GTMP.Interfaces;
 
 namespace AlternateVoice.Server.GTMP
 {
-    public class GtmpFactory
+    public class GtmpVoiceFactory
     {
 
         private static ConcurrentDictionary<Type, IGtmpVoiceElement> _dependencies;
