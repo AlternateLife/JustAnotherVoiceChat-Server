@@ -4,4 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />
+  </ItemGroup>
 </Project>
