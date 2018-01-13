@@ -16,6 +16,20 @@ The *game client* only talks on connection setup with the *ALVoice client* to gi
 
 ## Connection setup
 
-When the *game client* connects to the *game server* the server tells the client about the needed information (endpoint, client unique identifier) to connect to the *ALVoice server*. The *game client* then sends this information (via the local connection) to the *ALVoice client*. The *ALVoice client* now has all information needed to connect the specific *ALVoice server* which belongs to the *game server*. The *ALVoice client* connects to the *ALVoice server* and the server confirms the connection. With the confirmation the connection setup is **completed**.
+When the *game client* connects to the *game server* the server tells the client about the needed information (endpoint, client unique identifier) to connect to the *ALVoice server*. The *game client* then sends this information (via the local connection) to the *ALVoice client*. The *ALVoice client* now has all information needed to connect the specific *ALVoice server* which belongs to the *game server*. The *ALVoice client* connects to the *ALVoice server* and the server confirms the connection. When the connection was confirmed the client requests the client uid to teamspeak id mapping it needs to change teamspeak clients. With this information the connection setup is **completed**.
 
 ![connection setup](images/connection-setup.png)
+
+## Continues updates
+
+When the *ALVoice client* connection setup is completed it receives continues updates from the *ALVoice server* about changed players. This is the **main message** the complete communication is about.
+
+![continues communication](images/continues-communication.png)
+
+### updatePlayersMessage
+
+The idea is to send as less information as possible but enough that the client can change the needed teamspeak clients. Information required to change a single clients is:
+
+ * Player is in range to be heard
+ * Range to the player to set volume modifier
+ * Stereo position of the player to set audio pan
