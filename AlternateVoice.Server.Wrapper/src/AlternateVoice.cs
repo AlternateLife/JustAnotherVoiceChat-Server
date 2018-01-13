@@ -8,18 +8,23 @@ namespace AlternateVoice.Server.Wrapper
 
         public static IVoiceServer Server { get; private set; }
         
-        public static IVoiceServer CreateServer(string hostname, ushort port, int channelId)
+        public static IVoiceServer MakeAndStoreServer(string hostname, ushort port, int channelId)
         {
             if (Server == null)
             {
                 return null;
             }
             
-            Server = new VoiceServer(hostname, port, channelId);
+            Server = MakeServer(hostname, port, channelId);
 
             return Server;
         }
-        
-        
+
+        public static IVoiceServer MakeServer(string hostname, ushort port, int channelId)
+        {
+            return new VoiceServer(hostname, port, channelId);
+        }
+
+
     }
 }
