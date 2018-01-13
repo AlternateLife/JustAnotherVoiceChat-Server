@@ -11,4 +11,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlternateVoice.Server\AlternateVoice.Server.vcxproj" />
+  </ItemGroup>
 </Project>

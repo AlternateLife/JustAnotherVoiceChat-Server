@@ -13,21 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Unmanaged">
+      <UniqueIdentifier>{0e69bd09-c5f4-4fda-94a5-4f4671a30cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managed">
+      <UniqueIdentifier>{172bf895-3df6-454a-9c4a-60eba85eefd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Unmanaged">
+      <UniqueIdentifier>{fb443091-41a7-4a23-b341-e9b9f7e0730d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managed">
+      <UniqueIdentifier>{317b67cc-7419-4daf-8d37-cfe684b1ac85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AlternateVoiceServer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Unmanaged</Filter>
     </ClCompile>
     <ClCompile Include="src\dllmain.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Unmanaged</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AlternateVoiceServerWrapper.cpp">
+      <Filter>Source Files\Managed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AlternateVoice.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Unmanaged</Filter>
     </ClInclude>
     <ClInclude Include="include\AlternateVoiceServer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Unmanaged</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AlternateVoiceServerWrapper.h">
+      <Filter>Header Files\Managed</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

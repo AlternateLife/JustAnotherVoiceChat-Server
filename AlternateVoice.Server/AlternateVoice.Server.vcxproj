@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AlternateVoiceServer.cpp" />
+    <ClCompile Include="src\AlternateVoiceServerWrapper.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AlternateVoice.h" />
     <ClInclude Include="include\AlternateVoiceServer.h" />
+    <ClInclude Include="include\AlternateVoiceServerWrapper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
