@@ -12,7 +12,5 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         bool Headphones { get; set; }
         bool Microphone { get; set; }
         
-        
-        
     }
 }

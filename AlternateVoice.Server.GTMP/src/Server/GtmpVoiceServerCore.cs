@@ -1,10 +1,12 @@
-﻿using AlternateVoice.Server.GTMP.Interfaces;
+﻿using System;
+using AlternateVoice.Server.GTMP.Interfaces;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.API;
+using GrandTheftMultiplayer.Server.Elements;
 
-namespace AlternateVoice.Server.GTMP
+namespace AlternateVoice.Server.GTMP.Server
 {
-    public class GtmpVoiceServer : IGtmpVoiceServer
+    public partial class GtmpVoiceServer : IGtmpVoiceServer
     {
 
         private readonly IVoiceServer _server;
@@ -15,8 +17,10 @@ namespace AlternateVoice.Server.GTMP
             _api = api;
 
             _server = Wrapper.AlternateVoice.MakeServer(hostname, port, channelId);
+            
+            AttachToEvents();
         }
-        
+
         public void Start()
         {
             _server.Start();
@@ -25,6 +29,12 @@ namespace AlternateVoice.Server.GTMP
         public void Stop()
         {
             _server.Stop();
+        }
+
+        public void Dispose()
+        {
+            
+            GC.SuppressFinalize(this);
         }
     }
 }
