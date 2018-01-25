@@ -1,4 +1,5 @@
 AlternateVoice.Server.Wrapper/AlternateVoice.dll
+AlternateVoice.Server.Wrapper/AlternateVoice.so
 
 
 # Created by https://www.gitignore.io/api/node,jetbrains,visualstudio,visualstudiocode,cmake

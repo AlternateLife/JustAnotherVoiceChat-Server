@@ -28,11 +28,19 @@
     <DefineConstants>TRACE;LINUX;NETSTANDARD1_2</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  <Target Name="Clean">
+  <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Linux'">
+    <Delete Files="AlternateVoice.so" />
+  </Target>
+  <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Windows'">
     <Delete Files="AlternateVoice.dll" />
   </Target>
-  <ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug Windows'">
     <None Update="AlternateVoice.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug Linux'">
+    <None Update="AlternateVoice.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
