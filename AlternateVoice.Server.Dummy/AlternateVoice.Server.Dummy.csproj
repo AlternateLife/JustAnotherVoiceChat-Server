@@ -6,6 +6,24 @@
     <AssemblyName>AlternateVoice.Server.Dummy</AssemblyName>
     <RootNamespace>AlternateVoice.Server.Dummy</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;LINUX;NETCOREAPP2_0</DefineConstants>
+    <OutputPath>bin\DebugLinux\netcoreapp2.0\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;WINDOWS;NETCOREAPP2_0</DefineConstants>
+    <OutputPath>bin\DebugWindows\netcoreapp2.0\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
+    <DefineConstants>TRACE;RELEASE;WINDOWS;NETCOREAPP2_0</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\ReleaseWindows\netcoreapp2.0\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">
+    <DefineConstants>TRACE;RELEASE;LINUX;NETCOREAPP2_0</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\ReleaseLinux\netcoreapp2.0\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />
   </ItemGroup>

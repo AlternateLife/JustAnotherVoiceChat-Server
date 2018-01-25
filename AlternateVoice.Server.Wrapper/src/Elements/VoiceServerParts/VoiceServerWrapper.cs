@@ -4,7 +4,12 @@ namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
 {
     internal partial class VoiceServer
     {
+        
+#if WINDOWS
         private const string AlternateVoiceLib = "AlternateVoice.dll";
+#elif LINUX
+        private const string AlternateVoiceLib = "AlternateVoice.so";
+#endif
 
         private delegate void ClientCallback(ushort handle);
 
