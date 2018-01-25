@@ -7,7 +7,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
         
 #if WINDOWS
         private const string AlternateVoiceLib = "AlternateVoice.dll";
-#elif LINUX
+#endif
+        
+#if LINUX
         private const string AlternateVoiceLib = "AlternateVoice.so";
 #endif
 
