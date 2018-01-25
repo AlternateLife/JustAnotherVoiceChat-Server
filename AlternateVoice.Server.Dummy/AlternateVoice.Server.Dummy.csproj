@@ -9,4 +9,12 @@
   <ItemGroup>
     <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.5.0-rc04" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

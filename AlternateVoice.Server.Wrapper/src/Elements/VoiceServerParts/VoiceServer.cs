@@ -1,4 +1,5 @@
 ﻿using System;
+using AlternateVoice.Server.Wrapper.Exceptions;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
 
@@ -10,9 +11,17 @@ namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
         public string Hostname { get; }
         public ushort Port { get; }
         public int ChannelId { get; }
+        public bool Started { get; private set; }
 
         internal VoiceServer(string hostname, ushort port, int channelId)
         {
+            var result = Uri.CheckHostName(hostname);
+
+            if (result == UriHostNameType.Unknown)
+            {
+                throw new InvalidHostnameException(hostname);
+            }
+            
             Hostname = hostname;
             Port = port;
             ChannelId = channelId;
@@ -20,17 +29,29 @@ namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
 
         public void Start()
         {
-            throw new NotImplementedException();
+            if (Started)
+            {
+                throw new VoiceServerAlreadyStartedException();
+            }
+            
+            Started = true;
+            OnServerStarted?.Invoke();
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            if (!Started)
+            {
+                throw new VoiceServerNotStartedException();
+            }
+            
+            OnServerStopping?.Invoke();
+            Started = false;
         }
 
         public string CreateConnectionString()
         {
-            throw new NotImplementedException();
+            return Uri.EscapeUriString($"{Hostname}/{Port}");
         }
 
         public IVoiceClient GetClientByHandle(VoiceHandle handle)

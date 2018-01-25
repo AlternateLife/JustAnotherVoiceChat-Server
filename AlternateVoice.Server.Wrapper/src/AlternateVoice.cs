@@ -12,10 +12,8 @@ namespace AlternateVoice.Server.Wrapper
         {
             if (Server == null)
             {
-                return null;
+                Server = MakeServer(hostname, port, channelId);
             }
-            
-            Server = MakeServer(hostname, port, channelId);
 
             return Server;
         }

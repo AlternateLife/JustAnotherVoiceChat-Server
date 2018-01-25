@@ -15,6 +15,11 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         event Delegates.ClientEvent OnClientAdded;
         event Delegates.ClientEvent OnClientRemoved;
         
+        string Hostname { get; }
+        ushort Port { get; }
+        int ChannelId { get; }
+        bool Started { get; }
+        
         void Start();
         void Stop();
 
