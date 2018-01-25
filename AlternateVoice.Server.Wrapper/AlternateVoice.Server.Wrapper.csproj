@@ -8,23 +8,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
     <WarningLevel>0</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\DebugLinux\netstandard1.2\</OutputPath>
+    <OutputPath>bin\Debug\Linux\netstandard1.2\</OutputPath>
     <DefineConstants>TRACE;DEBUG;LINUX;NETSTANDARD1_2</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
-    <OutputPath>bin\DebugWindows\netstandard1.2\</OutputPath>
+    <OutputPath>bin\Debug\Windows\netstandard1.2\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS;NETSTANDARD1_2</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\ReleaseWindows\netstandard1.2\</OutputPath>
+    <OutputPath>bin\Release\Windows\netstandard1.2\</OutputPath>
     <DefineConstants>TRACE;WINDOWS;NETSTANDARD1_2</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\ReleaseLinux\netstandard1.2\</OutputPath>
+    <OutputPath>bin\Release\Linux\netstandard1.2\</OutputPath>
     <DefineConstants>TRACE;LINUX;NETSTANDARD1_2</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
