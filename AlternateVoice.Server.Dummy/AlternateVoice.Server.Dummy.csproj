@@ -8,21 +8,21 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;LINUX;NETCOREAPP2_0</DefineConstants>
-    <OutputPath>bin\Debug\Linux\netcoreapp2.0\</OutputPath>
+    <OutputPath>bin\Debug\Linux\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;WINDOWS;NETCOREAPP2_0</DefineConstants>
-    <OutputPath>bin\Debug\Windows\netcoreapp2.0\</OutputPath>
+    <OutputPath>bin\Debug\Windows\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
     <DefineConstants>TRACE;RELEASE;WINDOWS;NETCOREAPP2_0</DefineConstants>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\Windows\netcoreapp2.0\</OutputPath>
+    <OutputPath>bin\Release\Windows\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">
     <DefineConstants>TRACE;RELEASE;LINUX;NETCOREAPP2_0</DefineConstants>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\Linux\netcoreapp2.0\</OutputPath>
+    <OutputPath>bin\Release\Linux\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />
