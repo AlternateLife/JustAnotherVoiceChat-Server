@@ -28,6 +28,9 @@
     <DefineConstants>TRACE;LINUX;NETSTANDARD1_2</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
+  <Target Name="Clean">
+    <Delete Files="AlternateVoice.dll" />
+  </Target>
   <ItemGroup>
     <None Update="AlternateVoice.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
