@@ -55,7 +55,6 @@
     <Compile Include="src\Exceptions\GtmpElementCreationException.cs" />
     <Compile Include="src\GtmpVoiceDelegates.cs" />
     <Compile Include="src\Elements\VoiceToClientMapper.cs" />
-    <Compile Include="src\Extensions\ClientExtensions.cs" />
     <Compile Include="src\GtmpVoiceFactory.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceElement.cs" />
     <Compile Include="src\Interfaces\IVoiceToClientMapper.cs" />
