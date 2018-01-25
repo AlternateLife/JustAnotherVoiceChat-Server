@@ -35,6 +35,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
                 throw new VoiceServerAlreadyStartedException();
             }
             
+            AL_StartServer(Hostname, Port, ChannelId);
+            
             Started = true;
             OnServerStarted?.Invoke();
         }
@@ -45,6 +47,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
             {
                 throw new VoiceServerNotStartedException();
             }
+            
+            AL_StopServer();
             
             OnServerStopping?.Invoke();
             Started = false;
