@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using AlternateVoice.Server.Wrapper.Exceptions;
 using NLog;
 
@@ -18,7 +19,9 @@ namespace AlternateVoice.Server.Dummy
             Logger.Info(new string('=', Console.WindowWidth / 2));
             Logger.Info("Available Commands:");
             Logger.Info("start - Start a new AlternateVoice Server");
-            Logger.Info("exit - Stop the AlternateVoice Server");
+            Logger.Info("client - Prepare a new client for the server");
+            Logger.Info("stress - Start a basic client-preparing and removing stresstest");
+            Logger.Info("stop - Stop the AlternateVoice Server");
             Logger.Info("dispose - Dispose the AlternateVoice Server");
             
 
@@ -72,6 +75,20 @@ namespace AlternateVoice.Server.Dummy
                     _serverHandler = null;
                     
                     Logger.Info("Server has been disposed");      
+                    break;
+                }
+                case "stress":
+                {
+                    Logger.Info("Serverstress started");
+                    
+                    _serverHandler.StartStresstest();
+                    break;
+                }
+                case "client":
+                {
+                    var client = _serverHandler.PrepareClient();
+                    
+                    Logger.Info("Prepared new client-slot: " + client.Handle.Identifer);      
                     break;
                 }
             }
