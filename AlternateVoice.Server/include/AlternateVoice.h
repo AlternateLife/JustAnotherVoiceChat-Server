@@ -1,6 +1,6 @@
 /*
  * File: AlternateVoice.h
- * Date: 13.01.2018
+ * Date: 25.01.2018
  *
  * MIT License
  *
@@ -37,7 +37,4 @@
 #define ALTERNATEVOICE_API
 #endif
 
-// unmanaged 
 #include "AlternateVoiceServer.h"
-
-// managed
