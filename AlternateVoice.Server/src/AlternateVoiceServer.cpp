@@ -27,7 +27,7 @@
 
 #include "AlternateVoiceServer.h"
 
-AL_NewClientCallback_t _newClientCallback = nullptr;
+AL_NewClientCallback_t _newClientCallback = 0;
 
 void AL_StartServer(const char *hostname, uint16_t port, int channelId) {
 
@@ -46,7 +46,7 @@ void AL_RegisterNewClientCallback(AL_NewClientCallback_t callback) {
 }
 
 void AL_UnregisterNewClientCallback() {
-    _newClientCallback = nullptr;
+    _newClientCallback = 0;
 }
 
 int AL_GetNumberOfClients() {
@@ -66,7 +66,7 @@ void AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
 }
 
 void ALTest_CallNewClientCallback() {
-    if (_newClientCallback != nullptr) {
+    if (_newClientCallback != 0) {
         _newClientCallback(0);
     }
 }
