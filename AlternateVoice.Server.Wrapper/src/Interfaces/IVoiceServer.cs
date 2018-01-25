@@ -23,7 +23,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         void Start();
         void Stop();
 
-        string CreateConnectionString();
+        IVoiceClient CreateClient();
+        bool RemoveClient(IVoiceClient client);
 
         IVoiceGroup CreateGroup();
         IEnumerable<IVoiceGroup> GetAllGroups();

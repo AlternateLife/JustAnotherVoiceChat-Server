@@ -5,7 +5,7 @@
         
         public bool IsEmpty => Identifer == 0;
         
-        internal ushort Identifer { get; }
+        public ushort Identifer { get; }
 
         public VoiceHandle(ushort identifer)
         {
