@@ -29,7 +29,7 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <None Update="lib\AlternateVoice.dll">
+    <None Update="AlternateVoice.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
