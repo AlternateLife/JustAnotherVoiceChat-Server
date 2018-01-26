@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
+namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

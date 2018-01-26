@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
+namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

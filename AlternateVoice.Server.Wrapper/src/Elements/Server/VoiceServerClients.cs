@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using AlternateVoice.Server.Wrapper.Elements.Client;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
+namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

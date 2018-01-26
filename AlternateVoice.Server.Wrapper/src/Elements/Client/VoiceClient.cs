@@ -4,7 +4,7 @@ using System.Linq;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements
+namespace AlternateVoice.Server.Wrapper.Elements.Client
 {
     internal class VoiceClient : IVoiceClient
     {

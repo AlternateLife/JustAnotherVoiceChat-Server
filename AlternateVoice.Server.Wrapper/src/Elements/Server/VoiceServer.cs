@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using AlternateVoice.Server.Wrapper.Exceptions;
 using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements.VoiceServerParts
+namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer : IVoiceServer
     {

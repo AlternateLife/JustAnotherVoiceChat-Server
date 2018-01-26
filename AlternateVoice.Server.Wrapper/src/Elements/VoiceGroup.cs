@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AlternateVoice.Server.Wrapper.Elements.VoiceServerParts;
+using AlternateVoice.Server.Wrapper.Elements.Server;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
 
