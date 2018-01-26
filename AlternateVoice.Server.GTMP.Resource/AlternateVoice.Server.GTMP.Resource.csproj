@@ -77,6 +77,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlternateVoice.Server.GTMP\AlternateVoice.Server.GTMP.csproj">
+      <Project>{7362e09d-6d62-493b-86ff-00544d5967f8}</Project>
+      <Name>AlternateVoice.Server.GTMP</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
