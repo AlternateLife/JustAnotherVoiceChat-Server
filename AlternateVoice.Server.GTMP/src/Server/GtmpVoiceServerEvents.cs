@@ -37,12 +37,13 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private void OnPlayerConnect(Client player)
         {
-            if (RegisterPlayer(player) == null)
+            if (RegisterPlayer(player) != null)
             {
-                player.kick("Failed to start VoiceClient!");
-                _api.consoleOutput(LogCat.Error, $"Failed to start VoiceClient for Client {player.name}");
                 return;
             }
+
+            player.kick("Failed to start VoiceClient!");
+            _api.consoleOutput(LogCat.Error, $"Failed to start VoiceClient for Client {player.name}");
         }
 
         private void OnPlayerDisconnect(Client player, string reason)
