@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceClient
+    public interface IVoiceClient : IDisposable
     {
         
         VoiceHandle Handle { get; }

@@ -49,5 +49,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             
             group.RemoveClient(this);
         }
+
+        public void Dispose()
+        {
+            _server.RemoveClient(this);
+        }
     }
 }

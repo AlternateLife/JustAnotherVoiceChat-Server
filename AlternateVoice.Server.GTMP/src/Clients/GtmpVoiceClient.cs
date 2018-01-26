@@ -1,4 +1,5 @@
-﻿using AlternateVoice.Server.GTMP.Interfaces;
+﻿using System;
+using AlternateVoice.Server.GTMP.Interfaces;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Elements;
 
@@ -14,6 +15,13 @@ namespace AlternateVoice.Server.GTMP.Clients
         public GtmpVoiceClient(Client player)
         {
             Player = player;
+        }
+
+        public void Dispose()
+        {
+            VoiceClient.Dispose();
+            
+            GC.SuppressFinalize(this);
         }
         
     }

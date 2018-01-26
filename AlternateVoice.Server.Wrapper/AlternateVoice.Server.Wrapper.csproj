@@ -6,7 +6,6 @@
     <LangVersion>6</LangVersion>
     <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
   </PropertyGroup>
-  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
     <WarningLevel>0</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -18,7 +17,6 @@
     <DefineConstants>TRACE;DEBUG;WINDOWS;NETSTANDARD1_2</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>bin\Release\Windows\</OutputPath>
@@ -31,28 +29,22 @@
     <DefineConstants>TRACE;LINUX;NETSTANDARD1_2</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  
   <!-- LINUX NATIVE LIBRARY -->
   <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Linux' Or '$(Configuration)' == 'Release Linux'">
     <Delete Files="AlternateVoice.so" />
   </Target>
-  
   <ItemGroup Condition="'$(Configuration)' == 'Debug Linux'">
     <None Update="AlternateVoice.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
-  
-  <!-- WINDOWS NATIVE LIBRARY -->  
+  <!-- WINDOWS NATIVE LIBRARY -->
   <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Windows' Or '$(Configuration)' == 'Release Windows'">
     <Delete Files="AlternateVoice.dll" />
   </Target>
-  
   <ItemGroup Condition="'$(Configuration)' == 'Debug Windows' Or '$(Configuration)' == 'Release Windows'">
     <None Update="AlternateVoice.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
 </Project>

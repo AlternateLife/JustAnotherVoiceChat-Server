@@ -1,9 +1,10 @@
-﻿using AlternateVoice.Server.Wrapper.Interfaces;
+﻿using System;
+using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Interfaces
 {
-    public interface IGtmpVoiceClient
+    public interface IGtmpVoiceClient : IDisposable
     {
 
         IVoiceClient VoiceClient { get; }
