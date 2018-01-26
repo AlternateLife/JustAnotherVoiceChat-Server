@@ -1,5 +1,5 @@
 <meta>
-    <info name="AlternateVoice Testing" author="AlternateLife" version="1.0" type="script" async="true" shadowcopy="true" />
+    <info name="AlternateVoice Testing" author="AlternateLife" version="1.0" type="script" async="true" />
 
     <!-- Assembly -->
     <assembly ref="AlternateVoice.Server.Wrapper.dll" />
