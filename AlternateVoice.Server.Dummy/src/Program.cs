@@ -14,9 +14,9 @@ namespace AlternateVoice.Server.Dummy
         
         public static void Main(string[] arguments)
         {
-            Logger.Info(new string('=', Console.WindowWidth / 2));
+            Logger.Info(new string('=', 10));
             Logger.Info("AlternateVoice DummyServer");
-            Logger.Info(new string('=', Console.WindowWidth / 2));
+            Logger.Info(new string('=', 10));
             Logger.Info("Available Commands:");
             Logger.Info("start - Start a new AlternateVoice Server");
             Logger.Info("client - Prepare a new client for the server");
