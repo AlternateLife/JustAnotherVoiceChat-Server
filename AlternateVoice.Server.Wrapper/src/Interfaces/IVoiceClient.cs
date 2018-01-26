@@ -9,8 +9,10 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         VoiceHandle Handle { get; }
         
-        bool Microphone { get; set; }
-        bool Headphones { get; set; }
+        bool Microphone { get; }
+        bool Headphones { get; }
+        
+        string HandshakeUrl { get; }
         
         IEnumerable<IVoiceGroup> Groups { get; }
 

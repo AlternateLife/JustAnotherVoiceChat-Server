@@ -1,17 +1,18 @@
-﻿using System;
-using AlternateVoice.Server.Wrapper.Interfaces;
+﻿using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Interfaces
 {
-    public interface IGtmpVoiceClient : IDisposable
+    public interface IGtmpVoiceClient
     {
 
         IVoiceClient VoiceClient { get; }
         Client Player { get; }
 
-        bool Headphones { get; set; }
-        bool Microphone { get; set; }
+        bool Headphones { get; }
+        bool Microphone { get; }
+        
+        string HandshakeUrl { get; }
         
     }
 }

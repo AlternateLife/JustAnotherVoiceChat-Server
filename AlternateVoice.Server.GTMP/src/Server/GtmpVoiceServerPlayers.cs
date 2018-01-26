@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using AlternateVoice.Server.GTMP.Clients;
 using AlternateVoice.Server.GTMP.Interfaces;
+using AlternateVoice.Server.Wrapper.Interfaces;
+using AlternateVoice.Server.Wrapper.Structs;
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Shared;
 
 namespace AlternateVoice.Server.GTMP.Server
 {
-    public partial class GtmpVoiceServer
+    internal partial class GtmpVoiceServer
     {
         
         private readonly ConcurrentDictionary<NetHandle, IGtmpVoiceClient> _clients = new ConcurrentDictionary<NetHandle, IGtmpVoiceClient>();
@@ -25,14 +28,21 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private IGtmpVoiceClient RegisterPlayer(Client player)
         {
-            var client = new GtmpVoiceClient(player);
-
-            if (_clients.TryAdd(player.handle, client))
+            var voiceClient = _server.CreateClient();
+            if (voiceClient == null)
             {
-                return client;
+                return null;
             }
             
-            return null;
+            var client = new GtmpVoiceClient(player, voiceClient);
+            if (!_clients.TryAdd(player.handle, client))
+            {
+                return null;
+            }
+            
+            OnClientPrepared?.Invoke(client);
+            
+            return client;
         }
 
         private void UnregisterPlayer(Client player)
@@ -45,7 +55,8 @@ namespace AlternateVoice.Server.GTMP.Server
             IGtmpVoiceClient removedClient;
             if (_clients.TryRemove(player.handle, out removedClient))
             {
-                
+                var voiceClient = removedClient as GtmpVoiceClient;
+                voiceClient?.Dispose();
             }
         }
         

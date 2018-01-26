@@ -1,18 +1,20 @@
-﻿using AlternateVoice.Server.Wrapper;
+﻿using System.Linq;
+using AlternateVoice.Server.Wrapper;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Server
 {
-    public partial class GtmpVoiceServer
+    internal partial class GtmpVoiceServer
     {
 
         public event Delegates.EmptyEvent OnServerStarted;
         public event Delegates.EmptyEvent OnServerStopping;
-        
+        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+
         private void AttachToEvents()
         {
-            _api.onPlayerFinishedDownload += OnPlayerConnect;
+            _api.onPlayerConnected += OnPlayerConnect;
             _api.onPlayerDisconnected += OnPlayerDisconnect;
 
             _server.OnServerStarted += OnVoiceServerStarted;
@@ -31,7 +33,11 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private void OnVoiceServerStopping()
         {
-            _clients.Clear();
+            foreach (var client in _clients.Values.ToArray())
+            {
+                UnregisterPlayer(client.Player);
+            }
+            
             OnServerStopping?.Invoke();
         }
 

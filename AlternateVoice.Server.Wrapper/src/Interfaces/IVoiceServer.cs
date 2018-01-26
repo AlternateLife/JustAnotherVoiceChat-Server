@@ -11,9 +11,6 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         event Delegates.ClientEvent OnClientConnecting;
         event Delegates.ClientDisconnected OnClientDisconnected;
-
-        event Delegates.ClientEvent OnClientAdded;
-        event Delegates.ClientEvent OnClientRemoved;
         
         string Hostname { get; }
         ushort Port { get; }

@@ -22,7 +22,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 {
                     handle = CreateFreeVoiceHandle();
                 }
-                catch (InvalidOperationException e)
+                catch (InvalidOperationException)
                 {
                     return null;
                 }

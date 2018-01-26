@@ -6,7 +6,7 @@ using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Server
 {
-    public partial class GtmpVoiceServer : IGtmpVoiceServer
+    internal partial class GtmpVoiceServer : IGtmpVoiceServer
     {
 
         private readonly IVoiceServer _server;

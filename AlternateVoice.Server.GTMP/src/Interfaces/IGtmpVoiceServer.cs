@@ -7,7 +7,9 @@ namespace AlternateVoice.Server.GTMP.Interfaces
     public interface IGtmpVoiceServer : IDisposable
     {
         event Delegates.EmptyEvent OnServerStarted;
-        event Delegates.EmptyEvent OnServerStopping;        
+        event Delegates.EmptyEvent OnServerStopping;
+
+        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
         
         string Hostname { get; }
         ushort Port { get; }

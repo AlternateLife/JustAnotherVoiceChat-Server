@@ -14,6 +14,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
         
         public bool Microphone { get; set; }
         public bool Headphones { get; set; }
+        
+        public string HandshakeUrl { get; }
 
         public IEnumerable<IVoiceGroup> Groups
         {
@@ -28,6 +30,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             _server = server;
 
             Handle = handle;
+            
+            var handshakePayload = Uri.EscapeUriString($"{_server.Hostname}:{_server.Port}:{Handle.Identifer}");
+            HandshakeUrl = $"http://localhost:23333/handshake/{handshakePayload}";
         }
 
         public void JoinGroup(IVoiceGroup group)

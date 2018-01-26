@@ -1,9 +1,8 @@
-﻿using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.GTMP.Server;
+﻿using System;
+using AlternateVoice.Server.GTMP.Factories;
+using AlternateVoice.Server.GTMP.Interfaces;
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Constant;
-using GrandTheftMultiplayer.Server.Elements;
-using GrandTheftMultiplayer.Server.Managers;
 
 namespace AlternateVoice.Server.GTMP.Resource
 {
@@ -14,7 +13,7 @@ namespace AlternateVoice.Server.GTMP.Resource
 
         public VoiceScript()
         {
-            _voiceServer = new GtmpVoiceServer(API, "localhost", 23332, 2);
+            _voiceServer = GtmpVoice.CreateServer(API, "game.alternate-life.de", 23332, 23);
 
             _voiceServer.OnServerStarted += () =>
             {
@@ -25,35 +24,21 @@ namespace AlternateVoice.Server.GTMP.Resource
             {
                 API.consoleOutput(LogCat.Info, "GtmpVoiceServer stopping!");
             };
-        }
-        
-        [Command("startvoice")]
-        public void StartVoiceServer(Client sender, string hostname, ushort port, int channelId)
-        {
-            if (_voiceServer.Started)
+
+            _voiceServer.OnClientPrepared += c =>
             {
-                sender.sendChatMessage("~r~Der VoiceServer wurde bereits gestartet!");
-                return;
-            }
+                c.Player.sendChatMessage("HANDSHAKE: " + c.HandshakeUrl);
+            };
             
             _voiceServer.Start();
             
-            sender.sendChatMessage("Der VoiceServer sollte nun gestartet sein...");
+            API.onResourceStop += OnResourceStop;
         }
 
-        [Command("stopvoice")]
-        public void StopVoiceServer(Client sender)
+        private void OnResourceStop()
         {
-            if (!_voiceServer.Started)
-            {
-                sender.sendChatMessage("~r~Der VoiceServer läuft derzeit nicht!");
-                return;
-            }
-            
             _voiceServer.Stop();
-            
-            sender.sendChatMessage("Der VoiceServer sollte nun stoppen...");
+            _voiceServer.Dispose();
         }
-        
     }
 }

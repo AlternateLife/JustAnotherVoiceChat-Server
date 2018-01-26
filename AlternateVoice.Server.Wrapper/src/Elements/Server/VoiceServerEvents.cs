@@ -10,9 +10,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public event Delegates.ClientEvent OnClientConnecting;
         public event Delegates.ClientDisconnected OnClientDisconnected;
         
-        public event Delegates.ClientEvent OnClientAdded;
-        public event Delegates.ClientEvent OnClientRemoved;
-
         public event Delegates.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates.ClientGroupEvent OnClientLeftGroup;
 
@@ -23,9 +20,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             
             OnClientConnecting = null;
             OnClientConnecting = null;
-            
-            OnClientAdded = null;
-            OnClientRemoved = null;
             
             OnClientJoinedGroup = null;
             OnClientLeftGroup = null;

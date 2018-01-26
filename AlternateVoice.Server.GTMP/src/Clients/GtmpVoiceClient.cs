@@ -5,16 +5,19 @@ using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Clients
 {
-    public class GtmpVoiceClient : IGtmpVoiceClient
+    internal class GtmpVoiceClient : IGtmpVoiceClient
     {
-        public IVoiceClient VoiceClient { get; private set; }
+        public IVoiceClient VoiceClient { get; }
         public Client Player { get; }
-        public bool Headphones { get; set; }
-        public bool Microphone { get; set; }
+        
+        public bool Headphones => VoiceClient.Headphones;
+        public bool Microphone => VoiceClient.Microphone;
+        public string HandshakeUrl => VoiceClient.HandshakeUrl;
 
-        public GtmpVoiceClient(Client player)
+        internal GtmpVoiceClient(Client player, IVoiceClient client)
         {
             Player = player;
+            VoiceClient = client;
         }
 
         public void Dispose()
