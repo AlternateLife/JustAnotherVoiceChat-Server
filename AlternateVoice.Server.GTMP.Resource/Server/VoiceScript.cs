@@ -5,7 +5,7 @@ using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Server.Managers;
 
-namespace AlternateVoice.Server.GTMP.Resource.Server
+namespace AlternateVoice.Server.GTMP.Resource
 {
     public class VoiceScript : Script
     {
@@ -21,7 +21,7 @@ namespace AlternateVoice.Server.GTMP.Resource.Server
                 API.consoleOutput(LogCat.Info, $"GtmpVoiceServer started, listening on {_voiceServer.Hostname}:{_voiceServer.Port}");
             };
             
-            _voiceServer.OnServerStarted += () =>
+            _voiceServer.OnServerStopping += () =>
             {
                 API.consoleOutput(LogCat.Info, "GtmpVoiceServer stopping!");
             };
@@ -37,6 +37,8 @@ namespace AlternateVoice.Server.GTMP.Resource.Server
             }
             
             _voiceServer.Start();
+            
+            sender.sendChatMessage("Der VoiceServer sollte nun gestartet sein...");
         }
 
         [Command("stopvoice")]
@@ -49,6 +51,8 @@ namespace AlternateVoice.Server.GTMP.Resource.Server
             }
             
             _voiceServer.Stop();
+            
+            sender.sendChatMessage("Der VoiceServer sollte nun stoppen...");
         }
         
     }
