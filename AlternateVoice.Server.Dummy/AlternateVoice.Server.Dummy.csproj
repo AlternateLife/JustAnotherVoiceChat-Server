@@ -5,9 +5,10 @@
     <LangVersion>6</LangVersion>
     <AssemblyName>AlternateVoice.Server.Dummy</AssemblyName>
     <RootNamespace>AlternateVoice.Server.Dummy</RootNamespace>
+    <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;LINUX;NETCOREAPP2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;LINUX;NETCOREAPP2_0;NETCOREAPP2_0</DefineConstants>
     <OutputPath>bin\Debug\Linux\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
