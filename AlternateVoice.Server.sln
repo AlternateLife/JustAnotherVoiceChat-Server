@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.GTMP"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternateVoice.Server.Dummy", "AlternateVoice.Server.Dummy\AlternateVoice.Server.Dummy.csproj", "{3195371E-03B7-4CDF-A587-2B9BE98940E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GT-MP", "GT-MP", "{8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Linux|Any CPU = Debug Linux|Any CPU
@@ -47,5 +49,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6162361F-1B6E-4199-ADB1-A2D9A7373238}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7362E09D-6D62-493B-86FF-00544D5967F8} = {8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}
 	EndGlobalSection
 EndGlobal
