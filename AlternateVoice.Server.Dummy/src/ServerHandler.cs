@@ -21,7 +21,7 @@ namespace AlternateVoice.Server.Dummy
 
             _server.OnServerStarted += () =>
             {
-                _logger.Debug($"AlternateVoice: Listening to {_server.Hostname}:{_server.Port}");
+                _logger.Debug($"AlternateVoice: Listening on {_server.Hostname}:{_server.Port}");
             };
             
             _server.OnServerStopping += () =>

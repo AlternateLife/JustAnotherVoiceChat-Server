@@ -12,6 +12,12 @@ namespace AlternateVoice.Server.GTMP.Server
         private readonly IVoiceServer _server;
         private readonly API _api;
 
+        public string Hostname => _server.Hostname;
+        public ushort Port => _server.Port;
+        public int ChannelId => _server.ChannelId;
+        
+        public bool Started => _server.Started;
+        
         public GtmpVoiceServer(API api, string hostname, ushort port, int channelId)
         {
             _api = api;

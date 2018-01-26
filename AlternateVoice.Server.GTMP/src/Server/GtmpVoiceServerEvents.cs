@@ -1,13 +1,21 @@
-﻿using GrandTheftMultiplayer.Server.Elements;
+﻿using AlternateVoice.Server.Wrapper;
+using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Server
 {
     public partial class GtmpVoiceServer
     {
+
+        public event Delegates.EmptyEvent OnServerStarted;
+        public event Delegates.EmptyEvent OnServerStopping;
+        
         public void AttachToEvents()
         {
             _api.onPlayerFinishedDownload += OnPlayerConnect;
             _api.onPlayerDisconnected += OnPlayerDisconnect;
+
+            _server.OnServerStarted += OnServerStarted;
+            _server.OnServerStopping += OnServerStopping;
         }
 
         private void OnPlayerConnect(Client player)
@@ -19,6 +27,5 @@ namespace AlternateVoice.Server.GTMP.Server
         {
         
         }
-        
     }
 }

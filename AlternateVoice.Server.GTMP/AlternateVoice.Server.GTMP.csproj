@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Clients\GtmpVoiceClient.cs" />
+    <Compile Include="src\GtmpVoiceDelegates.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceClient.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceServer.cs" />
     <Compile Include="src\Server\GtmpVoiceServerCore.cs" />

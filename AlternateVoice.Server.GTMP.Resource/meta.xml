@@ -1,0 +1,11 @@
+<meta>
+    <info name="AlternateVoice Testing" author="AlternateLife" version="1.0" type="script" async="true" shadowcopy="true" />
+
+    <!-- Assembly -->
+    <assembly ref="AlternateVoice.Server.Wrapper.dll" />
+    <assembly ref="AlternateVoice.Server.GTMP.dll" />
+    
+    <!-- GT-MP scripts -->
+    <script src="AlternateVoice.Server.GTMP.Resource.dll" type="server" lang="compiled" />    
+    
+</meta>
