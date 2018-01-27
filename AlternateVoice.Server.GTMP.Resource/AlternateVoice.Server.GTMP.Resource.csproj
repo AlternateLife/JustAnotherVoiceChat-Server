@@ -78,9 +78,9 @@
     <Compile Include="Server\VoiceScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="Client\GtmpVoice.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LICENSE.txt" />
     <Content Include="meta.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

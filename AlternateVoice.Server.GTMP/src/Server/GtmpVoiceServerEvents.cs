@@ -14,7 +14,7 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private void AttachToEvents()
         {
-            _api.onPlayerConnected += OnPlayerConnect;
+            _api.onPlayerFinishedDownload += OnPlayerConnect;
             _api.onPlayerDisconnected += OnPlayerDisconnect;
 
             _server.OnServerStarted += OnVoiceServerStarted;

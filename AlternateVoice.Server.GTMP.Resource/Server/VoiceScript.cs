@@ -27,7 +27,9 @@ namespace AlternateVoice.Server.GTMP.Resource
 
             _voiceServer.OnClientPrepared += c =>
             {
-                c.Player.sendChatMessage("HANDSHAKE: " + c.HandshakeUrl);
+                var player = c.Player;
+                player.sendChatMessage("HANDSHAKE: " + c.HandshakeUrl);
+                player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
             };
             
             _voiceServer.Start();

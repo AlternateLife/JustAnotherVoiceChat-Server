@@ -8,4 +8,6 @@
     <!-- GT-MP scripts -->
     <script src="AlternateVoice.Server.GTMP.Resource.dll" type="server" lang="compiled" />    
     
+    <script src="Client/GtmpVoice.js" type="client" lang="javascript" />
+    
 </meta>
