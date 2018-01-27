@@ -1,8 +1,8 @@
 let voiceHandler = null;
 
-API.onResourceStart.connect(() => { 
-    voiceHandler = new GtmpVoiceHandler(); 
-});
+API.onResourceStart.connect(() => { voiceHandler = new GtmpVoiceHandler(); });
+
+API.onResourceStop.connect(() => { voiceHandler.dispose(); });
 
 API.onServerEventTrigger.connect((eventName, args) => {
     switch(eventName) {
@@ -19,9 +19,10 @@ API.onServerEventTrigger.connect((eventName, args) => {
 
 class GtmpVoiceHandler {
     
-    constructor() {        
-        this.handshakeTimer = -1;   
-        
+    constructor() {
+        this.handshakeTimer = -1;
+        this.rotationTimer = -1;
+
         this.buildBrowser();        
     }
     
@@ -30,19 +31,49 @@ class GtmpVoiceHandler {
         API.waitUntilCefBrowserInit(this.browser);
         API.setCefBrowserHeadless(this.browser, true);
     }
-    
+
     sendHandshake(url) {
         API.sendChatMessage("HS: " + url);
+        
         API.loadPageCefBrowser(this.browser, url);
+    }
+
+    sendRotation() {
+        const gameplayCamRotation = API.getGameplayCamRot();
+        const rotation = Math.PI / 180 * (gameplayCamRotation.Z * -1);
+        
+        API.sendChatMessage("Rotation: " + rotation);
+        API.triggerServerEvent("VOICE_ROTATION", rotation);
     }
     
     setHandshake(status, url) {
         if (status) {
+            if (this.rotationTimer !== -1) {
+                API.stop(this.rotationTimer);
+                this.rotationTimer = -1;
+            }
+            
             this.handshakeTimer = API.every(1000, "resendHandshake", url);
             resendHandshake(url);
         } else {
+            if (this.handshakeTimer !== -1) {
+                API.stop(this.handshakeTimer);
+                this.handshakeTimer = -1;
+            }           
+
+            this.rotationTimer = API.every(333, "sendCamrotation");
+        }
+    }
+    
+    dispose() {
+        if (this.handshakeTimer !== -1) {
             API.stop(this.handshakeTimer);
             this.handshakeTimer = -1;
+        }
+        
+        if (this.rotationTimer !== -1) {
+            API.stop(this.rotationTimer);
+            this.rotationTimer = -1;
         }
     }
     
@@ -50,4 +81,8 @@ class GtmpVoiceHandler {
 
 function resendHandshake(url) {
     voiceHandler.sendHandshake(url);
+}
+
+function sendCamrotation() {
+    voiceHandler.sendRotation();
 }
