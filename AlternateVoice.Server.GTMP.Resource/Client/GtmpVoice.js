@@ -7,7 +7,11 @@ API.onResourceStart.connect(() => {
 API.onServerEventTrigger.connect((eventName, args) => {
     switch(eventName) {
         case "VOICE_SET_HANDSHAKE": {
-            voiceHandler.setHandshake(args[0], args[1]);
+            if(args.Length === 2) {
+                voiceHandler.setHandshake(args[0], args[1]);
+            } else {
+                voiceHandler.setHandshake(args[0], "");
+            }            
             break;
         }
     }
@@ -37,7 +41,7 @@ class GtmpVoiceHandler {
     
     setHandshake(status, url) {
         if (status) {
-            this.handshakeTimer = API.every(500, "resendHandshake", url);
+            this.handshakeTimer = API.every(1500, "resendHandshake", url);
         } else {
             API.stop(this.handshakeTimer);
             this.handshakeTimer = -1;
