@@ -20,12 +20,9 @@ API.onServerEventTrigger.connect((eventName, args) => {
 class GtmpVoiceHandler {
     
     constructor() {        
-        this.handshakeTimer = -1;
+        this.handshakeTimer = -1;   
         
-        API.sendChatMessage("Startup GtmpVoiceHandler");
-        
-        this.buildBrowser();
-        
+        this.buildBrowser();        
     }
     
     buildBrowser() {
@@ -34,14 +31,15 @@ class GtmpVoiceHandler {
         API.setCefBrowserHeadless(this.browser, true);
     }
     
-    sendHandshake(url) {        
+    sendHandshake(url) {
         API.sendChatMessage("HS: " + url);
         API.loadPageCefBrowser(this.browser, url);
     }
     
     setHandshake(status, url) {
         if (status) {
-            this.handshakeTimer = API.every(1500, "resendHandshake", url);
+            this.handshakeTimer = API.every(1000, "resendHandshake", url);
+            resendHandshake(url);
         } else {
             API.stop(this.handshakeTimer);
             this.handshakeTimer = -1;
