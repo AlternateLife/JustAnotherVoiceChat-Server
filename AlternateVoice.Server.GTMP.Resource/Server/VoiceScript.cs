@@ -1,8 +1,9 @@
-﻿using System;
-using AlternateVoice.Server.GTMP.Factories;
+﻿using AlternateVoice.Server.GTMP.Factories;
 using AlternateVoice.Server.GTMP.Interfaces;
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Constant;
+using GrandTheftMultiplayer.Server.Elements;
+using GrandTheftMultiplayer.Server.Managers;
 
 namespace AlternateVoice.Server.GTMP.Resource
 {
@@ -41,6 +42,14 @@ namespace AlternateVoice.Server.GTMP.Resource
         {
             _voiceServer.Stop();
             _voiceServer.Dispose();
+        }
+
+        [Command("handshake")]
+        public void VoicePlayerConnect(Client sender, bool status)
+        {
+            var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
+            
+            sender.triggerEvent("VOICE_SET_HANDSHAKE", status, voiceClient.HandshakeUrl);
         }
     }
 }
