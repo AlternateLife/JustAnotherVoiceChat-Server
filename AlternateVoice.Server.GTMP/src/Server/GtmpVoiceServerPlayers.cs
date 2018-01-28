@@ -24,6 +24,11 @@ namespace AlternateVoice.Server.GTMP.Server
 
             return null;
         }
+        
+        private IGtmpVoiceClient GetVoiceClient(IVoiceClient client)
+        {
+            return _clients.Values.ToArray().FirstOrDefault(voiceClient => ReferenceEquals(voiceClient.VoiceClient, client));
+        }
 
         private IGtmpVoiceClient GetVoiceClient(IVoiceClient client)
         {
