@@ -37,6 +37,15 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             OnClientLeftGroup?.Invoke(client, group);
         }
-        
+
+        public void TestLipSyncActiveForClient(IVoiceClient client)
+        {
+            OnClientStartsTalking?.Invoke(client);
+        }
+
+        public void TestLipSyncInactiveForClient(IVoiceClient client)
+        {
+            OnClientStartsTalking?.Invoke(client);
+        }
     }
 }
