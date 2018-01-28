@@ -45,7 +45,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
         public void TestLipSyncInactiveForClient(IVoiceClient client)
         {
-            OnClientStartsTalking?.Invoke(client);
+            OnClientStopsTalking?.Invoke(client);
         }
     }
 }
