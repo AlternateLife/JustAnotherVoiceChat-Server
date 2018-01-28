@@ -90,7 +90,10 @@ namespace AlternateVoice.Server.Dummy
             }
         }
 
-        private static void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e) => ExitApplication();
+        private static void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            ExitApplication();
+        }
 
         private static void ExitApplication()
         {
