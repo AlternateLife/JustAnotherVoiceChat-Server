@@ -4,6 +4,7 @@ using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Server.Managers;
+using GrandTheftMultiplayer.Shared.Gta.Tasks;
 
 namespace AlternateVoice.Server.GTMP.Resource
 {
@@ -33,6 +34,9 @@ namespace AlternateVoice.Server.GTMP.Resource
                 player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
             };
 
+            _voiceServer.OnPlayerStartsTalking += OnPlayerStartsTalking;
+            _voiceServer.OnPlayerStopsTalking += OnPlayerStopsTalking;
+
             API.onClientEventTrigger += OnClientEventTrigger;
 
             _voiceServer.Start();
@@ -58,6 +62,16 @@ namespace AlternateVoice.Server.GTMP.Resource
             voiceClient.CameraRotation = rotation;
         }
 
+        private void OnPlayerStartsTalking(Client sender)
+        {
+            API.playPlayerAnimation(sender, (int)(AnimationFlag.Loop | AnimationFlag.UpperBodyOnly), "mp_facial", "mic_chatter");
+        }
+
+        private void OnPlayerStopsTalking(Client sender)
+        {
+            API.stopPlayerAnimation(sender);
+        }
+
         private void OnResourceStop()
         {
             _voiceServer.Stop();
@@ -70,6 +84,12 @@ namespace AlternateVoice.Server.GTMP.Resource
             var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
             
             sender.triggerEvent("VOICE_SET_HANDSHAKE", status, voiceClient.HandshakeUrl);
+        }
+
+        [Command("lip", "Usage: /lip [true/false]")]
+        public void SetLipSync(Client sender, bool active)
+        {
+            //Add code to simulate event
         }
     }
 }
