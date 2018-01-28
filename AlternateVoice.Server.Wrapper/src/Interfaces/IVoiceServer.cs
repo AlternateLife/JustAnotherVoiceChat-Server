@@ -35,5 +35,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         IVoiceClient GetClientByHandle(VoiceHandle handle);
 
+        void TriggerClientConnectedEvent(ushort handle);
+        void TriggerClientDisconnectedEvent(ushort handle);
+
     }
 }
