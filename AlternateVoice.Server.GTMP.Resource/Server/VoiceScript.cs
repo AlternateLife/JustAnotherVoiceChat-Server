@@ -33,27 +33,29 @@ namespace AlternateVoice.Server.GTMP.Resource
                 player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
             };
 
-            API.onClientEventTrigger += (sender, name, arguments) =>
-            {
-                if (name != "VOICE_ROTATION")
-                {
-                    return;
-                }
-
-                var rotation = (float)arguments[0];
-                var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
-
-                if (voiceClient == null)
-                {
-                    return;
-                }
-
-                voiceClient.CameraRotation = rotation;
-            };
+            API.onClientEventTrigger += OnClientEventTrigger;
 
             _voiceServer.Start();
             
             API.onResourceStop += OnResourceStop;
+        }
+
+        private void OnClientEventTrigger(Client sender, string eventName, params object[] arguments)
+        {
+            if (eventName != "VOICE_ROTATION")
+            {
+                return;
+            }
+
+            var rotation = (float)arguments[0];
+            var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
+
+            if (voiceClient == null)
+            {
+                return;
+            }
+
+            voiceClient.CameraRotation = rotation;
         }
 
         private void OnResourceStop()
