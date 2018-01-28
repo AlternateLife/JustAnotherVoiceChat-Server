@@ -12,12 +12,20 @@ namespace AlternateVoice.Server.GTMP.Clients
         
         public bool Headphones => VoiceClient.Headphones;
         public bool Microphone => VoiceClient.Microphone;
+
+        public float CameraRotation => VoiceClient.CameraRotation;
+
         public string HandshakeUrl => VoiceClient.HandshakeUrl;
 
         internal GtmpVoiceClient(Client player, IVoiceClient client)
         {
             Player = player;
             VoiceClient = client;
+        }
+
+        public void SetCameraRotation(float cameraRotation)
+        {
+            VoiceClient.SetCameraRotation(cameraRotation);
         }
 
         public void Dispose()
