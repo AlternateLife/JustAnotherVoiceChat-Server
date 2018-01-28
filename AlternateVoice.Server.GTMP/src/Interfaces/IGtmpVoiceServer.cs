@@ -10,6 +10,10 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         event Delegates.EmptyEvent OnServerStopping;
         
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+
+        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
+        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
+        
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStartsTalking;
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStopsTalking;
         
