@@ -11,7 +11,10 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         event Delegates.ClientEvent OnClientConnecting;
         event Delegates.ClientDisconnected OnClientDisconnected;
-        
+
+        event Delegates.ClientEvent OnClientStartsTalking;
+        event Delegates.ClientEvent OnClientStopsTalking;
+
         string Hostname { get; }
         ushort Port { get; }
         int ChannelId { get; }
@@ -19,6 +22,9 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         void Start();
         void Stop();
+
+        void TestLipSyncActiveForClient(IVoiceClient client);
+        void TestLipSyncInactiveForClient(IVoiceClient client);
 
         IVoiceClient CreateClient();
         bool RemoveClient(IVoiceClient client);

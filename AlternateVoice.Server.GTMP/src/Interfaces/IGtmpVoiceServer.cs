@@ -8,8 +8,10 @@ namespace AlternateVoice.Server.GTMP.Interfaces
     {
         event Delegates.EmptyEvent OnServerStarted;
         event Delegates.EmptyEvent OnServerStopping;
-
+        
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStartsTalking;
+        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStopsTalking;
         
         string Hostname { get; }
         ushort Port { get; }
@@ -19,6 +21,9 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         
         void Start();
         void Stop();
+
+        void TestLipSyncActiveForPlayer(Client player);
+        void TestLipSyncInactiveForPlayer(Client player);
 
         IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
