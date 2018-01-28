@@ -9,6 +9,8 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         IVoiceClient VoiceClient { get; }
         Client Player { get; }
 
+        bool Connected { get; }
+        
         bool Headphones { get; }
         bool Microphone { get; }
 

@@ -9,6 +9,8 @@ namespace AlternateVoice.Server.GTMP.Clients
     {
         public IVoiceClient VoiceClient { get; }
         public Client Player { get; }
+
+        public bool Connected => VoiceClient.Connected;
         
         public bool Headphones => VoiceClient.Headphones;
         public bool Microphone => VoiceClient.Microphone;
