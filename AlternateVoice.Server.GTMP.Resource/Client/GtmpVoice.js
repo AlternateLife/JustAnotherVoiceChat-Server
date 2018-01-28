@@ -1,5 +1,5 @@
 let voiceHandler = null;
-let rotationThreshold = 1;
+let rotationThreshold = 0.01;
 
 API.onResourceStart.connect(() => { voiceHandler = new GtmpVoiceHandler(); });
 
