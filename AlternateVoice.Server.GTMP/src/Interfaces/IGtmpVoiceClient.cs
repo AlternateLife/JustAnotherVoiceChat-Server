@@ -11,8 +11,12 @@ namespace AlternateVoice.Server.GTMP.Interfaces
 
         bool Headphones { get; }
         bool Microphone { get; }
+
+        float CameraRotation { get; }
         
         string HandshakeUrl { get; }
-        
+
+        void SetCameraRotation(float cameraRotation);
+
     }
 }

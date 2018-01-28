@@ -12,12 +12,16 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         bool Microphone { get; }
         bool Headphones { get; }
         
+        float CameraRotation { get; }
+
         string HandshakeUrl { get; }
         
         IEnumerable<IVoiceGroup> Groups { get; }
 
         void JoinGroup(IVoiceGroup group);
         void LeaveGroup(IVoiceGroup group);
+
+        void SetCameraRotation(float cameraRotation);
 
     }
 }

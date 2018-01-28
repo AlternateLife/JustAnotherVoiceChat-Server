@@ -14,6 +14,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
         
         public bool Microphone { get; set; }
         public bool Headphones { get; set; }
+
+        public float CameraRotation { get; private set; }
         
         public string HandshakeUrl { get; }
 
@@ -53,6 +55,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             }
             
             group.RemoveClient(this);
+        }
+
+        public void SetCameraRotation(float cameraRotation)
+        {
+            CameraRotation = cameraRotation;
         }
 
         public void Dispose()

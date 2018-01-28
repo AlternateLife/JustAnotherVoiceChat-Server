@@ -22,5 +22,7 @@ namespace AlternateVoice.Server.GTMP.Interfaces
 
         IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
+        void SetCameraRotationOfPlayer(Client player, float cameraRotation);
+
     }
 }

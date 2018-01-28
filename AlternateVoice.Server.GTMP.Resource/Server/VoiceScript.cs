@@ -32,7 +32,18 @@ namespace AlternateVoice.Server.GTMP.Resource
                 player.sendChatMessage("HANDSHAKE: " + c.HandshakeUrl);
                 player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
             };
-            
+
+            API.onClientEventTrigger += (sender, name, arguments) =>
+            {
+                if (name != "VOICE_ROTATION")
+                {
+                    return;
+                }
+
+                var rotation = (float)arguments[0];
+                _voiceServer.SetCameraRotationOfPlayer(sender, rotation);
+            };
+
             _voiceServer.Start();
             
             API.onResourceStop += OnResourceStop;
