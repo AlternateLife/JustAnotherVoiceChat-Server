@@ -44,6 +44,15 @@
             return Distance(this, vector);
         }
 
+        public double Length()
+        {
+            return System.Math.Sqrt(
+                X * X +
+                Y * Y +
+                Z * Z
+            );
+        }
+
         public override string ToString()
         {
             return $"[X: {X}, Y: {Y}, Z: {Z}]";
