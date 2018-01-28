@@ -11,13 +11,15 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
         private readonly IVoiceServer _server;
 
         public VoiceHandle Handle { get; }
-        
+
         public bool Microphone { get; set; }
         public bool Headphones { get; set; }
 
         public float CameraRotation { get; set; }
         
         public string HandshakeUrl { get; }
+
+        public bool Connected { get; internal set; }
 
         public IEnumerable<IVoiceGroup> Groups
         {
