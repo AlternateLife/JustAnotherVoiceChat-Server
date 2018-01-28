@@ -82,9 +82,19 @@ namespace AlternateVoice.Server.GTMP.Server
             OnClientDisconnected?.Invoke(GetVoiceClient(voiceClient));
         }
 
+        public void TriggerOnClientConnectedEvent(ushort handle)
+        {
+            _server.TriggerClientConnectedEvent(handle);
+        }
+
+        public void TriggerOnClientDisonnectedEvent(ushort handle)
+        {
+            _server.TriggerClientDisconnectedEvent(handle);
+        }
+
         private void OnClientStartsTalking(IVoiceClient client)
         {
-            var gtmpVoiceClient  = GetVoiceClient(client);
+            var gtmpVoiceClient = GetVoiceClient(client);
             OnPlayerStartsTalking?.Invoke(gtmpVoiceClient);
         }
 
