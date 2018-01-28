@@ -6,8 +6,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
     {
         public event Delegates.EmptyEvent OnServerStarted;
         public event Delegates.EmptyEvent OnServerStopping;
-
-        public event Delegates.ClientEvent OnClientConnecting;
+        
+        public event Delegates.ClientEvent OnClientConnected;
         public event Delegates.ClientDisconnected OnClientDisconnected;
 
         public event Delegates.ClientEvent OnClientStartsTalking;
@@ -21,8 +21,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             OnServerStarted = null;
             OnServerStopping = null;
             
-            OnClientConnecting = null;
-            OnClientConnecting = null;
+            OnClientConnected = null;
+            OnClientConnected = null;
             
             OnClientJoinedGroup = null;
             OnClientLeftGroup = null;
