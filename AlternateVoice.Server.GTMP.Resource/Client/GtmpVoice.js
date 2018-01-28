@@ -2,7 +2,10 @@ let voiceHandler = null;
 
 API.onResourceStart.connect(() => { voiceHandler = new GtmpVoiceHandler(); });
 
-API.onResourceStop.connect(() => { voiceHandler.dispose(); });
+API.onResourceStop.connect(() => { 
+    voiceHandler.dispose(); 
+    voiceHandler = null;
+});
 
 API.onServerEventTrigger.connect((eventName, args) => {
     switch(eventName) {
@@ -90,9 +93,17 @@ class GtmpVoiceHandler {
 }
 
 function resendHandshake(url) {
+    if (voiceHandler === null) {
+        return;
+    }
+    
     voiceHandler.sendHandshake(url);
 }
 
 function sendCamrotation() {
+    if (voiceHandler === null) {
+        return;
+    }
+    
     voiceHandler.sendRotation();
 }
