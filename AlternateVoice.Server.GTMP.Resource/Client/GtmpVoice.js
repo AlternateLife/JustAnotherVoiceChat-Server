@@ -22,6 +22,7 @@ class GtmpVoiceHandler {
     constructor() {
         this.handshakeTimer = -1;
         this.rotationTimer = -1;
+        this.lastRotation = 0;
 
         this.buildBrowser();        
     }
@@ -42,11 +43,20 @@ class GtmpVoiceHandler {
         const gameplayCamRotation = API.getGameplayCamRot();
         const rotation = Math.PI / 180 * (gameplayCamRotation.Z * -1);
         
+        if(this.lastRotation === rotation) {
+            return;
+        }        
+        
         API.sendChatMessage("Rotation: " + rotation);
         API.triggerServerEvent("VOICE_ROTATION", rotation);
+        this.lastRotation = rotation;
     }
     
     setHandshake(status, url) {
+        if (status === (this.handshakeTimer !== -1)) {
+            return;
+        }
+        
         if (status) {
             if (this.rotationTimer !== -1) {
                 API.stop(this.rotationTimer);
