@@ -59,16 +59,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             }
         }
 
-        public void TestLipSyncActiveForClient(IVoiceClient client)
-        {
-            OnClientStartsTalking.Invoke(client);
-        }
-
-        public void TestLipSyncInactiveForClient(IVoiceClient client)
-        {
-            OnClientStartsTalking.Invoke(client);
-        }
-
         private VoiceHandle CreateFreeVoiceHandle()
         {
             var freeHandle = Enumerable

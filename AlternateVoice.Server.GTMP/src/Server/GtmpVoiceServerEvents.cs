@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AlternateVoice.Server.GTMP.Interfaces;
 using AlternateVoice.Server.Wrapper;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Constant;
@@ -74,6 +75,24 @@ namespace AlternateVoice.Server.GTMP.Server
         {
             var gtmpVoiceClient = GetVoiceClient(client);
             OnPlayerStopsTalking?.Invoke(gtmpVoiceClient);
+        }
+
+        public void TestLipSyncActiveForPlayer(Client player)
+        {
+            IGtmpVoiceClient result;
+            if (_clients.TryGetValue(player.handle, out result))
+            {
+                _server.TestLipSyncActiveForClient(result.VoiceClient);
+            }
+        }
+
+        public void TestLipSyncInactiveForPlayer(Client player)
+        {
+            IGtmpVoiceClient result;
+            if (_clients.TryGetValue(player.handle, out result))
+            {
+                _server.TestLipSyncActiveForClient(result.VoiceClient);
+            }
         }
     }
 }
