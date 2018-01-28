@@ -13,7 +13,11 @@ namespace AlternateVoice.Server.GTMP.Clients
         public bool Headphones => VoiceClient.Headphones;
         public bool Microphone => VoiceClient.Microphone;
 
-        public float CameraRotation => VoiceClient.CameraRotation;
+        public float CameraRotation
+        {
+            get { return VoiceClient.CameraRotation; }
+            set { VoiceClient.CameraRotation = value; }
+        }
 
         public string HandshakeUrl => VoiceClient.HandshakeUrl;
 
@@ -25,7 +29,7 @@ namespace AlternateVoice.Server.GTMP.Clients
 
         public void SetCameraRotation(float cameraRotation)
         {
-            VoiceClient.SetCameraRotation(cameraRotation);
+            VoiceClient.CameraRotation = cameraRotation;
         }
 
         public void Dispose()

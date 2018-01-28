@@ -30,7 +30,12 @@ namespace AlternateVoice.Server.GTMP.Server
         {
             var client = GetVoiceClientOfPlayer(player);
 
-            client?.SetCameraRotation(cameraRotation);
+            if (client == null)
+            {
+                return;
+            }
+
+            client.CameraRotation = cameraRotation;
         }
 
         private IGtmpVoiceClient RegisterPlayer(Client player)
