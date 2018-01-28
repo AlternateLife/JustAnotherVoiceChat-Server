@@ -29,9 +29,17 @@ namespace AlternateVoice.Server.GTMP.Resource
 
             _voiceServer.OnClientPrepared += c =>
             {
-                var player = c.Player;
-                player.sendChatMessage("HANDSHAKE: " + c.HandshakeUrl);
-                player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
+                c.Player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
+            };
+            
+            _voiceServer.OnClientConnected += c =>
+            {
+                c.Player.triggerEvent("VOICE_SET_HANDSHAKE", false);
+            };
+            
+            _voiceServer.OnClientDisconnected += c =>
+            {
+                c.Player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
             };
 
             _voiceServer.OnPlayerStartsTalking += OnPlayerStartsTalking;
@@ -86,7 +94,7 @@ namespace AlternateVoice.Server.GTMP.Resource
         }
 
         [Command("handshake")]
-        public void VoicePlayerConnect(Client sender, bool status)
+        public void VoicePlayerHandshake(Client sender, bool status)
         {
             var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
             
@@ -103,6 +111,19 @@ namespace AlternateVoice.Server.GTMP.Resource
             else
             {
                 _voiceServer.TestLipSyncInactiveForPlayer(sender);
+            }
+        }
+        
+        [Command("con")]
+        public void VoicePlayerConnect(Client sender, ushort handle, bool connected)
+        {
+            if (connected)
+            {
+                _voiceServer.TriggerOnClientConnectedEvent(handle);
+            }
+            else
+            {
+                _voiceServer.TriggerOnClientDisonnectedEvent(handle);
             }
         }
     }
