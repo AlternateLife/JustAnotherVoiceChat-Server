@@ -31,5 +31,8 @@ namespace AlternateVoice.Server.GTMP.Interfaces
 
         IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
+        void TriggerOnClientConnectedEvent(ushort handle);
+        void TriggerOnClientDisonnectedEvent(ushort handle);
+
     }
 }

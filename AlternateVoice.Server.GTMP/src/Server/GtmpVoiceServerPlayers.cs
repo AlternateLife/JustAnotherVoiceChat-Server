@@ -30,11 +30,6 @@ namespace AlternateVoice.Server.GTMP.Server
             return _clients.Values.ToArray().FirstOrDefault(voiceClient => ReferenceEquals(voiceClient.VoiceClient, client));
         }
 
-        private IGtmpVoiceClient GetVoiceClient(IVoiceClient client)
-        {
-            return _clients.Values.ToArray().FirstOrDefault(voiceClient => ReferenceEquals(voiceClient.VoiceClient, client));
-        }
-
         private IGtmpVoiceClient RegisterPlayer(Client player)
         {
             var voiceClient = _server.CreateClient();
