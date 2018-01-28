@@ -93,14 +93,6 @@ namespace AlternateVoice.Server.GTMP.Resource
             _voiceServer.Dispose();
         }
 
-        [Command("handshake")]
-        public void VoicePlayerHandshake(Client sender, bool status)
-        {
-            var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
-            
-            sender.triggerEvent("VOICE_SET_HANDSHAKE", status, voiceClient.HandshakeUrl);
-        }
-
         [Command("lip", "Usage: /lip [true/false]")]
         public void SetLipSync(Client sender, bool active)
         {
@@ -114,7 +106,7 @@ namespace AlternateVoice.Server.GTMP.Resource
             }
         }
         
-        [Command("con")]
+        [Command("connect")]
         public void VoicePlayerConnect(Client sender, ushort handle, bool connected)
         {
             if (connected)
