@@ -12,7 +12,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         bool Microphone { get; }
         bool Headphones { get; }
         
-        float CameraRotation { get; }
+        float CameraRotation { get; set; }
 
         string HandshakeUrl { get; }
         
@@ -20,8 +20,6 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         void JoinGroup(IVoiceGroup group);
         void LeaveGroup(IVoiceGroup group);
-
-        void SetCameraRotation(float cameraRotation);
 
     }
 }
