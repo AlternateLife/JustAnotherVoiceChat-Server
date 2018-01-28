@@ -3,11 +3,17 @@
     public class Vector3
     {
 
+        #region Fields
+
         public float X;
 
         public float Y;
 
         public float Z;
+
+        #endregion
+
+        #region Constructors
 
         public Vector3()
         {
@@ -30,6 +36,10 @@
             Z = z;
         }
 
+        #endregion
+
+        #region Methods
+
         public static double Distance(Vector3 vector1, Vector3 vector2)
         {
             return System.Math.Sqrt(
@@ -43,6 +53,10 @@
         {
             return Distance(this, vector);
         }
+
+        #endregion
+
+        #region Overrides
 
         public override string ToString()
         {
@@ -61,6 +75,10 @@
         {
             return (int) (X + Y + Z);
         }
+
+        #endregion
+
+        #region Operators
 
         public static bool operator ==(Vector3 left, Vector3 right)
         {
@@ -105,6 +123,8 @@
             left.Z /= right.Z;
             return left;
         }
+
+        #endregion
 
     }
 }
