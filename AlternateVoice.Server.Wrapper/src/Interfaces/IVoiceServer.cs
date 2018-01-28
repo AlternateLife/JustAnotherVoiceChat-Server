@@ -9,7 +9,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         event Delegates.EmptyEvent OnServerStarted;
         event Delegates.EmptyEvent OnServerStopping;
         
-        event Delegates.ClientEvent OnClientConnecting;
+        event Delegates.ClientEvent OnClientConnected;
         event Delegates.ClientDisconnected OnClientDisconnected;
 
         event Delegates.ClientEvent OnClientStartsTalking;

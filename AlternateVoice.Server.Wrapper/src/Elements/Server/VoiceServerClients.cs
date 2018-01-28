@@ -93,7 +93,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
             client.Connected = true;
             
-            OnClientConnecting?.Invoke(client);
+            OnClientConnected?.Invoke(client);
 
             return true;
         }
