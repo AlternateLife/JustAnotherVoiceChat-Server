@@ -34,6 +34,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         void DestroyGroup(IVoiceGroup voiceGroup);
 
         IVoiceClient GetClientByHandle(VoiceHandle handle);
+        IVoiceClient GetClientByHandle(ushort handle);
 
         void TriggerClientConnectedEvent(ushort handle);
         void TriggerClientDisconnectedEvent(ushort handle);

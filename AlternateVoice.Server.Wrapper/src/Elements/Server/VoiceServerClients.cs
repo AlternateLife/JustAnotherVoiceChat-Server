@@ -49,10 +49,15 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
         public IVoiceClient GetClientByHandle(VoiceHandle handle)
         {
+            return GetClientByHandle(handle.Identifer);
+        }
+
+        public IVoiceClient GetClientByHandle(ushort handle)
+        {
             lock (_voiceHandleGenerationLock)
             {
                 VoiceClient result;
-                if (_clients.TryGetValue(handle.Identifer, out result))
+                if (_clients.TryGetValue(handle, out result))
                 {
                     return result;
                 }
