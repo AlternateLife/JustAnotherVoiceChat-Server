@@ -47,5 +47,16 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             OnClientStopsTalking?.Invoke(client);
         }
+        
+        public void TriggerClientConnectedEvent(ushort handle)
+        {
+            OnClientConnectedFromVoice(handle);
+        }
+
+        public void TriggerClientDisconnectedEvent(ushort handle)
+        {
+            OnClientDisconnectedFromVoice(handle);
+        }
+        
     }
 }
