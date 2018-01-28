@@ -3,13 +3,13 @@
     public class Vector3
     {
 
-        #region Fields
+        #region Properties
 
-        public float X;
+        public float X { get; set; }
 
-        public float Y;
+        public float Y { get; set; }
 
-        public float Z;
+        public float Z { get; set; }
 
         #endregion
 
@@ -22,11 +22,11 @@
             Z = 0f;
         }
 
-        public Vector3(float c)
+        public Vector3(float coordinate)
         {
-            X = c;
-            Y = c;
-            Z = c;
+            X = coordinate;
+            Y = coordinate;
+            Z = coordinate;
         }
 
         public Vector3(float x, float y, float z)
