@@ -39,7 +39,8 @@ namespace AlternateVoice.Server.GTMP.Server
 
         public void Dispose()
         {
-            
+            _server.Dispose();
+
             GC.SuppressFinalize(this);
         }
     }
