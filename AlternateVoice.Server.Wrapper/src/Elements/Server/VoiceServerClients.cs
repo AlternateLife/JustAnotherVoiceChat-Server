@@ -43,6 +43,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
+                if (client.Connected)
+                {
+                    OnClientDisconnectedFromVoice(client.Handle.Identifer);
+                }
+                
                 VoiceClient removedClient;
                 return _clients.TryRemove(client.Handle.Identifer, out removedClient);
             }
