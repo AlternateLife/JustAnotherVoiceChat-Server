@@ -91,7 +91,7 @@ namespace AlternateVoice.Server.GTMP.Server
             IGtmpVoiceClient result;
             if (_clients.TryGetValue(player.handle, out result))
             {
-                _server.TestLipSyncActiveForClient(result.VoiceClient);
+                _server.TestLipSyncInactiveForClient(result.VoiceClient);
             }
         }
     }
