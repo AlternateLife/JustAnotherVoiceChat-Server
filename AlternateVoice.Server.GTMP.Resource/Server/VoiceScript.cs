@@ -41,7 +41,14 @@ namespace AlternateVoice.Server.GTMP.Resource
                 }
 
                 var rotation = (float)arguments[0];
-                _voiceServer.SetCameraRotationOfPlayer(sender, rotation);
+                var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
+
+                if (voiceClient == null)
+                {
+                    return;
+                }
+
+                voiceClient.CameraRotation = rotation;
             };
 
             _voiceServer.Start();

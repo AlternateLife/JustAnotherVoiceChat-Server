@@ -27,11 +27,6 @@ namespace AlternateVoice.Server.GTMP.Clients
             VoiceClient = client;
         }
 
-        public void SetCameraRotation(float cameraRotation)
-        {
-            VoiceClient.CameraRotation = cameraRotation;
-        }
-
         public void Dispose()
         {
             VoiceClient.Dispose();
