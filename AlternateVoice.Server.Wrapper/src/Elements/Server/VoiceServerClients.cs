@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using AlternateVoice.Server.Wrapper.Elements.Client;
+using AlternateVoice.Server.Wrapper.Enums;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
 
@@ -74,6 +75,36 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 .First();
             
             return new VoiceHandle(freeHandle);
+        }
+
+        private bool OnClientConnectedFromVoice(ushort handle)
+        {
+            var client = GetClientByHandle(handle) as VoiceClient;
+
+            if (client == null || client.Connected)
+            {
+                return false;
+            }
+
+            client.Connected = true;
+            
+            OnClientConnecting?.Invoke(client);
+
+            return true;
+        }
+
+        private void OnClientDisconnectedFromVoice(ushort handle)
+        {
+            var client = GetClientByHandle(handle) as VoiceClient;
+
+            if (client == null || !client.Connected)
+            {
+                return;
+            }
+
+            client.Connected = false;
+            
+            OnClientDisconnected?.Invoke(client, DisconnectReason.Quit);
         }
     }
 }
