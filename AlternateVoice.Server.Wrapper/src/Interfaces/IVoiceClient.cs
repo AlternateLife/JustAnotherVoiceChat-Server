@@ -9,6 +9,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         VoiceHandle Handle { get; }
         
+        bool Connected { get; }
+        
         bool Microphone { get; }
         bool Headphones { get; }
         
