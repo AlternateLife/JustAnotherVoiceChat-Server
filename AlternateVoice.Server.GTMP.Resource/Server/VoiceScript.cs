@@ -62,14 +62,14 @@ namespace AlternateVoice.Server.GTMP.Resource
             voiceClient.CameraRotation = rotation;
         }
 
-        private void OnPlayerStartsTalking(Client sender)
+        private void OnPlayerStartsTalking(IGtmpVoiceClient speakingClient)
         {
-            API.playPlayerAnimation(sender, (int)(AnimationFlag.Loop | AnimationFlag.UpperBodyOnly), "mp_facial", "mic_chatter");
+            API.playPlayerAnimation(speakingClient.Player, (int)(AnimationFlag.Loop | AnimationFlag.UpperBodyOnly), "mp_facial", "mic_chatter");
         }
 
-        private void OnPlayerStopsTalking(Client sender)
+        private void OnPlayerStopsTalking(IGtmpVoiceClient speakingClient)
         {
-            API.stopPlayerAnimation(sender);
+            API.stopPlayerAnimation(speakingClient.Player);
         }
 
         private void OnResourceStop()
@@ -89,7 +89,14 @@ namespace AlternateVoice.Server.GTMP.Resource
         [Command("lip", "Usage: /lip [true/false]")]
         public void SetLipSync(Client sender, bool active)
         {
-            //Add code to simulate event
+            if (active)
+            {
+                _voiceServer.TestLipSyncActiveForPlayer(sender);
+            }
+            else
+            {
+                _voiceServer.TestLipSyncInactiveForPlayer(sender);
+            }
         }
     }
 }

@@ -26,6 +26,29 @@ namespace AlternateVoice.Server.GTMP.Server
             return null;
         }
 
+        private IGtmpVoiceClient GetVoiceClient(IVoiceClient client)
+        {
+            return _clients.Values.ToArray().FirstOrDefault(voiceClient => ReferenceEquals(voiceClient.VoiceClient, client));
+        }
+
+        public void TestLipSyncActiveForPlayer(Client player)
+        {
+            IGtmpVoiceClient result;
+            if (_clients.TryGetValue(player.handle, out result))
+            {
+                _server.TestLipSyncActiveForClient(result.VoiceClient);
+            }
+        }
+
+        public void TestLipSyncInactiveForPlayer(Client player)
+        {
+            IGtmpVoiceClient result;
+            if (_clients.TryGetValue(player.handle, out result))
+            {
+                _server.TestLipSyncActiveForClient(result.VoiceClient);
+            }
+        }
+
         private IGtmpVoiceClient RegisterPlayer(Client player)
         {
             var voiceClient = _server.CreateClient();
@@ -59,6 +82,5 @@ namespace AlternateVoice.Server.GTMP.Server
                 voiceClient?.Dispose();
             }
         }
-        
     }
 }
