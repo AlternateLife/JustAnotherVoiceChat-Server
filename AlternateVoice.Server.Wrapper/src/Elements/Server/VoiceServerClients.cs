@@ -9,7 +9,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {
-        private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
+        private readonly ConcurrentDictionary<ushort, VoiceClient> _clients = new ConcurrentDictionary<ushort, VoiceClient>();
         
         private readonly object _voiceHandleGenerationLock = new object();
         
@@ -42,7 +42,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
-                return _clients.TryRemove(client.Handle.Identifer, out client);
+                VoiceClient removedClient;
+                return _clients.TryRemove(client.Handle.Identifer, out removedClient);
             }
         }
 
@@ -50,7 +51,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
-                IVoiceClient result;
+                VoiceClient result;
                 if (_clients.TryGetValue(handle.Identifer, out result))
                 {
                     return result;
