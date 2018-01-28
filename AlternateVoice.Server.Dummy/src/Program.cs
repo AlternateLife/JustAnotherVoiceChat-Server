@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Threading;
-using AlternateVoice.Server.Wrapper.Exceptions;
+
 using NLog;
+
+using AlternateVoice.Server.Dummy.src.Enums;
+using AlternateVoice.Server.Wrapper.Exceptions;
 
 namespace AlternateVoice.Server.Dummy
 {
     public class Program
     {
-
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static ServerHandler _serverHandler;
-        
-        
+          
         public static void Main(string[] arguments)
         {
+            Console.CancelKeyPress += OnCancelKeyPress;
+
             Logger.Info(new string('=', 10));
             Logger.Info("AlternateVoice DummyServer");
             Logger.Info(new string('=', 10));
@@ -24,11 +26,21 @@ namespace AlternateVoice.Server.Dummy
             Logger.Info("stop - Stop the AlternateVoice Server");
             Logger.Info("dispose - Dispose the AlternateVoice Server");
             
-
             while (true)
             {
                 ProcessInputLine(Console.ReadLine());
             }
+        }
+
+        private static void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            if (_serverHandler != null)
+            {
+                StopServer();
+                DisposeServer();
+            }
+
+            Environment.Exit(0);
         }
 
         private static void ProcessInputLine(string input)
@@ -59,22 +71,12 @@ namespace AlternateVoice.Server.Dummy
                 }
                 case "stop":
                 {
-                    try
-                    {
-                        _serverHandler.StopServer();
-                    }
-                    catch (VoiceServerNotStartedException)
-                    {
-                        Logger.Info("Server has not been started");                        
-                    }
+                    StopServer();
                     break;
                 }
                 case "dispose":
                 {
-                    _serverHandler.Dispose();
-                    _serverHandler = null;
-                    
-                    Logger.Info("Server has been disposed");      
+                    DisposeServer();
                     break;
                 }
                 case "stress":
@@ -92,6 +94,26 @@ namespace AlternateVoice.Server.Dummy
                     break;
                 }
             }
+        }
+
+        private static void StopServer()
+        {
+            try
+            {
+                _serverHandler.StopServer();
+            }
+            catch (VoiceServerNotStartedException)
+            {
+                Logger.Info("Server has not been started");
+            }
+        }
+
+        private static void DisposeServer()
+        {
+            _serverHandler.Dispose();
+            _serverHandler = null;
+
+            Logger.Info("Server has been disposed");
         }
     }
 }
