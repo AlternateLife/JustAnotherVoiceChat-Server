@@ -24,22 +24,12 @@ namespace AlternateVoice.Server.Dummy
             Logger.Info("stress - Start a basic client-preparing and removing stresstest");
             Logger.Info("stop - Stop the AlternateVoice Server");
             Logger.Info("dispose - Dispose the AlternateVoice Server");
-            
+            Logger.Info("exit - Close the AlternateVoice-Server application");
+
             while (true)
             {
                 ProcessInputLine(Console.ReadLine());
             }
-        }
-
-        private static void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e)
-        {
-            if (_serverHandler != null)
-            {
-                StopServer();
-                DisposeServer();
-            }
-
-            Environment.Exit(0);
         }
 
         private static void ProcessInputLine(string input)
@@ -92,7 +82,25 @@ namespace AlternateVoice.Server.Dummy
                     Logger.Info("Prepared new client-slot: " + client.Handle.Identifer);      
                     break;
                 }
+                case "exit":
+                {
+                    ExitApplication();
+                    break;
+                }
             }
+        }
+
+        private static void OnCancelKeyPress(object sender, ConsoleCancelEventArgs e) => ExitApplication();
+
+        private static void ExitApplication()
+        {
+            if (_serverHandler != null)
+            {
+                StopServer();
+                DisposeServer();
+            }
+
+            Environment.Exit(0);
         }
 
         private static void StopServer()
