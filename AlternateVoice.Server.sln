@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5990D86F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.Wrapper.Tests", "AlternateVoice.Server.Wrapper.Tests\AlternateVoice.Server.Wrapper.Tests.csproj", "{AD192460-A5D5-461A-AEC3-476713B055DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.Testing", "AlternateVoice.Server.Testing\AlternateVoice.Server.Testing.csproj", "{E5D508E4-CC84-446F-A4A2-1F512DA21D07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Linux|Any CPU = Debug Linux|Any CPU
@@ -75,6 +77,16 @@ Global
 		{AD192460-A5D5-461A-AEC3-476713B055DE}.Release Windows|Any CPU.Build.0 = Debug|Any CPU
 		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Windows GTMP|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Windows GTMP|Any CPU.Build.0 = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Debug Linux|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Debug Linux|Any CPU.Build.0 = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Debug Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Debug Windows|Any CPU.Build.0 = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Release Linux|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Release Linux|Any CPU.Build.0 = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Release Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Release Windows|Any CPU.Build.0 = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Debug Windows GTMP|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07}.Debug Windows GTMP|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +98,6 @@ Global
 		{7362E09D-6D62-493B-86FF-00544D5967F8} = {8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}
 		{62D8EA73-E9AA-435F-B58C-139C69507B26} = {8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}
 		{AD192460-A5D5-461A-AEC3-476713B055DE} = {5990D86F-7765-47A3-B43B-328329D62523}
+		{E5D508E4-CC84-446F-A4A2-1F512DA21D07} = {5990D86F-7765-47A3-B43B-328329D62523}
 	EndGlobalSection
 EndGlobal
