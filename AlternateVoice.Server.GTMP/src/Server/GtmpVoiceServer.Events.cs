@@ -13,6 +13,7 @@ namespace AlternateVoice.Server.GTMP.Server
 
         public event Delegates.EmptyEvent OnServerStarted;
         public event Delegates.EmptyEvent OnServerStopping;
+        
         public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
         
         public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
@@ -79,7 +80,14 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private void OnVoiceClientDisconnected(IVoiceClient voiceClient, DisconnectReason reason)
         {
-            OnClientDisconnected?.Invoke(GetVoiceClient(voiceClient));
+            var disconnectedClient = GetVoiceClient(voiceClient);
+
+            if (disconnectedClient == null)
+            {
+                return;
+            }
+            
+            OnClientDisconnected?.Invoke(disconnectedClient);
         }
 
         public void TriggerOnClientConnectedEvent(ushort handle)
