@@ -1,7 +1,7 @@
 ﻿#region copyright 
 /*
  * File: IVoiceGroup.cs
- * Date: 23.23.2018,
+ * Date: 29.1.2018,
  *
  * MIT License
  *
