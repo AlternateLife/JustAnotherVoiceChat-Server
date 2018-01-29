@@ -4,7 +4,7 @@
 
 int main() {
   // create server
-  auto server = new AlternateVoice::AlternateVoiceServer(1234);
+  auto server = new AlternateVoice::Server(1234);
   if (server->create() == false) {
     std::cerr << "Unable to create AlternateVoice server on port 1234" << std::endl;
     return EXIT_FAILURE;

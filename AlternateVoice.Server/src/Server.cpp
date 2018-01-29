@@ -1,5 +1,5 @@
 /*
- * File: AlternateVoiceServer.cpp
+ * File: Server.cpp
  * Date: 25.01.2018
  *
  * MIT License
@@ -25,22 +25,22 @@
  * SOFTWARE.
  */
 
-#include "AlternateVoiceServer.h"
+#include "Server.h"
 
 using namespace AlternateVoice;
 
-AlternateVoiceServer::AlternateVoiceServer(uint16_t port) {
+Server::Server(uint16_t port) {
   _address.host = ENET_HOST_ANY;
   _address.port = port;
 
   _server = nullptr;
 }
 
-AlternateVoiceServer::~AlternateVoiceServer() {
+Server::~Server() {
   
 }
 
-bool AlternateVoiceServer::create() {
+bool Server::create() {
   if (_server != nullptr) {
     return false;
   }
@@ -54,7 +54,7 @@ bool AlternateVoiceServer::create() {
   return true;
 }
 
-void AlternateVoiceServer::close() {
+void Server::close() {
   if (_server == nullptr) {
     return;
   }
@@ -63,14 +63,14 @@ void AlternateVoiceServer::close() {
   _server = nullptr;
 }
 
-bool AlternateVoiceServer::isRunning() const {
+bool Server::isRunning() const {
   if (_server != nullptr);
 }
 
-uint16_t AlternateVoiceServer::port() const {
+uint16_t Server::port() const {
   return _address.port;
 }
 
-int AlternateVoiceServer::maxClients() const {
+int Server::maxClients() const {
   return 256;
 }

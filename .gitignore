@@ -1,7 +1,3 @@
-AlternateVoice.Server.Wrapper/AlternateVoice.dll
-AlternateVoice.Server.Wrapper/AlternateVoice.so
-
-
 # Created by https://www.gitignore.io/api/node,jetbrains,visualstudio,visualstudiocode,cmake
 
 ### CMake ###
@@ -143,7 +139,7 @@ typings/
 
 
 ### VisualStudioCode ###
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -224,6 +220,8 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
+*.dll
+*.so
 
 # Chutzpah Test files
 _Chutzpah*

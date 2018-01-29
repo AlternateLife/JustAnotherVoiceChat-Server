@@ -1,5 +1,5 @@
 /*
- * File: AlternateVoiceAPI.cpp
+ * File: Client.h
  * Date: 29.01.2018
  *
  * MIT License
@@ -29,68 +29,21 @@
 
 #include "AlternateVoice.h"
 
-#include <stdint.h>
-#include <stdlib.h>
+#include <string>
+#include <enet/enet.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+namespace AlternateVoice {
+  class ALTERNATEVOICE_API Client {
+  private:
+    ENetAddress _address;
+    ENetHost *_client;
 
-/**
- * 
- */
-typedef void (* AL_NewClientCallback_t)(uint16_t);
+  public:
+    Client();
+    virtual ~Client();
 
-/**
- *  
- */
-void ALTERNATEVOICE_API AL_StartServer(const char *hostname, uint16_t port, int channelId);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_StopServer();
-
-/**
- * 
- */
-bool ALTERNATEVOICE_API AL_IsServerRunning();
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_RegisterNewClientCallback(AL_NewClientCallback_t callback);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_UnregisterNewClientCallback();
-
-/**
- * 
- */
-int ALTERNATEVOICE_API AL_GetNumberOfClients();
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_GetClientIds(uint16_t *, size_t maxLength);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_RemoveClient(uint16_t clientId);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted = true);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API ALTest_CallNewClientCallback(uint16_t id);
-
-#ifdef __cplusplus
+    bool connect(std::string hostname, uint16_t port);
+    void disconnect();
+    bool isConnected() const;
+  };
 }
-#endif
