@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using AlternateVoice.Server.Dummy.Repositories;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using NLog;
 
@@ -44,7 +45,7 @@ namespace AlternateVoice.Server.Dummy
 
         public ServerHandler(string hostname, ushort port, int channelId)
         {
-            _server = Wrapper.AlternateVoice.MakeServer(hostname, port, channelId);
+            _server = Wrapper.AlternateVoice.MakeServer(new ClientRepository(), hostname, port, channelId);
 
             _server.OnServerStarted += () =>
             {

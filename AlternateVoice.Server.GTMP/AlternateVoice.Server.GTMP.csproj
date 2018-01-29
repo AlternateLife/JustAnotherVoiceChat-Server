@@ -70,6 +70,7 @@
     <Compile Include="src\GtmpVoiceDelegates.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceClient.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceServer.cs" />
+    <Compile Include="src\Repositories\ClientRepository.cs" />
     <Compile Include="src\Server\GtmpVoiceServer.cs" />
     <Compile Include="src\Server\GtmpVoiceServer.Events.cs" />
     <Compile Include="src\Server\GtmpVoiceServer.Players.cs" />

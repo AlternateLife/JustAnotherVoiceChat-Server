@@ -33,14 +33,16 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer : IVoiceServer
     {
-        
+        private readonly IVoiceClientRepository _repository;
+
         public string Hostname { get; }
         public ushort Port { get; }
         public int ChannelId { get; }
         public bool Started { get; private set; }
         
-        internal VoiceServer(string hostname, ushort port, int channelId)
+        internal VoiceServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
         {
+            _repository = repository;
             var result = Uri.CheckHostName(hostname);
 
             if (result == UriHostNameType.Unknown)

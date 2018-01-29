@@ -53,7 +53,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         void TestLipSyncActiveForClient(IVoiceClient client);
         void TestLipSyncInactiveForClient(IVoiceClient client);
 
-        IVoiceClient CreateClient();
+        IVoiceClient CreateClient(params object[] arguments);
         bool RemoveClient(IVoiceClient client);
 
         IVoiceGroup CreateGroup();
@@ -62,7 +62,12 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         IVoiceClient GetClientByHandle(VoiceHandle handle);
         IVoiceClient GetClientByHandle(ushort handle);
+        
+        T FindClient<T>(Func<T, bool> filter) where T : IVoiceClient;
 
+        IEnumerable<T> GetClients<T>(Func<T, bool> filter) where T : IVoiceClient;
+        IEnumerable<T> GetClients<T>() where T : IVoiceClient;
+        
         void TriggerClientConnectedEvent(ushort handle);
         void TriggerClientDisconnectedEvent(ushort handle);
 

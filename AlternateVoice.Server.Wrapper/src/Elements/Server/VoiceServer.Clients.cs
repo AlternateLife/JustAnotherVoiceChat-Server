@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using AlternateVoice.Server.Wrapper.Elements.Client;
 using AlternateVoice.Server.Wrapper.Enums;
@@ -37,11 +38,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {
-        private readonly ConcurrentDictionary<ushort, VoiceClient> _clients = new ConcurrentDictionary<ushort, VoiceClient>();
+        private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
         
         private readonly object _voiceHandleGenerationLock = new object();
         
-        public IVoiceClient CreateClient()
+        public IVoiceClient CreateClient(params object[] arguments)
         {
             lock (_voiceHandleGenerationLock)
             {
@@ -54,8 +55,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 {
                     return null;
                 }
-                
-                var createdClient = new VoiceClient(this, handle);
+
+                var createdClient = _repository.MakeClient(this, handle, arguments);
 
                 if (!_clients.TryAdd(handle.Identifer, createdClient))
                 {
@@ -77,7 +78,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 
                 AL_RemoveClient(client.Handle.Identifer);
                 
-                VoiceClient removedClient;
+                IVoiceClient removedClient;
                 return _clients.TryRemove(client.Handle.Identifer, out removedClient);
             }
         }
@@ -91,12 +92,36 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
-                VoiceClient result;
+                IVoiceClient result;
                 if (_clients.TryGetValue(handle, out result))
                 {
                     return result;
                 }
                 return null;
+            }
+        }
+
+        public T FindClient<T>(Func<T, bool> filter) where T : IVoiceClient
+        {
+            lock (_voiceHandleGenerationLock)
+            {
+                return _clients.ToArray().Select(c => (T) c.Value).FirstOrDefault(filter);
+            }
+        }
+
+        public IEnumerable<T> GetClients<T>(Func<T, bool> filter) where T : IVoiceClient
+        {
+            lock (_voiceHandleGenerationLock)
+            {
+                return _clients.ToArray().Select(c => (T) c.Value).Where(filter);
+            }
+        }
+
+        public IEnumerable<T> GetClients<T>() where T : IVoiceClient
+        {
+            lock (_voiceHandleGenerationLock)
+            {
+                return _clients.ToArray().Select(c => (T) c.Value);
             }
         }
 

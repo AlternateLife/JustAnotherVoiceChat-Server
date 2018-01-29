@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections.Generic;
+using AlternateVoice.Server.Wrapper.Math;
 using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
@@ -41,6 +42,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         bool Microphone { get; }
         bool Headphones { get; }
         
+        Vector3 Position { get; }
         float CameraRotation { get; set; }
 
         string HandshakeUrl { get; }

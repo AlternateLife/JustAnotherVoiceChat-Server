@@ -29,11 +29,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AlternateVoice.Server.Wrapper.Interfaces;
+using AlternateVoice.Server.Wrapper.Math;
 using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Client
 {
-    internal class VoiceClient : IVoiceClient
+    public abstract class VoiceClient : IVoiceClient
     {
         private readonly IVoiceServer _server;
 
@@ -42,6 +43,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
         public bool Microphone { get; set; }
         public bool Headphones { get; set; }
 
+        public abstract Vector3 Position { get; }
         public float CameraRotation { get; set; }
         
         public string HandshakeUrl { get; }
@@ -56,7 +58,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             }
         }
 
-        internal VoiceClient(IVoiceServer server, VoiceHandle handle)
+        protected VoiceClient(IVoiceServer server, VoiceHandle handle)
         {
             _server = server;
 
@@ -86,7 +88,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             group.RemoveClient(this);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _server.RemoveClient(this);
         }

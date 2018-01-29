@@ -27,6 +27,7 @@
 
 using System;
 using AlternateVoice.Server.GTMP.Interfaces;
+using AlternateVoice.Server.GTMP.Repositories;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Elements;
@@ -49,7 +50,7 @@ namespace AlternateVoice.Server.GTMP.Server
         {
             _api = api;
 
-            _server = Wrapper.AlternateVoice.MakeServer(hostname, port, channelId);
+            _server = Wrapper.AlternateVoice.MakeServer(new ClientRepository(), hostname, port, channelId);
             
             AttachToEvents();
         }

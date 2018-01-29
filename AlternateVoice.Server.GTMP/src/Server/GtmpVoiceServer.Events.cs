@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System.Linq;
 using AlternateVoice.Server.GTMP.Interfaces;
 using AlternateVoice.Server.Wrapper;
 using AlternateVoice.Server.Wrapper.Enums;
@@ -76,7 +75,7 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private void OnVoiceServerStopping()
         {
-            foreach (var client in _clients.Values.ToArray())
+            foreach (var client in _server.GetClients<IGtmpVoiceClient>())
             {
                 UnregisterPlayer(client.Player);
             }
@@ -100,21 +99,27 @@ namespace AlternateVoice.Server.GTMP.Server
             UnregisterPlayer(player);
         }
         
-        private void OnVoiceClientConnected(IVoiceClient voiceClient)
+        private void OnVoiceClientConnected(IVoiceClient client)
         {
-            OnClientConnected?.Invoke(GetVoiceClient(voiceClient));
-        }
-
-        private void OnVoiceClientDisconnected(IVoiceClient voiceClient, DisconnectReason reason)
-        {
-            var disconnectedClient = GetVoiceClient(voiceClient);
-
-            if (disconnectedClient == null)
+            var voiceClient = client as IGtmpVoiceClient;
+            if (voiceClient == null)
             {
                 return;
             }
             
-            OnClientDisconnected?.Invoke(disconnectedClient);
+            
+            OnClientConnected?.Invoke(voiceClient);
+        }
+
+        private void OnVoiceClientDisconnected(IVoiceClient client, DisconnectReason reason)
+        {
+            var voiceClient = client as IGtmpVoiceClient;
+            if (voiceClient == null)
+            {
+                return;
+            }
+            
+            OnClientDisconnected?.Invoke(voiceClient);
         }
 
         public void TriggerOnClientConnectedEvent(ushort handle)
@@ -129,32 +134,46 @@ namespace AlternateVoice.Server.GTMP.Server
 
         private void OnClientStartsTalking(IVoiceClient client)
         {
-            var gtmpVoiceClient = GetVoiceClient(client);
-            OnPlayerStartsTalking?.Invoke(gtmpVoiceClient);
+            var voiceClient = client as IGtmpVoiceClient;
+            if (voiceClient == null)
+            {
+                return;
+            }
+            
+            OnPlayerStartsTalking?.Invoke(voiceClient);
         }
 
         private void OnClientStopsTalking(IVoiceClient client)
         {
-            var gtmpVoiceClient = GetVoiceClient(client);
-            OnPlayerStopsTalking?.Invoke(gtmpVoiceClient);
+            var voiceClient = client as IGtmpVoiceClient;
+            if (voiceClient == null)
+            {
+                return;
+            }
+            
+            OnPlayerStopsTalking?.Invoke(voiceClient);
         }
 
         public void TestLipSyncActiveForPlayer(Client player)
         {
-            IGtmpVoiceClient result;
-            if (_clients.TryGetValue(player.handle, out result))
+            var client = GetVoiceClientOfPlayer(player);
+            if (client == null)
             {
-                _server.TestLipSyncActiveForClient(result.VoiceClient);
+                return;
             }
+            
+            _server.TestLipSyncActiveForClient(client);
         }
 
         public void TestLipSyncInactiveForPlayer(Client player)
         {
-            IGtmpVoiceClient result;
-            if (_clients.TryGetValue(player.handle, out result))
+            var client = GetVoiceClientOfPlayer(player);
+            if (client == null)
             {
-                _server.TestLipSyncInactiveForClient(result.VoiceClient);
+                return;
             }
+            
+            _server.TestLipSyncInactiveForClient(client);
         }
     }
 }
