@@ -3,12 +3,11 @@ using AlternateVoice.Server.GTMP.Interfaces;
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
-using GrandTheftMultiplayer.Server.Managers;
 using GrandTheftMultiplayer.Shared.Gta.Tasks;
 
 namespace AlternateVoice.Server.GTMP.Resource
 {
-    public class VoiceScript : Script
+    public partial class VoiceScript : Script
     {
 
         private readonly IGtmpVoiceServer _voiceServer;
@@ -91,32 +90,6 @@ namespace AlternateVoice.Server.GTMP.Resource
         {
             _voiceServer.Stop();
             _voiceServer.Dispose();
-        }
-
-        [Command("lip", "Usage: /lip [true/false]")]
-        public void SetLipSync(Client sender, bool active)
-        {
-            if (active)
-            {
-                _voiceServer.TestLipSyncActiveForPlayer(sender);
-            }
-            else
-            {
-                _voiceServer.TestLipSyncInactiveForPlayer(sender);
-            }
-        }
-        
-        [Command("connect")]
-        public void VoicePlayerConnect(Client sender, ushort handle, bool connected)
-        {
-            if (connected)
-            {
-                _voiceServer.TriggerOnClientConnectedEvent(handle);
-            }
-            else
-            {
-                _voiceServer.TriggerOnClientDisonnectedEvent(handle);
-            }
         }
     }
 }
