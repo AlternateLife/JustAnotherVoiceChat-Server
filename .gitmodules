@@ -1,0 +1,3 @@
+[submodule "AlternateVoice.Server/thirdparty/enet"]
+	path = AlternateVoice.Server/thirdparty/enet
+	url = git@github.com:lsalzman/enet.git
