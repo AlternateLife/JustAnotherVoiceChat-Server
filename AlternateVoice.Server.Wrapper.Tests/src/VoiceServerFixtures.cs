@@ -37,7 +37,7 @@ namespace AlternateVoice.Server.Wrapper.Tests
         }
 
         [Test]
-        public void StartingVoiceServerWillSetStartedPropertyToTrue()
+        public void StartingVoiceServerWillSetStartedPropertyToTrueAndTriggerEvent()
         {
             var repository = new Mock<IVoiceClientRepository>();
             var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
@@ -49,6 +49,22 @@ namespace AlternateVoice.Server.Wrapper.Tests
             
             Assert.AreEqual(1, invokeAmount);
             Assert.AreEqual(true, server.Started);
+        }
+
+        [Test]
+        public void StoppingVoiceServerWillSetStartedPropertyToFalseAndTriggerEvent()
+        {
+            var repository = new Mock<IVoiceClientRepository>();
+            var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
+
+            var invokeAmount = 0;
+            server.OnServerStopping += () => invokeAmount++;
+            
+            server.Start();
+            server.Stop();
+            
+            Assert.AreEqual(1, invokeAmount);
+            Assert.AreEqual(false, server.Started);
         }
 
         [Test]
@@ -86,8 +102,11 @@ namespace AlternateVoice.Server.Wrapper.Tests
             var repository = new Mock<IVoiceClientRepository>();
             var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
 
-            var invokeAmount = 0;
-            server.OnServerStarted += () => invokeAmount++;
+            var startInvokeAmount = 0;
+            server.OnServerStarted += () => startInvokeAmount++;
+            
+            var stopInvokeAmount = 0;
+            server.OnServerStopping += () => stopInvokeAmount++;
 
             for (var i = 0; i < 5; i++)
             {
@@ -98,7 +117,20 @@ namespace AlternateVoice.Server.Wrapper.Tests
                 });
             }
             
-            Assert.AreEqual(5, invokeAmount);
+            Assert.AreEqual(5, startInvokeAmount);
+            Assert.AreEqual(5, stopInvokeAmount);
+        }
+
+        [Test]
+        public void StoppingServerWithoutStartingItFirstWillThrowAnException()
+        {
+            var repository = new Mock<IVoiceClientRepository>();
+            var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
+
+            Assert.Throws<VoiceServerNotStartedException>(() =>
+            {
+                server.Stop();
+            });
         }
         
     }
