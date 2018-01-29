@@ -70,9 +70,9 @@
     <Compile Include="src\GtmpVoiceDelegates.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceClient.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceServer.cs" />
-    <Compile Include="src\Server\GtmpVoiceServerCore.cs" />
-    <Compile Include="src\Server\GtmpVoiceServerEvents.cs" />
-    <Compile Include="src\Server\GtmpVoiceServerPlayers.cs" />
+    <Compile Include="src\Server\GtmpVoiceServer.cs" />
+    <Compile Include="src\Server\GtmpVoiceServer.Events.cs" />
+    <Compile Include="src\Server\GtmpVoiceServer.Players.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj">
