@@ -41,11 +41,49 @@ namespace AlternateVoice.Server.Wrapper.Tests
         {
             var repository = new Mock<IVoiceClientRepository>();
             var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
+
+            var invokeAmount = 0;
+            server.OnServerStarted += () => invokeAmount++;
             
             server.Start();
             
+            Assert.AreEqual(1, invokeAmount);
+            Assert.AreEqual(true, server.Started);
+        }
+
+        [Test]
+        public void StartingVoiceServerMultipleWillTriggerEventOnlyIfServerIsNotStarted()
+        {
+            var repository = new Mock<IVoiceClientRepository>();
+            var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
+
+            var invokeAmount = 0;
+            server.OnServerStarted += () => invokeAmount++;
+
+            for (var i = 0; i < 5; i++)
+            {
+                server.Start();
+            }
             
+            Assert.AreEqual(1, invokeAmount);
+        }
+
+        [Test]
+        public void StartingAndStoppingServerWillTriggerEventMultipleTimes()
+        {
+            var repository = new Mock<IVoiceClientRepository>();
+            var server = new VoiceServer(repository.Object, "localhost", 23332, 23);
+
+            var invokeAmount = 0;
+            server.OnServerStarted += () => invokeAmount++;
+
+            for (var i = 0; i < 5; i++)
+            {
+                server.Start();
+                server.Stop();
+            }
             
+            Assert.AreEqual(5, invokeAmount);
         }
         
     }
