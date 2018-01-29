@@ -3,6 +3,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AlternateVoice.Server.Testing\AlternateVoice.Server.Testing.csproj" />
     <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />
   </ItemGroup>
   <ItemGroup>
