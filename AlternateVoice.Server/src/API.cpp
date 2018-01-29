@@ -31,10 +31,10 @@
 
 #include <enet/enet.h>
 
-AL_NewClientCallback_t _newClientCallback = 0;
+AV_NewClientCallback_t _newClientCallback = 0;
 AlternateVoice::Server *_server = nullptr;
 
-void AL_StartServer(const char *hostname, uint16_t port, int channelId) {
+void AV_StartServer(const char *hostname, uint16_t port, int channelId) {
   if (_server == nullptr) {
     return;
   }
@@ -42,7 +42,7 @@ void AL_StartServer(const char *hostname, uint16_t port, int channelId) {
   _server = new AlternateVoice::Server(port);
 }
 
-void AL_StopServer() {
+void AV_StopServer() {
   if (_server == nullptr) {
     return;
   }
@@ -50,31 +50,31 @@ void AL_StopServer() {
   _server->close();
 }
 
-bool AL_IsServerRunning() {
+bool AV_IsServerRunning() {
   return (_server != nullptr && _server->isRunning());
 }
 
-void AL_RegisterNewClientCallback(AL_NewClientCallback_t callback) {
+void AV_RegisterNewClientCallback(AV_NewClientCallback_t callback) {
   _newClientCallback = callback;
 }
 
-void AL_UnregisterNewClientCallback() {
+void AV_UnregisterNewClientCallback() {
   _newClientCallback = 0;
 }
 
-int AL_GetNumberOfClients() {
+int AV_GetNumberOfClients() {
   return 0;
 }
 
-void AL_GetClientIds(uint16_t *, size_t maxLength) {
+void AV_GetClientIds(uint16_t *, size_t maxLength) {
 
 }
 
-void AL_RemoveClient(uint16_t clientId) {
+void AV_RemoveClient(uint16_t clientId) {
 
 }
 
-void AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
+void AV_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
 
 }
 
