@@ -39,57 +39,57 @@ extern "C" {
 /**
  * 
  */
-typedef void (* AL_NewClientCallback_t)(uint16_t);
+typedef void (* AV_NewClientCallback_t)(uint16_t);
 
 /**
  *  
  */
-void ALTERNATEVOICE_API AL_StartServer(const char *hostname, uint16_t port, int channelId);
+void ALTERNATEVOICE_API AV_StartServer(const char *hostname, uint16_t port, int channelId);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AL_StopServer();
+void ALTERNATEVOICE_API AV_StopServer();
 
 /**
  * 
  */
-bool ALTERNATEVOICE_API AL_IsServerRunning();
+bool ALTERNATEVOICE_API AV_IsServerRunning();
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AL_RegisterNewClientCallback(AL_NewClientCallback_t callback);
+void ALTERNATEVOICE_API AV_RegisterNewClientCallback(AV_NewClientCallback_t callback);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AL_UnregisterNewClientCallback();
+void ALTERNATEVOICE_API AV_UnregisterNewClientCallback();
 
 /**
  * 
  */
-int ALTERNATEVOICE_API AL_GetNumberOfClients();
+int ALTERNATEVOICE_API AV_GetNumberOfClients();
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AL_GetClientIds(uint16_t *, size_t maxLength);
+void ALTERNATEVOICE_API AV_GetClientIds(uint16_t *, size_t maxLength);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AL_RemoveClient(uint16_t clientId);
+void ALTERNATEVOICE_API AV_RemoveClient(uint16_t clientId);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted = true);
+void ALTERNATEVOICE_API AV_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted = true);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API ALTest_CallNewClientCallback(uint16_t id);
+void ALTERNATEVOICE_API AVTest_CallNewClientCallback(uint16_t id);
 
 #ifdef __cplusplus
 }
