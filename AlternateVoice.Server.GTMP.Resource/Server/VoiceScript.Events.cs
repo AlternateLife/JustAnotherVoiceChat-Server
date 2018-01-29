@@ -19,23 +19,23 @@ namespace AlternateVoice.Server.GTMP.Resource
                 API.consoleOutput(LogCat.Info, "GtmpVoiceServer stopping!");
             };
 
-            server.OnClientPrepared += c =>
-            {
-                c.Player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
-            };
+            server.OnClientPrepared += OnHandshakeShouldResend;
             
-            server.OnClientConnected += c =>
-            {
-                c.Player.triggerEvent("VOICE_SET_HANDSHAKE", false);
-            };
-            
-            server.OnClientDisconnected += c =>
-            {
-                c.Player.triggerEvent("VOICE_SET_HANDSHAKE", true, c.HandshakeUrl);
-            };
+            server.OnClientConnected += OnClientConnected;
+            server.OnClientDisconnected += OnHandshakeShouldResend;
 
             server.OnPlayerStartsTalking += OnPlayerStartsTalking;
             server.OnPlayerStopsTalking += OnPlayerStopsTalking;
+        }
+
+        private void OnClientConnected(IGtmpVoiceClient client)
+        {
+            client.Player.triggerEvent("VOICE_SET_HANDSHAKE", false);
+        }
+
+        private void OnHandshakeShouldResend(IGtmpVoiceClient client)
+        {
+            client.Player.triggerEvent("VOICE_SET_HANDSHAKE", true, client.HandshakeUrl);
         }
         
         private void OnPlayerStartsTalking(IGtmpVoiceClient speakingClient)
