@@ -1,5 +1,4 @@
-﻿#region copyright 
-/*
+﻿/*
  * File: VoiceScript.Commands.cs
  * Date: 29.1.2018,
  *
@@ -25,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#endregion
+
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Server.Managers;
 
