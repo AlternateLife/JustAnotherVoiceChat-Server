@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AlternateVoice.Server.Wrapper.Interfaces;
+using NUnit.Framework;
 
 namespace AlternateVoice.Server.Wrapper.Tests
 {
@@ -6,14 +7,12 @@ namespace AlternateVoice.Server.Wrapper.Tests
     public class AlternateVoiceFixture
     {
         [Test]
-        public void MakingServerWontStoreResultItInStaticProperty()
+        public void MakingServerWillReturnNewVoiceServerInstance()
         {
-            // Arrange
-            
-            // Act
-            
-            // Assert
-            
+            var result = AlternateVoice.MakeServer(null, "localhost", 23332, 20);
+
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<IVoiceServer>(result);
         }
     }
 }
