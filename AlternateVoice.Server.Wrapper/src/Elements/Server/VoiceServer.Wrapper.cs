@@ -33,43 +33,43 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
     {
 
 #if LINUX
-        private const string AlternateVoiceLib = "AlternateVoice.so";
+        private const string AlternateVoiceLib = "libAlternateVoice.Server.so";
 #else
-        private const string AlternateVoiceLib = "AlternateVoice.dll";
+        private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
 #endif
 
         private delegate void ClientCallback(ushort handle);
 
         [DllImport(AlternateVoiceLib)]
-        private static extern void AL_StartServer(string hostname, ushort port, int channelId);
+        private static extern void AV_StartServer(string hostname, ushort port, int channelId);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AL_StopServer();
+        private static extern void AV_StopServer();
         
         [DllImport(AlternateVoiceLib)]
         [return:MarshalAs(UnmanagedType.I1)]
-        private static extern bool AL_IsServerRunning();
+        private static extern bool AV_IsServerRunning();
         
         [DllImport(AlternateVoiceLib)]
-        private static extern int AL_GetNumberOfClients();
+        private static extern int AV_GetNumberOfClients();
         
         [DllImport(AlternateVoiceLib)]
-        private static extern unsafe void AL_GetClientIds(ushort* list, int maxlength);
+        private static extern unsafe void AV_GetClientIds(ushort* list, int maxlength);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AL_RemoveClient(ushort handle);
+        private static extern void AV_RemoveClient(ushort handle);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AL_MuteClientFor(ushort listenerId, ushort clientId, bool muted);
+        private static extern void AV_MuteClientFor(ushort listenerId, ushort clientId, bool muted);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AL_RegisterNewClientCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        private static extern void AV_RegisterNewClientCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AL_UnregisterNewClientCallback();
+        private static extern void AV_UnregisterNewClientCallback();
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void ALTest_CallNewClientCallback();
+        private static extern void AVTest_CallNewClientCallback(ushort clientId);
 
     }
 }

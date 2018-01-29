@@ -75,7 +75,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                     OnClientDisconnectedFromVoice(client.Handle.Identifer);
                 }
                 
-                AL_RemoveClient(client.Handle.Identifer);
+                AV_RemoveClient(client.Handle.Identifer);
                 
                 VoiceClient removedClient;
                 return _clients.TryRemove(client.Handle.Identifer, out removedClient);
