@@ -38,6 +38,5 @@ namespace AlternateVoice.Server.Wrapper
             return new VoiceServer(repository, hostname, port, channelId);
         }
 
-
     }
 }
