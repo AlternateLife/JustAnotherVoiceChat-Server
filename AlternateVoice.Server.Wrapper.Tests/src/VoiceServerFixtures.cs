@@ -60,9 +60,21 @@ namespace AlternateVoice.Server.Wrapper.Tests
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
 
-            for (var i = 0; i < 5; i++)
+            void ServerStart()
             {
                 server.Start();
+            }
+
+            for (var i = 0; i < 5; i++)
+            {
+                if (i == 0)
+                {
+                    Assert.DoesNotThrow(ServerStart);
+                }
+                else
+                {
+                    Assert.Throws<VoiceServerAlreadyStartedException>(ServerStart);
+                }
             }
             
             Assert.AreEqual(1, invokeAmount);
@@ -79,8 +91,11 @@ namespace AlternateVoice.Server.Wrapper.Tests
 
             for (var i = 0; i < 5; i++)
             {
-                server.Start();
-                server.Stop();
+                Assert.DoesNotThrow(() =>
+                {
+                    server.Start();
+                    server.Stop();
+                });
             }
             
             Assert.AreEqual(5, invokeAmount);
