@@ -27,6 +27,8 @@
 
 #include "Server.h"
 
+#include "Internal.h"
+
 using namespace AlternateVoice;
 
 Server::Server(uint16_t port) {
@@ -34,13 +36,19 @@ Server::Server(uint16_t port) {
   _address.port = port;
 
   _server = nullptr;
+
+  initialize();
 }
 
 Server::~Server() {
-  
+  close();
 }
 
 bool Server::create() {
+  if (isInitialized() == false) {
+    return false;
+  }
+
   if (_server != nullptr) {
     return false;
   }
