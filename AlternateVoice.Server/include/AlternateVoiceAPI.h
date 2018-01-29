@@ -42,16 +42,6 @@ extern "C" {
 typedef void (* AL_NewClientCallback_t)(uint16_t);
 
 /**
- * 
- */
-bool ALTERNATEVOICE_API AL_Initialize();
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AL_Deinitialize();
-
-/**
  *  
  */
 void ALTERNATEVOICE_API AL_StartServer(const char *hostname, uint16_t port, int channelId);
@@ -99,7 +89,7 @@ void ALTERNATEVOICE_API AL_MuteClientFor(uint16_t listenerId, uint16_t clientId,
 /**
  * 
  */
-void ALTERNATEVOICE_API ALTest_CallNewClientCallback();
+void ALTERNATEVOICE_API ALTest_CallNewClientCallback(uint16_t id);
 
 #ifdef __cplusplus
 }
