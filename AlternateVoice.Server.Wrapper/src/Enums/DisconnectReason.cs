@@ -1,5 +1,4 @@
-﻿#region copyright 
-/*
+﻿/*
  * File: DisconnectReason.cs
  * Date: 29.1.2018,
  *
@@ -25,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#endregion
+
 namespace AlternateVoice.Server.Wrapper.Enums
 {
     public enum DisconnectReason
