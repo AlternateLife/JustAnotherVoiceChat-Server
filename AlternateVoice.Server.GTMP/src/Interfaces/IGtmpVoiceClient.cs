@@ -30,20 +30,10 @@ using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Interfaces
 {
-    public interface IGtmpVoiceClient
+    public interface IGtmpVoiceClient : IVoiceClient
     {
 
-        IVoiceClient VoiceClient { get; }
         Client Player { get; }
-
-        bool Connected { get; }
-        
-        bool Headphones { get; }
-        bool Microphone { get; }
-
-        float CameraRotation { get; set; }
-        
-        string HandshakeUrl { get; }
 
     }
 }

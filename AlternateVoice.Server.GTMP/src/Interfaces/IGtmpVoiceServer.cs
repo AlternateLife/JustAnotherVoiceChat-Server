@@ -53,10 +53,10 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         void Start();
         void Stop();
 
+        IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
+
         void TestLipSyncActiveForPlayer(Client player);
         void TestLipSyncInactiveForPlayer(Client player);
-
-        IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
         void TriggerOnClientConnectedEvent(ushort handle);
         void TriggerOnClientDisonnectedEvent(ushort handle);

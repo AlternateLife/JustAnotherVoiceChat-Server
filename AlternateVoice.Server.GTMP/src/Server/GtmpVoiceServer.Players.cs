@@ -38,42 +38,22 @@ namespace AlternateVoice.Server.GTMP.Server
 {
     internal partial class GtmpVoiceServer
     {
-        
-        private readonly ConcurrentDictionary<NetHandle, IGtmpVoiceClient> _clients = new ConcurrentDictionary<NetHandle, IGtmpVoiceClient>();
-        
         public IGtmpVoiceClient GetVoiceClientOfPlayer(Client player)
         {
-            IGtmpVoiceClient result;
-            if (_clients.TryGetValue(player.handle, out result))
-            {
-                return result;
-            }
-
-            return null;
-        }
-        
-        private IGtmpVoiceClient GetVoiceClient(IVoiceClient client)
-        {
-            return _clients.Values.ToArray().FirstOrDefault(voiceClient => ReferenceEquals(voiceClient.VoiceClient, client));
+            return _server.FindClient<IGtmpVoiceClient>(c => c.Player == player);
         }
 
         private IGtmpVoiceClient RegisterPlayer(Client player)
         {
-            var voiceClient = _server.CreateClient();
+            var voiceClient = _server.CreateClient(player) as IGtmpVoiceClient;
             if (voiceClient == null)
             {
                 return null;
             }
             
-            var client = new GtmpVoiceClient(player, voiceClient);
-            if (!_clients.TryAdd(player.handle, client))
-            {
-                return null;
-            }
+            OnClientPrepared?.Invoke(voiceClient);
             
-            OnClientPrepared?.Invoke(client);
-            
-            return client;
+            return voiceClient;
         }
 
         private void UnregisterPlayer(Client player)
@@ -83,21 +63,7 @@ namespace AlternateVoice.Server.GTMP.Server
                 throw new ArgumentNullException(nameof(player));
             }
 
-            IGtmpVoiceClient client;
-            if (!_clients.TryGetValue(player.handle, out client))
-            {
-                return;
-            }
-            
-            OnClientDisconnected?.Invoke(client);
-
-            if (!_clients.TryRemove(player.handle, out client))
-            {
-                return;
-            }
-
-            var voiceClient = client as GtmpVoiceClient;
-            voiceClient?.Dispose();
+            GetVoiceClientOfPlayer(player)?.Dispose();
         }
     }
 }

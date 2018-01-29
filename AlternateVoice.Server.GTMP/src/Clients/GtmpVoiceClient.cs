@@ -27,39 +27,28 @@
 
 using System;
 using AlternateVoice.Server.GTMP.Interfaces;
+using AlternateVoice.Server.Wrapper.Elements.Client;
 using AlternateVoice.Server.Wrapper.Interfaces;
+using AlternateVoice.Server.Wrapper.Math;
+using AlternateVoice.Server.Wrapper.Structs;
 using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Clients
 {
-    internal class GtmpVoiceClient : IGtmpVoiceClient
+    internal class GtmpVoiceClient : VoiceClient, IGtmpVoiceClient
     {
-        public IVoiceClient VoiceClient { get; }
         public Client Player { get; }
 
-        public bool Connected => VoiceClient.Connected;
+        public override Vector3 Position => new Vector3(Player.position.X, Player.position.Y, Player.position.Z);
         
-        public bool Headphones => VoiceClient.Headphones;
-        public bool Microphone => VoiceClient.Microphone;
-
-        public float CameraRotation
-        {
-            get { return VoiceClient.CameraRotation; }
-            set { VoiceClient.CameraRotation = value; }
-        }
-
-        public string HandshakeUrl => VoiceClient.HandshakeUrl;
-
-        internal GtmpVoiceClient(Client player, IVoiceClient client)
+        internal GtmpVoiceClient(Client player, IVoiceServer server, VoiceHandle handle) : base(server, handle)
         {
             Player = player;
-            VoiceClient = client;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            VoiceClient.Dispose();
-            
+            base.Dispose();
             GC.SuppressFinalize(this);
         }
         
