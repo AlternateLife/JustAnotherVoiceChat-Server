@@ -1,6 +1,6 @@
 /*
- * File: AlternateVoiceServer.h
- * Date: 25.01.2018
+ * File: AlternateVoice.cpp
+ * Date: 29.01.2018
  *
  * MIT License
  *
@@ -25,7 +25,18 @@
  * SOFTWARE.
  */
 
-#pragma once
-
 #include "AlternateVoice.h"
 
+#include <enet/enet.h>
+
+bool AL_Initialize() {
+  if (enet_initialize() != 0) {
+    return false;
+  }
+
+  return true;
+}
+
+void AL_Deinitialize() {
+  enet_deinitialize();
+}

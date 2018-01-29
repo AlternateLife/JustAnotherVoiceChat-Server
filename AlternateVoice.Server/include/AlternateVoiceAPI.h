@@ -1,6 +1,6 @@
 /*
- * File: AlternateVoiceServer.h
- * Date: 25.01.2018
+ * File: AlternateVoiceAPI.cpp
+ * Date: 29.01.2018
  *
  * MIT License
  *
@@ -29,3 +29,78 @@
 
 #include "AlternateVoice.h"
 
+#include <stdint.h>
+#include <stdlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * 
+ */
+typedef void (* AL_NewClientCallback_t)(uint16_t);
+
+/**
+ * 
+ */
+bool ALTERNATEVOICE_API AL_Initialize();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_Deinitialize();
+
+/**
+ *  
+ */
+void ALTERNATEVOICE_API AL_StartServer(const char *hostname, uint16_t port, int channelId);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_StopServer();
+
+/**
+ * 
+ */
+bool ALTERNATEVOICE_API AL_IsServerRunning();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_RegisterNewClientCallback(AL_NewClientCallback_t callback);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_UnregisterNewClientCallback();
+
+/**
+ * 
+ */
+int ALTERNATEVOICE_API AL_GetNumberOfClients();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_GetClientIds(uint16_t *, size_t maxLength);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_RemoveClient(uint16_t clientId);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted = true);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API ALTest_CallNewClientCallback();
+
+#ifdef __cplusplus
+}
+#endif

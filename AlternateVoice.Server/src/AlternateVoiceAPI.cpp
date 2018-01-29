@@ -1,6 +1,6 @@
 /*
- * File: AlternateVoiceServer.h
- * Date: 25.01.2018
+ * File: AlternateVoiceServer.cpp
+ * Date: 29.01.2018
  *
  * MIT License
  *
@@ -25,7 +25,62 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "AlternateVoiceAPI.h"
 
-#include "AlternateVoice.h"
+#include <enet/enet.h>
 
+AL_NewClientCallback_t _newClientCallback = 0;
+
+bool AL_Initialize() {
+  if (enet_initialize() != 0) {
+    return false;
+  }
+
+  return true;
+}
+
+void AL_Deinitialize() {
+  enet_deinitialize();
+}
+
+void AL_StartServer(const char *hostname, uint16_t port, int channelId) {
+    
+}
+
+void AL_StopServer() {
+
+}
+
+bool AL_IsServerRunning() {
+    return false;
+}
+
+void AL_RegisterNewClientCallback(AL_NewClientCallback_t callback) {
+    _newClientCallback = callback;
+}
+
+void AL_UnregisterNewClientCallback() {
+    _newClientCallback = 0;
+}
+
+int AL_GetNumberOfClients() {
+    return 0;
+}
+
+void AL_GetClientIds(uint16_t *, size_t maxLength) {
+
+}
+
+void AL_RemoveClient(uint16_t clientId) {
+
+}
+
+void AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
+
+}
+
+void ALTest_CallNewClientCallback() {
+    if (_newClientCallback != 0) {
+        _newClientCallback(0);
+    }
+}

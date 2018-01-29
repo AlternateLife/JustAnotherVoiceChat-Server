@@ -7,4 +7,6 @@ include_directories(include)
 
 add_library(AlternateVoice SHARED ${SOURCES})
 
+target_link_libraries(AlternateVoice enet)
+
 add_definitions(-DALTERNATEVOICE_EXPORTS)
