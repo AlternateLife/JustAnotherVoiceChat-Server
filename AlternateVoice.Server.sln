@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GT-MP", "GT-MP", "{8FF7AC98
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.GTMP.Resource", "AlternateVoice.Server.GTMP.Resource\AlternateVoice.Server.GTMP.Resource.csproj", "{62D8EA73-E9AA-435F-B58C-139C69507B26}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5990D86F-7765-47A3-B43B-328329D62523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.Wrapper.Tests", "AlternateVoice.Server.Wrapper.Tests\AlternateVoice.Server.Wrapper.Tests.csproj", "{AD192460-A5D5-461A-AEC3-476713B055DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Linux|Any CPU = Debug Linux|Any CPU
@@ -61,6 +65,16 @@ Global
 		{62D8EA73-E9AA-435F-B58C-139C69507B26}.Release Windows|Any CPU.Build.0 = Release Windows|Any CPU
 		{62D8EA73-E9AA-435F-B58C-139C69507B26}.Debug Windows GTMP|Any CPU.ActiveCfg = Debug Windows GTMP|Any CPU
 		{62D8EA73-E9AA-435F-B58C-139C69507B26}.Debug Windows GTMP|Any CPU.Build.0 = Debug Windows GTMP|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Linux|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Linux|Any CPU.Build.0 = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Windows|Any CPU.Build.0 = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Release Linux|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Release Linux|Any CPU.Build.0 = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Release Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Release Windows|Any CPU.Build.0 = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Windows GTMP|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD192460-A5D5-461A-AEC3-476713B055DE}.Debug Windows GTMP|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,5 +85,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7362E09D-6D62-493B-86FF-00544D5967F8} = {8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}
 		{62D8EA73-E9AA-435F-B58C-139C69507B26} = {8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}
+		{AD192460-A5D5-461A-AEC3-476713B055DE} = {5990D86F-7765-47A3-B43B-328329D62523}
 	EndGlobalSection
 EndGlobal
