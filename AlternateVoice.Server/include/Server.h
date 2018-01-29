@@ -30,6 +30,7 @@
 #include "AlternateVoice.h"
 
 #include <enet/enet.h>
+#include <stdint.h>
 
 namespace AlternateVoice {
   class ALTERNATEVOICE_API Server {

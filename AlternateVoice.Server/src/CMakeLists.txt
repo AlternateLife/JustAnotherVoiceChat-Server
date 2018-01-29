@@ -5,17 +5,19 @@ add_definitions(-DALTERNATEVOICE_EXPORTS)
 
 # Add files to library
 include_directories(../include)
+include_directories(../thirdparty/enet/include)
+
 file(GLOB SOURCES "./*.cpp")
 
 add_library(AlternateVoice.Server SHARED ${SOURCES})
 
 # Link required libraries
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(ENET REQUIRED libenet)
+target_link_libraries(AlternateVoice.Server enet)
 
-target_link_libraries(AlternateVoice.Server ${ENET_LIBRARIES})
-target_include_directories(AlternateVoice.Server PUBLIC ${ENET_INCLUDE_DIRS})
-target_compile_options(AlternateVoice.Server PUBLIC ${ENET_CFLAGS_OTHER})
+if(WIN32)
+target_link_libraries(AlternateVoice.Server ws2_32)
+target_link_libraries(AlternateVoice.Server winmm)
+endif(WIN32)
 
 # Setup install directories
 install(TARGETS AlternateVoice.Server ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)

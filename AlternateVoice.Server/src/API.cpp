@@ -35,7 +35,7 @@ AV_NewClientCallback_t _newClientCallback = 0;
 AlternateVoice::Server *_server = nullptr;
 
 void AV_StartServer(const char *hostname, uint16_t port, int channelId) {
-  if (_server == nullptr) {
+  if (_server != nullptr) {
     return;
   }
 
