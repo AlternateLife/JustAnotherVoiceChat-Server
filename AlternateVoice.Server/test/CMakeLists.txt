@@ -2,6 +2,8 @@
 project(AlternateVoiceTest LANGUAGES CXX)
 
 include_directories(../include)
+include_directories(../thirdparty/enet/include)
+
 file(GLOB SOURCES "./*.cpp")
 
 # Add executable

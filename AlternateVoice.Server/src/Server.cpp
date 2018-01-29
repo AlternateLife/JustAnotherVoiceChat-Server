@@ -72,7 +72,7 @@ void Server::close() {
 }
 
 bool Server::isRunning() const {
-  if (_server != nullptr);
+  return (_server != nullptr);
 }
 
 uint16_t Server::port() const {

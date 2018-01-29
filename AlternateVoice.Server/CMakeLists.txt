@@ -8,14 +8,9 @@ include(GNUInstallDirs)
 # Setup basic C++ and project attributes
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-# Include /usr/local/lib/pkgconfig into pkg-config search path
-set(ENV{PKG_CONFIG_PATH} "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/:$ENV{PKG_CONFIG_PATH}")
-
 # Add targets
 enable_testing()
 
 add_subdirectory(src)
 add_subdirectory(test)
+add_subdirectory(thirdparty/enet)
