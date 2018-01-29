@@ -42,7 +42,13 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         
         internal VoiceServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
         {
+            if (repository == null)
+            {
+                throw new ArgumentNullException(nameof(repository));
+            }
+            
             _repository = repository;
+            
             var result = Uri.CheckHostName(hostname);
             if (result == UriHostNameType.Unknown)
             {
