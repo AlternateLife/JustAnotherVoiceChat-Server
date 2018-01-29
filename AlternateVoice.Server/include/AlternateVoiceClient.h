@@ -1,5 +1,5 @@
 /*
- * File: AlternateVoice.cpp
+ * File: AlternateVoiceClient.h
  * Date: 29.01.2018
  *
  * MIT License
@@ -25,18 +25,25 @@
  * SOFTWARE.
  */
 
+#pragma once
+
 #include "AlternateVoice.h"
 
+#include <string>
 #include <enet/enet.h>
 
-bool AL_Initialize() {
-  if (enet_initialize() != 0) {
-    return false;
-  }
+namespace AlternateVoice {
+  class ALTERNATEVOICE_API AlternateVoiceClient {
+  private:
+    ENetAddress _address;
+    ENetHost *_client;
 
-  return true;
-}
+  public:
+    AlternateVoiceClient();
+    virtual ~AlternateVoiceClient();
 
-void AL_Deinitialize() {
-  enet_deinitialize();
+    bool connect(std::string hostname, uint16_t port);
+    void disconnect();
+    bool isConnected() const;
+  };
 }

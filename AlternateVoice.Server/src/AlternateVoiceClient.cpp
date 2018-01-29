@@ -1,6 +1,6 @@
 /*
- * File: AlternateVoiceServer.h
- * Date: 25.01.2018
+ * File: AlternateVoiceClient.cpp
+ * Date: 29.01.2018
  *
  * MIT License
  *
@@ -25,27 +25,26 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "AlternateVoiceClient.h"
 
-#include "AlternateVoice.h"
+using namespace AlternateVoice;
 
-#include <enet/enet.h>
+AlternateVoiceClient::AlternateVoiceClient() {
 
-namespace AlternateVoice {
-  class ALTERNATEVOICE_API AlternateVoiceServer {
-  private:
-    ENetAddress _address;
-    ENetHost *_server;
+}
 
-  public:
-    AlternateVoiceServer(uint16_t port);
-    virtual ~AlternateVoiceServer();
+AlternateVoiceClient::~AlternateVoiceClient() {
 
-    bool create();
-    void close();
-    bool isRunning() const;
+}
 
-    uint16_t port() const;
-    int maxClients() const;
-  };
+bool AlternateVoiceClient::connect(std::string hostname, uint16_t port) {
+  return false;
+}
+
+void AlternateVoiceClient::disconnect() {
+
+}
+
+bool AlternateVoiceClient::isConnected() const {
+  return false;
 }

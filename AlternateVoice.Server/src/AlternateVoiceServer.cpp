@@ -27,3 +27,50 @@
 
 #include "AlternateVoiceServer.h"
 
+using namespace AlternateVoice;
+
+AlternateVoiceServer::AlternateVoiceServer(uint16_t port) {
+  _address.host = ENET_HOST_ANY;
+  _address.port = port;
+
+  _server = nullptr;
+}
+
+AlternateVoiceServer::~AlternateVoiceServer() {
+  
+}
+
+bool AlternateVoiceServer::create() {
+  if (_server != nullptr) {
+    return false;
+  }
+
+  _server = enet_host_create(&_address, maxClients(), 2, 0, 0);
+  if (_server == NULL) {
+    _server = nullptr;
+    return false;
+  }
+
+  return true;
+}
+
+void AlternateVoiceServer::close() {
+  if (_server == nullptr) {
+    return;
+  }
+
+  enet_host_destroy(_server);
+  _server = nullptr;
+}
+
+bool AlternateVoiceServer::isRunning() const {
+  if (_server != nullptr);
+}
+
+uint16_t AlternateVoiceServer::port() const {
+  return _address.port;
+}
+
+int AlternateVoiceServer::maxClients() const {
+  return 256;
+}
