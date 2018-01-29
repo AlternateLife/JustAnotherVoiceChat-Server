@@ -44,7 +44,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             _repository = repository;
             var result = Uri.CheckHostName(hostname);
-
             if (result == UriHostNameType.Unknown)
             {
                 throw new InvalidHostnameException(hostname);
@@ -53,6 +52,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             Hostname = hostname;
             Port = port;
             ChannelId = channelId;
+            
+            AttachToNativeEvents();
         }
 
         public void Start()

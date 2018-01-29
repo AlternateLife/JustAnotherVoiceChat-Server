@@ -38,7 +38,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
 #endif
 
-        private delegate void ClientCallback(ushort handle);
+        private delegate bool ClientCallback(ushort handle);
 
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_StartServer(string hostname, ushort port, int channelId);

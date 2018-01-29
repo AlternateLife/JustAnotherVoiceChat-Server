@@ -43,6 +43,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public event Delegates.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates.ClientGroupEvent OnClientLeftGroup;
 
+        private void AttachToNativeEvents()
+        {
+            AV_RegisterNewClientCallback(OnClientConnectedFromVoice);
+        }
+        
         private void DisposeEvents()
         {
             OnServerStarted = null;
@@ -77,7 +82,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         
         public void TriggerClientConnectedEvent(ushort handle)
         {
-            OnClientConnectedFromVoice(handle);
+            AVTest_CallNewClientCallback(handle);
         }
 
         public void TriggerClientDisconnectedEvent(ushort handle)
