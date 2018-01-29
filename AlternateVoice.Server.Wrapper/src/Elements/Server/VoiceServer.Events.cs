@@ -1,7 +1,7 @@
 ﻿#region copyright 
 /*
  * File: VoiceServer.Events.cs
- * Date: 29.29.2018,
+ * Date: 29.1.2018,
  *
  * MIT License
  *

@@ -2,7 +2,7 @@ extensions: .cs
 #region copyright 
 /*
  * File: %FileName%
- * Date: %CreationDay%.%CreationDay%.%CreationYear%,
+ * Date: %CreationDay%.%CreationMonth%.%CreationYear%,
  *
  * MIT License
  *
@@ -30,7 +30,7 @@ extensions: .cs
 extensions: .js
 /*
  * File: %FileName%
- * Date: %CreationDay%.%CreationDay%.%CreationYear%,
+ * Date: %CreationDay%.%CreationMonth%.%CreationYear%,
  *
  * MIT License
  *

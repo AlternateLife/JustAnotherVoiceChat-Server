@@ -1,6 +1,6 @@
 /*
  * File: GtmpVoice.js
- * Date: 28.28.2018,
+ * Date: 29.1.2018,
  *
  * MIT License
  *
@@ -24,7 +24,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 let voiceHandler = null;
 let rotationThreshold = 0.01;
 
