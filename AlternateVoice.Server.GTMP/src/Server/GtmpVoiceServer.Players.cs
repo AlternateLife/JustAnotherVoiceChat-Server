@@ -56,12 +56,21 @@ namespace AlternateVoice.Server.GTMP.Server
                 throw new ArgumentNullException(nameof(player));
             }
 
-            IGtmpVoiceClient removedClient;
-            if (_clients.TryRemove(player.handle, out removedClient))
+            IGtmpVoiceClient client;
+            if (!_clients.TryGetValue(player.handle, out client))
             {
-                var voiceClient = removedClient as GtmpVoiceClient;
-                voiceClient?.Dispose();
+                return;
             }
+            
+            OnClientDisconnected?.Invoke(client);
+
+            if (!_clients.TryRemove(player.handle, out client))
+            {
+                return;
+            }
+
+            var voiceClient = client as GtmpVoiceClient;
+            voiceClient?.Dispose();
         }
     }
 }
