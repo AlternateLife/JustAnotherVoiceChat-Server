@@ -33,7 +33,7 @@ namespace AlternateVoice.Server.Wrapper
     public static class AlternateVoice
     {
 
-        public static IVoiceServer Server { get; private set; }
+        public static IVoiceServer Server { get; internal set; }
         
         public static IVoiceServer MakeAndStoreServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
         {
