@@ -37,4 +37,9 @@
 #define ALTERNATEVOICE_API
 #endif
 
-#include "AlternateVoiceServer.h"
+// C++ public classes
+#include "Server.h"
+#include "Client.h"
+
+// C wrapped API
+#include "API.h"

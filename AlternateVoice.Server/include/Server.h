@@ -1,6 +1,6 @@
 /*
- * File: AlternateVoiceServer.cpp
- * Date: 29.01.2018
+ * File: Server.h
+ * Date: 25.01.2018
  *
  * MIT License
  *
@@ -25,61 +25,27 @@
  * SOFTWARE.
  */
 
-#include "AlternateVoiceAPI.h"
+#pragma once
 
-#include "AlternateVoiceServer.h"
+#include "AlternateVoice.h"
 
 #include <enet/enet.h>
 
-AL_NewClientCallback_t _newClientCallback = 0;
-AlternateVoice::AlternateVoiceServer *_server = nullptr;
+namespace AlternateVoice {
+  class ALTERNATEVOICE_API Server {
+  private:
+    ENetAddress _address;
+    ENetHost *_server;
 
-void AL_StartServer(const char *hostname, uint16_t port, int channelId) {
-  if (_server == nullptr) {
-    return;
-  }
+  public:
+    Server(uint16_t port);
+    virtual ~Server();
 
-  _server = new AlternateVoice::AlternateVoiceServer(port);
-}
+    bool create();
+    void close();
+    bool isRunning() const;
 
-void AL_StopServer() {
-  if (_server == nullptr) {
-    return;
-  }
-
-  _server->close();
-}
-
-bool AL_IsServerRunning() {
-  return (_server != nullptr && _server->isRunning());
-}
-
-void AL_RegisterNewClientCallback(AL_NewClientCallback_t callback) {
-  _newClientCallback = callback;
-}
-
-void AL_UnregisterNewClientCallback() {
-  _newClientCallback = 0;
-}
-
-int AL_GetNumberOfClients() {
-  return 0;
-}
-
-void AL_GetClientIds(uint16_t *, size_t maxLength) {
-
-}
-
-void AL_RemoveClient(uint16_t clientId) {
-
-}
-
-void AL_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
-
-}
-
-void ALTest_CallNewClientCallback(uint16_t id) {
-  if (_newClientCallback != 0) {
-    _newClientCallback(id);
-  }
+    uint16_t port() const;
+    int maxClients() const;
+  };
 }

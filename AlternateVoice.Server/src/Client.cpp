@@ -1,5 +1,5 @@
 /*
- * File: AlternateVoiceClient.cpp
+ * File: Client.cpp
  * Date: 29.01.2018
  *
  * MIT License
@@ -25,26 +25,26 @@
  * SOFTWARE.
  */
 
-#include "AlternateVoiceClient.h"
+#include "Client.h"
 
 using namespace AlternateVoice;
 
-AlternateVoiceClient::AlternateVoiceClient() {
+Client::Client() {
 
 }
 
-AlternateVoiceClient::~AlternateVoiceClient() {
+Client::~Client() {
 
 }
 
-bool AlternateVoiceClient::connect(std::string hostname, uint16_t port) {
+bool Client::connect(std::string hostname, uint16_t port) {
   return false;
 }
 
-void AlternateVoiceClient::disconnect() {
+void Client::disconnect() {
 
 }
 
-bool AlternateVoiceClient::isConnected() const {
+bool Client::isConnected() const {
   return false;
 }
