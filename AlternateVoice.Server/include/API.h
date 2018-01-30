@@ -44,7 +44,7 @@ typedef bool (* AV_ClientCallback_t)(uint16_t);
 /**
  * 
  */
-typedef void (* AV_ClientMuteCallback_t)(uint16_t, bool);
+typedef void (* AV_ClientStatusCallback_t)(uint16_t, bool);
 
 /**
  * 
@@ -84,27 +84,17 @@ void ALTERNATEVOICE_API AV_UnregisterClientDisconnectCallback();
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_RegisterClientStartsTalkingCallback(AV_ClientCallback_t callback);
+void ALTERNATEVOICE_API AV_RegisterClientTalkingChangedCallback(AV_ClientStatusCallback_t callback);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_UnregisterClientStartsTalkingCallback();
+void ALTERNATEVOICE_API AV_UnregisterClientTalkingChangedCallback();
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_RegisterClientStopsTalkingCallback(AV_ClientCallback_t callback);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AV_UnregisterClientStopsTalkingCallback();
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientMuteCallback_t callback);
+void ALTERNATEVOICE_API AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientStatusCallback_t callback);
 
 /**
  * 
@@ -114,7 +104,7 @@ void ALTERNATEVOICE_API AV_UnregisterClientSpeakersMuteChangedCallback();
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientMuteCallback_t callback);
+void ALTERNATEVOICE_API AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientStatusCallback_t callback);
 
 /**
  * 
@@ -159,7 +149,7 @@ void ALTERNATEVOICE_API AV_SetClientVolumeForClient(uint16_t listenerId, uint16_
 /**
  * 
  */
-void ALTERNATEVOICE_API AVTest_CallNewClientCallback(uint16_t id);
+void ALTERNATEVOICE_API AVTest_CallClientConnectedCallback(uint16_t id);
 
 /**
  * 
@@ -169,12 +159,7 @@ void ALTERNATEVOICE_API AVTest_CallClientDisconnectCallback(uint16_t id);
 /**
  * 
  */
-void ALTERNATEVOICE_API AVTest_CallClientStarsTalkingCallback(uint16_t id);
-
-/**
- * 
- */
-void ALTERNATEVOICE_API AVTest_CallClientStopsTalkingCallback(uint16_t id);
+void ALTERNATEVOICE_API AVTest_CallClientTalkingChangedCallback(uint16_t id, bool state);
 
 /**
  * 

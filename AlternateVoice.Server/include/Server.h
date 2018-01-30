@@ -33,10 +33,19 @@
 #include <stdint.h>
 
 namespace AlternateVoice {
+  typedef bool (* ClientCallback_t)(uint16_t);
+  typedef void (* ClientStatusCallback_t)(uint16_t, bool);
+
   class ALTERNATEVOICE_API Server {
   private:
     ENetAddress _address;
     ENetHost *_server;
+
+    ClientCallback_t _clientConnectedCallback;
+    ClientCallback_t _clientDisconnectedCallback;
+    ClientStatusCallback_t _clientTalkingChangedCallback;
+    ClientStatusCallback_t _clientSpeakersMuteChangedCallback;
+    ClientStatusCallback_t _clientMicrophoneMuteChangedCallback;
 
   public:
     Server(uint16_t port);
@@ -48,5 +57,25 @@ namespace AlternateVoice {
 
     uint16_t port() const;
     int maxClients() const;
+    int numberOfClients() const;
+
+    void muteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted = true);
+    void setClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z);
+    void setClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume);
+
+    void registerClientConnectedCallback(ClientCallback_t callback);
+    void unregisterClientConnectedCallback();
+
+    void registerClientDisconnectedCallback(ClientCallback_t callback);
+    void unregisterClientDisconnectedCallback();
+
+    void registerClientTalkingChangedCallback(ClientStatusCallback_t callback);
+    void unregisterClientTalkingChangedCallback();
+
+    void registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback);
+    void unregisterClientSpeakersMuteChangedCallback();
+
+    void registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t callback);
+    void unregisterClientMicrophoneMuteChangedCallback();
   };
 }

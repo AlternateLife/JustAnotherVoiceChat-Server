@@ -29,14 +29,11 @@
 
 #include "Server.h"
 
-#include <enet/enet.h>
-
 AV_ClientCallback_t _clientConnectedCallback = 0;
 AV_ClientCallback_t _clientDisconnectCallback = 0;
-AV_ClientCallback_t _clientStartsTalkingCallback = 0;
-AV_ClientCallback_t _clientStopsTalkingCallback = 0;
-AV_ClientMuteCallback_t _clientSpeakersMuteChangedCallback = 0;
-AV_ClientMuteCallback_t _clientMicrophoneMuteChangedCallback = 0;
+AV_ClientStatusCallback_t _clientTalkingChangedCallback = 0;
+AV_ClientStatusCallback_t _clientSpeakersMuteChangedCallback = 0;
+AV_ClientStatusCallback_t _clientMicrophoneMuteChangedCallback = 0;
 
 AlternateVoice::Server *_server = nullptr;
 
@@ -76,23 +73,15 @@ void AV_UnregisterClientDisconnectCallback() {
   _clientDisconnectCallback = 0;
 }
 
-void AV_RegisterClientStartsTalkingCallback(AV_ClientCallback_t callback) {
-  _clientStartsTalkingCallback = callback;
+void AV_RegisterClientTalkingChangedCallback(AV_ClientStatusCallback_t callback) {
+  _clientTalkingChangedCallback = callback;
 }
 
-void AV_UnregisterClientStartsTalkingCallback() {
-  _clientStartsTalkingCallback = 0;
+void AV_UnregisterClientTalkingChangedCallback() {
+  _clientTalkingChangedCallback = 0;
 }
 
-void AV_RegisterClientStopsTalkingCallback(AV_ClientCallback_t callback) {
-  _clientStopsTalkingCallback = callback;
-}
-
-void AV_UnregisterClientStopsTalkingCallback() {
-  _clientStopsTalkingCallback = 0;
-}
-
-void AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientMuteCallback_t callback) {
+void AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientStatusCallback_t callback) {
   _clientSpeakersMuteChangedCallback = callback;
 }
 
@@ -100,7 +89,7 @@ void AV_UnregisterClientSpeakersMuteChangedCallback() {
   _clientSpeakersMuteChangedCallback = 0;
 }
 
-void AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientMuteCallback_t callback) {
+void AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientStatusCallback_t callback) {
   _clientMicrophoneMuteChangedCallback = callback;
 }
 
@@ -148,15 +137,9 @@ void AVTest_CallClientDisconnectCallback(uint16_t id) {
   }
 }
 
-void AVTest_CallClientStartsTalkingCallback(uint16_t id) {
-  if (_clientStartsTalkingCallback != 0) {
-    _clientStartsTalkingCallback(id);
-  }
-}
-
-void AVTest_CallClientStopsTalkingCallback(uint16_t id) {
-  if (_clientStopsTalkingCallback != 0) {
-    _clientStopsTalkingCallback(id);
+void AVTest_CallClientTalkingChangedCallback(uint16_t id, bool state) {
+  if (_clientTalkingChangedCallback != 0) {
+    _clientTalkingChangedCallback(id, state);
   }
 }
 
