@@ -41,7 +41,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         private delegate bool ClientCallback(ushort handle);
 
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_StartServer(string hostname, ushort port, int channelId);
+        private static extern void AV_StartServer(ushort port);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_StopServer();
