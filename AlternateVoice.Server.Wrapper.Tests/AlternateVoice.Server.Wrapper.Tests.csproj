@@ -21,11 +21,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
     <OutputPath>bin\Debug\Windows\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;NETCOREAPP2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
     <OutputPath>bin\Release\Windows\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS;NETCOREAPP2_0</DefineConstants>
+    <DefineConstants>TRACE;NETCOREAPP2_0</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">

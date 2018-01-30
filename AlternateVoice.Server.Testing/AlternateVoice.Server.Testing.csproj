@@ -10,11 +10,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
     <OutputPath>bin\Debug\Windows\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS;NETSTANDARD1_2</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_2</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
     <OutputPath>bin\Release\Windows\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS;NETSTANDARD1_2</DefineConstants>
+    <DefineConstants>TRACE;NETSTANDARD1_2</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">
