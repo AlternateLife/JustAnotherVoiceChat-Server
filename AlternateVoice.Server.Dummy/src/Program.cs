@@ -30,6 +30,7 @@ using System;
 using NLog;
 
 using AlternateVoice.Server.Wrapper.Exceptions;
+using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Dummy
 {
@@ -37,6 +38,8 @@ namespace AlternateVoice.Server.Dummy
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static ServerHandler _serverHandler;
+
+        private static IVoiceClient _lastClient;
           
         public static void Main(string[] arguments)
         {
@@ -48,6 +51,7 @@ namespace AlternateVoice.Server.Dummy
             Logger.Info("Available Commands:");
             Logger.Info("start - Start a new AlternateVoice Server");
             Logger.Info("client - Prepare a new client for the server");
+            Logger.Info("connect - Connect the last prepared client to the server");
             Logger.Info("stress - Start a basic client-preparing and removing stresstest");
             Logger.Info("stop - Stop the AlternateVoice Server");
             Logger.Info("dispose - Dispose the AlternateVoice Server");
@@ -105,8 +109,18 @@ namespace AlternateVoice.Server.Dummy
                 case "client":
                 {
                     var client = _serverHandler.PrepareClient();
+
+                    _lastClient = client;
                     
                     Logger.Info("Prepared new client-slot: " + client.Handle.Identifer);      
+                    break;
+                }
+                case "connect":
+                {
+                    _serverHandler.TriggerClientConnect(_lastClient.Handle.Identifer);
+
+                    Logger.Info("Event Triggered");
+                    
                     break;
                 }
                 case "exit":
