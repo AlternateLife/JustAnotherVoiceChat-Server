@@ -38,7 +38,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
 #endif
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         private delegate bool ClientCallback(ushort handle);
 
         [DllImport(AlternateVoiceLib)]
