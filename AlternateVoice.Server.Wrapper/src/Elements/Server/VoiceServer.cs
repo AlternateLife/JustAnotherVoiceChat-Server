@@ -69,7 +69,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 throw new VoiceServerAlreadyStartedException();
             }
             
-            AV_StartServer(Hostname, Port, ChannelId);
+            AV_StartServer(Port);
             
             Started = true;
             OnServerStarted?.Invoke();
