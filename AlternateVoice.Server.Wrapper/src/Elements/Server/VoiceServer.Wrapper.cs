@@ -39,7 +39,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 #endif
 
         private delegate bool ClientCallback(ushort handle);
-        private delegate void ClientStatusChangeCallback(ushort handle, bool newStatus);
+        private delegate void ClientStatusCallback(ushort handle, bool newStatus);
 
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_StartServer(ushort port);
@@ -101,7 +101,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         // ClientStartsTalking
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientStartsTalkingCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusChangeCallback callback);
+        private static extern void AV_RegisterClientStartsTalkingCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientStartsTalkingCallback();
@@ -112,7 +112,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         // ClientSpeakersMuteChanged
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusChangeCallback callback);
+        private static extern void AV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientSpeakersMuteChangedCallback();
@@ -123,7 +123,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         // ClientMicrophoneMuteChanged
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusChangeCallback callback);
+        private static extern void AV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientMicrophoneMuteChangedCallback();
