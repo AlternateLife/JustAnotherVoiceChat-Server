@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug Windows</Configuration>
     <TargetFramework>netstandard1.2</TargetFramework>
     <AssemblyVersion>1.0</AssemblyVersion>
     <FileVersion>1.0</FileVersion>
