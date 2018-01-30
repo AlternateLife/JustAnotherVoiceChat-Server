@@ -25,6 +25,9 @@
  * SOFTWARE.
  */
 
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Server
@@ -43,9 +46,18 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public event Delegates.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates.ClientGroupEvent OnClientLeftGroup;
 
+        private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
+
         private void AttachToNativeEvents()
         {
-            AV_RegisterNewClientCallback(OnClientConnectedFromVoice);
+            RegisterEvent<ClientCallback>(AV_RegisterNewClientCallback, OnClientConnectedFromVoice);
+        }
+
+        private void RegisterEvent<T>(Action<T> register, T callback)
+        {
+            _garbageCollectorHandles.Add(GCHandle.Alloc(callback));
+            
+            register(callback);
         }
         
         private void DisposeEvents()
@@ -58,6 +70,13 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             
             OnClientJoinedGroup = null;
             OnClientLeftGroup = null;
+            
+            AV_UnregisterNewClientCallback();
+
+            foreach (var handle in _garbageCollectorHandles)
+            {
+                handle.Free();
+            }
         }
 
         internal void FireClientJoinedGroup(IVoiceClient client, IVoiceGroup group)
