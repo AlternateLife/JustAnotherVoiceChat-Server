@@ -33,6 +33,7 @@ namespace AlternateVoice.Server.GTMP
     {
 
         public delegate void GtmpVoiceClientEvent(IGtmpVoiceClient client);
+        public delegate void GtmpVoiceClientStatusEvent(IGtmpVoiceClient client, bool newStatus);
 
     }
 }

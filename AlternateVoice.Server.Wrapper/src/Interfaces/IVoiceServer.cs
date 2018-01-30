@@ -39,8 +39,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         event Delegates.ClientEvent OnClientConnected;
         event Delegates.ClientDisconnected OnClientDisconnected;
 
-        event Delegates.ClientEvent OnClientStartsTalking;
-        event Delegates.ClientEvent OnClientStopsTalking;
+        event Delegates.ClientStatusEvent OnClientTalkingChanged;
 
         string Hostname { get; }
         ushort Port { get; }
@@ -49,9 +48,6 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         void Start();
         void Stop();
-
-        void FireClientStartsSpeaking(IVoiceClient client);
-        void FireClientStopsSpeaking(IVoiceClient client);
 
         IVoiceClient CreateClient(params object[] arguments);
         bool RemoveClient(IVoiceClient client);
@@ -70,6 +66,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         
         void FireClientConnected(ushort handle);
         void FireClientDisconnected(ushort handle);
+
+        void FireClientTalkingChange(ushort handle, bool newStatus);
 
     }
 }

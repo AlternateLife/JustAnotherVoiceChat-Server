@@ -47,6 +47,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             RegisterEvent<ClientConnectCallback>(AV_RegisterClientConnectedCallback, OnClientConnectedFromVoice);
             RegisterEvent<ClientCallback>(AV_RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
+            RegisterEvent<ClientStatusCallback>(AV_RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangeFromVoice);
         }
 
         private void DisposeNativeEvents()

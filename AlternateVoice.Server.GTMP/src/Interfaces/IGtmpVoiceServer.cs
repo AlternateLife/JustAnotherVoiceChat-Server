@@ -41,8 +41,7 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
         
-        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStartsTalking;
-        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStopsTalking;
+        event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
         
         string Hostname { get; }
         ushort Port { get; }
@@ -55,8 +54,7 @@ namespace AlternateVoice.Server.GTMP.Interfaces
 
         IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
-        void TestLipSyncActiveForPlayer(Client player);
-        void TestLipSyncInactiveForPlayer(Client player);
+        void TriggerTalkingChangeEvent(ushort handle, bool newStatus);
 
         void TriggerOnClientConnectedEvent(ushort handle);
         void TriggerOnClientDisonnectedEvent(ushort handle);

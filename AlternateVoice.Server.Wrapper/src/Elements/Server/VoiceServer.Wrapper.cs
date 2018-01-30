@@ -102,13 +102,13 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         // ClientStartsTalking
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientStartsTalkingCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        private static extern void AV_RegisterClientTalkingChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_UnregisterClientStartsTalkingCallback();
+        private static extern void AV_UnregisterClientTalkingChangedCallback();
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AVTest_CallClientStartsTalkingCallback(ushort clientId, bool newStatus);
+        private static extern void AVTest_CallClientTalkingChangedCallback(ushort clientId, bool newStatus);
         
         // ClientSpeakersMuteChanged
         

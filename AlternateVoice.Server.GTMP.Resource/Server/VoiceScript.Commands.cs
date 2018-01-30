@@ -33,17 +33,10 @@ namespace AlternateVoice.Server.GTMP.Resource
     public partial class VoiceScript
     {
         
-        [Command("lip", "Usage: /lip [true/false]")]
-        public void SetLipSync(Client sender, bool active)
+        [Command("lip")]
+        public void SetLipSync(Client sender, ushort handler, bool active)
         {
-            if (active)
-            {
-                _voiceServer.TestLipSyncActiveForPlayer(sender);
-            }
-            else
-            {
-                _voiceServer.TestLipSyncInactiveForPlayer(sender);
-            }
+            _voiceServer.TriggerTalkingChangeEvent(handler, active);
         }
         
         [Command("connect")]

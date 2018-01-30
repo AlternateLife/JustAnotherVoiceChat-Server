@@ -51,8 +51,7 @@ namespace AlternateVoice.Server.GTMP.Resource
             server.OnClientConnected += OnClientConnected;
             server.OnClientDisconnected += OnHandshakeShouldResend;
 
-            server.OnPlayerStartsTalking += OnPlayerStartsTalking;
-            server.OnPlayerStopsTalking += OnPlayerStopsTalking;
+            server.OnClientTalkingChanged += OnPlayerTalkingChanged;
         }
 
         private void OnClientConnected(IGtmpVoiceClient client)
@@ -65,21 +64,24 @@ namespace AlternateVoice.Server.GTMP.Resource
             client.Player.triggerEvent("VOICE_SET_HANDSHAKE", true, client.HandshakeUrl);
         }
         
-        private void OnPlayerStartsTalking(IGtmpVoiceClient speakingClient)
+        private void OnPlayerTalkingChanged(IGtmpVoiceClient speakingClient, bool newStatus)
         {
-            API.playPlayerAnimation(speakingClient.Player, (int)(AnimationFlag.Loop | AnimationFlag.AllowRotation), "mp_facial", "mic_chatter");
-            // Needs further investigation of animation handling 
-            //API.sendNativeToPlayersInRange(speakingClient.Player.position, 300f, Hash.TASK_PLAY_ANIM, speakingClient.Player.handle, "mp_facial", "mic_chatter",
-            //  8f, -4f, -1, (int)(AnimationFlag.Loop | AnimationFlag.AllowRotation), 0.0f, false, false, false);
-        }
-
-        private void OnPlayerStopsTalking(IGtmpVoiceClient speakingClient)
-        {
-            // Stopping all animations?
-            API.stopPlayerAnimation(speakingClient.Player);
-            // Needs further investigation of animation handling 
-            // API.sendNativeToPlayersInRange(speakingClient.Player.position, 300f, Hash.TASK_PLAY_ANIM, speakingClient.Player.handle, "mp_facial", "mic_chatter1",
-            //    8f, -4f, -1, (int)(AnimationFlag.Loop | AnimationFlag.AllowRotation), 0.0f, false, false, false);
+            if (newStatus)
+            {
+                API.playPlayerAnimation(speakingClient.Player, (int)(AnimationFlag.Loop | AnimationFlag.AllowRotation), "mp_facial", "mic_chatter");
+                // Needs further investigation of animation handling 
+                //API.sendNativeToPlayersInRange(speakingClient.Player.position, 300f, Hash.TASK_PLAY_ANIM, speakingClient.Player.handle, "mp_facial", "mic_chatter",
+                //  8f, -4f, -1, (int)(AnimationFlag.Loop | AnimationFlag.AllowRotation), 0.0f, false, false, false);
+            }
+            else
+            {
+                // Stopping all animations?
+                API.stopPlayerAnimation(speakingClient.Player);
+                // Needs further investigation of animation handling 
+                // API.sendNativeToPlayersInRange(speakingClient.Player.position, 300f, Hash.TASK_PLAY_ANIM, speakingClient.Player.handle, "mp_facial", "mic_chatter1",
+                //    8f, -4f, -1, (int)(AnimationFlag.Loop | AnimationFlag.AllowRotation), 0.0f, false, false, false);
+            }
+            
         }
         
     }

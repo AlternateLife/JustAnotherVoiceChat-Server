@@ -32,14 +32,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
     internal partial class VoiceServer
     {
         
-        public void FireClientStartsSpeaking(IVoiceClient client)
+        public void FireClientTalkingChange(ushort handle, bool newStatus)
         {
-            OnClientStartsTalking?.Invoke(client);
-        }
-
-        public void FireClientStopsSpeaking(IVoiceClient client)
-        {
-            OnClientStopsTalking?.Invoke(client);
+            AVTest_CallClientTalkingChangedCallback(handle, newStatus);
         }
         
         public void FireClientConnected(ushort handle)

@@ -25,9 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Server
@@ -40,8 +37,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public event Delegates.ClientEvent OnClientConnected;
         public event Delegates.ClientDisconnected OnClientDisconnected;
 
-        public event Delegates.ClientEvent OnClientStartsTalking;
-        public event Delegates.ClientEvent OnClientStopsTalking;
+        public event Delegates.ClientStatusEvent OnClientTalkingChanged;
 
         public event Delegates.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates.ClientGroupEvent OnClientLeftGroup;
