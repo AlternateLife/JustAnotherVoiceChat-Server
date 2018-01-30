@@ -124,12 +124,12 @@ namespace AlternateVoice.Server.GTMP.Server
 
         public void TriggerOnClientConnectedEvent(ushort handle)
         {
-            _server.TriggerClientConnectedEvent(handle);
+            _server.FireClientConnected(handle);
         }
 
         public void TriggerOnClientDisonnectedEvent(ushort handle)
         {
-            _server.TriggerClientDisconnectedEvent(handle);
+            _server.FireClientDisconnected(handle);
         }
 
         private void OnClientStartsTalking(IVoiceClient client)
@@ -162,7 +162,7 @@ namespace AlternateVoice.Server.GTMP.Server
                 return;
             }
             
-            _server.TestLipSyncActiveForClient(client);
+            _server.FireClientStartsSpeaking(client);
         }
 
         public void TestLipSyncInactiveForPlayer(Client player)
@@ -173,7 +173,7 @@ namespace AlternateVoice.Server.GTMP.Server
                 return;
             }
             
-            _server.TestLipSyncInactiveForClient(client);
+            _server.FireClientStopsSpeaking(client);
         }
     }
 }

@@ -85,7 +85,7 @@ namespace AlternateVoice.Server.Dummy
 
         public void TriggerClientConnect(ushort handle)
         {
-            _server.TriggerClientConnectedEvent(handle);
+            _server.FireClientConnected(handle);
         }
 
         public void StartStresstest()

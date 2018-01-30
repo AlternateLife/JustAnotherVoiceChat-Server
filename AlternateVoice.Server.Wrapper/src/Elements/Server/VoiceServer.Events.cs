@@ -89,22 +89,22 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             OnClientLeftGroup?.Invoke(client, group);
         }
 
-        public void TestLipSyncActiveForClient(IVoiceClient client)
+        public void FireClientStartsSpeaking(IVoiceClient client)
         {
             OnClientStartsTalking?.Invoke(client);
         }
 
-        public void TestLipSyncInactiveForClient(IVoiceClient client)
+        public void FireClientStopsSpeaking(IVoiceClient client)
         {
             OnClientStopsTalking?.Invoke(client);
         }
         
-        public void TriggerClientConnectedEvent(ushort handle)
+        public void FireClientConnected(ushort handle)
         {
             AVTest_CallNewClientCallback(handle);
         }
 
-        public void TriggerClientDisconnectedEvent(ushort handle)
+        public void FireClientDisconnected(ushort handle)
         {
             OnClientDisconnectedFromVoice(handle);
         }
