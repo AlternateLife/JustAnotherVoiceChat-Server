@@ -38,7 +38,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
 #endif
 
-        private delegate bool ClientCallback(ushort handle);
+        private delegate bool ClientConnectCallback(ushort handle);
+        private delegate void ClientCallback(ushort handle);
         private delegate void ClientStatusCallback(ushort handle, bool newStatus);
 
         [DllImport(AlternateVoiceLib)]
@@ -79,7 +80,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         // ClientConnected
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientConnectCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientConnectedCallback();
@@ -101,7 +102,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         // ClientStartsTalking
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientStartsTalkingCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
+        private static extern void AV_RegisterClientStartsTalkingCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientStartsTalkingCallback();
