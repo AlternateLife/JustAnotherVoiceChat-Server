@@ -8,6 +8,8 @@ include(GNUInstallDirs)
 # Setup basic C++ and project attributes
 set(CMAKE_CXX_STANDARD 11)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Add targets
 enable_testing()
 
