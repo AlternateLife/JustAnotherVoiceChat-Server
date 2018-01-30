@@ -31,7 +31,13 @@
 
 #include <enet/enet.h>
 
-AV_NewClientCallback_t _newClientCallback = 0;
+AV_ClientCallback_t _newClientCallback = 0;
+AV_ClientCallback_t _clientDisconnectCallback = 0;
+AV_ClientCallback_t _clientStartsTalkingCallback = 0;
+AV_ClientCallback_t _clientStopsTalkingCallback = 0;
+AV_ClientMuteCallback_t _clientSpeakersMuteChangedCallback = 0;
+AV_ClientMuteCallback_t _clientMicrophoneMuteChangedCallback = 0;
+
 AlternateVoice::Server *_server = nullptr;
 
 void AV_StartServer(const char *hostname, uint16_t port, int channelId) {
@@ -54,12 +60,52 @@ bool AV_IsServerRunning() {
   return (_server != nullptr && _server->isRunning());
 }
 
-void AV_RegisterNewClientCallback(AV_NewClientCallback_t callback) {
+void AV_RegisterNewClientCallback(AV_ClientCallback_t callback) {
   _newClientCallback = callback;
 }
 
 void AV_UnregisterNewClientCallback() {
   _newClientCallback = 0;
+}
+
+void AV_ReigsterClientDisconnectCallback(AV_ClientCallback_t callback) {
+  _clientDisconnectCallback = callback;
+}
+
+void AV_UnregisterClientDisconnectCallback() {
+  _clientDisconnectCallback = 0;
+}
+
+void AV_RegisterClientStartsTalkingCallback(AV_ClientCallback_t callback) {
+  _clientStartsTalkingCallback = callback;
+}
+
+void AV_UnregisterClientStartsTalkingCallback() {
+  _clientStartsTalkingCallback = 0;
+}
+
+void AV_RegisterClientStopsTalkingCallback(AV_ClientCallback_t callback) {
+  _clientStopsTalkingCallback = callback;
+}
+
+void AV_UnregisterClientStopsTalkingCallback() {
+  _clientStopsTalkingCallback = 0;
+}
+
+void AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientMuteCallback_t callback) {
+  _clientSpeakersMuteChangedCallback = callback;
+}
+
+void AV_UnregisterClientSpeakersMuteChangedCallback() {
+  _clientSpeakersMuteChangedCallback = 0;
+}
+
+void AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientMuteCallback_t callback) {
+  _clientMicrophoneMuteChangedCallback = callback;
+}
+
+void AV_UnregisterClientMicrophoneMuteChangedCallback() {
+  _clientMicrophoneMuteChangedCallback = 0;
 }
 
 int AV_GetNumberOfClients() {
@@ -74,12 +120,54 @@ void AV_RemoveClient(uint16_t clientId) {
 
 }
 
-void AV_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
+void AV_RemoveAllClients() {
+
+}
+
+void AV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted) {
+
+}
+
+void AV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z) {
+
+}
+
+void AV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume) {
 
 }
 
 void AVTest_CallNewClientCallback(uint16_t id) {
   if (_newClientCallback != 0) {
     _newClientCallback(id);
+  }
+}
+
+void AVTest_CallClientDisconnectCallback(uint16_t id) {
+  if (_clientDisconnectCallback != 0) {
+    _clientDisconnectCallback(id);
+  }
+}
+
+void AVTest_CallClientStartsTalkingCallback(uint16_t id) {
+  if (_clientStartsTalkingCallback != 0) {
+    _clientStartsTalkingCallback(id);
+  }
+}
+
+void AVTest_CallClientStopsTalkingCallback(uint16_t id) {
+  if (_clientStopsTalkingCallback != 0) {
+    _clientStopsTalkingCallback(id);
+  }
+}
+
+void AVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state) {
+  if (_clientSpeakersMuteChangedCallback != 0) {
+    _clientSpeakersMuteChangedCallback(id, state);
+  }
+}
+
+void AVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state) {
+  if (_clientMicrophoneMuteChangedCallback != 0) {
+    _clientMicrophoneMuteChangedCallback(id, state);
   }
 }
