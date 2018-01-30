@@ -39,12 +39,17 @@ extern "C" {
 /**
  * 
  */
-typedef void (* AV_NewClientCallback_t)(uint16_t);
+typedef bool (* AV_ClientCallback_t)(uint16_t);
 
 /**
- *  
+ * 
  */
-void ALTERNATEVOICE_API AV_StartServer(const char *hostname, uint16_t port, int channelId);
+typedef void (* AV_ClientMuteCallback_t)(uint16_t, bool);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_StartServer(uint16_t port);
 
 /**
  * 
@@ -59,12 +64,62 @@ bool ALTERNATEVOICE_API AV_IsServerRunning();
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_RegisterNewClientCallback(AV_NewClientCallback_t callback);
+void ALTERNATEVOICE_API AV_RegisterNewClientCallback(AV_ClientCallback_t callback);
 
 /**
  * 
  */
 void ALTERNATEVOICE_API AV_UnregisterNewClientCallback();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_RegisterClientDisconnectedCallback(AV_ClientCallback_t callback);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_UnregisterClientDisconnectCallback();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_RegisterClientStartsTalkingCallback(AV_ClientCallback_t callback);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_UnregisterClientStartsTalkingCallback();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_RegisterClientStopsTalkingCallback(AV_ClientCallback_t callback);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_UnregisterClientStopsTalkingCallback();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientMuteCallback_t callback);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_UnregisterClientSpeakersMuteChangedCallback();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientMuteCallback_t callback);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_UnregisterClientMicrophoneMuteChangedCallback();
 
 /**
  * 
@@ -84,12 +139,52 @@ void ALTERNATEVOICE_API AV_RemoveClient(uint16_t clientId);
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted = true);
+void ALTERNATEVOICE_API AV_RemoveAllClients();
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted = true);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume);
 
 /**
  * 
  */
 void ALTERNATEVOICE_API AVTest_CallNewClientCallback(uint16_t id);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AVTest_CallClientDisconnectCallback(uint16_t id);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AVTest_CallClientStarsTalkingCallback(uint16_t id);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AVTest_CallClientStopsTalkingCallback(uint16_t id);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state);
 
 #ifdef __cplusplus
 }
