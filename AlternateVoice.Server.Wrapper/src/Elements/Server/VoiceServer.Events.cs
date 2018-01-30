@@ -45,20 +45,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
         public event Delegates.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates.ClientGroupEvent OnClientLeftGroup;
-
-        private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
-
-        private void AttachToNativeEvents()
-        {
-            RegisterEvent<ClientCallback>(AV_RegisterNewClientCallback, OnClientConnectedFromVoice);
-        }
-
-        private void RegisterEvent<T>(Action<T> register, T callback)
-        {
-            _garbageCollectorHandles.Add(GCHandle.Alloc(callback));
-            
-            register(callback);
-        }
         
         private void DisposeEvents()
         {
@@ -71,12 +57,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             OnClientJoinedGroup = null;
             OnClientLeftGroup = null;
             
-            AV_UnregisterNewClientCallback();
-
-            foreach (var handle in _garbageCollectorHandles)
-            {
-                handle.Free();
-            }
+            DisposeNativeEvents();
         }
 
         internal void FireClientJoinedGroup(IVoiceClient client, IVoiceGroup group)
@@ -87,26 +68,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         internal void FireClientLeftGroup(IVoiceClient client, IVoiceGroup group)
         {
             OnClientLeftGroup?.Invoke(client, group);
-        }
-
-        public void FireClientStartsSpeaking(IVoiceClient client)
-        {
-            OnClientStartsTalking?.Invoke(client);
-        }
-
-        public void FireClientStopsSpeaking(IVoiceClient client)
-        {
-            OnClientStopsTalking?.Invoke(client);
-        }
-        
-        public void FireClientConnected(ushort handle)
-        {
-            AVTest_CallNewClientCallback(handle);
-        }
-
-        public void FireClientDisconnected(ushort handle)
-        {
-            OnClientDisconnectedFromVoice(handle);
         }
         
     }
