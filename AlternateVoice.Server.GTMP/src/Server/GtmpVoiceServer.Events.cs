@@ -45,8 +45,7 @@ namespace AlternateVoice.Server.GTMP.Server
         public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
         public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
 
-        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStartsTalking;
-        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnPlayerStopsTalking;
+        public event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
 
         private void AttachToEvents()
         {
@@ -59,8 +58,7 @@ namespace AlternateVoice.Server.GTMP.Server
             _server.OnClientConnected += OnVoiceClientConnected;
             _server.OnClientDisconnected += OnVoiceClientDisconnected;
 
-            _server.OnClientStartsTalking += OnClientStartsTalking;
-            _server.OnClientStopsTalking += OnClientStopsTalking;
+            _server.OnClientTalkingChanged += OnVoiceClientTalkingChanged;
         }
 
         private void OnVoiceServerStarted()
@@ -122,6 +120,17 @@ namespace AlternateVoice.Server.GTMP.Server
             OnClientDisconnected?.Invoke(voiceClient);
         }
 
+        private void OnVoiceClientTalkingChanged(IVoiceClient client, bool newStatus)
+        {
+            var voiceClient = client as IGtmpVoiceClient;
+            if (voiceClient == null)
+            {
+                return;
+            }
+            
+            OnClientTalkingChanged?.Invoke(voiceClient, newStatus);
+        }
+
         public void TriggerOnClientConnectedEvent(ushort handle)
         {
             _server.FireClientConnected(handle);
@@ -132,48 +141,9 @@ namespace AlternateVoice.Server.GTMP.Server
             _server.FireClientDisconnected(handle);
         }
 
-        private void OnClientStartsTalking(IVoiceClient client)
+        public void TriggerTalkingChangeEvent(ushort handle, bool newStatus)
         {
-            var voiceClient = client as IGtmpVoiceClient;
-            if (voiceClient == null)
-            {
-                return;
-            }
-            
-            OnPlayerStartsTalking?.Invoke(voiceClient);
-        }
-
-        private void OnClientStopsTalking(IVoiceClient client)
-        {
-            var voiceClient = client as IGtmpVoiceClient;
-            if (voiceClient == null)
-            {
-                return;
-            }
-            
-            OnPlayerStopsTalking?.Invoke(voiceClient);
-        }
-
-        public void TestLipSyncActiveForPlayer(Client player)
-        {
-            var client = GetVoiceClientOfPlayer(player);
-            if (client == null)
-            {
-                return;
-            }
-            
-            _server.FireClientStartsSpeaking(client);
-        }
-
-        public void TestLipSyncInactiveForPlayer(Client player)
-        {
-            var client = GetVoiceClientOfPlayer(player);
-            if (client == null)
-            {
-                return;
-            }
-            
-            _server.FireClientStopsSpeaking(client);
+            _server.FireClientTalkingChange(handle, newStatus);
         }
     }
 }

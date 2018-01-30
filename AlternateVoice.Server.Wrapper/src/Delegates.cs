@@ -38,5 +38,7 @@ namespace AlternateVoice.Server.Wrapper
         public delegate void ClientDisconnected(IVoiceClient client, DisconnectReason reason);
 
         public delegate void ClientGroupEvent(IVoiceClient client, IVoiceGroup group);
+
+        public delegate void ClientStatusEvent(IVoiceClient client, bool newStatus);
     }
 }

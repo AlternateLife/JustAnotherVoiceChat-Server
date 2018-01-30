@@ -165,5 +165,17 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             
             OnClientDisconnected?.Invoke(client, DisconnectReason.Quit);
         }
+
+        private void OnClientTalkingStatusChangeFromVoice(ushort handle, bool newStatus)
+        {
+            var client = GetClientByHandle(handle) as VoiceClient;
+
+            if (client == null || !client.Connected)
+            {
+                return;
+            }
+            
+            OnClientTalkingChanged?.Invoke(client, newStatus);
+        }
     }
 }
