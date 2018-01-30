@@ -30,7 +30,7 @@
 #include "Server.h"
 
 AV_ClientCallback_t _clientConnectedCallback = 0;
-AV_ClientCallback_t _clientDisconnectCallback = 0;
+AV_ClientCallback_t _clientDisconnectedCallback = 0;
 AV_ClientStatusCallback_t _clientTalkingChangedCallback = 0;
 AV_ClientStatusCallback_t _clientSpeakersMuteChangedCallback = 0;
 AV_ClientStatusCallback_t _clientMicrophoneMuteChangedCallback = 0;
@@ -65,12 +65,12 @@ void AV_UnregisterClientConnectedCallback() {
   _clientConnectedCallback = 0;
 }
 
-void AV_ReigsterClientDisconnectCallback(AV_ClientCallback_t callback) {
-  _clientDisconnectCallback = callback;
+void AV_RegisterClientDisconnectedCallback(AV_ClientCallback_t callback) {
+  _clientDisconnectedCallback = callback;
 }
 
 void AV_UnregisterClientDisconnectCallback() {
-  _clientDisconnectCallback = 0;
+  _clientDisconnectedCallback = 0;
 }
 
 void AV_RegisterClientTalkingChangedCallback(AV_ClientStatusCallback_t callback) {
@@ -132,8 +132,8 @@ void AVTest_CallClientConnectedCallback(uint16_t id) {
 }
 
 void AVTest_CallClientDisconnectCallback(uint16_t id) {
-  if (_clientDisconnectCallback != 0) {
-    _clientDisconnectCallback(id);
+  if (_clientDisconnectedCallback != 0) {
+    _clientDisconnectedCallback(id);
   }
 }
 
