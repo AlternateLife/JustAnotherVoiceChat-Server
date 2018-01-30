@@ -39,6 +39,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 #endif
 
         private delegate bool ClientCallback(ushort handle);
+        private delegate void ClientStatusChangeCallback(ushort handle, bool newStatus);
 
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_StartServer(ushort port);
@@ -60,16 +61,75 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         private static extern void AV_RemoveClient(ushort handle);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_MuteClientFor(ushort listenerId, ushort clientId, bool muted);
+        private static extern void AV_RemoveAllClients();
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterNewClientCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        private static extern void AV_MuteClientForClient(ushort listenerId, ushort clientId, bool muted = true);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_UnregisterNewClientCallback();
+        private static extern void AV_SetClientPositionForClient(ushort listenerId, ushort clientId, float x, float y, float z);
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AVTest_CallNewClientCallback(ushort clientId);
+        private static extern void AV_SetClientVolumeForClient(ushort listenerId, ushort clientId, float volume);
+        
+        /**
+         * Events
+         */
+        
+        // ClientConnected
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_UnregisterClientConnectedCallback();
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AVTest_CallClientConnectedCallback(ushort clientId);
+        
+        // ClientDisconnected
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_RegisterClientDisconnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_UnregisterClientDisconnectedCallback();
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AVTest_CallClientDisconnectedCallback(ushort clientId);
+        
+        // ClientStartsTalking
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_RegisterClientStartsTalkingCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusChangeCallback callback);
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_UnregisterClientStartsTalkingCallback();
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AVTest_CallClientStartsTalkingCallback(ushort clientId, bool newStatus);
+        
+        // ClientSpeakersMuteChanged
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusChangeCallback callback);
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_UnregisterClientSpeakersMuteChangedCallback();
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AVTest_CallClientSpeakersMuteChangedCallback(ushort clientId, bool newStatus);
+        
+        // ClientMicrophoneMuteChanged
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusChangeCallback callback);
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_UnregisterClientMicrophoneMuteChangedCallback();
+        
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AVTest_CallClientMicrophoneMuteChangedCallback(ushort clientId, bool newStatus);
 
     }
 }

@@ -44,7 +44,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         
         public void FireClientConnected(ushort handle)
         {
-            AVTest_CallNewClientCallback(handle);
+            AVTest_CallClientConnectedCallback(handle);
         }
 
         public void FireClientDisconnected(ushort handle)
