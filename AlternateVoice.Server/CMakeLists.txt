@@ -7,6 +7,7 @@ include(GNUInstallDirs)
 
 # Setup basic C++ and project attributes
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
