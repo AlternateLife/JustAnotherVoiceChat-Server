@@ -56,6 +56,11 @@ namespace AlternateVoice.Server.Dummy
             {
                 _logger.Debug("AlternateVoice: Stopping...");
             };
+
+            _server.OnClientConnected += c =>
+            {
+                _logger.Debug("Client connected: " + c.Handle.Identifer);
+            };
         }
 
         public void StartServer()
@@ -76,6 +81,11 @@ namespace AlternateVoice.Server.Dummy
         public void Dispose()
         {
             _server.Dispose();
+        }
+
+        public void TriggerClientConnect(ushort handle)
+        {
+            _server.TriggerClientConnectedEvent(handle);
         }
 
         public void StartStresstest()
