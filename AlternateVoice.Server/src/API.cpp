@@ -31,7 +31,7 @@
 
 #include <enet/enet.h>
 
-AV_ClientCallback_t _newClientCallback = 0;
+AV_ClientCallback_t _clientConnectedCallback = 0;
 AV_ClientCallback_t _clientDisconnectCallback = 0;
 AV_ClientCallback_t _clientStartsTalkingCallback = 0;
 AV_ClientCallback_t _clientStopsTalkingCallback = 0;
@@ -40,7 +40,7 @@ AV_ClientMuteCallback_t _clientMicrophoneMuteChangedCallback = 0;
 
 AlternateVoice::Server *_server = nullptr;
 
-void AV_StartServer(const char *hostname, uint16_t port, int channelId) {
+void AV_StartServer(uint16_t port) {
   if (_server != nullptr) {
     return;
   }
@@ -60,12 +60,12 @@ bool AV_IsServerRunning() {
   return (_server != nullptr && _server->isRunning());
 }
 
-void AV_RegisterNewClientCallback(AV_ClientCallback_t callback) {
-  _newClientCallback = callback;
+void AV_RegisterClientConnectedCallback(AV_ClientCallback_t callback) {
+  _clientConnectedCallback = callback;
 }
 
-void AV_UnregisterNewClientCallback() {
-  _newClientCallback = 0;
+void AV_UnregisterClientConnectedCallback() {
+  _clientConnectedCallback = 0;
 }
 
 void AV_ReigsterClientDisconnectCallback(AV_ClientCallback_t callback) {
@@ -136,9 +136,9 @@ void AV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float v
 
 }
 
-void AVTest_CallNewClientCallback(uint16_t id) {
-  if (_newClientCallback != 0) {
-    _newClientCallback(id);
+void AVTest_CallClientConnectedCallback(uint16_t id) {
+  if (_clientConnectedCallback != 0) {
+    _clientConnectedCallback(id);
   }
 }
 
