@@ -64,12 +64,12 @@ bool ALTERNATEVOICE_API AV_IsServerRunning();
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_RegisterNewClientCallback(AV_ClientCallback_t callback);
+void ALTERNATEVOICE_API AV_RegisterClientConnectedCallback(AV_ClientCallback_t callback);
 
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_UnregisterNewClientCallback();
+void ALTERNATEVOICE_API AV_UnregisterClientConnectedCallback();
 
 /**
  * 
