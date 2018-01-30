@@ -154,7 +154,7 @@ void ALTERNATEVOICE_API AVTest_CallClientConnectedCallback(uint16_t id);
 /**
  * 
  */
-void ALTERNATEVOICE_API AVTest_CallClientDisconnectCallback(uint16_t id);
+void ALTERNATEVOICE_API AVTest_CallClientDisconnectedCallback(uint16_t id);
 
 /**
  * 

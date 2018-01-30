@@ -131,7 +131,7 @@ void AVTest_CallClientConnectedCallback(uint16_t id) {
   }
 }
 
-void AVTest_CallClientDisconnectCallback(uint16_t id) {
+void AVTest_CallClientDisconnectedCallback(uint16_t id) {
   if (_clientDisconnectedCallback != 0) {
     _clientDisconnectedCallback(id);
   }
