@@ -49,7 +49,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
         public void FireClientDisconnected(ushort handle)
         {
-            OnClientDisconnectedFromVoice(handle);
+            AVTest_CallClientDisconnectedCallback(handle);
         }
         
     }
