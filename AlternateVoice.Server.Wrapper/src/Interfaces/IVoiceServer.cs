@@ -50,8 +50,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         void Start();
         void Stop();
 
-        void TestLipSyncActiveForClient(IVoiceClient client);
-        void TestLipSyncInactiveForClient(IVoiceClient client);
+        void FireClientStartsSpeaking(IVoiceClient client);
+        void FireClientStopsSpeaking(IVoiceClient client);
 
         IVoiceClient CreateClient(params object[] arguments);
         bool RemoveClient(IVoiceClient client);
@@ -68,8 +68,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         IEnumerable<T> GetClients<T>(Func<T, bool> filter) where T : IVoiceClient;
         IEnumerable<T> GetClients<T>() where T : IVoiceClient;
         
-        void TriggerClientConnectedEvent(ushort handle);
-        void TriggerClientDisconnectedEvent(ushort handle);
+        void FireClientConnected(ushort handle);
+        void FireClientDisconnected(ushort handle);
 
     }
 }
