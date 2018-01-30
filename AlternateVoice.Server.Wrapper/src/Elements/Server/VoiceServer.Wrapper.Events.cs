@@ -45,12 +45,14 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         
         private void AttachToNativeEvents()
         {
-            RegisterEvent<ClientCallback>(AV_RegisterClientConnectedCallback, OnClientConnectedFromVoice);
+            RegisterEvent<ClientConnectCallback>(AV_RegisterClientConnectedCallback, OnClientConnectedFromVoice);
+            RegisterEvent<ClientCallback>(AV_RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
         }
 
         private void DisposeNativeEvents()
         {
             AV_UnregisterClientConnectedCallback();
+            AV_UnregisterClientDisconnectedCallback();
 
             foreach (var handle in _garbageCollectorHandles)
             {
