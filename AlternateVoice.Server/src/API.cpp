@@ -78,7 +78,7 @@ void AV_MuteClientFor(uint16_t listenerId, uint16_t clientId, bool muted) {
 
 }
 
-void ALTest_CallNewClientCallback(uint16_t id) {
+void AVTest_CallNewClientCallback(uint16_t id) {
   if (_newClientCallback != 0) {
     _newClientCallback(id);
   }
