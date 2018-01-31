@@ -69,6 +69,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_SetClientPositionForClient(ushort listenerId, ushort clientId, float x, float y, float z);
+
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_SetListenerDirection(ushort listenerId, float z);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_SetClientVolumeForClient(ushort listenerId, ushort clientId, float volume);
