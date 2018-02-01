@@ -72,6 +72,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_SetListenerDirection(ushort listenerId, float z);
+
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_Set3DSettings(ushort listenerId, float distanceFactor, float rolloffScale);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_SetClientVolumeForClient(ushort listenerId, ushort clientId, float volume);
