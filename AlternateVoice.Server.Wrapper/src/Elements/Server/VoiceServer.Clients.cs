@@ -39,9 +39,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
     internal partial class VoiceServer
     {
         private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
-        
+
         private readonly object _voiceHandleGenerationLock = new object();
-        
+
         public IVoiceClient CreateClient(params object[] arguments)
         {
             lock (_voiceHandleGenerationLock)
@@ -134,6 +134,23 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 .First();
             
             return new VoiceHandle(freeHandle);
+        }
+
+        public void SetClientPositionForListener(ushort listenerId, IVoiceClient foreignClient)
+        {
+            var foreignPos = foreignClient.Position;
+
+            AV_SetClientPositionForClient(listenerId, foreignClient.Handle.Identifer, foreignPos.X, foreignPos.Y, foreignPos.Z);
+        }
+
+        public void MuteClientForListener(ushort listenerId, ushort foreignClientId, bool muted)
+        {
+            AV_MuteClientForClient(listenerId, foreignClientId, muted);
+        }
+
+        public void SetListenerDirection(IVoiceClient listenerClient)
+        {
+            AV_SetListenerDirection(listenerClient.Handle.Identifer, listenerClient.CameraRotation);
         }
 
         private bool OnClientConnectedFromVoice(ushort handle)
