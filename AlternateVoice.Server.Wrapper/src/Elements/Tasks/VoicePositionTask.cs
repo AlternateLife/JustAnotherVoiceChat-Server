@@ -34,13 +34,14 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
     internal partial class VoicePositionTask : IVoicePositionTask
     {
         private readonly IVoiceServer _voiceServer;
+        private readonly IVoiceTaskServer _voiceTaskServer;
 
         public CancellationTokenSource TokenSource => new CancellationTokenSource();
 
         public VoicePositionTask(IVoiceServer voiceServer)
         {
             _voiceServer = voiceServer;
-            
+            _voiceTaskServer = voiceServer as IVoiceTaskServer;
         }
 
         public void CancelVoiceTask()

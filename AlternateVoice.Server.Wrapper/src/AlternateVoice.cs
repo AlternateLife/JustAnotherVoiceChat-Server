@@ -26,6 +26,7 @@
  */
 
 using AlternateVoice.Server.Wrapper.Elements.Server;
+using AlternateVoice.Server.Wrapper.Elements.Tasks;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper
@@ -38,5 +39,9 @@ namespace AlternateVoice.Server.Wrapper
             return new VoiceServer(repository, hostname, port, channelId);
         }
 
+        public static IVoiceTask CreatePositonUpdateTask(IVoiceServer voiceServer)
+        {
+            return new VoicePositionTask(voiceServer);
+        }
     }
 }
