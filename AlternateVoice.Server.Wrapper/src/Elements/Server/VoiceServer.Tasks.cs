@@ -25,36 +25,57 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Elements.Tasks;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {
-        private IVoiceTask _updateTask;
+        private ConcurrentBag<IVoiceTask> _voiceTasks = new ConcurrentBag<IVoiceTask>();
 
         private void CreateAndAttachTasks()
         {
-            _updateTask = new VoicePositionTask(this);
-
-            OnServerStarted += StartUpdateTask;
-            OnServerStopping += StopUpdateTask;
+            OnServerStarted += StartTasks;
+            OnServerStopping += StopTasks;
         }
 
-        private void StartUpdateTask()
+        private void StartTasks()
         {
-            _updateTask.RunVoiceTask();
+            foreach(var voiceTask in _voiceTasks)
+            {
+                voiceTask.RunVoiceTask();
+            }
         }
 
-        private void StopUpdateTask()
+        private void StopTasks()
         {
-            _updateTask.CancelVoiceTask();
+            foreach (var voiceTask in _voiceTasks)
+            {
+                voiceTask.CancelVoiceTask();
+            }
+        }
+
+        public void AddTask(IVoiceTask voiceTask)
+        {
+            _voiceTasks.Add(voiceTask);
+        }
+
+        public void AddTasks(IList<IVoiceTask> voiceTasks)
+        {
+            foreach (var voiceTask in voiceTasks)
+            {
+                _voiceTasks.Add(voiceTask);
+            }
         }
 
         private void DisposeTasks()
         {
-            _updateTask.Dispose();
+            foreach (var voiceTask in _voiceTasks)
+            {
+                voiceTask.Dispose();
+            }
         }
     }
 }

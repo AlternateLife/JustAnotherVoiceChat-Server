@@ -1,5 +1,5 @@
 ﻿/*
- * File: IVoiceTask.cs
+ * File: IVoiceTaskServer.cs
  * Date: 2.2.2018,
  *
  * MIT License
@@ -25,17 +25,12 @@
  * SOFTWARE.
  */
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceTask : IDisposable
+    internal interface IVoiceTaskServer
     {
-        CancellationTokenSource TokenSource { get; }
-
-        Task RunVoiceTask();
-        void CancelVoiceTask();
+        void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient);
+        void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted);
+        void SetListenerDirection(IVoiceClient listenerClient);
     }
 }

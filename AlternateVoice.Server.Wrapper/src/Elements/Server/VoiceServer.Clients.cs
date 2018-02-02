@@ -136,16 +136,16 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             return new VoiceHandle(freeHandle);
         }
 
-        public void SetClientPositionForListener(ushort listenerId, IVoiceClient foreignClient)
+        public void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient)
         {
             var foreignPos = foreignClient.Position;
 
-            AV_SetClientPositionForClient(listenerId, foreignClient.Handle.Identifer, foreignPos.X, foreignPos.Y, foreignPos.Z);
+            AV_SetClientPositionForClient(listenerClient.Handle.Identifer, foreignClient.Handle.Identifer, foreignPos.X, foreignPos.Y, foreignPos.Z);
         }
 
-        public void MuteClientForListener(ushort listenerId, ushort foreignClientId, bool muted)
+        public void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted)
         {
-            AV_MuteClientForClient(listenerId, foreignClientId, muted);
+            AV_MuteClientForClient(listenerClient.Handle.Identifer, foreignClient.Handle.Identifer, muted);
         }
 
         public void SetListenerDirection(IVoiceClient listenerClient)

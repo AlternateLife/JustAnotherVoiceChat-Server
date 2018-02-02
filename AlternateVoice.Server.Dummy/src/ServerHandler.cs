@@ -47,6 +47,9 @@ namespace AlternateVoice.Server.Dummy
         {
             _server = Wrapper.AlternateVoice.MakeServer(new ClientRepository(), hostname, port, channelId);
 
+            var task = Wrapper.AlternateVoice.CreatePositonUpdateTask(_server);
+            _server.AddTask(task);
+
             _server.OnServerStarted += () =>
             {
                 _logger.Debug($"AlternateVoice: Listening on {_server.Hostname}:{_server.Port}");
