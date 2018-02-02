@@ -81,6 +81,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
                         TrySetForeignClientPositonForListener(listenerClient, foreignClient);
                     }
                 }
+
+                Task.Delay(300);
             }
         }
 
