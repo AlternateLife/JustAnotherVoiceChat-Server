@@ -35,7 +35,9 @@ namespace AlternateVoice.Server.Wrapper.Math
         public float Y { get; set; }
 
         public float Z { get; set; }
-        
+
+        private const float EqualityThreshold = 0.01f;
+
         public Vector3()
         {
             X = 0f;
@@ -100,9 +102,14 @@ namespace AlternateVoice.Server.Wrapper.Math
 
         public static bool operator ==(Vector3 left, Vector3 right)
         {
-            return left.X == right.X &&
-                   left.Y == right.Y &&
-                   left.Z == right.Z;
+            if (ReferenceEquals(left, right))
+            {
+                return true;
+            }
+
+            return System.Math.Abs(left.X - right.X) < EqualityThreshold &&
+                   System.Math.Abs(left.Y - right.Y) < EqualityThreshold &&
+                   System.Math.Abs(left.Z - right.Z) < EqualityThreshold;
         }
 
         public static bool operator !=(Vector3 left, Vector3 right)
