@@ -39,8 +39,13 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public ushort Port { get; }
         public int ChannelId { get; }
         public bool Started { get; private set; }
-        
-        internal VoiceServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
+
+        public double GlobalMaxDistance { get; }
+        public float GlobalDistanceFactor { get; }
+        public float GlobalRollOffScale { get; }
+
+        internal VoiceServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f,
+            float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
         {
             if (repository == null)
             {
@@ -58,8 +63,13 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             Hostname = hostname;
             Port = port;
             ChannelId = channelId;
-            
+
+            GlobalMaxDistance = globalMaxDistance;
+            GlobalDistanceFactor = globalDistanceFactor;
+            GlobalRollOffScale = globalRollOffScale;
+
             AttachToNativeEvents();
+            CreateAndAttachTasks();
         }
 
         public void Start()
@@ -91,7 +101,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public void Dispose()
         {
             DisposeGroups();
-            
+
+            DisposeTasks();
+
             DisposeEvents();
         }
     }

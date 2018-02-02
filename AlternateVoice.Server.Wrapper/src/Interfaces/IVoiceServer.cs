@@ -45,6 +45,10 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         ushort Port { get; }
         int ChannelId { get; }
         bool Started { get; }
+
+        double GlobalMaxDistance { get; }
+        float GlobalDistanceFactor { get; }
+        float GlobalRollOffScale { get; }
         
         void Start();
         void Stop();
@@ -63,10 +67,13 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         IEnumerable<T> GetClients<T>(Func<T, bool> filter) where T : IVoiceClient;
         IEnumerable<T> GetClients<T>() where T : IVoiceClient;
+
+        void SetClientPositionForListener(ushort listenerId, IVoiceClient foreignClient);
+        void MuteClientForListener(ushort listenerId, ushort foreignClientId, bool muted);
+        void SetListenerDirection(IVoiceClient listenerClient);
         
         void FireClientConnected(ushort handle);
         void FireClientDisconnected(ushort handle);
-
         void FireClientTalkingChange(ushort handle, bool newStatus);
 
     }
