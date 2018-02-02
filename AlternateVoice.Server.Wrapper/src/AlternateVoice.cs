@@ -39,7 +39,7 @@ namespace AlternateVoice.Server.Wrapper
             return new VoiceServer(repository, hostname, port, channelId);
         }
 
-        public static IVoiceTask CreatePositonUpdateTask(IVoiceServer voiceServer)
+        public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
         {
             return new VoicePositionTask(voiceServer);
         }
