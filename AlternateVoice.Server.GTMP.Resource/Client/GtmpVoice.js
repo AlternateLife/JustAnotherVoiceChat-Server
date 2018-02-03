@@ -26,7 +26,7 @@
  */
 
 let voiceHandler = null;
-let rotationThreshold = 2;
+let rotationThreshold = 0.001;
 
 API.onResourceStart.connect(() => { voiceHandler = new GtmpVoiceHandler(); });
 
@@ -71,7 +71,7 @@ class GtmpVoiceHandler {
     }
 
     sendRotation() {
-        const rotation = API.getGameplayCamDir().Z;
+        const rotation = API.getGameplayCamDir().X;
 
         if (Math.abs(this.lastRotation - rotation) < rotationThreshold) {
             return;
