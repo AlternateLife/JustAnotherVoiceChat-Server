@@ -69,7 +69,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         IEnumerable<T> GetClients<T>() where T : IVoiceClient;
 
         void AddTask(IVoiceTask voiceTask);
-        void AddTasks(IList<IVoiceTask> voiceTasks);
+        void AddTasks(IEnumerable<IVoiceTask> voiceTasks);
         
         void FireClientConnected(ushort handle);
         void FireClientDisconnected(ushort handle);
