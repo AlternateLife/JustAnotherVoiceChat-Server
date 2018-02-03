@@ -38,6 +38,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
 
         public CancellationTokenSource TokenSource { get; }
 
+        public VoicePositionTask(IVoiceServer voiceServer) : this(voiceServer, new CancellationTokenSource())
+        {
+        }
+
         public VoicePositionTask(IVoiceServer voiceServer, CancellationTokenSource cancellationTokenSource)
         {
             _voiceServer = voiceServer;
