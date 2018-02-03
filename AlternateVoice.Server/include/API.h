@@ -149,6 +149,16 @@ void ALTERNATEVOICE_API AV_SetClientVolumeForClient(uint16_t listenerId, uint16_
 /**
  * 
  */
+void ALTERNATEVOICE_API AV_SetListenerDirection(uint16_t clientId, float rotation);
+
+/**
+ * 
+ */
+void ALTERNATEVOICE_API AV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale);
+
+/**
+ * 
+ */
 void ALTERNATEVOICE_API AVTest_CallClientConnectedCallback(uint16_t id);
 
 /**
