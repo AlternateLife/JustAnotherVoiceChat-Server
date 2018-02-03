@@ -62,7 +62,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             _voiceTasks.Add(voiceTask);
         }
 
-        public void AddTasks(IList<IVoiceTask> voiceTasks)
+        public void AddTasks(IEnumerable<IVoiceTask> voiceTasks)
         {
             foreach (var voiceTask in voiceTasks)
             {
