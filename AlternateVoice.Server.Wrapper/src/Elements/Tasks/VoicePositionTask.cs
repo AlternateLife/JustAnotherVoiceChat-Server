@@ -58,10 +58,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
 
         public Task RunVoiceTask()
         {
-            return Task.Run(() => UpdatePlayerPositionsAndDirections(), TokenSource.Token);
+            return Task.Run(async () => await UpdatePlayerPositionsAndDirections(), TokenSource.Token);
         }
 
-        private void UpdatePlayerPositionsAndDirections()
+        private async Task UpdatePlayerPositionsAndDirections()
         {
             while (!TokenSource.Token.IsCancellationRequested)
             {
@@ -89,7 +89,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
                     }
                 }
 
-                Task.Delay(300);
+                await Task.Delay(300);
             }
         }
 

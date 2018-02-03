@@ -1,6 +1,6 @@
 ﻿/*
- * File: GtmpVoiceServer.cs
- * Date: 29.1.2018,
+ * File: GtmpVoiceServer.Tasks.cs
+ * Date: 3.2.2018,
  *
  * MIT License
  *
@@ -25,51 +25,27 @@
  * SOFTWARE.
  */
 
-using System;
-using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.GTMP.Repositories;
+using System.Collections.Generic;
 using AlternateVoice.Server.Wrapper.Interfaces;
-using GrandTheftMultiplayer.Server.API;
 
 namespace AlternateVoice.Server.GTMP.Server
 {
-    internal partial class GtmpVoiceServer : IGtmpVoiceServer
+    internal partial class GtmpVoiceServer
     {
-
-        private readonly IVoiceServer _server;
-        private readonly API _api;
-
-        public string Hostname => _server.Hostname;
-        public ushort Port => _server.Port;
-        public int ChannelId => _server.ChannelId;
-        
-        public bool Started => _server.Started;
-        
-        public GtmpVoiceServer(API api, string hostname, ushort port, int channelId)
+        private void AddPositionUpdateTask()
         {
-            _api = api;
-
-            _server = Wrapper.AlternateVoice.MakeServer(new ClientRepository(), hostname, port, channelId);
-
-            AttachToEvents();
-            AddPositionUpdateTask();
+            var positionUpdateTask = Wrapper.AlternateVoice.CreatePositionUpdateTask(_server);
+            _server.AddTask(positionUpdateTask);
         }
 
-        public void Start()
+        public void AddTask(IVoiceTask voiceTask)
         {
-            _server.Start();
+            _server.AddTask(voiceTask);
         }
 
-        public void Stop()
+        public void AddTasks(IEnumerable<IVoiceTask> voiceTasks)
         {
-            _server.Stop();
-        }
-
-        public void Dispose()
-        {
-            _server.Dispose();
-
-            GC.SuppressFinalize(this);
+            _server.AddTasks(voiceTasks);
         }
     }
 }

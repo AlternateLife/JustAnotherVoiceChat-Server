@@ -39,6 +39,11 @@ namespace AlternateVoice.Server.Wrapper
             return new VoiceServer(repository, hostname, port, channelId);
         }
 
+        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        {
+            return new VoiceServer(repository, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+        }
+
         public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
         {
             return new VoicePositionTask(voiceServer);
