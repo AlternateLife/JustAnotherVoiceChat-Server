@@ -35,7 +35,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
     {
         private ConcurrentBag<IVoiceTask> _voiceTasks = new ConcurrentBag<IVoiceTask>();
 
-        private void CreateAndAttachTasks()
+        private void AttachTasksToStartAndStopEvent()
         {
             OnServerStarted += StartTasks;
             OnServerStopping += StopTasks;
@@ -66,7 +66,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             foreach (var voiceTask in voiceTasks)
             {
-                _voiceTasks.Add(voiceTask);
+                AddTask(voiceTask);
             }
         }
 

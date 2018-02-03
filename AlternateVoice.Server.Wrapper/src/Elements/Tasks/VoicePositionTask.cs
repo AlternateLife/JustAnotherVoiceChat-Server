@@ -36,7 +36,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
         private readonly IVoiceServer _voiceServer;
         private readonly IVoiceTaskServer _voiceTaskServer;
 
-        public CancellationTokenSource TokenSource => new CancellationTokenSource();
+        public CancellationTokenSource TokenSource { get; } = new CancellationTokenSource();
 
         public VoicePositionTask(IVoiceServer voiceServer)
         {

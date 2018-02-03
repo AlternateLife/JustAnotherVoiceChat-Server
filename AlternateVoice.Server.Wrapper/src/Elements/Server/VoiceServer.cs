@@ -69,7 +69,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             GlobalRollOffScale = globalRollOffScale;
 
             AttachToNativeEvents();
-            CreateAndAttachTasks();
+            AttachTasksToStartAndStopEvent();
         }
 
         public void Start()
