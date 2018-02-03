@@ -125,6 +125,14 @@ void AV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float v
 
 }
 
+void AV_SetListenerDirection(uint16_t clientId, float rotation) {
+
+}
+
+void AV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale) {
+  
+}
+
 void AVTest_CallClientConnectedCallback(uint16_t id) {
   if (_clientConnectedCallback != 0) {
     _clientConnectedCallback(id);
