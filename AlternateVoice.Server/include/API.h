@@ -79,7 +79,7 @@ void ALTERNATEVOICE_API AV_RegisterClientDisconnectedCallback(AV_ClientCallback_
 /**
  * 
  */
-void ALTERNATEVOICE_API AV_UnregisterClientDisconnectCallback();
+void ALTERNATEVOICE_API AV_UnregisterClientDisconnectedCallback();
 
 /**
  * 

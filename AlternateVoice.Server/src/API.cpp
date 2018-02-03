@@ -69,7 +69,7 @@ void AV_RegisterClientDisconnectedCallback(AV_ClientCallback_t callback) {
   _clientDisconnectedCallback = callback;
 }
 
-void AV_UnregisterClientDisconnectCallback() {
+void AV_UnregisterClientDisconnectedCallback() {
   _clientDisconnectedCallback = 0;
 }
 
