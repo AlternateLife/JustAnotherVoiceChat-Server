@@ -26,7 +26,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using AlternateVoice.Server.Wrapper;
+using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Elements;
 
 namespace AlternateVoice.Server.GTMP.Interfaces
@@ -51,6 +53,9 @@ namespace AlternateVoice.Server.GTMP.Interfaces
         
         void Start();
         void Stop();
+
+        void AddTask(IVoiceTask voiceTask);
+        void AddTasks(IEnumerable<IVoiceTask> voiceTasks);
 
         IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
