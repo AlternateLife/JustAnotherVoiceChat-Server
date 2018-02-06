@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AlternateVoice.Server.Wrapper.Interfaces;
@@ -34,18 +35,18 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
     internal partial class VoicePositionTask : IVoicePositionTask
     {
         private readonly IVoiceServer _voiceServer;
-        private readonly IVoiceTaskServer _voiceTaskServer;
+        private readonly IVoicePositionTaskServer _voicePositionTaskServer;
 
         public CancellationTokenSource TokenSource { get; }
 
-        public VoicePositionTask(IVoiceServer voiceServer) : this(voiceServer, new CancellationTokenSource())
+        public VoicePositionTask(IVoiceServer voiceServer, IVoicePositionTaskServer voicePositionTaskServer) : this(voiceServer, voicePositionTaskServer, new CancellationTokenSource())
         {
         }
 
-        public VoicePositionTask(IVoiceServer voiceServer, CancellationTokenSource cancellationTokenSource)
+        public VoicePositionTask(IVoiceServer voiceServer, IVoicePositionTaskServer voicePositionTaskServer, CancellationTokenSource cancellationTokenSource)
         {
             _voiceServer = voiceServer;
-            _voiceTaskServer = voiceServer as IVoiceTaskServer;
+            _voicePositionTaskServer = voicePositionTaskServer;
 
             TokenSource = cancellationTokenSource;
         }
@@ -65,7 +66,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
         {
             while (!TokenSource.Token.IsCancellationRequested)
             {
-                var clients = _voiceServer.GetClients<IVoiceClient>();
+                var clients = _voiceServer.GetClients<IVoiceClient>().ToArray();
 
                 foreach (var listenerClient in clients)
                 {
