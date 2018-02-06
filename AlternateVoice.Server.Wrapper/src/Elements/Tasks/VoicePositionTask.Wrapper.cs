@@ -46,7 +46,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
                 mute = true;
             }
 
-            _voiceTaskServer.MuteClientForListener(listenerClient, foreignClient, mute);
+            _voicePositionTaskServer.MuteClientForListener(listenerClient, foreignClient, mute);
             return mute;
         }
 
@@ -66,7 +66,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
 
             if (_lastPosition.TryAdd(listenerId, foreignPosition))
             {
-                _voiceTaskServer.SetClientPositionForListener(listenerClient, foreignClient);
+                _voicePositionTaskServer.SetClientPositionForListener(listenerClient, foreignClient);
                 return true;
             }
 
@@ -86,7 +86,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
 
             if (_lastCameraRotation.TryAdd(listenerClient.Handle.Identifer, listenerClient.CameraRotation))
             {
-                _voiceTaskServer.SetListenerDirection(listenerClient);
+                _voicePositionTaskServer.SetListenerDirection(listenerClient);
                 return true;
             }
             return false;

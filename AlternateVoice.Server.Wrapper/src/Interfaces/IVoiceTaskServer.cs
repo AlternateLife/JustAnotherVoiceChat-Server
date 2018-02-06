@@ -27,7 +27,7 @@
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    internal interface IVoiceTaskServer
+    internal interface IVoicePositionTaskServer
     {
         void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient);
         void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted);

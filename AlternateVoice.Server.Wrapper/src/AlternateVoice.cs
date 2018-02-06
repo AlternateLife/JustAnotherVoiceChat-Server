@@ -46,7 +46,7 @@ namespace AlternateVoice.Server.Wrapper
 
         public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
         {
-            return new VoicePositionTask(voiceServer);
+            return new VoicePositionTask(voiceServer, voiceServer as IVoicePositionTaskServer);
         }
     }
 }
