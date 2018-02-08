@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceServer.Wrapper.Testing.cs
- * Date: 30.1.2018,
+ * File: VoiceServer.Testing.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
@@ -24,8 +24,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
