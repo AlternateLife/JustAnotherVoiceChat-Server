@@ -1,6 +1,6 @@
 ﻿/*
- * File: IVoiceTaskServer.cs
- * Date: 2.2.2018,
+ * File: IVoicePositionTaskServer.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
