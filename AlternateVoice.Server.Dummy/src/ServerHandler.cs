@@ -129,10 +129,8 @@ namespace AlternateVoice.Server.Dummy
             while (true)
             {
                 Thread.Sleep(2);
-                
-                IVoiceClient client;
 
-                if (!_voiceClients.TryTake(out client))
+                if (!_voiceClients.TryTake(out var client))
                 {
                     continue;
                 }
