@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.2</TargetFramework>
     <AssemblyVersion>1.0</AssemblyVersion>
     <FileVersion>1.0</FileVersion>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
     <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
