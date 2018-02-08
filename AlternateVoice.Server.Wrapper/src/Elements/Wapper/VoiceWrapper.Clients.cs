@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceServer.Wrapper.Testing.cs
- * Date: 30.1.2018,
+ * File: VoiceWrapper.Clients.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
@@ -27,25 +27,28 @@
 
 using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceServer
+    internal partial class VoiceWrapper
     {
-        
-        public void FireClientTalkingChange(ushort handle, bool newStatus)
+        public void MuteClientForClient(IVoiceClient listener, IVoiceClient client, bool muted)
         {
-            AVTest_CallClientTalkingChangedCallback(handle, newStatus);
-        }
-        
-        public void FireClientConnected(ushort handle)
-        {
-            AVTest_CallClientConnectedCallback(handle);
+            AV_MuteClientForClient(listener.Handle.Identifer, client.Handle.Identifer, muted);
         }
 
-        public void FireClientDisconnected(ushort handle)
+        public void RemoveClient(IVoiceClient client)
         {
-            AVTest_CallClientDisconnectedCallback(handle);
+            AV_RemoveClient(client.Handle.Identifer);
         }
-        
+
+        public void SetClientPositionForClient(IVoiceClient listener, IVoiceClient client)
+        {
+            AV_SetClientPositionForClient(listener.Handle.Identifer, client.Handle.Identifer, client.Position.X, client.Position.Y, client.Position.Z);
+        }
+
+        public void SetListenerDirection(IVoiceClient listener)
+        {
+            AV_SetListenerDirection(listener.Handle.Identifer, listener.CameraRotation);
+        }
     }
 }

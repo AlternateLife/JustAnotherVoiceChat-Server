@@ -40,5 +40,9 @@ namespace AlternateVoice.Server.Wrapper
         public delegate void ClientGroupEvent(IVoiceClient client, IVoiceGroup group);
 
         public delegate void ClientStatusEvent(IVoiceClient client, bool newStatus);
+
+        public delegate bool ClientConnectCallback(ushort handle);
+        public delegate void ClientCallback(ushort handle);
+        public delegate void ClientStatusCallback(ushort handle, bool newStatus);
     }
 }

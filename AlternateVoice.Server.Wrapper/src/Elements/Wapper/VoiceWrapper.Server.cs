@@ -1,6 +1,6 @@
 ﻿/*
- * File: AlternateVoice.cs
- * Date: 29.1.2018,
+ * File: VoiceWrapper.Server.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
@@ -25,29 +25,20 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Elements.Tasks;
-using AlternateVoice.Server.Wrapper.Elements.Wapper;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper
+namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
-    public static class AlternateVoice
+    internal partial class VoiceWrapper : IVoiceWrapper
     {
-
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
+        public void StartNativeServer(ushort port)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId);
+            AV_StartServer(port);
         }
 
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        public void StopNativeServer()
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
-        }
-
-        public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
-        {
-            return new VoicePositionTask(voiceServer, voiceServer as IVoicePositionTaskServer);
+            AV_StopServer();
         }
     }
 }

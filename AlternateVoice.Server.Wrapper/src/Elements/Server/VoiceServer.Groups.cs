@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlternateVoice.Server.Wrapper.Elements.Group;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Server
