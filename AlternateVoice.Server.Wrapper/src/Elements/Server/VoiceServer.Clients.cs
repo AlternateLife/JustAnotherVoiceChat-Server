@@ -78,8 +78,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 
                 AV_RemoveClient(client.Handle.Identifer);
                 
-                IVoiceClient removedClient;
-                return _clients.TryRemove(client.Handle.Identifer, out removedClient);
+                return _clients.TryRemove(client.Handle.Identifer, out _);
             }
         }
 
@@ -92,8 +91,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
-                IVoiceClient result;
-                if (_clients.TryGetValue(handle, out result))
+                if (_clients.TryGetValue(handle, out var result))
                 {
                     return result;
                 }

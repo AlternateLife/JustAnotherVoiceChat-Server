@@ -39,12 +39,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
         public bool TryMuteForeignClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient)
         {
             var distance = listenerClient.Position.Distance(foreignClient.Position);
-            var mute = false;
-
-            if (distance >= _voiceServer.GlobalMaxDistance)
-            {
-                mute = true;
-            }
+            var mute = distance >= _voiceServer.GlobalMaxDistance;
 
             _voicePositionTaskServer.MuteClientForListener(listenerClient, foreignClient, mute);
             return mute;
@@ -55,8 +50,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
             var foreignPosition = foreignClient.Position;
             var listenerId = listenerClient.Handle.Identifer;
 
-            Vector3 lastForeignPosition;
-            if (_lastPosition.TryGetValue(foreignClient.Handle.Identifer, out lastForeignPosition))
+            if (_lastPosition.TryGetValue(foreignClient.Handle.Identifer, out var lastForeignPosition))
             {
                 if (lastForeignPosition == foreignPosition)
                 {
@@ -75,8 +69,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Tasks
 
         public bool TrySetListenerDirection(IVoiceClient listenerClient)
         {
-            float lastDirection;
-            if (_lastCameraRotation.TryGetValue(listenerClient.Handle.Identifer, out lastDirection))
+            if (_lastCameraRotation.TryGetValue(listenerClient.Handle.Identifer, out var lastDirection))
             {
                 if (lastDirection == listenerClient.CameraRotation)
                 {
