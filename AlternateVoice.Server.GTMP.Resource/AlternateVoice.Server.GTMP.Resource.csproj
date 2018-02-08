@@ -11,7 +11,7 @@
     <AssemblyName>AlternateVoice.Server.GTMP.Resource</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <LangVersion>6</LangVersion>
+    <LangVersion>7</LangVersion>
     <Configurations>Debug Linux;Debug Windows;Debug Windows GTMP;Release Linux;Release Windows</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">
