@@ -1,6 +1,6 @@
 ﻿/*
- * File: AlternateVoice.cs
- * Date: 29.1.2018,
+ * File: VoiceWrapper.Events.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
@@ -25,29 +25,33 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Elements.Tasks;
-using AlternateVoice.Server.Wrapper.Elements.Wapper;
-using AlternateVoice.Server.Wrapper.Interfaces;
-
-namespace AlternateVoice.Server.Wrapper
+namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
-    public static class AlternateVoice
+    internal partial class VoiceWrapper
     {
-
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
+        public void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId);
+            AV_RegisterClientConnectedCallback(callback);
         }
 
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        public void RegisterClientDisconnectedCallback(Delegates.ClientCallback callback)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            AV_RegisterClientDisconnectedCallback(callback);
         }
 
-        public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
+        public void RegisterClientTalkingChangedCallback(Delegates.ClientStatusCallback callback)
         {
-            return new VoicePositionTask(voiceServer, voiceServer as IVoicePositionTaskServer);
+            AV_RegisterClientTalkingChangedCallback(callback);
+        }
+
+        public void UnregisterClientConnectedCallback()
+        {
+            AV_UnregisterClientConnectedCallback();
+        }
+
+        public void UnregisterClientDisconnectedCallback()
+        {
+            AV_UnregisterClientDisconnectedCallback();
         }
     }
 }

@@ -76,7 +76,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                     OnClientDisconnectedFromVoice(client.Handle.Identifer);
                 }
                 
-                AV_RemoveClient(client.Handle.Identifer);
+                _voiceWrapper.RemoveClient(client);
                 
                 return _clients.TryRemove(client.Handle.Identifer, out _);
             }
@@ -136,19 +136,17 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 
         public void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient)
         {
-            var foreignPos = foreignClient.Position;
-
-            AV_SetClientPositionForClient(listenerClient.Handle.Identifer, foreignClient.Handle.Identifer, foreignPos.X, foreignPos.Y, foreignPos.Z);
+            _voiceWrapper.SetClientPositionForClient(listenerClient, foreignClient);
         }
 
         public void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted)
         {
-            AV_MuteClientForClient(listenerClient.Handle.Identifer, foreignClient.Handle.Identifer, muted);
+            _voiceWrapper.MuteClientForClient(listenerClient, foreignClient, muted);
         }
 
         public void SetListenerDirection(IVoiceClient listenerClient)
         {
-            AV_SetListenerDirection(listenerClient.Handle.Identifer, listenerClient.CameraRotation);
+            _voiceWrapper.SetListenerDirection(listenerClient);
         }
 
         private bool OnClientConnectedFromVoice(ushort handle)

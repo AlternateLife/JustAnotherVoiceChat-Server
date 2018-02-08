@@ -34,6 +34,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
     internal partial class VoiceServer : IVoiceServer, IVoicePositionTaskServer
     {
         private readonly IVoiceClientRepository _repository;
+        private readonly IVoiceWrapper _voiceWrapper;
 
         public string Hostname { get; }
         public ushort Port { get; }
@@ -44,15 +45,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public float GlobalDistanceFactor { get; }
         public float GlobalRollOffScale { get; }
 
-        internal VoiceServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f,
+        internal VoiceServer(IVoiceClientRepository repository, IVoiceWrapper voiceWrapper, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f,
             float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
         {
-            if (repository == null)
-            {
-                throw new ArgumentNullException(nameof(repository));
-            }
-            
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _voiceWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
             
             var result = Uri.CheckHostName(hostname);
             if (result == UriHostNameType.Unknown)
@@ -79,7 +76,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 throw new VoiceServerAlreadyStartedException();
             }
             
-            AV_StartServer(Port);
+            _voiceWrapper.StartNativeServer(Port);
             
             Started = true;
             OnServerStarted?.Invoke();
@@ -92,7 +89,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 throw new VoiceServerNotStartedException();
             }
             
-            AV_StopServer();
+            _voiceWrapper.StopNativeServer();
             
             OnServerStopping?.Invoke();
             Started = false;

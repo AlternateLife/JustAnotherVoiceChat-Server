@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceServer.Wrapper.Events.cs
- * Date: 30.1.2018,
+ * File: VoiceWrapper.Testing.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
@@ -25,41 +25,23 @@
  * SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceServer
+    internal partial class VoiceWrapper
     {
-        
-        private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
-
-        private void RegisterEvent<T>(Action<T> register, T callback)
+        public void TestCallClientConnectedCallback(ushort handle)
         {
-            _garbageCollectorHandles.Add(GCHandle.Alloc(callback));
-            
-            register(callback);
-        }
-        
-        private void AttachToNativeEvents()
-        {
-            RegisterEvent<ClientConnectCallback>(AV_RegisterClientConnectedCallback, OnClientConnectedFromVoice);
-            RegisterEvent<ClientCallback>(AV_RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
-            RegisterEvent<ClientStatusCallback>(AV_RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangeFromVoice);
+            AVTest_CallClientConnectedCallback(handle);
         }
 
-        private void DisposeNativeEvents()
+        public void TestCallClientDisconnectedCallback(ushort handle)
         {
-            AV_UnregisterClientConnectedCallback();
-            AV_UnregisterClientDisconnectedCallback();
-
-            foreach (var handle in _garbageCollectorHandles)
-            {
-                handle.Free();
-            }
+            AVTest_CallClientDisconnectedCallback(handle);
         }
-        
+
+        public void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus)
+        {
+            AVTest_CallClientTalkingChangedCallback(handle, newStatus);
+        }
     }
 }

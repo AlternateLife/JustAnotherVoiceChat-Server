@@ -31,7 +31,7 @@ using AlternateVoice.Server.Wrapper.Elements.Server;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements
+namespace AlternateVoice.Server.Wrapper.Elements.Group
 {
     internal class VoiceGroup : IVoiceGroup
     {

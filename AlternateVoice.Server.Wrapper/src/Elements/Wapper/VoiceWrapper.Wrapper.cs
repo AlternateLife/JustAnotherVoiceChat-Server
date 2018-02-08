@@ -26,10 +26,11 @@
  */
 
 using System.Runtime.InteropServices;
+using static AlternateVoice.Server.Wrapper.Delegates;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceServer
+    internal partial class VoiceWrapper
     {
 
 #if LINUX
@@ -37,10 +38,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
 #else
         private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
 #endif
-
-        private delegate bool ClientConnectCallback(ushort handle);
-        private delegate void ClientCallback(ushort handle);
-        private delegate void ClientStatusCallback(ushort handle, bool newStatus);
 
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_StartServer(ushort port);

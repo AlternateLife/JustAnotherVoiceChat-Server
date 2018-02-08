@@ -1,6 +1,6 @@
 ﻿/*
- * File: AlternateVoice.cs
- * Date: 29.1.2018,
+ * File: VoiceServer.Wrapper.Testing.cs
+ * Date: 30.1.2018,
  *
  * MIT License
  *
@@ -25,29 +25,27 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Elements.Tasks;
-using AlternateVoice.Server.Wrapper.Elements.Wapper;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper
+namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
-    public static class AlternateVoice
+    internal partial class VoiceServer
     {
-
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
+        
+        public void FireClientTalkingChange(ushort handle, bool newStatus)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId);
+            _voiceWrapper.TestCallClientTalkingChangedCallback(handle, newStatus);
+        }
+        
+        public void FireClientConnected(ushort handle)
+        {
+            _voiceWrapper.TestCallClientConnectedCallback(handle);
         }
 
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        public void FireClientDisconnected(ushort handle)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            _voiceWrapper.TestCallClientDisconnectedCallback(handle);
         }
-
-        public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
-        {
-            return new VoicePositionTask(voiceServer, voiceServer as IVoicePositionTaskServer);
-        }
+        
     }
 }
