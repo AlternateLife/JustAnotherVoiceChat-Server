@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceServer.Wrapper.cs
- * Date: 29.1.2018,
+ * File: VoiceWrapper.Wrapper.cs
+ * Date: 8.2.2018,
  *
  * MIT License
  *
