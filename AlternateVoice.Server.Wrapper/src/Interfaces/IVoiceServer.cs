@@ -41,7 +41,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         event Delegates.ClientStatusEvent OnClientTalkingChanged;
         event Delegates.ClientStatusEvent OnClientMicrophoneMuteChanged;
-        event Delegates.ClientStatusEvent OnClientSpeakerMuteChanged;
+        event Delegates.ClientStatusEvent OnClientSpeakersMuteChanged;
 
         string Hostname { get; }
         ushort Port { get; }
