@@ -148,47 +148,5 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             _voiceWrapper.SetListenerDirection(listenerClient);
         }
-
-        private bool OnClientConnectedFromVoice(ushort handle)
-        {
-            var client = GetClientByHandle(handle) as VoiceClient;
-
-            if (client == null || client.Connected)
-            {
-                return false;
-            }
-
-            client.Connected = true;
-            
-            OnClientConnected?.Invoke(client);
-
-            return true;
-        }
-
-        private void OnClientDisconnectedFromVoice(ushort handle)
-        {
-            var client = GetClientByHandle(handle) as VoiceClient;
-
-            if (client == null || !client.Connected)
-            {
-                return;
-            }
-
-            client.Connected = false;
-            
-            OnClientDisconnected?.Invoke(client, DisconnectReason.Quit);
-        }
-
-        private void OnClientTalkingStatusChangeFromVoice(ushort handle, bool newStatus)
-        {
-            var client = GetClientByHandle(handle) as VoiceClient;
-
-            if (client == null || !client.Connected)
-            {
-                return;
-            }
-            
-            OnClientTalkingChanged?.Invoke(client, newStatus);
-        }
     }
 }
