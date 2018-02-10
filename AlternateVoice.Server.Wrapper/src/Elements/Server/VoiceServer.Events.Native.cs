@@ -46,9 +46,9 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             RegisterEvent<Delegates.ClientConnectCallback>(_voiceWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
             RegisterEvent<Delegates.ClientCallback>(_voiceWrapper.RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
-            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangeFromVoice);
-            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientTalkingStatusChangeFromVoice);
-            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientTalkingStatusChangeFromVoice);
+            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangedFromVoice);
+            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientSpeakersMuteChangedFromVoice);
+            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientMicrophoneMuteChangedFromVoice);
         }
 
         private void DisposeNativeEvents()

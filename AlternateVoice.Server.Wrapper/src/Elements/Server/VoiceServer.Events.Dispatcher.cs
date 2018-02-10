@@ -33,11 +33,27 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             });
         }
 
-        private void OnClientTalkingStatusChangeFromVoice(ushort handle, bool newStatus)
+        private void OnClientTalkingStatusChangedFromVoice(ushort handle, bool newStatus)
         {
             RunWhenClientConnected(handle, client =>
             {
                 OnClientTalkingChanged?.Invoke(client, newStatus);
+            });
+        }
+
+        private void OnClientSpeakersMuteChangedFromVoice(ushort handle, bool newStatus)
+        {
+            RunWhenClientConnected(handle, client =>
+            {
+                OnClientSpeakersMuteChanged?.Invoke(client, newStatus);
+            });
+        }
+
+        private void OnClientMicrophoneMuteChangedFromVoice(ushort handle, bool newStatus)
+        {
+            RunWhenClientConnected(handle, client =>
+            {
+                OnClientMicrophoneMuteChanged?.Invoke(client, newStatus);
             });
         }
         
