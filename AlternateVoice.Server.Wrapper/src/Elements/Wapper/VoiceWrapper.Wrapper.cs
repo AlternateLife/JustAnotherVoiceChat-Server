@@ -60,28 +60,16 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_RemoveAllClients();
-        
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_MuteClientForClient(ushort listenerId, ushort clientId, bool muted = true);
-        
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_SetClientPositionForClient(ushort listenerId, ushort clientId, float x, float y, float z);
 
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_SetListenerDirection(ushort listenerId, float z);
+        private static extern void AV_Set3DSettings(float distanceFactor, float rolloffFactor);
 
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_Set3DSettings(ushort listenerId, float distanceFactor, float rolloffScale);
-        
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_SetClientVolumeForClient(ushort listenerId, ushort clientId, float volume);
-        
         /**
          * Events
          */
-        
+
         // ClientConnected
-        
+
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientConnectCallback callback);
         

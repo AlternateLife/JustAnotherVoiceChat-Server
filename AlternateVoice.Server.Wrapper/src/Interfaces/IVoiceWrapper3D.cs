@@ -1,6 +1,6 @@
 ﻿/*
- * File: IVoicePositionTaskServer.cs
- * Date: 8.2.2018,
+ * File: IVoiceWrapper3D.cs
+ * Date: 10.2.2018,
  *
  * MIT License
  *
@@ -27,10 +27,11 @@
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    internal interface IVoicePositionTaskServer
+    public interface IVoiceWrapper3D
     {
-        void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient);
-        void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted);
-        void SetListenerDirection(IVoiceClient listenerClient);
+        void SetListenerPosition(IVoiceClient listener);
+        void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
+        void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
+        void ResetAllRelativePositionsForListener(IVoiceClient listener);
     }
 }

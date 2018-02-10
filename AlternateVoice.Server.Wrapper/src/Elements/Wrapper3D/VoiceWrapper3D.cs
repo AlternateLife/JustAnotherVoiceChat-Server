@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceWrapper.Clients.cs
- * Date: 8.2.2018,
+ * File: VoiceWrapper3D.cs
+ * Date: 10.2.2018,
  *
  * MIT License
  *
@@ -27,13 +27,29 @@
 
 using AlternateVoice.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Wapper
+namespace AlternateVoice.Server.Wrapper.Elements.Wrapper3D
 {
-    internal partial class VoiceWrapper
+    public partial class VoiceWrapper3D : IVoiceWrapper3D
     {
-        public void RemoveClient(IVoiceClient client)
+
+        public void ResetAllRelativePositionsForListener(IVoiceClient listener)
         {
-            AV_RemoveClient(client.Handle.Identifer);
+            AV_ResetAllRelativePositions(listener.Handle.Identifer);
+        }
+
+        public void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
+        {
+            AV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
+        }
+
+        public void SetListenerPosition(IVoiceClient listener)
+        {
+            AV_SetClientPosition(listener.Handle.Identifer, listener.Position.X, listener.Position.Y, listener.Position.Z, listener.CameraRotation);
+        }
+
+        public void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
+        {
+            AV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, speaker.Position.X, speaker.Position.Y, speaker.Position.Z);
         }
     }
 }
