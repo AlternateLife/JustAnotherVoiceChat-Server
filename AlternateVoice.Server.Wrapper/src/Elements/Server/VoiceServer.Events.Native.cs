@@ -47,13 +47,18 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
             RegisterEvent<Delegates.ClientConnectCallback>(_voiceWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
             RegisterEvent<Delegates.ClientCallback>(_voiceWrapper.RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
             RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangeFromVoice);
+            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientTalkingStatusChangeFromVoice);
+            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientTalkingStatusChangeFromVoice);
         }
 
         private void DisposeNativeEvents()
         {
             _voiceWrapper.UnregisterClientConnectedCallback();
             _voiceWrapper.UnregisterClientDisconnectedCallback();
+            
             _voiceWrapper.UnregisterClientTalkingChangedCallback();
+            _voiceWrapper.UnregisterClientSpeakersMuteChangedCallback();
+            _voiceWrapper.UnregisterClientMicrophoneMuteChangedCallback();
 
             foreach (var handle in _garbageCollectorHandles)
             {
