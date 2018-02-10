@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceWrapper.Clients.cs
- * Date: 8.2.2018,
+ * File: VoiceWrapper3D.Wrapper.cs
+ * Date: 10.2.2018,
  *
  * MIT License
  *
@@ -25,15 +25,33 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Interfaces;
+using System.Runtime.InteropServices;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Wapper
+namespace AlternateVoice.Server.Wrapper.Elements.Wrapper3D
 {
-    internal partial class VoiceWrapper
+    public partial class VoiceWrapper3D
     {
-        public void RemoveClient(IVoiceClient client)
-        {
-            AV_RemoveClient(client.Handle.Identifer);
-        }
+
+#if LINUX
+        private const string AlternateVoiceLib = "libAlternateVoice.Server.so";
+#else
+        private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
+#endif
+
+        /**
+         * 3D Voice
+         */
+
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
+
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
+
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_ResetRelativePositionForClient(ushort listenerId, ushort speakerId);
+
+        [DllImport(AlternateVoiceLib)]
+        private static extern void AV_ResetAllRelativePositions(ushort clientId);
     }
 }

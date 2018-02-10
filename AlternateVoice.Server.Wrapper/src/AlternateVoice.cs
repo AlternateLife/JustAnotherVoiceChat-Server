@@ -26,7 +26,6 @@
  */
 
 using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Elements.Tasks;
 using AlternateVoice.Server.Wrapper.Elements.Wapper;
 using AlternateVoice.Server.Wrapper.Interfaces;
 
@@ -34,7 +33,6 @@ namespace AlternateVoice.Server.Wrapper
 {
     public static class AlternateVoice
     {
-
         public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
         {
             return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId);
@@ -43,11 +41,6 @@ namespace AlternateVoice.Server.Wrapper
         public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
             return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
-        }
-
-        public static IVoiceTask CreatePositionUpdateTask(IVoiceServer voiceServer)
-        {
-            return new VoicePositionTask(voiceServer, voiceServer as IVoicePositionTaskServer);
         }
     }
 }

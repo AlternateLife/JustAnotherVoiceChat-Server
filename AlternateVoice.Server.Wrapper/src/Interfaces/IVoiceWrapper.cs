@@ -33,10 +33,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         void StopNativeServer();
 
         void RemoveClient(IVoiceClient client);
-
-        void SetClientPositionForClient(IVoiceClient listener, IVoiceClient client);
-        void MuteClientForClient(IVoiceClient listener, IVoiceClient client, bool muted);
-        void SetListenerDirection(IVoiceClient listener);
+        
+        void Set3DSettings(float distanceFactor, float rolloffFactor);
 
         void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus);
         void TestCallClientConnectedCallback(ushort handle);

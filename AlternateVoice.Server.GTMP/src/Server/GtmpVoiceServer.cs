@@ -52,7 +52,6 @@ namespace AlternateVoice.Server.GTMP.Server
             _server = Wrapper.AlternateVoice.MakeServer(new ClientRepository(), hostname, port, channelId);
 
             AttachToEvents();
-            AddPositionUpdateTask();
         }
 
         public void Start()

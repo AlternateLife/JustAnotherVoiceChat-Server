@@ -31,7 +31,7 @@ using AlternateVoice.Server.Wrapper.Interfaces;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Server
 {
-    internal partial class VoiceServer : IVoiceServer, IVoicePositionTaskServer
+    internal partial class VoiceServer : IVoiceServer
     {
         private readonly IVoiceClientRepository _repository;
         private readonly IVoiceWrapper _voiceWrapper;

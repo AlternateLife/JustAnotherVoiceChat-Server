@@ -32,12 +32,6 @@ namespace AlternateVoice.Server.GTMP.Server
 {
     internal partial class GtmpVoiceServer
     {
-        private void AddPositionUpdateTask()
-        {
-            var positionUpdateTask = Wrapper.AlternateVoice.CreatePositionUpdateTask(_server);
-            _server.AddTask(positionUpdateTask);
-        }
-
         public void AddTask(IVoiceTask voiceTask)
         {
             _server.AddTask(voiceTask);

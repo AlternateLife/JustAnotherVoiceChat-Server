@@ -52,5 +52,10 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         void JoinGroup(IVoiceGroup group);
         void LeaveGroup(IVoiceGroup group);
 
+        void SetVoicePosition();
+        void SetRelativeVoicePositionForClient(IVoiceClient foreignVoiceClient);
+
+        void ResetAllRelativeVoicePositions();
+        void ResetRelativeVoicePositionForClient(IVoiceClient foreignVoiceClient);
     }
 }

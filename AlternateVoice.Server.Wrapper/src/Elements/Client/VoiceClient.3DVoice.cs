@@ -1,6 +1,6 @@
 ﻿/*
- * File: IVoicePositionTask.cs
- * Date: 1.2.2018,
+ * File: VoiceClient.3DVoice.cs
+ * Date: 10.2.2018,
  *
  * MIT License
  *
@@ -25,12 +25,30 @@
  * SOFTWARE.
  */
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+using AlternateVoice.Server.Wrapper.Interfaces;
+
+namespace AlternateVoice.Server.Wrapper.Elements.Client
 {
-    internal interface IVoicePositionTask : IVoiceTask
+    public abstract partial class VoiceClient
     {
-        bool TrySetForeignClientPositonForListener(IVoiceClient listenerClient, IVoiceClient foreignClient);
-        bool TryMuteForeignClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient);
-        bool TrySetListenerDirection(IVoiceClient listenerClient);
+        public void SetVoicePosition()
+        {
+            _voiceWrapper3D.SetListenerPosition(this);
+        }
+
+        public void SetRelativeVoicePositionForClient(IVoiceClient speaker)
+        {
+            _voiceWrapper3D.SetRelativeSpeakerPositionForListener(this, speaker);
+        }
+
+        public void ResetAllRelativeVoicePositions()
+        {
+            _voiceWrapper3D.ResetAllRelativePositionsForListener(this);
+        }
+
+        public void ResetRelativeVoicePositionForClient(IVoiceClient speaker)
+        {
+            _voiceWrapper3D.ResetRelativeSpeakerPositionForListener(this, speaker);
+        }
     }
 }

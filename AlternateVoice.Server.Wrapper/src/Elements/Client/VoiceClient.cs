@@ -34,9 +34,10 @@ using AlternateVoice.Server.Wrapper.Structs;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Client
 {
-    public abstract class VoiceClient : IVoiceClient
+    public abstract partial class VoiceClient : IVoiceClient
     {
         private readonly IVoiceServer _server;
+        private readonly IVoiceWrapper3D _voiceWrapper3D;
 
         public VoiceHandle Handle { get; }
 
@@ -58,9 +59,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             }
         }
 
-        protected VoiceClient(IVoiceServer server, VoiceHandle handle)
+        protected VoiceClient(IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle)
         {
             _server = server;
+            _voiceWrapper3D = voiceWrapper3D;
 
             Handle = handle;
             

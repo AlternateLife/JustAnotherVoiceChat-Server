@@ -30,6 +30,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AlternateVoice.Server.Wrapper.Elements.Client;
+using AlternateVoice.Server.Wrapper.Elements.Wrapper3D;
 using AlternateVoice.Server.Wrapper.Enums;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Structs;
@@ -56,7 +57,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                     return null;
                 }
 
-                var createdClient = _repository.MakeClient(this, handle, arguments);
+                var createdClient = _repository.MakeClient(this, new VoiceWrapper3D(), handle, arguments);
 
                 if (!_clients.TryAdd(handle.Identifer, createdClient))
                 {
@@ -132,21 +133,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                 .First();
             
             return new VoiceHandle(freeHandle);
-        }
-
-        public void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient)
-        {
-            _voiceWrapper.SetClientPositionForClient(listenerClient, foreignClient);
-        }
-
-        public void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted)
-        {
-            _voiceWrapper.MuteClientForClient(listenerClient, foreignClient, muted);
-        }
-
-        public void SetListenerDirection(IVoiceClient listenerClient)
-        {
-            _voiceWrapper.SetListenerDirection(listenerClient);
         }
     }
 }

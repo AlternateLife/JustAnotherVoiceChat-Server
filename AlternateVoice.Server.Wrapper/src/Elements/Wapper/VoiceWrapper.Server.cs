@@ -40,5 +40,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         {
             AV_StopServer();
         }
+
+        public void Set3DSettings(float distanceFactor, float rolloffFactor)
+        {
+            AV_Set3DSettings(distanceFactor, rolloffFactor);
+        }
     }
 }
