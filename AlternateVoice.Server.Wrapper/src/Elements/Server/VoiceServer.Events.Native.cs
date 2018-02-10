@@ -53,6 +53,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         {
             _voiceWrapper.UnregisterClientConnectedCallback();
             _voiceWrapper.UnregisterClientDisconnectedCallback();
+            _voiceWrapper.UnregisterClientTalkingChangedCallback();
 
             foreach (var handle in _garbageCollectorHandles)
             {
