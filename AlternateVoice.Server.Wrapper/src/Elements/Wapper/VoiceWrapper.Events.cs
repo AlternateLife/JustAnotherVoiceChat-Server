@@ -29,6 +29,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper
     {
+
         public void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback)
         {
             AV_RegisterClientConnectedCallback(callback);
@@ -52,6 +53,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         public void UnregisterClientDisconnectedCallback()
         {
             AV_UnregisterClientDisconnectedCallback();
+        }
+
+        public void UnregisterClientTalkingChangedCallback()
+        {
+            AV_UnregisterClientTalkingChangedCallback();
         }
     }
 }

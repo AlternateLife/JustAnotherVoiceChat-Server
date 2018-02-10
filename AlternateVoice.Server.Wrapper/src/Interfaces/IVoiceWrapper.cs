@@ -44,6 +44,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         void UnregisterClientConnectedCallback();
         void UnregisterClientDisconnectedCallback();
+        void UnregisterClientTalkingChangedCallback();
 
         void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback);
         void RegisterClientDisconnectedCallback(Delegates.ClientCallback callback);
