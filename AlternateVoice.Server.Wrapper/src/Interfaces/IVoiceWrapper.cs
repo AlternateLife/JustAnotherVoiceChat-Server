@@ -44,10 +44,16 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
 
         void UnregisterClientConnectedCallback();
         void UnregisterClientDisconnectedCallback();
+        
         void UnregisterClientTalkingChangedCallback();
+        void UnregisterClientSpeakersMuteChangedCallback();
+        void UnregisterClientMicrophoneMuteChangedCallback();
 
         void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback);
         void RegisterClientDisconnectedCallback(Delegates.ClientCallback callback);
+        
         void RegisterClientTalkingChangedCallback(Delegates.ClientStatusCallback callback);
+        void RegisterClientSpeakersMuteChangedCallback(Delegates.ClientStatusCallback callback);
+        void RegisterClientMicrophoneMuteChangedCallback(Delegates.ClientStatusCallback callback);
     }
 }

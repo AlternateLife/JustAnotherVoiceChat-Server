@@ -45,6 +45,16 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
             AV_RegisterClientTalkingChangedCallback(callback);
         }
 
+        public void RegisterClientSpeakersMuteChangedCallback(Delegates.ClientStatusCallback callback)
+        {
+            AV_RegisterClientSpeakersMuteChangedCallback(callback);
+        }
+
+        public void RegisterClientMicrophoneMuteChangedCallback(Delegates.ClientStatusCallback callback)
+        {
+            AV_RegisterClientMicrophoneMuteChangedCallback(callback);
+        }
+
         public void UnregisterClientConnectedCallback()
         {
             AV_UnregisterClientConnectedCallback();
@@ -54,10 +64,19 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         {
             AV_UnregisterClientDisconnectedCallback();
         }
-
         public void UnregisterClientTalkingChangedCallback()
         {
             AV_UnregisterClientTalkingChangedCallback();
+        }
+
+        public void UnregisterClientSpeakersMuteChangedCallback()
+        {
+            AV_UnregisterClientSpeakersMuteChangedCallback();
+        }
+
+        public void UnregisterClientMicrophoneMuteChangedCallback()
+        {
+            AV_UnregisterClientMicrophoneMuteChangedCallback();
         }
     }
 }

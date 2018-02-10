@@ -38,6 +38,8 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public event Delegates.ClientDisconnected OnClientDisconnected;
 
         public event Delegates.ClientStatusEvent OnClientTalkingChanged;
+        public event Delegates.ClientStatusEvent OnClientMicrophoneMuteChanged;
+        public event Delegates.ClientStatusEvent OnClientSpeakerMuteChanged;
 
         public event Delegates.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates.ClientGroupEvent OnClientLeftGroup;
