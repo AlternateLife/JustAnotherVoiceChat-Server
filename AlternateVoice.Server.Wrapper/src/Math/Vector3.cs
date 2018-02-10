@@ -102,6 +102,11 @@ namespace AlternateVoice.Server.Wrapper.Math
 
         public static bool operator ==(Vector3 left, Vector3 right)
         {
+            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
+            {
+                return false;
+            }
+            
             if (ReferenceEquals(left, right))
             {
                 return true;
