@@ -32,51 +32,51 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 
         public void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback)
         {
-            AV_RegisterClientConnectedCallback(callback);
+            JV_RegisterClientConnectedCallback(callback);
         }
 
         public void RegisterClientDisconnectedCallback(Delegates.ClientCallback callback)
         {
-            AV_RegisterClientDisconnectedCallback(callback);
+            JV_RegisterClientDisconnectedCallback(callback);
         }
 
         public void RegisterClientTalkingChangedCallback(Delegates.ClientStatusCallback callback)
         {
-            AV_RegisterClientTalkingChangedCallback(callback);
+            JV_RegisterClientTalkingChangedCallback(callback);
         }
 
         public void RegisterClientSpeakersMuteChangedCallback(Delegates.ClientStatusCallback callback)
         {
-            AV_RegisterClientSpeakersMuteChangedCallback(callback);
+            JV_RegisterClientSpeakersMuteChangedCallback(callback);
         }
 
         public void RegisterClientMicrophoneMuteChangedCallback(Delegates.ClientStatusCallback callback)
         {
-            AV_RegisterClientMicrophoneMuteChangedCallback(callback);
+            JV_RegisterClientMicrophoneMuteChangedCallback(callback);
         }
 
         public void UnregisterClientConnectedCallback()
         {
-            AV_UnregisterClientConnectedCallback();
+            JV_UnregisterClientConnectedCallback();
         }
 
         public void UnregisterClientDisconnectedCallback()
         {
-            AV_UnregisterClientDisconnectedCallback();
+            JV_UnregisterClientDisconnectedCallback();
         }
         public void UnregisterClientTalkingChangedCallback()
         {
-            AV_UnregisterClientTalkingChangedCallback();
+            JV_UnregisterClientTalkingChangedCallback();
         }
 
         public void UnregisterClientSpeakersMuteChangedCallback()
         {
-            AV_UnregisterClientSpeakersMuteChangedCallback();
+            JV_UnregisterClientSpeakersMuteChangedCallback();
         }
 
         public void UnregisterClientMicrophoneMuteChangedCallback()
         {
-            AV_UnregisterClientMicrophoneMuteChangedCallback();
+            JV_UnregisterClientMicrophoneMuteChangedCallback();
         }
     }
 }

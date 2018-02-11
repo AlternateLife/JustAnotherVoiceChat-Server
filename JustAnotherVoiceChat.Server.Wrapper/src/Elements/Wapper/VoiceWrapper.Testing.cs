@@ -31,17 +31,17 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
         public void TestCallClientConnectedCallback(ushort handle)
         {
-            AVTest_CallClientConnectedCallback(handle);
+            JVTest_CallClientConnectedCallback(handle);
         }
 
         public void TestCallClientDisconnectedCallback(ushort handle)
         {
-            AVTest_CallClientDisconnectedCallback(handle);
+            JVTest_CallClientDisconnectedCallback(handle);
         }
 
         public void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus)
         {
-            AVTest_CallClientTalkingChangedCallback(handle, newStatus);
+            JVTest_CallClientTalkingChangedCallback(handle, newStatus);
         }
     }
 }
