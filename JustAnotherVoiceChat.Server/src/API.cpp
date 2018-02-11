@@ -35,14 +35,14 @@ AV_ClientStatusCallback_t _clientTalkingChangedCallback = 0;
 AV_ClientStatusCallback_t _clientSpeakersMuteChangedCallback = 0;
 AV_ClientStatusCallback_t _clientMicrophoneMuteChangedCallback = 0;
 
-AlternateVoice::Server *_server = nullptr;
+JustAnotherVoiceChat::Server *_server = nullptr;
 
 void AV_StartServer(uint16_t port) {
   if (_server != nullptr) {
     return;
   }
 
-  _server = new AlternateVoice::Server(port);
+  _server = new JustAnotherVoiceChat::Server(port);
 }
 
 void AV_StopServer() {

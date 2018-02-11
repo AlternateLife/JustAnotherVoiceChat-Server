@@ -27,7 +27,7 @@
 
 #include "Client.h"
 
-using namespace AlternateVoice;
+using namespace JustAnotherVoiceChat;
 
 Client::Client() {
 

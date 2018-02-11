@@ -1,5 +1,5 @@
 # Setup library project
-project(AlternateVoice.Server VERSION 1.0.0 LANGUAGES CXX)
+project(JustAnotherVoiceChat.Server VERSION 1.0.0 LANGUAGES CXX)
 
 add_definitions(-DALTERNATEVOICE_EXPORTS)
 
@@ -9,16 +9,16 @@ include_directories(../thirdparty/enet/include)
 
 file(GLOB SOURCES "./*.cpp")
 
-add_library(AlternateVoice.Server SHARED ${SOURCES})
+add_library(JustAnotherVoiceChat.Server SHARED ${SOURCES})
 
 # Link required libraries
-target_link_libraries(AlternateVoice.Server enet)
+target_link_libraries(JustAnotherVoiceChat.Server enet)
 
 if(WIN32)
-target_link_libraries(AlternateVoice.Server ws2_32)
-target_link_libraries(AlternateVoice.Server winmm)
+target_link_libraries(JustAnotherVoiceChat.Server ws2_32)
+target_link_libraries(JustAnotherVoiceChat.Server winmm)
 endif(WIN32)
 
 # Setup install directories
-install(TARGETS AlternateVoice.Server ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION include/AlternateVoice)
+install(TARGETS JustAnotherVoiceChat.Server ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION include/JustAnotherVoiceChat)

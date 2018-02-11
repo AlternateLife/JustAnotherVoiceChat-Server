@@ -32,11 +32,11 @@
 #include <enet/enet.h>
 #include <stdint.h>
 
-namespace AlternateVoice {
+namespace JustAnotherVoiceChat {
   typedef bool (* ClientCallback_t)(uint16_t);
   typedef void (* ClientStatusCallback_t)(uint16_t, bool);
 
-  class ALTERNATEVOICE_API Server {
+  class JUSTANOTHERVOICECHAT_API Server {
   private:
     ENetAddress _address;
     ENetHost *_server;
