@@ -28,7 +28,7 @@
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Server.Managers;
 
-namespace AlternateVoice.Server.GTMP.Resource
+namespace JustAnotherVoiceChat.Server.GTMP.Resource
 {
     public partial class VoiceScript
     {

@@ -29,13 +29,13 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using AlternateVoice.Server.Wrapper.Elements.Client;
-using AlternateVoice.Server.Wrapper.Elements.Wrapper3D;
-using AlternateVoice.Server.Wrapper.Enums;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

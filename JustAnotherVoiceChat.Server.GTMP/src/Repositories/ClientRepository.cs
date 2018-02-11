@@ -25,12 +25,12 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.GTMP.Clients;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Structs;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Clients;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.GTMP.Repositories
+namespace JustAnotherVoiceChat.Server.GTMP.Repositories
 {
     public class ClientRepository : IVoiceClientRepository
     {

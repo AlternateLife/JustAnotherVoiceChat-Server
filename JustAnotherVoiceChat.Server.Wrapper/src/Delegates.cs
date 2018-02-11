@@ -25,10 +25,10 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Enums;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper
+namespace JustAnotherVoiceChat.Server.Wrapper
 {
     public class Delegates
     {

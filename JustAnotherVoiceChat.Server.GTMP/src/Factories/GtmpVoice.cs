@@ -25,11 +25,11 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.GTMP.Server;
 using GrandTheftMultiplayer.Server.API;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.GTMP.Server;
 
-namespace AlternateVoice.Server.GTMP.Factories
+namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {

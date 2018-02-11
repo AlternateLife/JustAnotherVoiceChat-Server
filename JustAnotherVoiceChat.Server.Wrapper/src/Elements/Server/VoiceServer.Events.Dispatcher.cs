@@ -1,8 +1,8 @@
 ﻿using System;
-using AlternateVoice.Server.Wrapper.Elements.Client;
-using AlternateVoice.Server.Wrapper.Enums;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

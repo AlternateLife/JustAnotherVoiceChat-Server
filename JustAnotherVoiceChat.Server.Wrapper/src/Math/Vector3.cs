@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-namespace AlternateVoice.Server.Wrapper.Math
+namespace JustAnotherVoiceChat.Server.Wrapper.Math
 {
     public class Vector3
     {

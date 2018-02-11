@@ -26,11 +26,11 @@
  */
 
 using System;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using Moq;
 using NUnit.Framework;
 
-namespace AlternateVoice.Server.Wrapper.Tests
+namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 {
     [TestFixture]
     public class AlternateVoiceFixture

@@ -25,12 +25,13 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Elements.Wapper;
-using AlternateVoice.Server.Wrapper.Elements.Wrapper3D;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper
+namespace JustAnotherVoiceChat.Server.Wrapper
 {
     public static class AlternateVoice
     {

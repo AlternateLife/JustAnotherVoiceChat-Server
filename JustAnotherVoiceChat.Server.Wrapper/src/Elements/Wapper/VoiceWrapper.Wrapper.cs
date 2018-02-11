@@ -26,9 +26,8 @@
  */
 
 using System.Runtime.InteropServices;
-using static AlternateVoice.Server.Wrapper.Delegates;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper
     {
@@ -71,7 +70,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         // ClientConnected
 
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientConnectCallback callback);
+        private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientConnectCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientConnectedCallback();
@@ -82,7 +81,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         // ClientDisconnected
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientDisconnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientCallback callback);
+        private static extern void AV_RegisterClientDisconnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientDisconnectedCallback();
@@ -93,7 +92,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         // ClientStartsTalking
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientTalkingChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
+        private static extern void AV_RegisterClientTalkingChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientTalkingChangedCallback();
@@ -104,7 +103,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         // ClientSpeakersMuteChanged
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
+        private static extern void AV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientSpeakersMuteChangedCallback();
@@ -115,7 +114,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         // ClientMicrophoneMuteChanged
         
         [DllImport(AlternateVoiceLib)]
-        private static extern void AV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] ClientStatusCallback callback);
+        private static extern void AV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
         
         [DllImport(AlternateVoiceLib)]
         private static extern void AV_UnregisterClientMicrophoneMuteChangedCallback();

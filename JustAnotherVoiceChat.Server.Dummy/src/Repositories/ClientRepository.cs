@@ -1,8 +1,8 @@
-﻿using AlternateVoice.Server.Dummy.Client;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Structs;
+﻿using JustAnotherVoiceChat.Server.Dummy.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Dummy.Repositories
+namespace JustAnotherVoiceChat.Server.Dummy.Repositories
 {
     public class ClientRepository : IVoiceClientRepository
     {

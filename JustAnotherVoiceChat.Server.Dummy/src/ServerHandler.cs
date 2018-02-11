@@ -28,11 +28,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using AlternateVoice.Server.Dummy.Repositories;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Dummy.Repositories;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
 
-namespace AlternateVoice.Server.Dummy
+namespace JustAnotherVoiceChat.Server.Dummy
 {
     public class ServerHandler : IDisposable
     {

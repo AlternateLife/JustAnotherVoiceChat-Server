@@ -27,11 +27,11 @@
 
 using System;
 using System.Collections.Generic;
-using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Group
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
 {
     internal class VoiceGroup : IVoiceGroup
     {

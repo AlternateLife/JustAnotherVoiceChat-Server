@@ -26,12 +26,12 @@
  */
 
 using System;
-using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.GTMP.Repositories;
-using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.API;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.GTMP.Repositories;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.GTMP.Server
+namespace JustAnotherVoiceChat.Server.GTMP.Server
 {
     internal partial class GtmpVoiceServer : IGtmpVoiceServer
     {

@@ -26,14 +26,14 @@
  */
 
 using System;
-using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.Wrapper.Elements.Client;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Math;
-using AlternateVoice.Server.Wrapper.Structs;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.GTMP.Clients
+namespace JustAnotherVoiceChat.Server.GTMP.Clients
 {
     internal class GtmpVoiceClient : VoiceClient, IGtmpVoiceClient
     {

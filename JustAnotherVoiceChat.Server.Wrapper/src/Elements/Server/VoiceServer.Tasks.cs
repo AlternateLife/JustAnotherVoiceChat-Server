@@ -28,9 +28,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using System.Collections.Generic;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

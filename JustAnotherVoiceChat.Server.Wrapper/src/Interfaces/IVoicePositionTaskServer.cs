@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     internal interface IVoicePositionTaskServer
     {

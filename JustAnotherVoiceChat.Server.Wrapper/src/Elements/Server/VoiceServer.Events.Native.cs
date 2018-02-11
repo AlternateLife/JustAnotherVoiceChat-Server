@@ -29,7 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

@@ -25,12 +25,12 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.GTMP.Factories;
-using AlternateVoice.Server.GTMP.Interfaces;
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Factories;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
-namespace AlternateVoice.Server.GTMP.Resource
+namespace JustAnotherVoiceChat.Server.GTMP.Resource
 {
     public partial class VoiceScript : Script
     {

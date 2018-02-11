@@ -25,12 +25,12 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Elements.Client;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Math;
-using AlternateVoice.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Dummy.Client
+namespace JustAnotherVoiceChat.Server.Dummy.Client
 {
     public class DummyClient : VoiceClient
     {

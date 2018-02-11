@@ -26,9 +26,9 @@
  */
 
 using System.Collections.Generic;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.GTMP.Server
+namespace JustAnotherVoiceChat.Server.GTMP.Server
 {
     internal partial class GtmpVoiceServer
     {

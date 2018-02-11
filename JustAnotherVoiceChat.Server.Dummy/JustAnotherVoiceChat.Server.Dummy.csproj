@@ -4,8 +4,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <LangVersion>7</LangVersion>
-    <AssemblyName>AlternateVoice.Server.Dummy</AssemblyName>
-    <RootNamespace>AlternateVoice.Server.Dummy</RootNamespace>
     <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">

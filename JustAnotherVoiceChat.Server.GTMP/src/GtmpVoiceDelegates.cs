@@ -25,9 +25,9 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
-namespace AlternateVoice.Server.GTMP
+namespace JustAnotherVoiceChat.Server.GTMP
 {
     public static class GtmpVoiceDelegates
     {

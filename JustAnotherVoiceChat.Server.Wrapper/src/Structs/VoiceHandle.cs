@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-namespace AlternateVoice.Server.Wrapper.Structs
+namespace JustAnotherVoiceChat.Server.Wrapper.Structs
 {
     public struct VoiceHandle
     {
