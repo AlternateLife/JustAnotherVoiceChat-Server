@@ -1,10 +1,10 @@
 ﻿/*
- * File: VoiceServerFixture.cs
- * Date: 29.1.2018,
+ * File: VoiceServerFixtures.cs
+ * Date: 11.2.2018,
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 Alternate-Life.de
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

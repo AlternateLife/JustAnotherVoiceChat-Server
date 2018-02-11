@@ -92,11 +92,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlternateVoice.Server.GTMP\AlternateVoice.Server.GTMP.csproj">
+    <ProjectReference Include="..\JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj">
       <Project>{7362e09d-6d62-493b-86ff-00544d5967f8}</Project>
       <Name>AlternateVoice.Server.GTMP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj">
+    <ProjectReference Include="..\JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj">
       <Project>{3523b5c4-ff62-4d7c-8319-bb7fbecf8f51}</Project>
       <Name>AlternateVoice.Server.Wrapper</Name>
     </ProjectReference>
