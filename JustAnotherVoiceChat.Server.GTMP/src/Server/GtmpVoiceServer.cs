@@ -49,7 +49,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Server
         {
             _api = api;
 
-            _server = Wrapper.AlternateVoice.MakeServer(new ClientRepository(), hostname, port, channelId);
+            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ClientRepository(), hostname, port, channelId);
 
             AttachToEvents();
         }

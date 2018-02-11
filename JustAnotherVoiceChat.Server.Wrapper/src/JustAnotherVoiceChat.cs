@@ -33,7 +33,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper
 {
-    public static class AlternateVoice
+    public static class JustAnotherVoiceChat
     {
         public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
         {
