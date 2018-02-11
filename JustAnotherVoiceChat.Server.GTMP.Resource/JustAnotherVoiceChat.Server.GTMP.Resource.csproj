@@ -53,7 +53,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>..\..\AlternateVoice-GTMP\resources\alternatevoice\</OutputPath>
+    <OutputPath>..\..\JustAnotherVoiceChat-GTMP\resources\justanothervoicechat\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BCrypt.Net, Version=0.1.5073.29922, Culture=neutral, PublicKeyToken=6bcd409ee6bc9292">
@@ -80,7 +80,7 @@
     <Compile Include="Server\VoiceScript.Events.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Client\GtmpVoice.js">
+    <Content Include="Client\JustAnotherVoiceChat.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="LICENSE.txt" />
@@ -94,11 +94,11 @@
   <ItemGroup>
     <ProjectReference Include="..\JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj">
       <Project>{7362e09d-6d62-493b-86ff-00544d5967f8}</Project>
-      <Name>AlternateVoice.Server.GTMP</Name>
+      <Name>JustAnotherVoiceChat.Server.GTMP</Name>
     </ProjectReference>
     <ProjectReference Include="..\JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj">
       <Project>{3523b5c4-ff62-4d7c-8319-bb7fbecf8f51}</Project>
-      <Name>AlternateVoice.Server.Wrapper</Name>
+      <Name>JustAnotherVoiceChat.Server.Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -49,12 +49,12 @@ namespace JustAnotherVoiceChat.Server.Dummy
 
             _server.OnServerStarted += () =>
             {
-                _logger.Debug($"AlternateVoice: Listening on {_server.Hostname}:{_server.Port}");
+                _logger.Debug($"JustAnotherVoiceChat: Listening on {_server.Hostname}:{_server.Port}");
             };
             
             _server.OnServerStopping += () =>
             {
-                _logger.Debug("AlternateVoice: Stopping...");
+                _logger.Debug("JustAnotherVoiceChat: Stopping...");
             };
 
             _server.OnClientConnected += c =>
