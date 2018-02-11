@@ -1,7 +1,7 @@
 # Setup library project
 project(JustAnotherVoiceChat.Server VERSION 1.0.0 LANGUAGES CXX)
 
-add_definitions(-DALTERNATEVOICE_EXPORTS)
+add_definitions(-DJUSTANOTHERVOICECHAT_EXPORTS)
 
 # Add files to library
 include_directories(../include)

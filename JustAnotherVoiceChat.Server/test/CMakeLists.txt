@@ -10,4 +10,4 @@ file(GLOB SOURCES "./*.cpp")
 add_executable(JustAnotherVoiceChatTest ${SOURCES})
 
 # Link library to test
-target_link_libraries(JustAnotherVoiceChatTest AlternateVoice.Server)
+target_link_libraries(JustAnotherVoiceChatTest JustAnotherVoiceChat.Server)
