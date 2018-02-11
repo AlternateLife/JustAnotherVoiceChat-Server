@@ -40,7 +40,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             var repositoryMock = new Mock<IVoiceClientRepository>();
             
-            var result = AlternateVoice.MakeServer(repositoryMock.Object, "localhost", 23332, 20);
+            var result = JustAnotherVoiceChat.MakeServer(repositoryMock.Object, "localhost", 23332, 20);
 
             Assert.NotNull(result);
             Assert.IsInstanceOf<IVoiceServer>(result);
@@ -49,7 +49,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void GivingNullAsRepositoryWillThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => { AlternateVoice.MakeServer(null, "localhost", 23332, 20); });
+            Assert.Throws<ArgumentNullException>(() => { JustAnotherVoiceChat.MakeServer(null, "localhost", 23332, 20); });
         }
     }
 }
