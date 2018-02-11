@@ -77,7 +77,7 @@
     <Compile Include="src\Server\GtmpVoiceServer.Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj">
+    <ProjectReference Include="..\JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj">
       <Project>{3523b5c4-ff62-4d7c-8319-bb7fbecf8f51}</Project>
       <Name>AlternateVoice.Server.Wrapper</Name>
     </ProjectReference>
