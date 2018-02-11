@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternateVoice.Server.Wrapper", "AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj", "{3523B5C4-FF62-4D7C-8319-BB7FBECF8F51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustAnotherVoiceChat.Server.Wrapper", "JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj", "{3523B5C4-FF62-4D7C-8319-BB7FBECF8F51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.GTMP", "AlternateVoice.Server.GTMP\AlternateVoice.Server.GTMP.csproj", "{7362E09D-6D62-493B-86FF-00544D5967F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustAnotherVoiceChat.Server.GTMP", "JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj", "{7362E09D-6D62-493B-86FF-00544D5967F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternateVoice.Server.Dummy", "AlternateVoice.Server.Dummy\AlternateVoice.Server.Dummy.csproj", "{3195371E-03B7-4CDF-A587-2B9BE98940E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustAnotherVoiceChat.Server.Dummy", "JustAnotherVoiceChat.Server.Dummy\JustAnotherVoiceChat.Server.Dummy.csproj", "{3195371E-03B7-4CDF-A587-2B9BE98940E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GT-MP", "GT-MP", "{8FF7AC98-9395-49C9-AC3E-A8CE2F56DC35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlternateVoice.Server.GTMP.Resource", "AlternateVoice.Server.GTMP.Resource\AlternateVoice.Server.GTMP.Resource.csproj", "{62D8EA73-E9AA-435F-B58C-139C69507B26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustAnotherVoiceChat.Server.GTMP.Resource", "JustAnotherVoiceChat.Server.GTMP.Resource\JustAnotherVoiceChat.Server.GTMP.Resource.csproj", "{62D8EA73-E9AA-435F-B58C-139C69507B26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5990D86F-7765-47A3-B43B-328329D62523}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternateVoice.Server.Wrapper.Tests", "AlternateVoice.Server.Wrapper.Tests\AlternateVoice.Server.Wrapper.Tests.csproj", "{AD192460-A5D5-461A-AEC3-476713B055DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustAnotherVoiceChat.Server.Wrapper.Tests", "JustAnotherVoiceChat.Server.Wrapper.Tests\JustAnotherVoiceChat.Server.Wrapper.Tests.csproj", "{AD192460-A5D5-461A-AEC3-476713B055DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlternateVoice.Server.Testing", "AlternateVoice.Server.Testing\AlternateVoice.Server.Testing.csproj", "{E5D508E4-CC84-446F-A4A2-1F512DA21D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JustAnotherVoiceChat.Server.Testing", "JustAnotherVoiceChat.Server.Testing\JustAnotherVoiceChat.Server.Testing.csproj", "{E5D508E4-CC84-446F-A4A2-1F512DA21D07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
