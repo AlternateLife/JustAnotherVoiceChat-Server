@@ -33,93 +33,93 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
 
 #if LINUX
-        private const string AlternateVoiceLib = "libAlternateVoice.Server.so";
+        private const string JustAnotherVoiceChatLibrary = "libAlternateVoice.Server.so";
 #else
-        private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
+        private const string JustAnotherVoiceChatLibrary = "AlternateVoice.Server.dll";
 #endif
 
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_StartServer(ushort port);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_StopServer();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         [return:MarshalAs(UnmanagedType.I1)]
         private static extern bool AV_IsServerRunning();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern int AV_GetNumberOfClients();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern unsafe void AV_GetClientIds(ushort* list, int maxlength);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RemoveClient(ushort handle);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RemoveAllClients();
 
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_Set3DSettings(float distanceFactor, float rolloffFactor);
-
+        
         /**
          * Events
          */
 
         // ClientConnected
-
-        [DllImport(AlternateVoiceLib)]
+        
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientConnectCallback callback);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_UnregisterClientConnectedCallback();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AVTest_CallClientConnectedCallback(ushort clientId);
         
         // ClientDisconnected
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RegisterClientDisconnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientCallback callback);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_UnregisterClientDisconnectedCallback();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AVTest_CallClientDisconnectedCallback(ushort clientId);
         
         // ClientStartsTalking
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RegisterClientTalkingChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_UnregisterClientTalkingChangedCallback();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AVTest_CallClientTalkingChangedCallback(ushort clientId, bool newStatus);
         
         // ClientSpeakersMuteChanged
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_UnregisterClientSpeakersMuteChangedCallback();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AVTest_CallClientSpeakersMuteChangedCallback(ushort clientId, bool newStatus);
         
         // ClientMicrophoneMuteChanged
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AV_UnregisterClientMicrophoneMuteChangedCallback();
         
-        [DllImport(AlternateVoiceLib)]
+        [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void AVTest_CallClientMicrophoneMuteChangedCallback(ushort clientId, bool newStatus);
 
     }
