@@ -31,11 +31,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AlternateVoice.Server.GTMP")]
+[assembly: AssemblyTitle("JustAnotherVoiceChat.Server.GTMP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AlternateVoice.Server.GTMP")]
+[assembly: AssemblyProduct("JustAnotherVoiceChat.Server.GTMP")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
