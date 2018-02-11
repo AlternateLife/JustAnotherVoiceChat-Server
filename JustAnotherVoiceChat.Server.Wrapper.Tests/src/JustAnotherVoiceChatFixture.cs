@@ -1,5 +1,5 @@
 ﻿/*
- * File: AlternateVoiceFixture.cs
+ * File: JustAnotherVoiceChatFixture.cs
  * Date: 11.2.2018,
  *
  * MIT License
@@ -33,7 +33,7 @@ using NUnit.Framework;
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 {
     [TestFixture]
-    public class AlternateVoiceFixture
+    public class JustAnotherVoiceChatFixture
     {
         [Test]
         public void MakingServerWillReturnNewVoiceServerInstance()

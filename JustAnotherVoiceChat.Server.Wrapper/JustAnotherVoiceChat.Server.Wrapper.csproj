@@ -32,19 +32,19 @@
   </PropertyGroup>
   <!-- LINUX NATIVE LIBRARY -->
   <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Linux' Or '$(Configuration)' == 'Release Linux'">
-    <Delete Files="libAlternateVoice.Server.so" />
+    <Delete Files="libJustAnotherVoiceChat.Server.so" />
   </Target>
   <ItemGroup Condition="'$(Configuration)' == 'Debug Linux'">
-    <None Update="libAlternateVoice.Server.so">
+    <None Update="libJustAnotherVoiceChat.Server.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <!-- WINDOWS NATIVE LIBRARY -->
   <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Windows' Or '$(Configuration)' == 'Release Windows'">
-    <Delete Files="AlternateVoice.Server.dll" />
+    <Delete Files="JustAnotherVoiceChat.Server.dll" />
   </Target>
   <ItemGroup Condition="'$(Configuration)' == 'Debug Windows' Or '$(Configuration)' == 'Release Windows'">
-    <None Update="AlternateVoice.Server.dll">
+    <None Update="JustAnotherVoiceChat.Server.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

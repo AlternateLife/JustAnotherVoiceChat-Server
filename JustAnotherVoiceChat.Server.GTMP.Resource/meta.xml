@@ -1,13 +1,13 @@
 <meta>
-    <info name="AlternateVoice Testing" author="AlternateLife" version="1.0" type="script" async="true" />
+    <info name="JustAnotherVoiceChat Testing" author="JustAnotherVoiceChat" version="1.0" type="script" async="true" />
 
     <!-- Assembly -->
-    <assembly ref="AlternateVoice.Server.Wrapper.dll" />
-    <assembly ref="AlternateVoice.Server.GTMP.dll" />
+    <assembly ref="JustAnotherVoiceChat.Server.Wrapper.dll" />
+    <assembly ref="JustAnotherVoiceChat.Server.GTMP.dll" />
     
     <!-- GT-MP scripts -->
-    <script src="AlternateVoice.Server.GTMP.Resource.dll" type="server" lang="compiled" />    
+    <script src="JustAnotherVoiceChat.Server.GTMP.Resource.dll" type="server" lang="compiled" />    
     
-    <script src="Client/GtmpVoice.js" type="client" lang="javascript" />
+    <script src="Client/JustAnotherVoiceChat.js" type="client" lang="javascript" />
     
 </meta>

@@ -32,7 +32,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Exceptions
     public class VoiceServerNotStartedException : Exception
     {
 
-        public VoiceServerNotStartedException() : base("The AlternateVoice Server has not been started yet")
+        public VoiceServerNotStartedException() : base("The JustAnotherVoiceChat Server has not been started yet")
         {
             
         }

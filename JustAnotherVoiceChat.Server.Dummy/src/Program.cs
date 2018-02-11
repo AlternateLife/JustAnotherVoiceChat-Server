@@ -44,16 +44,16 @@ namespace JustAnotherVoiceChat.Server.Dummy
             Console.CancelKeyPress += OnCancelKeyPress;
 
             Logger.Info(new string('=', 10));
-            Logger.Info("AlternateVoice DummyServer");
+            Logger.Info("JustAnotherVoiceChat DummyServer");
             Logger.Info(new string('=', 10));
             Logger.Info("Available Commands:");
-            Logger.Info("start - Start a new AlternateVoice Server");
+            Logger.Info("start - Start a new JustAnotherVoiceChat Server");
             Logger.Info("client - Prepare a new client for the server");
             Logger.Info("connect - Connect the last prepared client to the server");
             Logger.Info("stress - Start a basic client-preparing and removing stresstest");
-            Logger.Info("stop - Stop the AlternateVoice Server");
-            Logger.Info("dispose - Dispose the AlternateVoice Server");
-            Logger.Info("exit - Close the AlternateVoice-Server application");
+            Logger.Info("stop - Stop the JustAnotherVoiceChat Server");
+            Logger.Info("dispose - Dispose the JustAnotherVoiceChat Server");
+            Logger.Info("exit - Close the JustAnotherVoiceChat-Server application");
 
             while (true)
             {
@@ -72,7 +72,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                         _serverHandler = new ServerHandler("localhost", 23332, 20);
                     }
                     
-                    Logger.Info("Starting AlternateVoice DummyServer...");
+                    Logger.Info("Starting JustAnotherVoiceChat DummyServer...");
 
                     try
                     {
@@ -84,7 +84,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                         return;
                     }
             
-                    Logger.Info("AlternateVoice DummyServer started!");
+                    Logger.Info("JustAnotherVoiceChat DummyServer started!");
                     break;
                 }
                 case "stop":

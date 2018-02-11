@@ -33,9 +33,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
 
 #if LINUX
-        private const string JustAnotherVoiceChatLibrary = "libAlternateVoice.Server.so";
+        private const string JustAnotherVoiceChatLibrary = "libJustAnotherVoiceChat.Server.so";
 #else
-        private const string JustAnotherVoiceChatLibrary = "AlternateVoice.Server.dll";
+        private const string JustAnotherVoiceChatLibrary = "JustAnotherVoiceChat.Server.dll";
 #endif
 
         [DllImport(JustAnotherVoiceChatLibrary)]
