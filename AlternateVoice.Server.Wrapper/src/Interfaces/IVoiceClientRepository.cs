@@ -32,7 +32,7 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
     public interface IVoiceClientRepository
     {
 
-        IVoiceClient MakeClient(IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle, params object[] arguments);
+        IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments);
 
     }
 }

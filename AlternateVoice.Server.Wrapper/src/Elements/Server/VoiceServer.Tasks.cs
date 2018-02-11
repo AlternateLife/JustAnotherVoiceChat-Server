@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using AlternateVoice.Server.Wrapper.Interfaces;
@@ -58,7 +59,12 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         }
 
         public void AddTask(IVoiceTask voiceTask)
-        {
+        { 
+            if (voiceTask == null)
+            {
+                throw new ArgumentNullException(nameof(voiceTask));
+            }
+
             _voiceTasks.Add(voiceTask);
         }
 

@@ -34,9 +34,9 @@ namespace AlternateVoice.Server.GTMP.Repositories
 {
     public class ClientRepository : IVoiceClientRepository
     {
-        public IVoiceClient MakeClient(IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle, params object[] arguments)
+        public IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments)
         {
-            return new GtmpVoiceClient((Client) arguments[0], server, voiceWrapper3D, handle);
+            return new GtmpVoiceClient((Client) arguments[0], server, handle);
         }
     }
 }

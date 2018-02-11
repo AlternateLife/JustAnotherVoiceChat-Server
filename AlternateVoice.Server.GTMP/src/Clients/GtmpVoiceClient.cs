@@ -41,7 +41,7 @@ namespace AlternateVoice.Server.GTMP.Clients
 
         public override Vector3 Position => new Vector3(Player.position.X, Player.position.Y, Player.position.Z);
         
-        internal GtmpVoiceClient(Client player, IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle) : base(server, voiceWrapper3D, handle)
+        internal GtmpVoiceClient(Client player, IVoiceServer server, VoiceHandle handle) : base(server, handle)
         {
             Player = player;
         }
