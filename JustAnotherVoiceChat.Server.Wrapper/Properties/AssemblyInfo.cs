@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("AlternateVoice.Server.Wrapper.Tests")]
+[assembly: InternalsVisibleTo("JustAnotherVoiceChat.Server.Wrapper.Tests")]
