@@ -27,7 +27,7 @@
 
 using System;
 
-namespace AlternateVoice.Server.Testing
+namespace JustAnotherVoiceChat.Server.Testing
 {
     public class FakeAction<T>
     {

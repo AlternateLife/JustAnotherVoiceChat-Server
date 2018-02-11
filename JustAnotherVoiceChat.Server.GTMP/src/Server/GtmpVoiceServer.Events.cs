@@ -25,14 +25,14 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.Wrapper;
-using AlternateVoice.Server.Wrapper.Enums;
-using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.GTMP.Server
+namespace JustAnotherVoiceChat.Server.GTMP.Server
 {
     internal partial class GtmpVoiceServer
     {

@@ -28,10 +28,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlternateVoice.Server.Wrapper.Elements.Group;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Group;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Server
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     internal partial class VoiceServer
     {

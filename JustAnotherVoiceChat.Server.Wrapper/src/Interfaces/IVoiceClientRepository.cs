@@ -25,9 +25,9 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceClientRepository
     {

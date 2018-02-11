@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-namespace AlternateVoice.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper
     {

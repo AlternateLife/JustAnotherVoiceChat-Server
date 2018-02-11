@@ -26,13 +26,13 @@
  */
 
 using System;
-using AlternateVoice.Server.Wrapper.Elements.Server;
-using AlternateVoice.Server.Wrapper.Exceptions;
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using Moq;
 using NUnit.Framework;
 
-namespace AlternateVoice.Server.Wrapper.Tests
+namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 {
     [TestFixture]
     public class VoiceServerFixtures

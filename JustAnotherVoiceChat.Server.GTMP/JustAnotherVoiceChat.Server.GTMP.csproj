@@ -7,8 +7,8 @@
     <ProjectGuid>{7362E09D-6D62-493B-86FF-00544D5967F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AlternateVoice.Server.GTMP</RootNamespace>
-    <AssemblyName>AlternateVoice.Server.GTMP</AssemblyName>
+    <RootNamespace>JustAnotherVoiceChat.Server.GTMP</RootNamespace>
+    <AssemblyName>JustAnotherVoiceChat.Server.GTMP</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>7</LangVersion>

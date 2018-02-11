@@ -27,10 +27,10 @@
 
 using System;
 using System.Collections.Generic;
-using AlternateVoice.Server.Wrapper.Math;
-using AlternateVoice.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceClient : IDisposable
     {

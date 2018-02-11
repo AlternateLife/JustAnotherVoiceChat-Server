@@ -27,11 +27,11 @@
 
 using System;
 using System.Collections.Generic;
-using AlternateVoice.Server.Wrapper;
-using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.Wrapper;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.GTMP.Interfaces
+namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {
     public interface IGtmpVoiceServer : IDisposable
     {

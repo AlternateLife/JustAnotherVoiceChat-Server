@@ -28,7 +28,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceGroup : IDisposable
     {

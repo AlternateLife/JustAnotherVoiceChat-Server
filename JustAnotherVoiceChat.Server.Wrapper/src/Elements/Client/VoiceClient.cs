@@ -28,12 +28,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AlternateVoice.Server.Wrapper.Elements.Wrapper3D;
-using AlternateVoice.Server.Wrapper.Interfaces;
-using AlternateVoice.Server.Wrapper.Math;
-using AlternateVoice.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Client
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
     public abstract partial class VoiceClient : IVoiceClient
     {

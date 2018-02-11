@@ -26,15 +26,10 @@
  */
 
 using System;
-using System.Collections.Concurrent;
-using System.Linq;
-using AlternateVoice.Server.GTMP.Clients;
-using AlternateVoice.Server.GTMP.Interfaces;
-using AlternateVoice.Server.Wrapper.Interfaces;
 using GrandTheftMultiplayer.Server.Elements;
-using GrandTheftMultiplayer.Shared;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
-namespace AlternateVoice.Server.GTMP.Server
+namespace JustAnotherVoiceChat.Server.GTMP.Server
 {
     internal partial class GtmpVoiceServer
     {

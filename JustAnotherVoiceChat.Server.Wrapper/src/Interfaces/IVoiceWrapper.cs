@@ -27,7 +27,7 @@
 
 using System;
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceWrapper
     {

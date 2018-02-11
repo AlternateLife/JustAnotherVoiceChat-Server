@@ -26,13 +26,11 @@
  */
 
 using System;
-
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
 
-using AlternateVoice.Server.Wrapper.Exceptions;
-using AlternateVoice.Server.Wrapper.Interfaces;
-
-namespace AlternateVoice.Server.Dummy
+namespace JustAnotherVoiceChat.Server.Dummy
 {
     public class Program
     {

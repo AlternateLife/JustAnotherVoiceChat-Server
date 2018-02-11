@@ -27,7 +27,7 @@
 
 using System;
 
-namespace AlternateVoice.Server.Wrapper.Exceptions
+namespace JustAnotherVoiceChat.Server.Wrapper.Exceptions
 {
     public class VoiceServerAlreadyStartedException : Exception
     {

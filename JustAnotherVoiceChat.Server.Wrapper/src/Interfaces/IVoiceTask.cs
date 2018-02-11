@@ -29,7 +29,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AlternateVoice.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceTask : IDisposable
     {

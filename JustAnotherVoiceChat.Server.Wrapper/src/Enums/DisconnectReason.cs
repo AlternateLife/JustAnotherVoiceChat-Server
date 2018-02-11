@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-namespace AlternateVoice.Server.Wrapper.Enums
+namespace JustAnotherVoiceChat.Server.Wrapper.Enums
 {
     public enum DisconnectReason
     {
