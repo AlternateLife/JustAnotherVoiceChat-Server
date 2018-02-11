@@ -27,7 +27,7 @@
     <OutputPath>bin\Release\Linux\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlternateVoice.Server.Wrapper\AlternateVoice.Server.Wrapper.csproj" />
+    <ProjectReference Include="..\JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.5.0-rc04" />
