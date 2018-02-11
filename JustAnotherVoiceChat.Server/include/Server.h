@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "AlternateVoice.h"
+#include "JustAnotherVoiceChat.h"
 
 #include <enet/enet.h>
 #include <stdint.h>

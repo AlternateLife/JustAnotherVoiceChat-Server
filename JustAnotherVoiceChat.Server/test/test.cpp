@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "AlternateVoice.h"
+#include "JustAnotherVoiceChat.h"
 
 int main() {
   // create server
