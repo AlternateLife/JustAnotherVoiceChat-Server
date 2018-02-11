@@ -29,15 +29,15 @@
 
 #include "Server.h"
 
-AV_ClientCallback_t _clientConnectedCallback = 0;
-AV_ClientCallback_t _clientDisconnectedCallback = 0;
-AV_ClientStatusCallback_t _clientTalkingChangedCallback = 0;
-AV_ClientStatusCallback_t _clientSpeakersMuteChangedCallback = 0;
-AV_ClientStatusCallback_t _clientMicrophoneMuteChangedCallback = 0;
+JV_ClientCallback_t _clientConnectedCallback = 0;
+JV_ClientCallback_t _clientDisconnectedCallback = 0;
+JV_ClientStatusCallback_t _clientTalkingChangedCallback = 0;
+JV_ClientStatusCallback_t _clientSpeakersMuteChangedCallback = 0;
+JV_ClientStatusCallback_t _clientMicrophoneMuteChangedCallback = 0;
 
 JustAnotherVoiceChat::Server *_server = nullptr;
 
-void AV_StartServer(uint16_t port) {
+void JV_StartServer(uint16_t port) {
   if (_server != nullptr) {
     return;
   }
@@ -45,7 +45,7 @@ void AV_StartServer(uint16_t port) {
   _server = new JustAnotherVoiceChat::Server(port);
 }
 
-void AV_StopServer() {
+void JV_StopServer() {
   if (_server == nullptr) {
     return;
   }
@@ -53,111 +53,111 @@ void AV_StopServer() {
   _server->close();
 }
 
-bool AV_IsServerRunning() {
+bool JV_IsServerRunning() {
   return (_server != nullptr && _server->isRunning());
 }
 
-void AV_RegisterClientConnectedCallback(AV_ClientCallback_t callback) {
+void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
   _clientConnectedCallback = callback;
 }
 
-void AV_UnregisterClientConnectedCallback() {
+void JV_UnregisterClientConnectedCallback() {
   _clientConnectedCallback = 0;
 }
 
-void AV_RegisterClientDisconnectedCallback(AV_ClientCallback_t callback) {
+void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
   _clientDisconnectedCallback = callback;
 }
 
-void AV_UnregisterClientDisconnectedCallback() {
+void JV_UnregisterClientDisconnectedCallback() {
   _clientDisconnectedCallback = 0;
 }
 
-void AV_RegisterClientTalkingChangedCallback(AV_ClientStatusCallback_t callback) {
+void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback) {
   _clientTalkingChangedCallback = callback;
 }
 
-void AV_UnregisterClientTalkingChangedCallback() {
+void JV_UnregisterClientTalkingChangedCallback() {
   _clientTalkingChangedCallback = 0;
 }
 
-void AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientStatusCallback_t callback) {
+void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t callback) {
   _clientSpeakersMuteChangedCallback = callback;
 }
 
-void AV_UnregisterClientSpeakersMuteChangedCallback() {
+void JV_UnregisterClientSpeakersMuteChangedCallback() {
   _clientSpeakersMuteChangedCallback = 0;
 }
 
-void AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientStatusCallback_t callback) {
+void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t callback) {
   _clientMicrophoneMuteChangedCallback = callback;
 }
 
-void AV_UnregisterClientMicrophoneMuteChangedCallback() {
+void JV_UnregisterClientMicrophoneMuteChangedCallback() {
   _clientMicrophoneMuteChangedCallback = 0;
 }
 
-int AV_GetNumberOfClients() {
+int JV_GetNumberOfClients() {
   return 0;
 }
 
-void AV_GetClientIds(uint16_t *, size_t maxLength) {
+void JV_GetClientIds(uint16_t *, size_t maxLength) {
 
 }
 
-void AV_RemoveClient(uint16_t clientId) {
+void JV_RemoveClient(uint16_t clientId) {
 
 }
 
-void AV_RemoveAllClients() {
+void JV_RemoveAllClients() {
 
 }
 
-void AV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted) {
+void JV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted) {
 
 }
 
-void AV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z) {
+void JV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z) {
 
 }
 
-void AV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume) {
+void JV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume) {
 
 }
 
-void AV_SetListenerDirection(uint16_t clientId, float rotation) {
+void JV_SetListenerDirection(uint16_t clientId, float rotation) {
 
 }
 
-void AV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale) {
+void JV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale) {
   
 }
 
-void AVTest_CallClientConnectedCallback(uint16_t id) {
+void JVTest_CallClientConnectedCallback(uint16_t id) {
   if (_clientConnectedCallback != 0) {
     _clientConnectedCallback(id);
   }
 }
 
-void AVTest_CallClientDisconnectedCallback(uint16_t id) {
+void JVTest_CallClientDisconnectedCallback(uint16_t id) {
   if (_clientDisconnectedCallback != 0) {
     _clientDisconnectedCallback(id);
   }
 }
 
-void AVTest_CallClientTalkingChangedCallback(uint16_t id, bool state) {
+void JVTest_CallClientTalkingChangedCallback(uint16_t id, bool state) {
   if (_clientTalkingChangedCallback != 0) {
     _clientTalkingChangedCallback(id, state);
   }
 }
 
-void AVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state) {
+void JVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state) {
   if (_clientSpeakersMuteChangedCallback != 0) {
     _clientSpeakersMuteChangedCallback(id, state);
   }
 }
 
-void AVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state) {
+void JVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state) {
   if (_clientMicrophoneMuteChangedCallback != 0) {
     _clientMicrophoneMuteChangedCallback(id, state);
   }

@@ -39,147 +39,147 @@ extern "C" {
 /**
  * 
  */
-typedef bool (* AV_ClientCallback_t)(uint16_t);
+typedef bool (* JV_ClientCallback_t)(uint16_t);
 
 /**
  * 
  */
-typedef void (* AV_ClientStatusCallback_t)(uint16_t, bool);
+typedef void (* JV_ClientStatusCallback_t)(uint16_t, bool);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_StartServer(uint16_t port);
+void JUSTANOTHERVOICECHAT_API JV_StartServer(uint16_t port);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_StopServer();
+void JUSTANOTHERVOICECHAT_API JV_StopServer();
 
 /**
  * 
  */
-bool JUSTANOTHERVOICECHAT_API AV_IsServerRunning();
+bool JUSTANOTHERVOICECHAT_API JV_IsServerRunning();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RegisterClientConnectedCallback(AV_ClientCallback_t callback);
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_UnregisterClientConnectedCallback();
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientConnectedCallback();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RegisterClientDisconnectedCallback(AV_ClientCallback_t callback);
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_UnregisterClientDisconnectedCallback();
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientDisconnectedCallback();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RegisterClientTalkingChangedCallback(AV_ClientStatusCallback_t callback);
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_UnregisterClientTalkingChangedCallback();
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientTalkingChangedCallback();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RegisterClientSpeakersMuteChangedCallback(AV_ClientStatusCallback_t callback);
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t callback);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_UnregisterClientSpeakersMuteChangedCallback();
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientSpeakersMuteChangedCallback();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RegisterClientMicrophoneMuteChangedCallback(AV_ClientStatusCallback_t callback);
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t callback);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_UnregisterClientMicrophoneMuteChangedCallback();
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientMicrophoneMuteChangedCallback();
 
 /**
  * 
  */
-int JUSTANOTHERVOICECHAT_API AV_GetNumberOfClients();
+int JUSTANOTHERVOICECHAT_API JV_GetNumberOfClients();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_GetClientIds(uint16_t *, size_t maxLength);
+void JUSTANOTHERVOICECHAT_API JV_GetClientIds(uint16_t *, size_t maxLength);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RemoveClient(uint16_t clientId);
+void JUSTANOTHERVOICECHAT_API JV_RemoveClient(uint16_t clientId);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_RemoveAllClients();
+void JUSTANOTHERVOICECHAT_API JV_RemoveAllClients();
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted = true);
+void JUSTANOTHERVOICECHAT_API JV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted = true);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z);
+void JUSTANOTHERVOICECHAT_API JV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume);
+void JUSTANOTHERVOICECHAT_API JV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_SetListenerDirection(uint16_t clientId, float rotation);
+void JUSTANOTHERVOICECHAT_API JV_SetListenerDirection(uint16_t clientId, float rotation);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale);
+void JUSTANOTHERVOICECHAT_API JV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AVTest_CallClientConnectedCallback(uint16_t id);
+void JUSTANOTHERVOICECHAT_API JVTest_CallClientConnectedCallback(uint16_t id);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AVTest_CallClientDisconnectedCallback(uint16_t id);
+void JUSTANOTHERVOICECHAT_API JVTest_CallClientDisconnectedCallback(uint16_t id);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AVTest_CallClientTalkingChangedCallback(uint16_t id, bool state);
+void JUSTANOTHERVOICECHAT_API JVTest_CallClientTalkingChangedCallback(uint16_t id, bool state);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state);
+void JUSTANOTHERVOICECHAT_API JVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API AVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state);
+void JUSTANOTHERVOICECHAT_API JVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state);
 
 #ifdef __cplusplus
 }

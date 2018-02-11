@@ -33,17 +33,17 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
         public void StartNativeServer(ushort port)
         {
-            AV_StartServer(port);
+            JV_StartServer(port);
         }
 
         public void StopNativeServer()
         {
-            AV_StopServer();
+            JV_StopServer();
         }
 
         public void Set3DSettings(float distanceFactor, float rolloffFactor)
         {
-            AV_Set3DSettings(distanceFactor, rolloffFactor);
+            JV_Set3DSettings(distanceFactor, rolloffFactor);
         }
     }
 }
