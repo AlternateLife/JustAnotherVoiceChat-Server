@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 
 namespace AlternateVoice.Server.Wrapper.Elements.Wrapper3D
 {
-    public partial class VoiceWrapper3D
+    internal partial class VoiceWrapper3D
     {
 
 #if LINUX

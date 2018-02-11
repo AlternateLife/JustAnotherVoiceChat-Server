@@ -25,9 +25,11 @@
  * SOFTWARE.
  */
 
+using System;
+
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper
+    public interface IVoiceWrapper : IDisposable
     {
         void StartNativeServer(ushort port);
         void StopNativeServer();

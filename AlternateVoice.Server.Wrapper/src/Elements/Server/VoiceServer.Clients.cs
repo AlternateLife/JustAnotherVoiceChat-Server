@@ -57,7 +57,7 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
                     return null;
                 }
 
-                var createdClient = _repository.MakeClient(this, new VoiceWrapper3D(), handle, arguments);
+                var createdClient = _repository.MakeClient(this, handle, arguments);
 
                 if (!_clients.TryAdd(handle.Identifer, createdClient))
                 {

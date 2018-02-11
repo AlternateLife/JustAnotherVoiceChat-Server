@@ -31,6 +31,23 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper : IVoiceWrapper
     {
+        private static IVoiceWrapper _instance;
+
+        private VoiceWrapper() { }
+
+        internal static IVoiceWrapper Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new VoiceWrapper();
+                }
+
+                return _instance;
+            }
+        }
+
         public void StartNativeServer(ushort port)
         {
             AV_StartServer(port);
@@ -44,6 +61,11 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wapper
         public void Set3DSettings(float distanceFactor, float rolloffFactor)
         {
             AV_Set3DSettings(distanceFactor, rolloffFactor);
+        }
+
+        public void Dispose()
+        {
+            _instance = null;
         }
     }
 }

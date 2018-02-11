@@ -35,12 +35,12 @@ namespace AlternateVoice.Server.Wrapper
     {
         public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId);
+            return new VoiceServer(repository, VoiceWrapper.Instance, hostname, port, channelId);
         }
 
         public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            return new VoiceServer(repository, VoiceWrapper.Instance, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
         }
     }
 }

@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlternateVoice.Server.Wrapper.Elements.Wrapper3D;
 using AlternateVoice.Server.Wrapper.Interfaces;
 using AlternateVoice.Server.Wrapper.Math;
 using AlternateVoice.Server.Wrapper.Structs;
@@ -59,10 +60,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             }
         }
 
-        protected VoiceClient(IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle)
+        protected VoiceClient(IVoiceServer server, VoiceHandle handle)
         {
             _server = server;
-            _voiceWrapper3D = voiceWrapper3D;
+            _voiceWrapper3D = VoiceWrapper3D.Instance;
 
             Handle = handle;
             

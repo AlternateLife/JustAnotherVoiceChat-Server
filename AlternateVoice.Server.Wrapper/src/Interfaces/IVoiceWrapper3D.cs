@@ -25,9 +25,11 @@
  * SOFTWARE.
  */
 
+using System;
+
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper3D
+    public interface IVoiceWrapper3D : IDisposable
     {
         void SetListenerPosition(IVoiceClient listener);
         void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
