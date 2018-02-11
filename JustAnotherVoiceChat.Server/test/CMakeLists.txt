@@ -1,5 +1,5 @@
 # Setup test project
-project(AlternateVoiceTest LANGUAGES CXX)
+project(JustAnotherVoiceChatTest LANGUAGES CXX)
 
 include_directories(../include)
 include_directories(../thirdparty/enet/include)
@@ -7,7 +7,7 @@ include_directories(../thirdparty/enet/include)
 file(GLOB SOURCES "./*.cpp")
 
 # Add executable
-add_executable(AlternateVoiceTest ${SOURCES})
+add_executable(JustAnotherVoiceChatTest ${SOURCES})
 
 # Link library to test
-target_link_libraries(AlternateVoiceTest AlternateVoice.Server)
+target_link_libraries(JustAnotherVoiceChatTest AlternateVoice.Server)

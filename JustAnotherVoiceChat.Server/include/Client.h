@@ -32,8 +32,8 @@
 #include <string>
 #include <enet/enet.h>
 
-namespace AlternateVoice {
-  class ALTERNATEVOICE_API Client {
+namespace JustAnotherVoiceChat {
+  class JUSTANOTHERVOICECHAT_API Client {
   private:
     ENetAddress _address;
     ENetHost *_client;

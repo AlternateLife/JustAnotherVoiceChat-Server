@@ -29,7 +29,7 @@
 
 #include "Internal.h"
 
-using namespace AlternateVoice;
+using namespace JustAnotherVoiceChat;
 
 Server::Server(uint16_t port) {
   _address.host = ENET_HOST_ANY;

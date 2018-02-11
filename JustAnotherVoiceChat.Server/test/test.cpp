@@ -4,13 +4,13 @@
 
 int main() {
   // create server
-  auto server = new AlternateVoice::Server(1234);
+  auto server = new JustAnotherVoiceChat::Server(1234);
   if (server->create() == false) {
-    std::cerr << "Unable to create AlternateVoice server on port 1234" << std::endl;
+    std::cerr << "Unable to create JustAnotherVoiceChat server on port 1234" << std::endl;
     return EXIT_FAILURE;
   }
 
-  std::cout << "AlternateVoice server created on port 1234" << std::endl;
+  std::cout << "JustAnotherVoiceChat server created on port 1234" << std::endl;
 
   // clean up
   server->close();
