@@ -1,4 +1,4 @@
-# AlternateVoice
+# JustAnotherVoiceChat
 
 ## Description
 
@@ -7,7 +7,7 @@ This is a voice chat for multiplayer games. It is using teamspeak for voice comm
 ## Requirements
 
  * Teamspeak 3 server 
- * Custom game server to include the ALVoice server
+ * Custom game server to include the JV server
 
 ## Usage
 
