@@ -37,39 +37,65 @@ namespace AlternateVoice.Server.Wrapper.Tests
     [TestFixture]
     public class VoiceServerFixtures
     {
+        private Mock<IVoiceWrapper> _voiceWrapper;
+        private Mock<IVoiceWrapper3D> _voiceWrapper3D;
+        private Mock<IVoiceClientRepository> _clientRepoMock;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _voiceWrapper = new Mock<IVoiceWrapper>();
+            _voiceWrapper3D = new Mock<IVoiceWrapper3D>();
+            _clientRepoMock = new Mock<IVoiceClientRepository>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _voiceWrapper = null;
+            _voiceWrapper3D = null;
+            _clientRepoMock = null;
+
+            GC.Collect();
+        }
 
         [Test]
         public void ConstructorWillThrowExceptionIfRepositoryIsNull()
         {
-            var wrapper = new Mock<IVoiceWrapper>();
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var server = new VoiceServer(null, wrapper.Object, "localhost", 23332, 23);
+                var server = new VoiceServer(null, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
             });
         }
 
         [Test]
         public void ConstructorWillThrowExceptionIfWrapperIsNull()
         {
-            var repository = new Mock<IVoiceClientRepository>();
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var server = new VoiceServer(repository.Object, null, "localhost", 23332, 23);
+                var server = new VoiceServer(_clientRepoMock.Object, null, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            });
+        }
+
+        [Test]
+        public void ConstructorWillThrowExceptionIfWrapper3DIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, null, "localhost", 23332, 23);
             });
         }
 
         [Test]
         public void ConstructorWithInvalidHostnameWillThrowInvalidHostnameException()
         {
-            var repository = new Mock<IVoiceClientRepository>();
-            var wrapper = new Mock<IVoiceWrapper>();
             var invalidhostnames = new [] { "ä#äää", "" };
 
             foreach (var invalidhostname in invalidhostnames)
             {
                 Assert.Throws<InvalidHostnameException>(() =>
                 {
-                    var server = new VoiceServer(repository.Object, wrapper.Object, invalidhostname, 23332, 23);
+                    var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, invalidhostname, 23332, 23);
                 });
             }
         }
@@ -77,9 +103,7 @@ namespace AlternateVoice.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerWillSetStartedPropertyToTrueAndTriggerEvent()
         {
-            var repository = new Mock<IVoiceClientRepository>();
-            var wrapper = new Mock<IVoiceWrapper>();
-            var server = new VoiceServer(repository.Object, wrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
@@ -93,9 +117,7 @@ namespace AlternateVoice.Server.Wrapper.Tests
         [Test]
         public void StoppingVoiceServerWillSetStartedPropertyToFalseAndTriggerEvent()
         {
-            var repository = new Mock<IVoiceClientRepository>();
-            var wrapper = new Mock<IVoiceWrapper>();
-            var server = new VoiceServer(repository.Object, wrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStopping += () => invokeAmount++;
@@ -110,9 +132,7 @@ namespace AlternateVoice.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerMultipleWillTriggerEventOnlyIfServerIsNotStarted()
         {
-            var repository = new Mock<IVoiceClientRepository>();
-            var wrapper = new Mock<IVoiceWrapper>();
-            var server = new VoiceServer(repository.Object, wrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
@@ -140,9 +160,7 @@ namespace AlternateVoice.Server.Wrapper.Tests
         [Test]
         public void StartingAndStoppingServerWillTriggerEventMultipleTimes()
         {
-            var repository = new Mock<IVoiceClientRepository>();
-            var wrapper = new Mock<IVoiceWrapper>();
-            var server = new VoiceServer(repository.Object, wrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var startInvokeAmount = 0;
             server.OnServerStarted += () => startInvokeAmount++;
@@ -166,9 +184,7 @@ namespace AlternateVoice.Server.Wrapper.Tests
         [Test]
         public void StoppingServerWithoutStartingItFirstWillThrowAnException()
         {
-            var repository = new Mock<IVoiceClientRepository>();
-            var wrapper = new Mock<IVoiceWrapper>();
-            var server = new VoiceServer(repository.Object, wrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             Assert.Throws<VoiceServerNotStartedException>(() =>
             {

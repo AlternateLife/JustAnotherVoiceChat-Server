@@ -52,6 +52,8 @@ namespace AlternateVoice.Server.Wrapper.Interfaces
         float GlobalDistanceFactor { get; }
         float GlobalRollOffScale { get; }
 
+        IVoiceWrapper3D VoiceWrapper3D { get; }
+
         void Start();
         void Stop();
 

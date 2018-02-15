@@ -29,7 +29,7 @@ using System;
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper3D : IDisposable
+    public interface IVoiceWrapper3D
     {
         void SetListenerPosition(IVoiceClient listener);
         void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);

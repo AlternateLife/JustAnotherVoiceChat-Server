@@ -37,7 +37,7 @@ namespace AlternateVoice.Server.Dummy.Client
         private Vector3 _position;
         public override Vector3 Position => _position;
 
-        public DummyClient(IVoiceServer server, VoiceHandle handle) : base(server, handle)
+        public DummyClient(IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
         {
             
         }

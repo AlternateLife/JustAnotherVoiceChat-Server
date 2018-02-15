@@ -45,12 +45,15 @@ namespace AlternateVoice.Server.Wrapper.Elements.Server
         public float GlobalDistanceFactor { get; }
         public float GlobalRollOffScale { get; }
 
-        internal VoiceServer(IVoiceClientRepository repository, IVoiceWrapper voiceWrapper, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f,
+        public IVoiceWrapper3D VoiceWrapper3D { get; }
+
+        internal VoiceServer(IVoiceClientRepository repository, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f,
             float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _voiceWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
-            
+            VoiceWrapper3D = voiceWrapper3D ?? throw new ArgumentNullException(nameof(voiceWrapper));
+
             var result = Uri.CheckHostName(hostname);
             if (result == UriHostNameType.Unknown)
             {
