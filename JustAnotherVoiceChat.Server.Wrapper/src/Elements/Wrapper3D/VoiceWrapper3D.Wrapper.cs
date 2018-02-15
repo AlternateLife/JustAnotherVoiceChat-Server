@@ -27,7 +27,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Wrapper3D
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D
 {
     internal partial class VoiceWrapper3D
     {

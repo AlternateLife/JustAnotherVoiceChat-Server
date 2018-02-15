@@ -26,7 +26,6 @@
  */
 
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -43,6 +42,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper
         public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
             return new VoiceServer(repository, new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
-        }//
+        }
     }
 }

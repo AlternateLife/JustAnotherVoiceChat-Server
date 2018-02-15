@@ -25,9 +25,9 @@
  * SOFTWARE.
  */
 
-using AlternateVoice.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace AlternateVoice.Server.Wrapper.Elements.Client
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
     public abstract partial class VoiceClient
     {
