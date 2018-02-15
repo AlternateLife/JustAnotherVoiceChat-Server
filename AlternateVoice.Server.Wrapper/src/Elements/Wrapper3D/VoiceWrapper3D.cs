@@ -31,23 +31,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wrapper3D
 {
     internal partial class VoiceWrapper3D : IVoiceWrapper3D
     {
-        private static IVoiceWrapper3D _instance;
-
-        private VoiceWrapper3D() { }
-
-        internal static IVoiceWrapper3D Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new VoiceWrapper3D();
-                }
-
-                return _instance;
-            }
-        }
-
         public void ResetAllRelativePositionsForListener(IVoiceClient listener)
         {
             AV_ResetAllRelativePositions(listener.Handle.Identifer);
@@ -66,11 +49,6 @@ namespace AlternateVoice.Server.Wrapper.Elements.Wrapper3D
         public void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
         {
             AV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, speaker.Position.X, speaker.Position.Y, speaker.Position.Z);
-        }
-
-        public void Dispose()
-        {
-            _instance = null;
         }
     }
 }

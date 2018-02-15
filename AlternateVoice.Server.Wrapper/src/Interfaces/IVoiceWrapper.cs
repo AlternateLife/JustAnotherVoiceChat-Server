@@ -29,7 +29,7 @@ using System;
 
 namespace AlternateVoice.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper : IDisposable
+    public interface IVoiceWrapper
     {
         void StartNativeServer(ushort port);
         void StopNativeServer();

@@ -60,10 +60,10 @@ namespace AlternateVoice.Server.Wrapper.Elements.Client
             }
         }
 
-        protected VoiceClient(IVoiceServer server, VoiceHandle handle)
+        protected VoiceClient(IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle)
         {
             _server = server;
-            _voiceWrapper3D = VoiceWrapper3D.Instance;
+            _voiceWrapper3D = voiceWrapper3D;
 
             Handle = handle;
             
