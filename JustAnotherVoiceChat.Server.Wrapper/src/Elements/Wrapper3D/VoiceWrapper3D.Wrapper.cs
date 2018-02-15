@@ -33,25 +33,25 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D
     {
 
 #if LINUX
-        private const string AlternateVoiceLib = "libAlternateVoice.Server.so";
+        private const string JustAnotherVoiceChatLib = "libJustAnotherVoiceChat.Server.so";
 #else
-        private const string AlternateVoiceLib = "AlternateVoice.Server.dll";
+        private const string JustAnotherVoiceChatLib = "JustAnotherVoiceChat.Server.dll";
 #endif
 
         /**
          * 3D Voice
          */
 
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
+        [DllImport(JustAnotherVoiceChatLib)]
+        private static extern void JV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
 
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
+        [DllImport(JustAnotherVoiceChatLib)]
+        private static extern void JV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
 
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_ResetRelativePositionForClient(ushort listenerId, ushort speakerId);
+        [DllImport(JustAnotherVoiceChatLib)]
+        private static extern void JV_ResetRelativePositionForClient(ushort listenerId, ushort speakerId);
 
-        [DllImport(AlternateVoiceLib)]
-        private static extern void AV_ResetAllRelativePositions(ushort clientId);
+        [DllImport(JustAnotherVoiceChatLib)]
+        private static extern void JV_ResetAllRelativePositions(ushort clientId);
     }
 }

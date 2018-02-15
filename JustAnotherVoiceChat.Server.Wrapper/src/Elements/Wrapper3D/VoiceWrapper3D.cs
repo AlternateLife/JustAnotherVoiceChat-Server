@@ -33,22 +33,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D
     {
         public void ResetAllRelativePositionsForListener(IVoiceClient listener)
         {
-            AV_ResetAllRelativePositions(listener.Handle.Identifer);
+            JV_ResetAllRelativePositions(listener.Handle.Identifer);
         }
 
         public void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
         {
-            AV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
+            JV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
         }
 
         public void SetListenerPosition(IVoiceClient listener)
         {
-            AV_SetClientPosition(listener.Handle.Identifer, listener.Position.X, listener.Position.Y, listener.Position.Z, listener.CameraRotation);
+            JV_SetClientPosition(listener.Handle.Identifer, listener.Position.X, listener.Position.Y, listener.Position.Z, listener.CameraRotation);
         }
 
         public void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
         {
-            AV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, speaker.Position.X, speaker.Position.Y, speaker.Position.Z);
+            JV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, speaker.Position.X, speaker.Position.Y, speaker.Position.Z);
         }
     }
 }
