@@ -28,7 +28,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
