@@ -74,7 +74,6 @@
     <Compile Include="src\Server\GtmpVoiceServer.cs" />
     <Compile Include="src\Server\GtmpVoiceServer.Events.cs" />
     <Compile Include="src\Server\GtmpVoiceServer.Players.cs" />
-    <Compile Include="src\Server\GtmpVoiceServer.Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj">

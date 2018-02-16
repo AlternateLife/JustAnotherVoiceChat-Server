@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -34,14 +33,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper
 {
     public static class JustAnotherVoiceChat
     {
-        public static IVoiceServer MakeServer(IElementFactory repository, string hostname, ushort port, int channelId)
+        public static IVoiceServer MakeServer(IElementFactory factory, string hostname, ushort port, int channelId, params object[] arguments)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId);
+            return factory.MakeServer(new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, arguments);
         }
 
-        public static IVoiceServer MakeServer(IElementFactory repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        public static IVoiceServer MakeServer(IElementFactory factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
         {
-            return new VoiceServer(repository, new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            return factory.MakeServer(new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, arguments);
         }
     }
 }

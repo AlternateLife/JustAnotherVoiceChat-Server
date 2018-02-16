@@ -25,38 +25,20 @@
  * SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
 using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.Wrapper;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {
-    public interface IGtmpVoiceServer : IDisposable
+    public interface IGtmpVoiceServer : IVoiceServer
     {
-        event Delegates.EmptyEvent OnServerStarted;
-        event Delegates.EmptyEvent OnServerStopping;
-        
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
 
-        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
-        event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
+        new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
+        new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
         
-        event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
+        new event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
         
-        string Hostname { get; }
-        ushort Port { get; }
-        int ChannelId { get; }
-        
-        bool Started { get; }
-        
-        void Start();
-        void Stop();
-
-        void AddTask(IVoiceTask voiceTask);
-        void AddTasks(IEnumerable<IVoiceTask> voiceTasks);
-
         IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
 
         void TriggerTalkingChangeEvent(ushort handle, bool newStatus);

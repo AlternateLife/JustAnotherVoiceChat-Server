@@ -27,20 +27,20 @@
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    internal partial class VoiceServer
+    public partial class VoiceServer
     {
         
-        public void FireClientTalkingChange(ushort handle, bool newStatus)
+        protected void FireClientTalkingChange(ushort handle, bool newStatus)
         {
             _voiceWrapper.TestCallClientTalkingChangedCallback(handle, newStatus);
         }
         
-        public void FireClientConnected(ushort handle)
+        protected void FireClientConnected(ushort handle)
         {
             _voiceWrapper.TestCallClientConnectedCallback(handle);
         }
 
-        public void FireClientDisconnected(ushort handle)
+        protected void FireClientDisconnected(ushort handle)
         {
             _voiceWrapper.TestCallClientDisconnectedCallback(handle);
         }

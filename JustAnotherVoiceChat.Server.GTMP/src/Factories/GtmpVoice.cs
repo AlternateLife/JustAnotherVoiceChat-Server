@@ -28,15 +28,33 @@
 using GrandTheftMultiplayer.Server.API;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.GTMP.Server;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {
 
+        private static IElementFactory _factory;
+        
         public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId)
         {
-            return new GtmpVoiceServer(api, hostname, port, channelId);
+            if (_factory == null)
+            {
+                _factory = new ElementFactory();
+            }
+
+            return (IGtmpVoiceServer) Wrapper.JustAnotherVoiceChat.MakeServer(_factory, hostname, port, channelId, api);
+        }
+        
+        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        {
+            if (_factory == null)
+            {
+                _factory = new ElementFactory();
+            }
+
+            return (IGtmpVoiceServer) Wrapper.JustAnotherVoiceChat.MakeServer(_factory, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, api);
         }
         
     }

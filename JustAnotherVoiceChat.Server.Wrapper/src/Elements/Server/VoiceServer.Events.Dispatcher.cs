@@ -31,7 +31,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Enums;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    internal partial class VoiceServer
+    public partial class VoiceServer
     {
         
         private bool OnClientConnectedFromVoice(ushort handle)

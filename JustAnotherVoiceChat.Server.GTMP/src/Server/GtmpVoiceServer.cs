@@ -25,50 +25,30 @@
  * SOFTWARE.
  */
 
-using System;
 using GrandTheftMultiplayer.Server.API;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
-using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Server
 {
-    internal partial class GtmpVoiceServer : IGtmpVoiceServer
+    internal partial class GtmpVoiceServer : VoiceServer
     {
 
-        private readonly IVoiceServer _server;
         private readonly API _api;
-
-        public string Hostname => _server.Hostname;
-        public ushort Port => _server.Port;
-        public int ChannelId => _server.ChannelId;
         
-        public bool Started => _server.Started;
-        
-        public GtmpVoiceServer(API api, string hostname, ushort port, int channelId)
+        public GtmpVoiceServer(API api, IElementFactory factory, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId) : base(factory, wrapper, wrapper3D, hostname, port, channelId)
         {
             _api = api;
 
-            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ElementFactory(), hostname, port, channelId);
-
             AttachToEvents();
         }
-
-        public void Start()
+        
+        public GtmpVoiceServer(API api, IElementFactory factory, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(factory, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
-            _server.Start();
-        }
+            _api = api;
 
-        public void Stop()
-        {
-            _server.Stop();
-        }
-
-        public void Dispose()
-        {
-            _server.Dispose();
-
-            GC.SuppressFinalize(this);
+            AttachToEvents();
         }
     }
 }

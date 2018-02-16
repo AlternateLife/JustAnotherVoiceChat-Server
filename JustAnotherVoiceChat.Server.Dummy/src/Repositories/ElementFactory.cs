@@ -38,14 +38,14 @@ namespace JustAnotherVoiceChat.Server.Dummy.Repositories
             return new DummyClient(server, handle);
         }
 
-        public IVoiceServer MakeServer(string hostname, ushort port, int channelId, params object[] arguments)
+        public IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, params object[] arguments)
         {
-            return null;
+            return new ServerHandler(this, wrapper, wrapper3D, hostname, port, channelId);
         }
 
-        public IVoiceServer MakeServer(string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
+        public IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
         {
-            return null;
+            return new ServerHandler(this, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
         }
     }
 }
