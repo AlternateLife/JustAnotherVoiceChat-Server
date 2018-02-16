@@ -1,5 +1,5 @@
 ﻿/*
- * File: GtmpVoiceServer.Players.cs
+ * File: GtmpVoiceServer.cs
  * Date: 15.2.2018,
  *
  * MIT License
@@ -25,40 +25,29 @@
  * SOFTWARE.
  */
 
-using System;
-using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using GrandTheftMultiplayer.Server.API;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Server
+namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal partial class GtmpVoiceServer
+    internal partial class GtmpVoiceServer : VoiceServer
     {
-        public IGtmpVoiceClient GetVoiceClientOfPlayer(Client player)
+
+        private readonly API _api;
+        
+        public GtmpVoiceServer(API api, IElementFactory factory, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId) : base(factory, wrapper, wrapper3D, hostname, port, channelId)
         {
-            return FindClient<IGtmpVoiceClient>(c => c.Player == player);
+            _api = api;
+
+            AttachToEvents();
         }
-
-        private IGtmpVoiceClient RegisterPlayer(Client player)
+        
+        public GtmpVoiceServer(API api, IElementFactory factory, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(factory, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
-            var voiceClient = CreateClient(player) as IGtmpVoiceClient;
-            if (voiceClient == null)
-            {
-                return null;
-            }
-            
-            OnClientPrepared?.Invoke(voiceClient);
-            
-            return voiceClient;
-        }
+            _api = api;
 
-        private void UnregisterPlayer(Client player)
-        {
-            if (player == null)
-            {
-                throw new ArgumentNullException(nameof(player));
-            }
-
-            GetVoiceClientOfPlayer(player)?.Dispose();
+            AttachToEvents();
         }
     }
 }
