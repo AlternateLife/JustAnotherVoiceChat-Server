@@ -56,8 +56,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
                 return;
             }
 
-            var rotation = (float)arguments[0];
-            var voiceClient = _voiceServer.GetVoiceClientOfPlayer(sender);
+            var rotation = (float) arguments[0];
+            var voiceClient = _voiceServer.GetVoiceClient(sender);
 
             if (voiceClient == null)
             {

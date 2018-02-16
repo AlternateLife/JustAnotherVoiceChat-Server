@@ -33,7 +33,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
     internal partial class GtmpVoiceServer
     {
-        public IGtmpVoiceClient GetVoiceClientOfPlayer(Client player)
+        public IGtmpVoiceClient GetVoiceClient(Client player)
         {
             return FindClient<IGtmpVoiceClient>(c => c.Player == player);
         }
@@ -58,7 +58,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
                 throw new ArgumentNullException(nameof(player));
             }
 
-            GetVoiceClientOfPlayer(player)?.Dispose();
+            GetVoiceClient(player)?.Dispose();
         }
     }
 }

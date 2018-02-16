@@ -27,7 +27,6 @@
 
 using System;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
-using JustAnotherVoiceChat.Server.Wrapper.Enums;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
@@ -88,7 +87,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         private T RunWhenClientValid<T>(ushort handle, Func<VoiceClient, T> callback)
         {
-            var client = GetClientByHandle(handle) as VoiceClient;
+            var client = GetVoiceClient(handle) as VoiceClient;
 
             if (client == null)
             {
@@ -100,7 +99,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void RunWhenClientValid(ushort handle, Action<VoiceClient> callback)
         {
-            var client = GetClientByHandle(handle) as VoiceClient;
+            var client = GetVoiceClient(handle) as VoiceClient;
 
             if (client == null)
             {

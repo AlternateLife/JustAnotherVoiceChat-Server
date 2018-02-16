@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
         
         new event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
         
-        IGtmpVoiceClient GetVoiceClientOfPlayer(Client player);
+        IGtmpVoiceClient GetVoiceClient(Client player);
 
         void TriggerTalkingChangeEvent(ushort handle, bool newStatus);
 

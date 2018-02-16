@@ -83,12 +83,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
-        public IVoiceClient GetClientByHandle(VoiceHandle handle)
+        public IVoiceClient GetVoiceClient(VoiceHandle handle)
         {
-            return GetClientByHandle(handle.Identifer);
+            return GetVoiceClient(handle.Identifer);
         }
 
-        public IVoiceClient GetClientByHandle(ushort handle)
+        public IVoiceClient GetVoiceClient(ushort handle)
         {
             lock (_voiceHandleGenerationLock)
             {
