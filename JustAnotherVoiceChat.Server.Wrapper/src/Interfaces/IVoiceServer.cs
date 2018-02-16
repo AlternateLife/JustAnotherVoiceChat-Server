@@ -64,8 +64,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         IEnumerable<IVoiceGroup> GetAllGroups();
         void DestroyGroup(IVoiceGroup voiceGroup);
 
-        IVoiceClient GetClientByHandle(VoiceHandle handle);
-        IVoiceClient GetClientByHandle(ushort handle);
+        IVoiceClient GetVoiceClient(VoiceHandle handle);
+        IVoiceClient GetVoiceClient(ushort handle);
         
         T FindClient<T>(Func<T, bool> filter) where T : IVoiceClient;
 
