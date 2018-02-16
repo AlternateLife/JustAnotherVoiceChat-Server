@@ -56,7 +56,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             {
                 client.Connected = false;
                 
-                OnClientDisconnected?.Invoke(client, DisconnectReason.Quit);
+                OnClientDisconnected?.Invoke(client);
             });
         }
 
