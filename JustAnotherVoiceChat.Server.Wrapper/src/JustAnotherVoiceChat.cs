@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using System;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -35,11 +36,21 @@ namespace JustAnotherVoiceChat.Server.Wrapper
     {
         public static IVoiceServer MakeServer(IElementFactory factory, string hostname, ushort port, int channelId, params object[] arguments)
         {
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+            
             return factory.MakeServer(new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, arguments);
         }
 
         public static IVoiceServer MakeServer(IElementFactory factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
         {
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+
             return factory.MakeServer(new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, arguments);
         }
     }
