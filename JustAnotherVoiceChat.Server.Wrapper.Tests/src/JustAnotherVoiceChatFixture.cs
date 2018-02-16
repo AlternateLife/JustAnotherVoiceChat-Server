@@ -39,11 +39,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         public void MakingServerWillReturnNewVoiceServerInstance()
         {
             var repositoryMock = new Mock<IElementFactory>();
+            repositoryMock.Setup(e => e.MakeServer(It.IsAny<IVoiceWrapper>(), It.IsAny<IVoiceWrapper3D>(), "localhost", 23332, 20));
             
             var result = JustAnotherVoiceChat.MakeServer(repositoryMock.Object, "localhost", 23332, 20);
 
-            Assert.NotNull(result);
-            Assert.IsInstanceOf<IVoiceServer>(result);
+            repositoryMock.Verify(e => e.MakeServer(It.IsAny<IVoiceWrapper>(), It.IsAny<IVoiceWrapper3D>(), "localhost", 23332, 20), Times.Once);
         }
         
         [Test]
