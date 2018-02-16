@@ -1,5 +1,5 @@
 ﻿/*
- * File: GtmpVoiceClient.cs
+ * File: GtmpVoiceServer.Players.cs
  * Date: 15.2.2018,
  *
  * MIT License
@@ -28,29 +28,37 @@
 using System;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Math;
-using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Clients
+namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal class GtmpVoiceClient : VoiceClient, IGtmpVoiceClient
+    internal partial class GtmpVoiceServer
     {
-        public Client Player { get; }
-
-        public override Vector3 Position => new Vector3(Player.position.X, Player.position.Y, Player.position.Z);
-        
-        internal GtmpVoiceClient(Client player, IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
+        public IGtmpVoiceClient GetVoiceClientOfPlayer(Client player)
         {
-            Player = player;
+            return FindClient<IGtmpVoiceClient>(c => c.Player == player);
         }
 
-        public override void Dispose()
+        private IGtmpVoiceClient RegisterPlayer(Client player)
         {
-            base.Dispose();
-            GC.SuppressFinalize(this);
+            var voiceClient = CreateClient(player) as IGtmpVoiceClient;
+            if (voiceClient == null)
+            {
+                return null;
+            }
+            
+            OnClientPrepared?.Invoke(voiceClient);
+            
+            return voiceClient;
         }
-        
+
+        private void UnregisterPlayer(Client player)
+        {
+            if (player == null)
+            {
+                throw new ArgumentNullException(nameof(player));
+            }
+
+            GetVoiceClientOfPlayer(player)?.Dispose();
+        }
     }
 }

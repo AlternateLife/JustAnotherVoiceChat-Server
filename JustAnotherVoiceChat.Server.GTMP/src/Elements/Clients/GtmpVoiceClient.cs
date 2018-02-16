@@ -1,5 +1,5 @@
 ﻿/*
- * File: GtmpVoiceServer.cs
+ * File: GtmpVoiceClient.cs
  * Date: 15.2.2018,
  *
  * MIT License
@@ -25,30 +25,32 @@
  * SOFTWARE.
  */
 
-using GrandTheftMultiplayer.Server.API;
-using JustAnotherVoiceChat.Server.GTMP.Factories;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
+using System;
+using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Server
+namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
 {
-    internal partial class GtmpVoiceServer : VoiceServer
+    internal class GtmpVoiceClient : VoiceClient, IGtmpVoiceClient
     {
+        public Client Player { get; }
 
-        private readonly API _api;
+        public override Vector3 Position => new Vector3(Player.position.X, Player.position.Y, Player.position.Z);
         
-        public GtmpVoiceServer(API api, IElementFactory factory, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId) : base(factory, wrapper, wrapper3D, hostname, port, channelId)
+        internal GtmpVoiceClient(Client player, IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
         {
-            _api = api;
+            Player = player;
+        }
 
-            AttachToEvents();
+        public override void Dispose()
+        {
+            base.Dispose();
+            GC.SuppressFinalize(this);
         }
         
-        public GtmpVoiceServer(API api, IElementFactory factory, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(factory, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
-        {
-            _api = api;
-
-            AttachToEvents();
-        }
     }
 }
