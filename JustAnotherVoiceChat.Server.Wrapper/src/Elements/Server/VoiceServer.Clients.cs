@@ -57,7 +57,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                     return null;
                 }
 
-                var createdClient = _repository.MakeClient(this, handle, arguments);
+                var createdClient = _elementFactory.MakeClient(this, handle, arguments);
 
                 if (!_clients.TryAdd(handle.Identifer, createdClient))
                 {

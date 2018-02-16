@@ -34,12 +34,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper
 {
     public static class JustAnotherVoiceChat
     {
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId)
+        public static IVoiceServer MakeServer(IElementFactory repository, string hostname, ushort port, int channelId)
         {
             return new VoiceServer(repository, new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId);
         }
 
-        public static IVoiceServer MakeServer(IVoiceClientRepository repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        public static IVoiceServer MakeServer(IElementFactory repository, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
             return new VoiceServer(repository, new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
         }

@@ -29,10 +29,14 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceClientRepository
+    public interface IElementFactory
     {
 
         IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments);
+
+        IVoiceServer MakeServer(string hostname, ushort port, int channelId, params object[] arguments);
+        IVoiceServer MakeServer(string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments);
+
 
     }
 }

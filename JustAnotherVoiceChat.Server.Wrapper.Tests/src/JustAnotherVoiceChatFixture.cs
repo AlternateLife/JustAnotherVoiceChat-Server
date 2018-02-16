@@ -38,7 +38,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void MakingServerWillReturnNewVoiceServerInstance()
         {
-            var repositoryMock = new Mock<IVoiceClientRepository>();
+            var repositoryMock = new Mock<IElementFactory>();
             
             var result = JustAnotherVoiceChat.MakeServer(repositoryMock.Object, "localhost", 23332, 20);
 

@@ -25,18 +25,27 @@
  * SOFTWARE.
  */
 
-using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.GTMP.Clients;
+using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Repositories
+namespace JustAnotherVoiceChat.Server.Dummy.Repositories
 {
-    public class ClientRepository : IVoiceClientRepository
+    public class ElementFactory : IElementFactory
     {
         public IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments)
         {
-            return new GtmpVoiceClient((Client) arguments[0], server, handle);
+            return new DummyClient(server, handle);
+        }
+
+        public IVoiceServer MakeServer(string hostname, ushort port, int channelId, params object[] arguments)
+        {
+            return null;
+        }
+
+        public IVoiceServer MakeServer(string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
+        {
+            return null;
         }
     }
 }
