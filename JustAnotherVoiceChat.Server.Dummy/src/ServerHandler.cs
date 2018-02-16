@@ -45,7 +45,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
 
         public ServerHandler(string hostname, ushort port, int channelId)
         {
-            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ClientRepository(), hostname, port, channelId);
+            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ElementFactory(), hostname, port, channelId);
 
             _server.OnServerStarted += () =>
             {

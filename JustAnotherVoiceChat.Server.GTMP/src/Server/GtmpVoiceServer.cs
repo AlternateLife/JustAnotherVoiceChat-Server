@@ -27,8 +27,8 @@
 
 using System;
 using GrandTheftMultiplayer.Server.API;
+using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
-using JustAnotherVoiceChat.Server.GTMP.Repositories;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Server
@@ -49,7 +49,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Server
         {
             _api = api;
 
-            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ClientRepository(), hostname, port, channelId);
+            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ElementFactory(), hostname, port, channelId);
 
             AttachToEvents();
         }

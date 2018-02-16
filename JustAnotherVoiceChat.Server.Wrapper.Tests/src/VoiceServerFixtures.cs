@@ -39,14 +39,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
     {
         private Mock<IVoiceWrapper> _voiceWrapper;
         private Mock<IVoiceWrapper3D> _voiceWrapper3D;
-        private Mock<IVoiceClientRepository> _clientRepoMock;
+        private Mock<IElementFactory> _clientRepoMock;
 
         [SetUp]
         public void SetUp()
         {
             _voiceWrapper = new Mock<IVoiceWrapper>();
             _voiceWrapper3D = new Mock<IVoiceWrapper3D>();
-            _clientRepoMock = new Mock<IVoiceClientRepository>();
+            _clientRepoMock = new Mock<IElementFactory>();
         }
 
         [TearDown]
