@@ -26,12 +26,13 @@
  */
 
 using GrandTheftMultiplayer.Server.API;
+using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal partial class GtmpVoiceServer : VoiceServer
+    internal partial class GtmpVoiceServer : VoiceServer, IGtmpVoiceServer
     {
 
         private readonly API _api;
