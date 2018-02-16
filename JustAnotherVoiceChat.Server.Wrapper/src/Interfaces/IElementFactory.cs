@@ -34,8 +34,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments);
 
-        IVoiceServer MakeServer(string hostname, ushort port, int channelId, params object[] arguments);
-        IVoiceServer MakeServer(string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments);
+        IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, params object[] arguments);
+        IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments);
 
 
     }

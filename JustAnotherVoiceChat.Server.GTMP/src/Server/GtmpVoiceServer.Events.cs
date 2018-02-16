@@ -37,28 +37,28 @@ namespace JustAnotherVoiceChat.Server.GTMP.Server
     internal partial class GtmpVoiceServer
     {
 
-        public event Delegates.EmptyEvent OnServerStarted;
-        public event Delegates.EmptyEvent OnServerStopping;
+        public new event Delegates.EmptyEvent OnServerStarted;
+        public new event Delegates.EmptyEvent OnServerStopping;
         
-        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+        public new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
         
-        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
-        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
+        public new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
+        public new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
 
-        public event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
+        public new event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
 
         private void AttachToEvents()
         {
             _api.onPlayerFinishedDownload += OnPlayerConnect;
             _api.onPlayerDisconnected += OnPlayerDisconnect;
 
-            _server.OnServerStarted += OnVoiceServerStarted;
-            _server.OnServerStopping += OnVoiceServerStopping;
+            OnServerStarted += OnVoiceServerStarted;
+            OnServerStopping += OnVoiceServerStopping;
             
-            _server.OnClientConnected += OnVoiceClientConnected;
-            _server.OnClientDisconnected += OnVoiceClientDisconnected;
+            OnClientConnected += OnVoiceClientConnected;
+            OnClientDisconnected += OnVoiceClientDisconnected;
 
-            _server.OnClientTalkingChanged += OnVoiceClientTalkingChanged;
+            OnClientTalkingChanged += OnVoiceClientTalkingChanged;
         }
 
         private void OnVoiceServerStarted()
@@ -73,7 +73,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Server
 
         private void OnVoiceServerStopping()
         {
-            foreach (var client in _server.GetClients<IGtmpVoiceClient>())
+            foreach (var client in GetClients<IGtmpVoiceClient>())
             {
                 UnregisterPlayer(client.Player);
             }
@@ -109,7 +109,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Server
             OnClientConnected?.Invoke(voiceClient);
         }
 
-        private void OnVoiceClientDisconnected(IVoiceClient client, DisconnectReason reason)
+        private void OnVoiceClientDisconnected(IVoiceClient client)
         {
             var voiceClient = client as IGtmpVoiceClient;
             if (voiceClient == null)
@@ -133,17 +133,17 @@ namespace JustAnotherVoiceChat.Server.GTMP.Server
 
         public void TriggerOnClientConnectedEvent(ushort handle)
         {
-            _server.FireClientConnected(handle);
+            FireClientConnected(handle);
         }
 
         public void TriggerOnClientDisonnectedEvent(ushort handle)
         {
-            _server.FireClientDisconnected(handle);
+            FireClientDisconnected(handle);
         }
 
         public void TriggerTalkingChangeEvent(ushort handle, bool newStatus)
         {
-            _server.FireClientTalkingChange(handle, newStatus);
+            FireClientTalkingChange(handle, newStatus);
         }
     }
 }

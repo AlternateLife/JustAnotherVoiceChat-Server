@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    internal partial class VoiceServer
+    public partial class VoiceServer
     {
         private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
 

@@ -29,63 +29,45 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using JustAnotherVoiceChat.Server.Dummy.Repositories;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
 
 namespace JustAnotherVoiceChat.Server.Dummy
 {
-    public class ServerHandler : IDisposable
+    public class ServerHandler : VoiceServer
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
-
-        private readonly IVoiceServer _server;
         
         private readonly ConcurrentBag<IVoiceClient> _voiceClients = new ConcurrentBag<IVoiceClient>();
         
 
-        public ServerHandler(string hostname, ushort port, int channelId)
+        public ServerHandler(IElementFactory elementFactory, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(elementFactory, voiceWrapper, voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
-            _server = Wrapper.JustAnotherVoiceChat.MakeServer(new ElementFactory(), hostname, port, channelId);
-
-            _server.OnServerStarted += () =>
+            OnServerStarted += () =>
             {
-                _logger.Debug($"JustAnotherVoiceChat: Listening on {_server.Hostname}:{_server.Port}");
+                _logger.Debug($"JustAnotherVoiceChat: Listening on {Hostname}:{Port}");
             };
             
-            _server.OnServerStopping += () =>
+            OnServerStopping += () =>
             {
                 _logger.Debug("JustAnotherVoiceChat: Stopping...");
             };
 
-            _server.OnClientConnected += c =>
+            OnClientConnected += c =>
             {
                 _logger.Debug("Client connected: " + c.Handle.Identifer);
             };
         }
 
-        public void StartServer()
-        {
-            _server.Start();
-        }
-
-        public void StopServer()
-        {
-            _server.Stop();
-        }
-
         public IVoiceClient PrepareClient()
         {
-            return _server.CreateClient();
-        }
-
-        public void Dispose()
-        {
-            _server.Dispose();
+            return CreateClient();
         }
 
         public void TriggerClientConnect(ushort handle)
         {
-            _server.FireClientConnected(handle);
+            FireClientConnected(handle);
         }
 
         public void StartStresstest()
@@ -104,7 +86,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
         {
             while (true)
             {
-                var createdClient = _server.CreateClient();
+                var createdClient = CreateClient();
 
                 if (createdClient == null)
                 {
@@ -132,7 +114,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                     continue;
                 }
 
-                if (_server.RemoveClient(client))
+                if (RemoveClient(client))
                 {
                     _logger.Info("Removed client: " + client.Handle.Identifer);
                 }

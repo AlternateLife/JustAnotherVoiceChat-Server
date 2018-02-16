@@ -26,6 +26,7 @@
  */
 
 using System;
+using JustAnotherVoiceChat.Server.Dummy.Repositories;
 using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
@@ -35,7 +36,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
     public class Program
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private static ServerHandler _serverHandler;
+        private static ServerHandler  _server;
 
         private static IVoiceClient _lastClient;
           
@@ -67,16 +68,16 @@ namespace JustAnotherVoiceChat.Server.Dummy
             {
                 case "start":
                 {
-                    if (_serverHandler == null)
+                    if (_server == null)
                     {
-                        _serverHandler = new ServerHandler("localhost", 23332, 20);
+                        _server = (ServerHandler) Wrapper.JustAnotherVoiceChat.MakeServer(new ElementFactory(), "localhost", 23332, 23);
                     }
                     
                     Logger.Info("Starting JustAnotherVoiceChat DummyServer...");
 
                     try
                     {
-                        _serverHandler.StartServer();
+                        _server.Start();
                     }
                     catch (VoiceServerAlreadyStartedException)
                     {
@@ -101,12 +102,12 @@ namespace JustAnotherVoiceChat.Server.Dummy
                 {
                     Logger.Info("Serverstress started");
                     
-                    _serverHandler.StartStresstest();
+                    _server.StartStresstest();
                     break;
                 }
                 case "client":
                 {
-                    var client = _serverHandler.PrepareClient();
+                    var client = _server.PrepareClient();
 
                     _lastClient = client;
                     
@@ -115,7 +116,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                 }
                 case "connect":
                 {
-                    _serverHandler.TriggerClientConnect(_lastClient.Handle.Identifer);
+                    _server.TriggerClientConnect(_lastClient.Handle.Identifer);
 
                     Logger.Info("Event Triggered");
                     
@@ -136,7 +137,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
 
         private static void ExitApplication()
         {
-            if (_serverHandler != null)
+            if (_server != null)
             {
                 StopServer();
                 DisposeServer();
@@ -149,7 +150,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
         {
             try
             {
-                _serverHandler.StopServer();
+                _server.Stop();;
             }
             catch (VoiceServerNotStartedException)
             {
@@ -159,8 +160,8 @@ namespace JustAnotherVoiceChat.Server.Dummy
 
         private static void DisposeServer()
         {
-            _serverHandler.Dispose();
-            _serverHandler = null;
+            _server.Dispose();
+            _server = null;
 
             Logger.Info("Server has been disposed");
         }

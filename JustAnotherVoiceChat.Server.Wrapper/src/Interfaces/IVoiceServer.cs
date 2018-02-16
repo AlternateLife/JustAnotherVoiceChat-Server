@@ -74,10 +74,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         void AddTask(IVoiceTask voiceTask);
         void AddTasks(IEnumerable<IVoiceTask> voiceTasks);
-        
-        void FireClientConnected(ushort handle);
-        void FireClientDisconnected(ushort handle);
-        void FireClientTalkingChange(ushort handle, bool newStatus);
 
     }
 }
