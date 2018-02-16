@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
@@ -44,12 +43,6 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
         internal GtmpVoiceClient(Client player, IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
         {
             Player = player;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            GC.SuppressFinalize(this);
         }
         
     }

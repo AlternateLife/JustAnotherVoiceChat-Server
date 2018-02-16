@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
         public new event Delegates.EmptyEvent OnServerStarted;
         public new event Delegates.EmptyEvent OnServerStopping;
         
-        public new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+        public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
         
         public new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
         public new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
@@ -51,13 +51,13 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             _api.onPlayerFinishedDownload += OnPlayerConnect;
             _api.onPlayerDisconnected += OnPlayerDisconnect;
 
-            OnServerStarted += OnVoiceServerStarted;
-            OnServerStopping += OnVoiceServerStopping;
+            base.OnServerStarted += OnVoiceServerStarted;
+            base.OnServerStopping += OnVoiceServerStopping;
             
-            OnClientConnected += OnVoiceClientConnected;
-            OnClientDisconnected += OnVoiceClientDisconnected;
+            base.OnClientConnected += OnVoiceClientConnected;
+            base.OnClientDisconnected += OnVoiceClientDisconnected;
 
-            OnClientTalkingChanged += OnVoiceClientTalkingChanged;
+            base.OnClientTalkingChanged += OnVoiceClientTalkingChanged;
         }
 
         private void OnVoiceServerStarted()
@@ -103,7 +103,6 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             {
                 return;
             }
-            
             
             OnClientConnected?.Invoke(voiceClient);
         }

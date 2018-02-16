@@ -37,7 +37,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         event Delegates.EmptyEvent OnServerStopping;
         
         event Delegates.ClientEvent OnClientConnected;
-        event Delegates.ClientDisconnected OnClientDisconnected;
+        event Delegates.ClientEvent OnClientDisconnected;
 
         event Delegates.ClientStatusEvent OnClientTalkingChanged;
         event Delegates.ClientStatusEvent OnClientMicrophoneMuteChanged;
