@@ -25,9 +25,7 @@
  * SOFTWARE.
  */
 
-using System;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using Moq;
 using NUnit.Framework;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests
@@ -36,20 +34,17 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
     public class JustAnotherVoiceChatFixture
     {
         [Test]
-        public void MakingServerWillReturnNewVoiceServerInstance()
+        public void GetVoiceWrapperWillReturnsAnIVoiceWrapperInstance()
         {
-            var repositoryMock = new Mock<IElementFactory>();
-            repositoryMock.Setup(e => e.MakeServer(It.IsAny<IVoiceWrapper>(), It.IsAny<IVoiceWrapper3D>(), "localhost", 23332, 20));
-            
-            var result = JustAnotherVoiceChat.MakeServer(repositoryMock.Object, "localhost", 23332, 20);
-
-            repositoryMock.Verify(e => e.MakeServer(It.IsAny<IVoiceWrapper>(), It.IsAny<IVoiceWrapper3D>(), "localhost", 23332, 20), Times.Once);
+            var voiceWrapper = JustAnotherVoiceChat.GetVoiceWrapper();
+            Assert.IsInstanceOf(typeof(IVoiceWrapper), voiceWrapper);
         }
         
         [Test]
-        public void GivingNullAsRepositoryWillThrowArgumentNullException()
+        public void GetVoiceWrapper3DWillReturnsAnIVoiceWrapper3DInstance()
         {
-            Assert.Throws<ArgumentNullException>(() => { JustAnotherVoiceChat.MakeServer(null, "localhost", 23332, 20); });
+            var voiceWrapper3D = JustAnotherVoiceChat.GetVoiceWrapper3D();
+            Assert.IsInstanceOf(typeof(IVoiceWrapper3D), voiceWrapper3D);
         }
     }
 }

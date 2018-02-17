@@ -1,6 +1,6 @@
 ﻿/*
- * File: ClientRepository.cs
- * Date: 15.2.2018,
+ * File: IDummyClientRepository.cs
+ * Date: 17.2.2018,
  *
  * MIT License
  *
@@ -25,27 +25,13 @@
  * SOFTWARE.
  */
 
-using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.Dummy.Repositories
+namespace JustAnotherVoiceChat.Server.Dummy.Interfaces
 {
-    public class ElementFactory : IElementFactory
+    public interface IDummyClientRepository
     {
-        public IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments)
-        {
-            return new DummyClient(server, handle);
-        }
-
-        public IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, params object[] arguments)
-        {
-            return new ServerHandler(this, wrapper, wrapper3D, hostname, port, channelId);
-        }
-
-        public IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
-        {
-            return new ServerHandler(this, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
-        }
+        IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle);
     }
 }

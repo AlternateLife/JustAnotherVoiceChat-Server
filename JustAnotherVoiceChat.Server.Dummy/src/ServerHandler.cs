@@ -28,7 +28,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using JustAnotherVoiceChat.Server.Dummy.Repositories;
+using JustAnotherVoiceChat.Server.Dummy.Client;
+using JustAnotherVoiceChat.Server.Dummy.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
@@ -40,10 +41,13 @@ namespace JustAnotherVoiceChat.Server.Dummy
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
         private readonly ConcurrentBag<IVoiceClient> _voiceClients = new ConcurrentBag<IVoiceClient>();
-        
 
-        public ServerHandler(IElementFactory elementFactory, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(elementFactory, voiceWrapper, voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        private readonly IDummyClientRepository _clientRepository;
+
+        public ServerHandler(IDummyClientRepository clientRepository, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(voiceWrapper, voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
+            _clientRepository = clientRepository ?? throw new ArgumentNullException(nameof(clientRepository));
+
             OnServerStarted += () =>
             {
                 _logger.Debug($"JustAnotherVoiceChat: Listening on {Hostname}:{Port}");
@@ -62,7 +66,18 @@ namespace JustAnotherVoiceChat.Server.Dummy
 
         public IVoiceClient PrepareClient()
         {
-            return CreateClient();
+            if (!CreateVoiceHandle(out var voiceHandle))
+            {
+                return null;
+            }
+
+            var createdClient = _clientRepository.MakeClient(this, voiceHandle);
+            if (!RegisterClient(createdClient))
+            {
+                return null;
+            }
+
+            return createdClient;
         }
 
         public void TriggerClientConnect(ushort handle)
@@ -86,7 +101,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
         {
             while (true)
             {
-                var createdClient = CreateClient();
+                var createdClient = PrepareClient();
 
                 if (createdClient == null)
                 {

@@ -57,7 +57,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void Start();
         void Stop();
 
-        IVoiceClient CreateClient(params object[] arguments);
+        bool CreateVoiceHandle(out VoiceHandle voiceHandle);
+        bool RegisterClient(IVoiceClient voiceClient);
         bool RemoveClient(IVoiceClient client);
 
         IVoiceGroup CreateGroup();

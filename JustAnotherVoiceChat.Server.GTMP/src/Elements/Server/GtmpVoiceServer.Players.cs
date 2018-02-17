@@ -27,6 +27,7 @@
 
 using System;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Elements.Clients;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
@@ -40,8 +41,13 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 
         private IGtmpVoiceClient RegisterPlayer(Client player)
         {
-            var voiceClient = CreateClient(player) as IGtmpVoiceClient;
+            var voiceClient = CreateClient(player);
             if (voiceClient == null)
+            {
+                return null;
+            }
+
+            if (!RegisterClient(voiceClient))
             {
                 return null;
             }
@@ -49,6 +55,16 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             OnClientPrepared?.Invoke(voiceClient);
             
             return voiceClient;
+        }
+
+        private IGtmpVoiceClient CreateClient(Client player)
+        {
+            if (!CreateVoiceHandle(out var voiceHandle))
+            {
+                return null;
+            }
+
+            return _clientRepository.MakeClient(player, this, voiceHandle);
         }
 
         private void UnregisterPlayer(Client player)
