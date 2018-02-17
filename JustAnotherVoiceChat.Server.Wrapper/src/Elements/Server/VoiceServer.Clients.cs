@@ -44,7 +44,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
-                if (client == null)
+                if (client == null || client.Handle.IsEmpty)
                 {
                     return false;
                 }
