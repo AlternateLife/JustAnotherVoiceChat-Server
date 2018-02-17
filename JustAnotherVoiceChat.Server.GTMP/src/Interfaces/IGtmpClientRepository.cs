@@ -1,6 +1,6 @@
 ﻿/*
- * File: GtmpVoice.cs
- * Date: 15.2.2018,
+ * File: IGtmpClientRepository.cs
+ * Date: 17.2.2018,
  *
  * MIT License
  *
@@ -25,28 +25,14 @@
  * SOFTWARE.
  */
 
-using GrandTheftMultiplayer.Server.API;
-using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
-using JustAnotherVoiceChat.Server.GTMP.Interfaces;
-using JustAnotherVoiceChat.Server.GTMP.Repositories;
+using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Factories
+namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {
-    public static class GtmpVoice
+    public interface IGtmpClientRepository
     {
-        private static IVoiceWrapper _voiceWrapper => Wrapper.JustAnotherVoiceChat.GetVoiceWrapper();
-        private static IVoiceWrapper3D _voiceWrapper3D => Wrapper.JustAnotherVoiceChat.GetVoiceWrapper3D();
-
-        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId)
-        {
-            return new GtmpVoiceServer(api, new GtmpClientRepository(), _voiceWrapper, _voiceWrapper3D, hostname, port, channelId);
-        }
-        
-        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
-        {
-            return new GtmpVoiceServer(api, new GtmpClientRepository(), _voiceWrapper, _voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
-        }
-        
+        IGtmpVoiceClient MakeClient(Client player, IVoiceServer server, VoiceHandle handle);
     }
 }

@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -34,24 +33,28 @@ namespace JustAnotherVoiceChat.Server.Wrapper
 {
     public static class JustAnotherVoiceChat
     {
-        public static IVoiceServer MakeServer(IElementFactory factory, string hostname, ushort port, int channelId, params object[] arguments)
+        private static IVoiceWrapper _voiceWrapper;
+        private static IVoiceWrapper3D _voiceWrapper3D;
+
+        public static IVoiceWrapper GetVoiceWrapper()
         {
-            if (factory == null)
+            if(_voiceWrapper == null)
             {
-                throw new ArgumentNullException(nameof(factory));
+                _voiceWrapper = new VoiceWrapper();
             }
-            
-            return factory.MakeServer(new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, arguments);
+
+            return _voiceWrapper;
         }
 
-        public static IVoiceServer MakeServer(IElementFactory factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
+
+        public static IVoiceWrapper3D GetVoiceWrapper3D()
         {
-            if (factory == null)
+            if (_voiceWrapper3D == null)
             {
-                throw new ArgumentNullException(nameof(factory));
+                _voiceWrapper3D = new VoiceWrapper3D();
             }
 
-            return factory.MakeServer(new VoiceWrapper(), new VoiceWrapper3D(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, arguments);
+            return _voiceWrapper3D;
         }
     }
 }

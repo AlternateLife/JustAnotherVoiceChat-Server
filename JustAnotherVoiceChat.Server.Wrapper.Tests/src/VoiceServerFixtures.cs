@@ -39,14 +39,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
     {
         private Mock<IVoiceWrapper> _voiceWrapper;
         private Mock<IVoiceWrapper3D> _voiceWrapper3D;
-        private Mock<IElementFactory> _clientRepoMock;
 
         [SetUp]
         public void SetUp()
         {
             _voiceWrapper = new Mock<IVoiceWrapper>();
             _voiceWrapper3D = new Mock<IVoiceWrapper3D>();
-            _clientRepoMock = new Mock<IElementFactory>();
         }
 
         [TearDown]
@@ -54,18 +52,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             _voiceWrapper = null;
             _voiceWrapper3D = null;
-            _clientRepoMock = null;
 
             GC.Collect();
-        }
-
-        [Test]
-        public void ConstructorWillThrowExceptionIfRepositoryIsNull()
-        {
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                var server = new VoiceServer(null, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
-            });
         }
 
         [Test]
@@ -73,7 +61,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var server = new VoiceServer(_clientRepoMock.Object, null, _voiceWrapper3D.Object, "localhost", 23332, 23);
+                var server = new VoiceServer(null, _voiceWrapper3D.Object, "localhost", 23332, 23);
             });
         }
 
@@ -82,7 +70,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, null, "localhost", 23332, 23);
+                var server = new VoiceServer(_voiceWrapper.Object, null, "localhost", 23332, 23);
             });
         }
 
@@ -95,7 +83,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             {
                 Assert.Throws<InvalidHostnameException>(() =>
                 {
-                    var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, invalidhostname, 23332, 23);
+                    var server = new VoiceServer(_voiceWrapper.Object, _voiceWrapper3D.Object, invalidhostname, 23332, 23);
                 });
             }
         }
@@ -103,7 +91,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerWillSetStartedPropertyToTrueAndTriggerEvent()
         {
-            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
@@ -117,7 +105,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StoppingVoiceServerWillSetStartedPropertyToFalseAndTriggerEvent()
         {
-            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStopping += () => invokeAmount++;
@@ -132,7 +120,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerMultipleWillTriggerEventOnlyIfServerIsNotStarted()
         {
-            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
@@ -160,7 +148,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingAndStoppingServerWillTriggerEventMultipleTimes()
         {
-            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var startInvokeAmount = 0;
             server.OnServerStarted += () => startInvokeAmount++;
@@ -184,7 +172,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StoppingServerWithoutStartingItFirstWillThrowAnException()
         {
-            var server = new VoiceServer(_clientRepoMock.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            var server = new VoiceServer(_voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             Assert.Throws<VoiceServerNotStartedException>(() =>
             {

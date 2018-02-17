@@ -1,6 +1,6 @@
 ﻿/*
- * File: ClientRepository.cs
- * Date: 15.2.2018,
+ * File: DummyClientRepository.cs
+ * Date: 16.2.2018,
  *
  * MIT License
  *
@@ -25,30 +25,18 @@
  * SOFTWARE.
  */
 
-using GrandTheftMultiplayer.Server.API;
-using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.GTMP.Elements.Clients;
-using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
+using JustAnotherVoiceChat.Server.Dummy.Client;
+using JustAnotherVoiceChat.Server.Dummy.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Factories
+namespace JustAnotherVoiceChat.Server.Dummy.Repositories
 {
-    public class ElementFactory : IElementFactory
+    public class DummyClientRepository : IDummyClientRepository
     {
-        public IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle, params object[] arguments)
+        public IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle)
         {
-            return new GtmpVoiceClient((Client) arguments[0], server, handle);
-        }
-
-        public IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, params object[] arguments)
-        {
-            return new GtmpVoiceServer((API) arguments[0], this, wrapper, wrapper3D, hostname, port, channelId);
-        }
-
-        public IVoiceServer MakeServer(IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, params object[] arguments)
-        {
-            return new GtmpVoiceServer((API) arguments[0], this, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            return new DummyClient(server, handle);
         }
     }
 }

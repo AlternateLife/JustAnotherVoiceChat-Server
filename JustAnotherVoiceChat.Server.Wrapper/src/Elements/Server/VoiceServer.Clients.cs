@@ -29,9 +29,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
-using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
@@ -43,28 +40,33 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private readonly object _voiceHandleGenerationLock = new object();
 
-        public IVoiceClient CreateClient(params object[] arguments)
+        public bool RegisterClient(IVoiceClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
-                VoiceHandle handle;
+                if (client == null)
+                {
+                    return false;
+                }
+
+                return _clients.TryAdd(client.Handle.Identifer, client);
+            }
+        }
+
+        public bool CreateVoiceHandle(out VoiceHandle voiceHandle)
+        {
+            lock (_voiceHandleGenerationLock)
+            {
                 try
                 {
-                    handle = CreateFreeVoiceHandle();
+                    voiceHandle = CreateFreeVoiceHandle();
+                    return true;
                 }
                 catch (InvalidOperationException)
                 {
-                    return null;
+                    voiceHandle = new VoiceHandle();
+                    return false;
                 }
-
-                var createdClient = _elementFactory.MakeClient(this, handle, arguments);
-
-                if (!_clients.TryAdd(handle.Identifer, createdClient))
-                {
-                    return null;
-                }
-
-                return createdClient;
             }
         }
 
