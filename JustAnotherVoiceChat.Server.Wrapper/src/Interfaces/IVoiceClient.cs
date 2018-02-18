@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;

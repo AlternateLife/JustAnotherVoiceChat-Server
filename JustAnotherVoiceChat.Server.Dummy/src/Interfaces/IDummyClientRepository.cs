@@ -27,7 +27,6 @@
 
 using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Dummy.Interfaces
 {

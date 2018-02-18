@@ -34,8 +34,7 @@ namespace JustAnotherVoiceChat.Server.Dummy.Client
 {
     public class DummyClient : VoiceClient
     {
-        private Vector3 _position;
-        public override Vector3 Position => _position;
+        public override Vector3 Position { get; } = new Vector3(0, 1, 0);
 
         public DummyClient(IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
         {

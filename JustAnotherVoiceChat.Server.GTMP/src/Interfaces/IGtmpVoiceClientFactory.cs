@@ -27,7 +27,6 @@
 
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {

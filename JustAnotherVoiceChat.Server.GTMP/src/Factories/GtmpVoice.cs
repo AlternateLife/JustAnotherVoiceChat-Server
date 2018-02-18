@@ -28,7 +28,6 @@
 using GrandTheftMultiplayer.Server.API;
 using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
-using JustAnotherVoiceChat.Server.GTMP.Repositories;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Factories

@@ -31,7 +31,7 @@ using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Repositories
+namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public class GtmpVoiceClientFactory : IGtmpVoiceClientFactory
     {
