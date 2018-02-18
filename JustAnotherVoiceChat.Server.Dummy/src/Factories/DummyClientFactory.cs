@@ -1,6 +1,6 @@
 ﻿/*
- * File: IVoicePositionTaskServer.cs
- * Date: 15.2.2018,
+ * File: DummyClientFactory.cs
+ * Date: 18.2.2018,
  *
  * MIT License
  *
@@ -25,12 +25,18 @@
  * SOFTWARE.
  */
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
+using JustAnotherVoiceChat.Server.Dummy.Client;
+using JustAnotherVoiceChat.Server.Dummy.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
+
+namespace JustAnotherVoiceChat.Server.Dummy.Repositories
 {
-    internal interface IVoicePositionTaskServer
+    public class DummyClientFactory : IDummyClientFactory
     {
-        void SetClientPositionForListener(IVoiceClient listenerClient, IVoiceClient foreignClient);
-        void MuteClientForListener(IVoiceClient listenerClient, IVoiceClient foreignClient, bool muted);
-        void SetListenerDirection(IVoiceClient listenerClient);
+        public DummyClient MakeClient(byte identifer, IVoiceServer server, VoiceHandle handle)
+        {
+            return new DummyClient(server, handle);
+        }
     }
 }

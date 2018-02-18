@@ -41,7 +41,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
         
         private readonly ConcurrentBag<IVoiceClient> _voiceClients = new ConcurrentBag<IVoiceClient>();
 
-        public ServerHandler(IDummyClientRepository clientRepository, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(clientRepository, voiceWrapper, voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public ServerHandler(IDummyClientFactory clientRepository, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(clientRepository, voiceWrapper, voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
             OnServerStarted += () =>
             {

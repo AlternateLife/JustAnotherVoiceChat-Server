@@ -30,7 +30,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Dummy.Interfaces
 {
-    public interface IDummyClientRepository : IVoiceClientFactory<DummyClient, byte>
+    public interface IDummyClientFactory : IVoiceClientFactory<DummyClient, byte>
     {
         
     }

@@ -34,12 +34,12 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifer> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
         private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
         private readonly object _voiceHandleGenerationLock = new object();
 
-        protected TClient PrepareClient(TIdentifer identifer)
+        protected TClient PrepareClient(TIdentifier identifer)
         {
             var client = CreateClient(identifer);
             if (ReferenceEquals(client, default(TClient)) || !RegisterClient(client))
@@ -50,7 +50,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             return client;
         }
         
-        private TClient CreateClient(TIdentifer identifer)
+        private TClient CreateClient(TIdentifier identifer)
         {
             var voiceHandle = CreateVoiceHandle();
             if (voiceHandle == VoiceHandle.Empty)
