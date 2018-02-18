@@ -40,7 +40,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private readonly object _voiceHandleGenerationLock = new object();
 
-        public bool RegisterClient(IVoiceClient client)
+        protected bool RegisterClient(IVoiceClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
@@ -53,7 +53,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
-        public bool CreateVoiceHandle(out VoiceHandle voiceHandle)
+        protected bool CreateVoiceHandle(out VoiceHandle voiceHandle)
         {
             lock (_voiceHandleGenerationLock)
             {
@@ -70,10 +70,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
-        public bool RemoveClient(IVoiceClient client)
+        protected bool RemoveClient(IVoiceClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
+                if (client == null)
+                {
+                    return false;
+                }
+
                 if (client.Connected)
                 {
                     OnClientDisconnectedFromVoice(client.Handle.Identifer);

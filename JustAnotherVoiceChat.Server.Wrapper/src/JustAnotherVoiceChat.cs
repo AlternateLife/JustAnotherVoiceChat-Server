@@ -46,7 +46,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper
             return _voiceWrapper;
         }
 
-
         public static IVoiceWrapper3D GetVoiceWrapper3D()
         {
             if (_voiceWrapper3D == null)

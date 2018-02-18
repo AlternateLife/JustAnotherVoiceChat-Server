@@ -74,7 +74,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
                 throw new ArgumentNullException(nameof(player));
             }
 
-            GetVoiceClient(player)?.Dispose();
+            var client = GetVoiceClient(player);
+            RemoveClient(client);
         }
     }
 }

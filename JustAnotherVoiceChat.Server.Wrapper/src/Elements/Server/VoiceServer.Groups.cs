@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Group;
@@ -35,13 +35,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     public partial class VoiceServer
     {
-        
-        private readonly List<VoiceGroup> _groups = new List<VoiceGroup>();
+        private readonly ConcurrentBag<IVoiceGroup> _groups = new ConcurrentBag<IVoiceGroup>();
+
+        private readonly object _groupLock = new object();
         
         public IVoiceGroup CreateGroup()
         {
             var createdGroup = new VoiceGroup(this);
-            lock (_groups)
+            lock (_groupLock)
             {
                 _groups.Add(createdGroup);
             }
@@ -51,26 +52,32 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public IEnumerable<IVoiceGroup> GetAllGroups()
         {
-            lock (_groups)
+            lock (_groupLock)
             {
                 return _groups.ToList();
             }
         }
 
-        public void DestroyGroup(IVoiceGroup voiceGroup)
+        public bool DestroyGroup(IVoiceGroup voiceGroup)
         {
             if (voiceGroup == null)
             {
-                throw new ArgumentNullException(nameof(voiceGroup));
+                return false;
             }
             
             voiceGroup.Dispose();
+            return true;
         }
 
         private void DisposeGroups()
         {
-            
+            lock (_groupLock)
+            {
+                foreach (var group in _groups)
+                {
+                    group.Dispose();
+                }
+            }
         }
-        
     }
 }
