@@ -37,25 +37,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
     public partial class VoiceServer<TClient, TIdentifer> where TClient : IVoiceClient
     {
         private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
-
         private readonly object _voiceHandleGenerationLock = new object();
-
-        protected bool RegisterClient(IVoiceClient client)
+        
+        protected TClient CreateClient(TIdentifer identifer)
         {
-            lock (_voiceHandleGenerationLock)
+            if (!CreateVoiceHandle(out var voiceHandle))
             {
-                if (client == null)
-                {
-                    throw new ArgumentNullException(nameof(client));
-                }
-
-                if(client.Handle.IsEmpty)
-                {
-                    return false;
-                }
-
-                return _clients.TryAdd(client.Handle.Identifer, client);
+                return default(TClient);
             }
+
+            return _factory.MakeClient(identifer, this, voiceHandle);
         }
 
         protected bool CreateVoiceHandle(out VoiceHandle voiceHandle)
@@ -75,14 +66,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
         
-        protected TClient CreateClient(TIdentifer identifer)
+        protected bool RegisterClient(IVoiceClient client)
         {
-            if (!CreateVoiceHandle(out var voiceHandle))
+            lock (_voiceHandleGenerationLock)
             {
-                return default(TClient);
-            }
+                if (client == null)
+                {
+                    throw new ArgumentNullException(nameof(client));
+                }
+                
+                if (client.Handle.IsEmpty)
+                {
+                    return false;
+                }
 
-            return _factory.MakeClient(identifer, this, voiceHandle);
+                return _clients.TryAdd(client.Handle.Identifer, client);
+            }
         }
 
         protected bool RemoveClient(IVoiceClient client)
