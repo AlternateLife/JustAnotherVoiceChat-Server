@@ -29,7 +29,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer
+    public partial class VoiceServer<TClient, TIdentifer> where TClient : IVoiceClient
     {
         public event Delegates.EmptyEvent OnServerStarted;
         public event Delegates.EmptyEvent OnServerStopping;

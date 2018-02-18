@@ -1,5 +1,5 @@
 ﻿/*
- * File: GtmpClientRepository.cs
+ * File: IGtmpClientRepository.cs
  * Date: 17.2.2018,
  *
  * MIT License
@@ -26,18 +26,13 @@
  */
 
 using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.GTMP.Elements.Clients;
-using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.GTMP.Repositories
+namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {
-    public class GtmpClientRepository : IGtmpClientRepository
+    public interface IGtmpVoiceClientFactory : IVoiceClientFactory<IGtmpVoiceClient, Client>
     {
-        public IGtmpVoiceClient MakeClient(Client player, IVoiceServer server, VoiceHandle handle)
-        {
-            return new GtmpVoiceClient(player, server, handle);
-        }
+        
     }
 }

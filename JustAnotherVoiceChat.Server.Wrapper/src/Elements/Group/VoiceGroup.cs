@@ -38,8 +38,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
     {
         public event Delegates.ClientEvent OnClientJoined;
         public event Delegates.ClientEvent OnClientLeft;
-
-        private readonly VoiceServer _server;
+        
+        private readonly IVoiceServer _server;
         private readonly ConcurrentDictionary<VoiceHandle, IVoiceClient> _clients = new ConcurrentDictionary<VoiceHandle, IVoiceClient>();
 
         public IEnumerable<IVoiceClient> Clients
@@ -49,8 +49,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
                 return _clients.Values;
             }
         }
-
-        internal VoiceGroup(VoiceServer server)
+        
+        internal VoiceGroup(IVoiceServer server)
         {
             _server = server;
         }
@@ -66,8 +66,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
             {
                 return false;
             }
-
-            _server.FireClientJoinedGroup(client, this);
+            
+            // Todo: Add trigger for client joining group
+            //_server.FireClientJoinedGroup(client, this);
             return true;
         }
 
@@ -83,7 +84,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
                 return false;
             }
 
-            _server.FireClientLeftGroup(client, this);
+            // Todo: Add trigger for client leaving group
+            //_server.FireClientLeftGroup(client, this);
             return true;
         }
 
@@ -101,7 +103,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
         {
             foreach (var client in Clients)
             {
-                _server.FireClientLeftGroup(client, this);
+                // Todo: Add trigger for client leaving group
+                //_server.FireClientLeftGroup(client, this);
             }
 
             OnClientJoined = null;
