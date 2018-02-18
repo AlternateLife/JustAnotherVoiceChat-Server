@@ -44,7 +44,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             lock (_voiceHandleGenerationLock)
             {
-                if (client == null || client.Handle.IsEmpty)
+                if (client == null)
+                {
+                    throw new ArgumentNullException(nameof(client));
+                }
+
+                if(client.Handle.IsEmpty)
                 {
                     return false;
                 }
@@ -76,7 +81,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             {
                 if (client == null)
                 {
-                    return false;
+                    throw new ArgumentNullException(nameof(client));
                 }
 
                 if (client.Connected)
