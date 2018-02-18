@@ -27,6 +27,7 @@
 
 using System.Runtime.InteropServices;
 
+// ReSharper disable UnusedMember.Local
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper

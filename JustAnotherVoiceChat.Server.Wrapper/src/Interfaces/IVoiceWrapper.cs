@@ -25,8 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
-
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceWrapper

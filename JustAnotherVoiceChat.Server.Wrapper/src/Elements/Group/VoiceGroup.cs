@@ -28,7 +28,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
