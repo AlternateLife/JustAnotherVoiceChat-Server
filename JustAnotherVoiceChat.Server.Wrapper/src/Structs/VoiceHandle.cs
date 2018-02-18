@@ -29,9 +29,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Structs
 {
     public struct VoiceHandle
     {
+        public static VoiceHandle Empty => new VoiceHandle(0);
         
         public bool IsEmpty => Identifer == 0;
-        
         public ushort Identifer { get; }
 
         public VoiceHandle(ushort identifer)
@@ -63,11 +63,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Structs
         public static bool operator !=(VoiceHandle left, VoiceHandle right)
         {
             return !left.Equals(right);
-        }
-
-        public static VoiceHandle Empty()
-        {
-            return new VoiceHandle(0);
         }
     }
 }
