@@ -89,10 +89,5 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             
             group.RemoveClient(this);
         }
-
-        public virtual void Dispose()
-        {
-            _server.RemoveClient(this);
-        }
     }
 }

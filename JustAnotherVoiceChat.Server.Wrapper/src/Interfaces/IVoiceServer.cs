@@ -57,13 +57,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void Start();
         void Stop();
 
-        bool CreateVoiceHandle(out VoiceHandle voiceHandle);
-        bool RegisterClient(IVoiceClient voiceClient);
-        bool RemoveClient(IVoiceClient client);
-
         IVoiceGroup CreateGroup();
         IEnumerable<IVoiceGroup> GetAllGroups();
-        void DestroyGroup(IVoiceGroup voiceGroup);
+        bool DestroyGroup(IVoiceGroup voiceGroup);
 
         IVoiceClient GetVoiceClient(VoiceHandle handle);
         IVoiceClient GetVoiceClient(ushort handle);
@@ -75,6 +71,5 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         void AddTask(IVoiceTask voiceTask);
         void AddTasks(IEnumerable<IVoiceTask> voiceTasks);
-
     }
 }

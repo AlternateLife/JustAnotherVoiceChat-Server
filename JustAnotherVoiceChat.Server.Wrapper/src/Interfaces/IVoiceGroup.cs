@@ -38,8 +38,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         IEnumerable<IVoiceClient> Clients { get; }
 
-        void AddClient(IVoiceClient client);
-        void RemoveClient(IVoiceClient client);
+        bool AddClient(IVoiceClient client);
+        bool RemoveClient(IVoiceClient client);
         bool HasClient(IVoiceClient client);
 
     }

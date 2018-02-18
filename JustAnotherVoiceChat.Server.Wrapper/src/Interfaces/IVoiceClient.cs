@@ -32,7 +32,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceClient : IDisposable
+    public interface IVoiceClient
     {
         
         VoiceHandle Handle { get; }
