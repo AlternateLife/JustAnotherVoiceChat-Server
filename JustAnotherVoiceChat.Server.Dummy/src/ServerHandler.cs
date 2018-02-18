@@ -61,18 +61,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
 
         public IVoiceClient PrepareClient()
         {
-            var voiceClient = CreateClient(1);
-            if (voiceClient == null)
-            {
-                return null;
-            }
-
-            if (!RegisterClient(voiceClient))
-            {
-                return null;
-            }
-            
-            return voiceClient;
+            return PrepareClient(1);
         }
 
         public void TriggerClientConnect(ushort handle)

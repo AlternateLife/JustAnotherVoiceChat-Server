@@ -41,13 +41,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 
         private IGtmpVoiceClient RegisterPlayer(Client player)
         {
-            var voiceClient = CreateClient(player);
+            var voiceClient = PrepareClient(player);
             if (voiceClient == null)
-            {
-                return null;
-            }
-
-            if (!RegisterClient(voiceClient))
             {
                 return null;
             }

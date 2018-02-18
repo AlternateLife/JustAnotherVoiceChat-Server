@@ -38,10 +38,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
     {
         private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
         private readonly object _voiceHandleGenerationLock = new object();
-        
-        protected TClient CreateClient(TIdentifer identifer)
+
+        protected TClient PrepareClient(TIdentifer identifer)
         {
-            if (!CreateVoiceHandle(out var voiceHandle))
+            var client = CreateClient(identifer);
+            if (ReferenceEquals(client, default(TClient)) || !RegisterClient(client))
+            {
+                return default(TClient);
+            }
+
+            return client;
+        }
+        
+        private TClient CreateClient(TIdentifer identifer)
+        {
+            var voiceHandle = CreateVoiceHandle();
+            if (voiceHandle == VoiceHandle.Empty)
             {
                 return default(TClient);
             }
@@ -49,24 +61,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             return _factory.MakeClient(identifer, this, voiceHandle);
         }
 
-        protected bool CreateVoiceHandle(out VoiceHandle voiceHandle)
+        private VoiceHandle CreateVoiceHandle()
         {
             lock (_voiceHandleGenerationLock)
             {
                 try
                 {
-                    voiceHandle = CreateFreeVoiceHandle();
-                    return true;
+                    return CreateFreeVoiceHandle();
                 }
                 catch (InvalidOperationException)
                 {
-                    voiceHandle = new VoiceHandle();
-                    return false;
+                    return VoiceHandle.Empty;
                 }
             }
         }
         
-        protected bool RegisterClient(IVoiceClient client)
+        private bool RegisterClient(IVoiceClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
