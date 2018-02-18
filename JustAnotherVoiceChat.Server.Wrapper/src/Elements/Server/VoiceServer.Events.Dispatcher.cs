@@ -27,10 +27,11 @@
 
 using System;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer
+    public partial class VoiceServer<TClient, TIdentifer> where TClient : IVoiceClient
     {
         
         private bool OnClientConnectedFromVoice(ushort handle)

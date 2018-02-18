@@ -34,7 +34,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer
+    public partial class VoiceServer<TClient, TIdentifer> where TClient : IVoiceClient
     {
         private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
 
@@ -73,6 +73,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                     return false;
                 }
             }
+        }
+        
+        protected TClient CreateClient(TIdentifer identifer)
+        {
+            if (!CreateVoiceHandle(out var voiceHandle))
+            {
+                return default(TClient);
+            }
+
+            return _factory.MakeClient(identifer, this, voiceHandle);
         }
 
         protected bool RemoveClient(IVoiceClient client)

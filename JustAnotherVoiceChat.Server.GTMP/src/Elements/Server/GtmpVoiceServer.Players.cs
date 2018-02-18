@@ -57,16 +57,6 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             return voiceClient;
         }
 
-        private IGtmpVoiceClient CreateClient(Client player)
-        {
-            if (!CreateVoiceHandle(out var voiceHandle))
-            {
-                return null;
-            }
-
-            return _clientRepository.MakeClient(player, this, voiceHandle);
-        }
-
         private void UnregisterPlayer(Client player)
         {
             if (player == null)

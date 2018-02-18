@@ -69,10 +69,10 @@
     <Compile Include="src\Elements\Server\GtmpVoiceServer.cs" />
     <Compile Include="src\Elements\Server\GtmpVoiceServer.Events.cs" />
     <Compile Include="src\Elements\Server\GtmpVoiceServer.Players.cs" />
-    <Compile Include="src\Repositories\GtmpClientRepository.cs" />
     <Compile Include="src\Factories\GtmpVoice.cs" />
+    <Compile Include="src\Factories\GtmpVoiceClientFactory.cs" />
     <Compile Include="src\GtmpVoiceDelegates.cs" />
-    <Compile Include="src\Interfaces\IGtmpClientRepository.cs" />
+    <Compile Include="src\Interfaces\IGtmpVoiceClientFactory.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceClient.cs" />
     <Compile Include="src\Interfaces\IGtmpVoiceServer.cs" />
   </ItemGroup>
@@ -88,7 +88,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

@@ -26,30 +26,27 @@
  */
 
 using GrandTheftMultiplayer.Server.API;
+using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using System;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal partial class GtmpVoiceServer : VoiceServer, IGtmpVoiceServer
+    internal partial class GtmpVoiceServer : VoiceServer<IGtmpVoiceClient, Client>, IGtmpVoiceServer
     {
         private readonly API _api;
-        private readonly IGtmpClientRepository _clientRepository;
         
-        public GtmpVoiceServer(API api, IGtmpClientRepository clientRepository, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId) : base(wrapper, wrapper3D, hostname, port, channelId)
+        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId) : base(clientRepository, wrapper, wrapper3D, hostname, port, channelId)
         {
             _api = api;
-            _clientRepository = clientRepository ?? throw new ArgumentNullException(nameof(clientRepository));
 
             AttachToEvents();
         }
         
-        public GtmpVoiceServer(API api, IGtmpClientRepository clientRepository, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(clientRepository, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
             _api = api;
-            _clientRepository = clientRepository ?? throw new ArgumentNullException(nameof(clientRepository));
 
             AttachToEvents();
         }

@@ -25,13 +25,14 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Dummy.Interfaces
 {
-    public interface IDummyClientRepository
+    public interface IDummyClientRepository : IVoiceClientFactory<DummyClient, byte>
     {
-        IVoiceClient MakeClient(IVoiceServer server, VoiceHandle handle);
+        
     }
 }
