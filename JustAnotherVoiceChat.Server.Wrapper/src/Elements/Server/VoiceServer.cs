@@ -31,9 +31,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifer> : IVoiceServer where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> : IVoiceServer where TClient : IVoiceClient
     {
-        private readonly IVoiceClientFactory<TClient, TIdentifer> _factory;
+        private readonly IVoiceClientFactory<TClient, TIdentifier> _factory;
         private readonly IVoiceWrapper _voiceWrapper;
 
         public string Hostname { get; }
@@ -47,7 +47,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public IVoiceWrapper3D VoiceWrapper3D { get; }
 
-        protected internal VoiceServer(IVoiceClientFactory<TClient, TIdentifer> factory, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f, float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
+        protected internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f, float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _voiceWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));

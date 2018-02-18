@@ -70,7 +70,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                 {
                     if (_server == null)
                     {
-                        _server = new ServerHandler(new DummyClientRepository(), Wrapper.JustAnotherVoiceChat.GetVoiceWrapper(), Wrapper.JustAnotherVoiceChat.GetVoiceWrapper3D(), "localhost", 23332, 23);
+                        _server = new ServerHandler(new DummyClientFactory(), Wrapper.JustAnotherVoiceChat.GetVoiceWrapper(), Wrapper.JustAnotherVoiceChat.GetVoiceWrapper3D(), "localhost", 23332, 23);
                     }
                     
                     Logger.Info("Starting JustAnotherVoiceChat DummyServer...");
