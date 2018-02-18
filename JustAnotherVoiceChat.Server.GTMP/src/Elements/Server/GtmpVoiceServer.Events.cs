@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using System;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
@@ -98,35 +99,28 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
         
         private void OnVoiceClientConnected(IVoiceClient client)
         {
-            var voiceClient = client as IGtmpVoiceClient;
-            if (voiceClient == null)
-            {
-                return;
-            }
-            
-            OnClientConnected?.Invoke(voiceClient);
+            TriggerOnClient(client, c => OnClientConnected?.Invoke(c));
         }
 
         private void OnVoiceClientDisconnected(IVoiceClient client)
         {
-            var voiceClient = client as IGtmpVoiceClient;
-            if (voiceClient == null)
-            {
-                return;
-            }
-            
-            OnClientDisconnected?.Invoke(voiceClient);
+            TriggerOnClient(client, c => OnClientDisconnected?.Invoke(c));
         }
 
         private void OnVoiceClientTalkingChanged(IVoiceClient client, bool newStatus)
+        {
+            TriggerOnClient(client, c => OnClientTalkingChanged?.Invoke(c, newStatus));
+        }
+
+        private void TriggerOnClient(IVoiceClient client, Action<IGtmpVoiceClient> callback)
         {
             var voiceClient = client as IGtmpVoiceClient;
             if (voiceClient == null)
             {
                 return;
             }
-            
-            OnClientTalkingChanged?.Invoke(voiceClient, newStatus);
+
+            callback(voiceClient);
         }
 
         public void TriggerOnClientConnectedEvent(ushort handle)
