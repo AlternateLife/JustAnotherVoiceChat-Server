@@ -87,7 +87,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
                 throw new ArgumentNullException(nameof(group));
             }
             
-            group.RemoveClient(this);
+            group.TryRemoveClient(this, out _);
         }
     }
 }

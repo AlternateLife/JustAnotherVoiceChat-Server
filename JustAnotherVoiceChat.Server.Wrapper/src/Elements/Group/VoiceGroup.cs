@@ -38,23 +38,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
     {
         public event Delegates.ClientEvent OnClientJoined;
         public event Delegates.ClientEvent OnClientLeft;
-        
+
         private readonly VoiceServer _server;
         private readonly ConcurrentDictionary<VoiceHandle, IVoiceClient> _clients = new ConcurrentDictionary<VoiceHandle, IVoiceClient>();
-
-        private readonly object _clientsLock = new object();
 
         public IEnumerable<IVoiceClient> Clients
         {
             get
             {
-                lock (_clientsLock)
-                {
-                    return _clients.Values;
-                }
+                return _clients.Values;
             }
         }
-        
+
         internal VoiceGroup(VoiceServer server)
         {
             _server = server;
@@ -64,34 +59,28 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
         {
             if (client == null)
             {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            if (!_clients.TryAdd(client.Handle, client))
+            {
                 return false;
             }
 
-            lock (_clientsLock)
-            {
-                if (!_clients.TryAdd(client.Handle, client))
-                {
-                    return false;
-                }
-            }
-            
             _server.FireClientJoinedGroup(client, this);
             return true;
         }
 
-        public bool RemoveClient(IVoiceClient client)
+        public bool TryRemoveClient(IVoiceClient client, out IVoiceClient removedVoiceClient)
         {
             if (client == null)
             {
-                return false;
+                throw new ArgumentNullException(nameof(client));
             }
-                        
-            lock (_clientsLock)
+
+            if (!_clients.TryRemove(client.Handle, out removedVoiceClient))
             {
-                if (!_clients.TryRemove(client.Handle, out _))
-                {
-                    return false;
-                }
+                return false;
             }
 
             _server.FireClientLeftGroup(client, this);
@@ -105,10 +94,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
                 throw new ArgumentNullException(nameof(client));
             }
 
-            lock (_clientsLock)
-            {
-                return _clients.ContainsKey(client.Handle);
-            }
+            return _clients.ContainsKey(client.Handle);
         }
 
         public void Dispose()
@@ -120,9 +106,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
 
             OnClientJoined = null;
             OnClientLeft = null;
-            
+
             _clients.Clear();
-            
+
             GC.SuppressFinalize(this);
         }
     }
