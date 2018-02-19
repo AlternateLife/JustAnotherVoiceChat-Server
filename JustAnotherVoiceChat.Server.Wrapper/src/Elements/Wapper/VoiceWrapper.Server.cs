@@ -31,9 +31,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper : IVoiceWrapper
     {
-        public void StartNativeServer(ushort port)
+        public void CreateNativeServer(ushort port)
         {
-            JV_StartServer(port);
+            JV_CreateServer(port);
+        }
+
+        public bool StartNativeServer()
+        {
+            return JV_StartServer();
         }
 
         public void StopNativeServer()

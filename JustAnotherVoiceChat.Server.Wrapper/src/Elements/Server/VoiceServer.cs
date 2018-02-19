@@ -67,6 +67,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             GlobalDistanceFactor = globalDistanceFactor;
             GlobalRollOffScale = globalRollOffScale;
 
+            _voiceWrapper.CreateNativeServer(Port);
+
             AttachToNativeEvents();
             AttachTasksToStartAndStopEvent();
         }
@@ -78,7 +80,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 throw new VoiceServerAlreadyStartedException();
             }
             
-            _voiceWrapper.StartNativeServer(Port);
+            if (_voiceWrapper.StartNativeServer() == false)
+            {
+                throw new VoiceServerNotStartedException();
+            }
             
             Started = true;
             OnServerStarted?.Invoke();
