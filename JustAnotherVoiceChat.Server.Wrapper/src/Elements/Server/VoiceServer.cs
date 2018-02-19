@@ -56,7 +56,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             
         }
         
-        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, IVoiceWrapper<TClient> voiceWrapper) : this(factory, hostname, port, channelId, 1, 1, 6, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, IVoiceWrapper<TClient> voiceWrapper) : this(factory, hostname, port, channelId, 1, 1, 6, voiceWrapper)
         {
             
         }
