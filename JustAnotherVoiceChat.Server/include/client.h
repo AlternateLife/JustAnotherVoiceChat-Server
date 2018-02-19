@@ -53,7 +53,7 @@ namespace justAnotherVoiceChat {
     bool _speakersMuted;
 
   public:
-    Client(ENetPeer *peer);
+    Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId);
     virtual ~Client();
 
     uint16_t gameId() const;

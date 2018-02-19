@@ -43,6 +43,7 @@ Server::Server(uint16_t port) {
 
   _server = nullptr;
   _thread = nullptr;
+  _clientUpdateThread = nullptr;
   _running = false;
   _distanceFactor = 1;
   _rolloffFactor = 1;
@@ -71,6 +72,8 @@ bool Server::create() {
 
   _server = enet_host_create(&_address, maxClients(), NETWORK_CHANNELS, 0, 0);
   if (_server == NULL) {
+    logMessage("Unable to create voice server host", LOG_LEVEL_WARNING);
+
     _server = nullptr;
     return false;
   }
@@ -82,6 +85,8 @@ bool Server::create() {
   _running = true;
   _thread = new std::thread(&Server::update, this);
   _clientUpdateThread = new std::thread(&Server::updateClients, this);
+
+  logMessage("Voice server started", LOG_LEVEL_INFO);
 
   return true;
 }
@@ -98,6 +103,8 @@ void Server::close() {
     enet_host_destroy(_server);
     _server = nullptr;
   }
+
+  logMessage("Voice server closed", LOG_LEVEL_INFO);
 }
 
 bool Server::isRunning() const {
@@ -251,6 +258,10 @@ void Server::updateClients() {
       Client *client = *it;
 
       for (auto clientIt = _clients.begin(); clientIt != _clients.end(); clientIt++) {
+        if (*clientIt == client) {
+          continue;
+        }
+
         if ((*clientIt)->positionChanged() == false) {
           continue;
         }
@@ -280,14 +291,20 @@ void Server::abortThreads() {
   _running = false;
 
   if (_thread != nullptr) {
-    _thread->join();
+    if (_thread->joinable()) {
+      _thread->join();
+    }
+    
 
     delete _thread;
     _thread = nullptr;
   }
 
   if (_clientUpdateThread != nullptr) {
-    _clientUpdateThread->join();
+    if (_clientUpdateThread->joinable()) {
+      _clientUpdateThread->join();
+    }
+    
 
     delete _clientUpdateThread;
     _clientUpdateThread = nullptr;
@@ -330,16 +347,6 @@ void Server::onClientConnect(ENetEvent &event) {
   enet_address_get_host_ip(&(event.peer->address), ip, 20);
 
   logMessage(std::string("New client connected ") + ip + ":" + std::to_string(event.peer->address.port), LOG_LEVEL_INFO);
-
-  // get client
-  auto client = clientByPeer(event.peer);
-  if (client != nullptr) {
-    logMessage("Client with that peer is already in list", LOG_LEVEL_WARNING);
-    return;
-  }
-
-  client = new Client(event.peer);
-  _clients.push_back(client);
 }
 
 void Server::onClientDisconnect(ENetEvent &event) {
@@ -367,6 +374,14 @@ void Server::onClientDisconnect(ENetEvent &event) {
 void Server::onClientMessage(ENetEvent &event) {
   logMessage("Message received on channel " + std::to_string(event.channelID), LOG_LEVEL_DEBUG);
 
+  // handle handshake message before anything else
+  if (event.channelID == NETWORK_HANDSHAKE_CHANNEL) {
+    handleHandshake(event);
+    enet_packet_destroy(event.packet);
+
+    return;
+  }
+
   // get client for message
   auto client = clientByPeer(event.peer);
   if (client == nullptr) {
@@ -377,16 +392,7 @@ void Server::onClientMessage(ENetEvent &event) {
 
   switch (event.channelID) {
     case NETWORK_HANDSHAKE_CHANNEL:
-      if (client->handleHandshake(event.packet)) {
-        if (client->teamspeakId() != 0) {
-          // new client connected
-          logMessage("New client established " + std::to_string(client->gameId()) + " " + std::to_string(client->teamspeakId()), LOG_LEVEL_INFO);
-
-          if (_clientConnectedCallback != nullptr) {
-            _clientConnectedCallback(client->gameId());
-          }
-        }
-      }
+      
       break;
 
     case NETWORK_STATUS_CHANNEL:
@@ -416,4 +422,73 @@ void Server::onClientMessage(ENetEvent &event) {
   }
 
   enet_packet_destroy(event.packet);
+}
+
+void Server::handleHandshake(ENetEvent &event) {
+  handshakePacket_t handshakePacket;
+
+  std::string data((char *)event.packet->data, event.packet->dataLength);
+  std::istringstream is(data);
+
+  try {
+    cereal::BinaryInputArchive archive(is);
+    archive(handshakePacket);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+    return;
+  }
+
+  if (handshakePacket.statusCode != STATUS_CODE_OK) {
+    logMessage("Handshake error: " + std::to_string(handshakePacket.statusCode), LOG_LEVEL_INFO);
+    return;
+  }
+
+  // send teamspeak information if no teamspeak id is known
+  if (handshakePacket.teamspeakId == 0) {
+    // send handshake response
+    sendHandshakeResponse(event.peer, STATUS_CODE_OK, "OK");
+  } else {
+    // create new client
+    auto client = clientByPeer(event.peer);
+    if (client != nullptr) {
+      logMessage("Client with that peer is already in list", LOG_LEVEL_WARNING);
+      return;
+    }
+
+    if (_clientConnectedCallback != nullptr && _clientConnectedCallback(handshakePacket.gameId) == false) {
+      return;
+    }
+
+    // save new client in list
+    client = new Client(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
+    _clients.push_back(client);
+
+    logMessage("New client established " + std::to_string(client->gameId()) + " " + std::to_string(client->teamspeakId()), LOG_LEVEL_INFO);
+  }
+}
+
+void Server::sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string reason) {
+  handshakeResponsePacket_t packet;
+  packet.statusCode = statusCode;
+  packet.reason = reason;
+  packet.teamspeakServerUniqueIdentifier = "S1u8otSWS/L/V1luEkMnupTwgeA=";
+  packet.channelId = 130;
+  packet.channelPassword = "123";
+
+  // serialize packet
+  std::ostringstream os;
+
+  try {
+    cereal::BinaryOutputArchive archive(os);
+    archive(packet);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+    return;
+  }
+
+  // send packet
+  auto data = os.str();
+
+  ENetPacket *rawPacket = enet_packet_create(data.c_str(), data.size(), ENET_PACKET_FLAG_RELIABLE);
+  enet_peer_send(peer, NETWORK_HANDSHAKE_CHANNEL, rawPacket);
 }

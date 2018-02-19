@@ -33,10 +33,10 @@
 
 using namespace justAnotherVoiceChat;
 
-Client::Client(ENetPeer *peer) {
+Client::Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId) {
   _peer = peer;
-  _gameId = 0;
-  _teamspeakId = 0;
+  _gameId = gameId;
+  _teamspeakId = teamspeakId;
 
   _talking = false;
   _microphoneMuted = false;
@@ -82,37 +82,6 @@ bool Client::hasSpeakersMuted() const {
 
 ENetPeer *Client::peer() const {
   return _peer;
-}
-
-bool Client::handleHandshake(ENetPacket *packet) {
-  handshakePacket_t handshakePacket;
-
-  std::string data((char *)packet->data, packet->dataLength);
-  std::istringstream is(data);
-
-  try {
-    cereal::BinaryInputArchive archive(is);
-    archive(handshakePacket);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
-    return false;
-  }
-
-  if (handshakePacket.statusCode != STATUS_CODE_OK) {
-    logMessage("Handshake error: " + std::to_string(handshakePacket.statusCode), LOG_LEVEL_INFO);
-    return false;
-  }
-
-  _gameId = handshakePacket.gameId;
-
-  // send teamspeak information if no teamspeak id is known
-  if (handshakePacket.teamspeakId == 0) {
-    sendResponse(STATUS_CODE_OK, "OK", NETWORK_HANDSHAKE_CHANNEL);
-  } else {
-    _teamspeakId = handshakePacket.teamspeakId;
-  }
-
-  return true;
 }
 
 bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged) {
@@ -186,6 +155,10 @@ void Client::sendUpdate() {
     _audibleClients.erase(*it);
   }
 
+  if (updatePacket.volumes.empty() && updatePacket.positions.empty()) {
+    return;
+  }
+
   // send update packet
   std::ostringstream os;
 
@@ -229,31 +202,6 @@ void Client::resetPositionChanged() {
 
 bool Client::positionChanged() const {
   return _positionChanged;
-}
-
-void Client::sendResponse(int statusCode, std::string reason, int channelId) {
-  handshakeResponsePacket_t packet;
-  packet.statusCode = statusCode;
-  packet.reason = reason;
-  packet.teamspeakEndpoint = "ts.alternate-life.de";
-  packet.teamspeakPort = 9987;
-  packet.teamspeakPassword = "";
-  packet.channelId = 130;
-  packet.channelPassword = "123";
-
-  // serialize packet
-  std::ostringstream os;
-
-  try {
-    cereal::BinaryOutputArchive archive(os);
-    archive(packet);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
-    return;
-  }
-
-  auto data = os.str();
-  sendPacket((void *)data.c_str(), data.size(), channelId);
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {

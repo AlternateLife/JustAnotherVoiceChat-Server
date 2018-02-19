@@ -109,5 +109,8 @@ namespace justAnotherVoiceChat {
     void onClientConnect(ENetEvent &event);
     void onClientDisconnect(ENetEvent &event);
     void onClientMessage(ENetEvent &event);
+
+    void handleHandshake(ENetEvent &event);
+    void sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string reason);
   };
 }
