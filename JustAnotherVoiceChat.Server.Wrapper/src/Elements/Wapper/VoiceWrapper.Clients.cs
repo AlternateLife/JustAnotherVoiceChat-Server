@@ -33,7 +33,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
         public void RemoveClient(TClient client)
         {
-            NativeWrapper.JV_RemoveClient(client.Handle.Identifer);
+            NativeLibary.JV_RemoveClient(client.Handle.Identifer);
         }
     }
 }
