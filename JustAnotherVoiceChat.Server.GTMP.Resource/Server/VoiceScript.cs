@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
         public VoiceScript()
         {
-            _voiceServer = GtmpVoice.CreateServer(API, "game.alternate-life.de", 23332, 23);
+            _voiceServer = GtmpVoice.CreateServer(API, "localhost", 23332, 23);
 
             AttachServerEvents(_voiceServer);
 
