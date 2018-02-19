@@ -40,8 +40,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 #endif
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_StartServer(ushort port);
-        
+        private static extern void JV_CreateServer(ushort port);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        private static extern bool JV_StartServer();
+
         [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void JV_StopServer();
         
@@ -53,7 +57,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
         private static extern int JV_GetNumberOfClients();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern unsafe void JV_GetClientIds(ushort* list, int maxlength);
+        private static extern unsafe void JV_GetClientGameIds(ushort* list, int maxlength);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         private static extern void JV_RemoveClient(ushort handle);

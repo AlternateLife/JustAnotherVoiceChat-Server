@@ -29,7 +29,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceWrapper
     {
-        void StartNativeServer(ushort port);
+        void CreateNativeServer(ushort port);
+        bool StartNativeServer();
         void StopNativeServer();
 
         void RemoveClient(IVoiceClient client);
