@@ -34,13 +34,13 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
 {
-    internal class GtmpVoiceClient : VoiceClient, IGtmpVoiceClient
+    internal class GtmpVoiceClient : VoiceClient<IGtmpVoiceClient>, IGtmpVoiceClient
     {
         public Client Player { get; }
 
         public override Vector3 Position => new Vector3(Player.position.X, Player.position.Y, Player.position.Z);
         
-        internal GtmpVoiceClient(Client player, IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
+        internal GtmpVoiceClient(Client player, IVoiceServer<IGtmpVoiceClient> server, VoiceHandle handle) : base(server, handle)
         {
             Player = player;
         }

@@ -26,11 +26,13 @@
  */
 
 using System.Runtime.InteropServices;
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 // ReSharper disable UnusedMember.Local
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceWrapper
+    internal static class NativeWrapper
     {
 
 #if LINUX
@@ -40,33 +42,33 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 #endif
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_CreateServer(ushort port);
+        internal static extern void JV_CreateServer(ushort port);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]
-        private static extern bool JV_StartServer();
-
+        internal static extern bool JV_StartServer();
+            
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_StopServer();
+        internal static extern void JV_StopServer();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return:MarshalAs(UnmanagedType.I1)]
-        private static extern bool JV_IsServerRunning();
+        internal static extern bool JV_IsServerRunning();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern int JV_GetNumberOfClients();
+        internal static extern int JV_GetNumberOfClients();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern unsafe void JV_GetClientGameIds(ushort* list, int maxlength);
+        internal static extern unsafe void JV_GetClientGameIds(ushort* list, int maxlength);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RemoveClient(ushort handle);
+        internal static extern void JV_RemoveClient(ushort handle);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RemoveAllClients();
+        internal static extern void JV_RemoveAllClients();
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_Set3DSettings(float distanceFactor, float rolloffFactor);
+        internal static extern void JV_Set3DSettings(float distanceFactor, float rolloffFactor);
         
         /**
          * Events
@@ -75,57 +77,74 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
         // ClientConnected
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientConnectCallback callback);
+        internal static extern void JV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientConnectCallback callback);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_UnregisterClientConnectedCallback();
+        internal static extern void JV_UnregisterClientConnectedCallback();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JVTest_CallClientConnectedCallback(ushort clientId);
+        internal static extern void JVTest_CallClientConnectedCallback(ushort clientId);
         
         // ClientDisconnected
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RegisterClientDisconnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientCallback callback);
+        internal static extern void JV_RegisterClientDisconnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientCallback callback);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_UnregisterClientDisconnectedCallback();
+        internal static extern void JV_UnregisterClientDisconnectedCallback();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JVTest_CallClientDisconnectedCallback(ushort clientId);
+        internal static extern void JVTest_CallClientDisconnectedCallback(ushort clientId);
         
         // ClientStartsTalking
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RegisterClientTalkingChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
+        internal static extern void JV_RegisterClientTalkingChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientStatusCallback callback);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_UnregisterClientTalkingChangedCallback();
+        internal static extern void JV_UnregisterClientTalkingChangedCallback();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JVTest_CallClientTalkingChangedCallback(ushort clientId, bool newStatus);
+        internal static extern void JVTest_CallClientTalkingChangedCallback(ushort clientId, bool newStatus);
         
         // ClientSpeakersMuteChanged
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
+        internal static extern void JV_RegisterClientSpeakersMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientStatusCallback callback);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_UnregisterClientSpeakersMuteChangedCallback();
+        internal static extern void JV_UnregisterClientSpeakersMuteChangedCallback();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JVTest_CallClientSpeakersMuteChangedCallback(ushort clientId, bool newStatus);
+        internal static extern void JVTest_CallClientSpeakersMuteChangedCallback(ushort clientId, bool newStatus);
         
         // ClientMicrophoneMuteChanged
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] Delegates.ClientStatusCallback callback);
+        internal static extern void JV_RegisterClientMicrophoneMuteChangedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientStatusCallback callback);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JV_UnregisterClientMicrophoneMuteChangedCallback();
+        internal static extern void JV_UnregisterClientMicrophoneMuteChangedCallback();
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        private static extern void JVTest_CallClientMicrophoneMuteChangedCallback(ushort clientId, bool newStatus);
+        internal static extern void JVTest_CallClientMicrophoneMuteChangedCallback(ushort clientId, bool newStatus);
+        
+        
+        /**
+         * 3D Voice
+         */
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_ResetRelativePositionForClient(ushort listenerId, ushort speakerId);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_ResetAllRelativePositions(ushort clientId);
 
     }
 }

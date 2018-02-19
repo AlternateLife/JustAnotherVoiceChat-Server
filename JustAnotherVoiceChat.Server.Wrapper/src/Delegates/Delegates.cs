@@ -1,5 +1,5 @@
 ﻿/*
- * File: VoiceWrapper3D.cs
+ * File: Delegates.cs
  * Date: 15.2.2018,
  *
  * MIT License
@@ -27,28 +27,16 @@
 
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D
+namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
 {
-    internal partial class VoiceWrapper3D : IVoiceWrapper3D
+    public class Delegates<TClient> where TClient : IVoiceClient<TClient>
     {
-        public void ResetAllRelativePositionsForListener(IVoiceClient listener)
-        {
-            JV_ResetAllRelativePositions(listener.Handle.Identifer);
-        }
+        public delegate void EmptyEvent();
+        
+        public delegate void ClientEvent(TClient client);
 
-        public void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
-        {
-            JV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
-        }
+        public delegate void ClientGroupEvent(TClient client, IVoiceGroup<TClient> group);
 
-        public void SetListenerPosition(IVoiceClient listener)
-        {
-            JV_SetClientPosition(listener.Handle.Identifer, listener.Position.X, listener.Position.Y, listener.Position.Z, listener.CameraRotation);
-        }
-
-        public void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
-        {
-            JV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, speaker.Position.X, speaker.Position.Y, speaker.Position.Z);
-        }
+        public delegate void ClientStatusEvent(TClient client, bool newStatus);
     }
 }

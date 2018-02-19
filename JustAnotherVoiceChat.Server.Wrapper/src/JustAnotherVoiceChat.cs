@@ -26,34 +26,22 @@
  */
 
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper3D;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper
 {
-    public static class JustAnotherVoiceChat
+    public static class JustAnotherVoiceChat<TClient> where TClient : IVoiceClient<TClient>
     {
-        private static IVoiceWrapper _voiceWrapper;
-        private static IVoiceWrapper3D _voiceWrapper3D;
+        private static IVoiceWrapper<TClient> _voiceWrapper;
 
-        public static IVoiceWrapper GetVoiceWrapper()
+        public static IVoiceWrapper<TClient> GetVoiceWrapper()
         {
             if(_voiceWrapper == null)
             {
-                _voiceWrapper = new VoiceWrapper();
+                _voiceWrapper = new VoiceWrapper<TClient>();
             }
 
             return _voiceWrapper;
-        }
-
-        public static IVoiceWrapper3D GetVoiceWrapper3D()
-        {
-            if (_voiceWrapper3D == null)
-            {
-                _voiceWrapper3D = new VoiceWrapper3D();
-            }
-
-            return _voiceWrapper3D;
         }
     }
 }

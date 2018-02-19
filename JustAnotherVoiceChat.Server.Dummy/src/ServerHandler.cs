@@ -39,9 +39,9 @@ namespace JustAnotherVoiceChat.Server.Dummy
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         
-        private readonly ConcurrentBag<IVoiceClient> _voiceClients = new ConcurrentBag<IVoiceClient>();
+        private readonly ConcurrentBag<DummyClient> _voiceClients = new ConcurrentBag<DummyClient>();
 
-        public ServerHandler(IDummyClientFactory clientRepository, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(clientRepository, voiceWrapper, voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public ServerHandler(IDummyClientFactory clientRepository, IVoiceWrapper<DummyClient> voiceWrapper, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(clientRepository, voiceWrapper, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
             OnServerStarted += () =>
             {
@@ -59,7 +59,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
             };
         }
 
-        public IVoiceClient PrepareClient()
+        public DummyClient PrepareClient()
         {
             return PrepareClient(1);
         }

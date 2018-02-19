@@ -37,14 +37,14 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
     {
         private readonly API _api;
         
-        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId) : base(clientRepository, wrapper, wrapper3D, hostname, port, channelId)
+        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, IVoiceWrapper<IGtmpVoiceClient> wrapper, string hostname, ushort port, int channelId) : base(clientRepository, wrapper, hostname, port, channelId)
         {
             _api = api;
 
             AttachToEvents();
         }
         
-        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, IVoiceWrapper wrapper, IVoiceWrapper3D wrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(clientRepository, wrapper, wrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, IVoiceWrapper<IGtmpVoiceClient> wrapper, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(clientRepository, wrapper, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
             _api = api;
 

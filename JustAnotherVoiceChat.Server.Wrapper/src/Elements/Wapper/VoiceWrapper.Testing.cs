@@ -25,23 +25,25 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceWrapper
+    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
         public void TestCallClientConnectedCallback(ushort handle)
         {
-            JVTest_CallClientConnectedCallback(handle);
+            NativeWrapper.JVTest_CallClientConnectedCallback(handle);
         }
 
         public void TestCallClientDisconnectedCallback(ushort handle)
         {
-            JVTest_CallClientDisconnectedCallback(handle);
+            NativeWrapper.JVTest_CallClientDisconnectedCallback(handle);
         }
 
         public void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus)
         {
-            JVTest_CallClientTalkingChangedCallback(handle, newStatus);
+            NativeWrapper.JVTest_CallClientTalkingChangedCallback(handle, newStatus);
         }
     }
 }

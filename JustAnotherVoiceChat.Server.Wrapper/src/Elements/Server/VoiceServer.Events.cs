@@ -25,24 +25,25 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
-        public event Delegates.EmptyEvent OnServerStarted;
-        public event Delegates.EmptyEvent OnServerStopping;
+        public event Delegates<TClient>.EmptyEvent OnServerStarted;
+        public event Delegates<TClient>.EmptyEvent OnServerStopping;
         
-        public event Delegates.ClientEvent OnClientConnected;
-        public event Delegates.ClientEvent OnClientDisconnected;
+        public event Delegates<TClient>.ClientEvent OnClientConnected;
+        public event Delegates<TClient>.ClientEvent OnClientDisconnected;
 
-        public event Delegates.ClientStatusEvent OnClientTalkingChanged;
-        public event Delegates.ClientStatusEvent OnClientSpeakersMuteChanged;
-        public event Delegates.ClientStatusEvent OnClientMicrophoneMuteChanged;
+        public event Delegates<TClient>.ClientStatusEvent OnClientTalkingChanged;
+        public event Delegates<TClient>.ClientStatusEvent OnClientSpeakersMuteChanged;
+        public event Delegates<TClient>.ClientStatusEvent OnClientMicrophoneMuteChanged;
 
-        public event Delegates.ClientGroupEvent OnClientJoinedGroup;
-        public event Delegates.ClientGroupEvent OnClientLeftGroup;
+        public event Delegates<TClient>.ClientGroupEvent OnClientJoinedGroup;
+        public event Delegates<TClient>.ClientGroupEvent OnClientLeftGroup;
         
         private void DisposeEvents()
         {
@@ -58,12 +59,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             DisposeNativeEvents();
         }
 
-        internal void FireClientJoinedGroup(IVoiceClient client, IVoiceGroup group)
+        internal void FireClientJoinedGroup(TClient client, IVoiceGroup<TClient> group)
         {
             OnClientJoinedGroup?.Invoke(client, group);
         }
 
-        internal void FireClientLeftGroup(IVoiceClient client, IVoiceGroup group)
+        internal void FireClientLeftGroup(TClient client, IVoiceGroup<TClient> group)
         {
             OnClientLeftGroup?.Invoke(client, group);
         }

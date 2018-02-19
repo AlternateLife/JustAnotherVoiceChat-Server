@@ -33,15 +33,15 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
-        private readonly ConcurrentBag<IVoiceGroup> _groups = new ConcurrentBag<IVoiceGroup>();
+        private readonly ConcurrentBag<IVoiceGroup<TClient>> _groups = new ConcurrentBag<IVoiceGroup<TClient>>();
 
         private readonly object _groupLock = new object();
         
-        public IVoiceGroup CreateGroup()
+        public IVoiceGroup<TClient> CreateGroup()
         {
-            var createdGroup = new VoiceGroup(this);
+            var createdGroup = new VoiceGroup<TClient>(this);
             lock (_groupLock)
             {
                 _groups.Add(createdGroup);
@@ -50,7 +50,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             return createdGroup;
         }
 
-        public IEnumerable<IVoiceGroup> GetAllGroups()
+        public IEnumerable<IVoiceGroup<TClient>> GetAllGroups()
         {
             lock (_groupLock)
             {
@@ -58,7 +58,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
-        public bool DestroyGroup(IVoiceGroup voiceGroup)
+        public bool DestroyGroup(IVoiceGroup<TClient> voiceGroup)
         {
             if (voiceGroup == null)
             {

@@ -5,9 +5,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
     public class FakeVoiceClientFactory : IVoiceClientFactory<FakeVoiceClient, byte>
     {
-        public FakeVoiceClient MakeClient(byte identifier, IVoiceServer server, VoiceHandle handle)
+        public FakeVoiceClient MakeClient(byte identifier, IVoiceServer<FakeVoiceClient> server, VoiceHandle handle)
         {
-            return new FakeVoiceClient(identifier, server, server.VoiceWrapper3D, handle);
+            return new FakeVoiceClient(identifier, server, handle);
         }
     }
 }

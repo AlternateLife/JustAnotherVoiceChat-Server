@@ -34,7 +34,7 @@ namespace JustAnotherVoiceChat.Server.Dummy.Repositories
 {
     public class DummyClientFactory : IDummyClientFactory
     {
-        public DummyClient MakeClient(byte identifer, IVoiceServer server, VoiceHandle handle)
+        public DummyClient MakeClient(byte identifer, IVoiceServer<DummyClient> server, VoiceHandle handle)
         {
             return new DummyClient(server, handle);
         }

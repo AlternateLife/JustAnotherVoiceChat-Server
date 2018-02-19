@@ -1,4 +1,5 @@
-﻿using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+﻿using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
 using Moq;
 using NUnit.Framework;
@@ -11,16 +12,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 
         private FakeVoiceServer _voiceServer;
         
-        private Mock<IVoiceWrapper> _voiceWrapper;
-        private Mock<IVoiceWrapper3D> _voiceWrapper3D;
+        private Mock<IVoiceWrapper<FakeVoiceClient>> _voiceWrapper;
 
         [SetUp]
         public void SetUp()
         {
-            _voiceWrapper = new Mock<IVoiceWrapper>();
-            _voiceWrapper3D = new Mock<IVoiceWrapper3D>();
+            _voiceWrapper = new Mock<IVoiceWrapper<FakeVoiceClient>>();
             
-            _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 123);
+            _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), _voiceWrapper.Object, "localhost", 23332, 123);
             _voiceServer.Start();
         }
 
@@ -32,7 +31,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             _voiceServer = null;
 
             _voiceWrapper = null;
-            _voiceWrapper3D = null;
         }
 
         [Test]
@@ -77,9 +75,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         }
 
         [Test]
-        public void PreparedClientWill()
+        public void PreparedClientWillBeSearchableInGetClients()
         {
+            var client1 = _voiceServer.PrepareClient(5);
             
+            //Assert.AreSame(client1, _voiceServer.FindClient(c => .c);
         }
         
     }

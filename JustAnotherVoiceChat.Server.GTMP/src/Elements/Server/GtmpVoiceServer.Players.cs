@@ -36,7 +36,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
     {
         public IGtmpVoiceClient GetVoiceClient(Client player)
         {
-            return FindClient<IGtmpVoiceClient>(c => c.Player == player);
+            return FindClient(c => c.Player == player);
         }
 
         private IGtmpVoiceClient RegisterPlayer(Client player)

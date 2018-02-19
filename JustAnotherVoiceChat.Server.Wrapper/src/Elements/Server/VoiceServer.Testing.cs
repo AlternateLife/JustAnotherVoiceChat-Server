@@ -29,22 +29,22 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
         
         protected void FireClientTalkingChange(ushort handle, bool newStatus)
         {
-            _voiceWrapper.TestCallClientTalkingChangedCallback(handle, newStatus);
+            NativeWrapper.TestCallClientTalkingChangedCallback(handle, newStatus);
         }
         
         protected void FireClientConnected(ushort handle)
         {
-            _voiceWrapper.TestCallClientConnectedCallback(handle);
+            NativeWrapper.TestCallClientConnectedCallback(handle);
         }
 
         protected void FireClientDisconnected(ushort handle)
         {
-            _voiceWrapper.TestCallClientDisconnectedCallback(handle);
+            NativeWrapper.TestCallClientDisconnectedCallback(handle);
         }
         
     }

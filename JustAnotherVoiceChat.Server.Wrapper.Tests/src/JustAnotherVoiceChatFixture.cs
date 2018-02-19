@@ -26,6 +26,7 @@
  */
 
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
 using NUnit.Framework;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests
@@ -36,15 +37,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void GetVoiceWrapperWillReturnsAnIVoiceWrapperInstance()
         {
-            var voiceWrapper = JustAnotherVoiceChat.GetVoiceWrapper();
-            Assert.IsInstanceOf(typeof(IVoiceWrapper), voiceWrapper);
-        }
-        
-        [Test]
-        public void GetVoiceWrapper3DWillReturnsAnIVoiceWrapper3DInstance()
-        {
-            var voiceWrapper3D = JustAnotherVoiceChat.GetVoiceWrapper3D();
-            Assert.IsInstanceOf(typeof(IVoiceWrapper3D), voiceWrapper3D);
+            var voiceWrapper = JustAnotherVoiceChat<FakeVoiceClient>.GetVoiceWrapper();
+            Assert.IsInstanceOf<IVoiceWrapper<FakeVoiceClient>>(voiceWrapper);
         }
     }
 }

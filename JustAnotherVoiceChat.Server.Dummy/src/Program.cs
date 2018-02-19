@@ -26,6 +26,7 @@
  */
 
 using System;
+using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Dummy.Repositories;
 using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -38,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static ServerHandler  _server;
 
-        private static IVoiceClient _lastClient;
+        private static DummyClient _lastClient;
           
         public static void Main(string[] arguments)
         {
@@ -70,7 +71,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                 {
                     if (_server == null)
                     {
-                        _server = new ServerHandler(new DummyClientFactory(), Wrapper.JustAnotherVoiceChat.GetVoiceWrapper(), Wrapper.JustAnotherVoiceChat.GetVoiceWrapper3D(), "localhost", 23332, 23);
+                        _server = new ServerHandler(new DummyClientFactory(), Wrapper.JustAnotherVoiceChat<DummyClient>.GetVoiceWrapper(), "localhost", 23332, 23);
                     }
                     
                     Logger.Info("Starting JustAnotherVoiceChat DummyServer...");

@@ -34,17 +34,16 @@ namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {
-        private static IVoiceWrapper _voiceWrapper => Wrapper.JustAnotherVoiceChat.GetVoiceWrapper();
-        private static IVoiceWrapper3D _voiceWrapper3D => Wrapper.JustAnotherVoiceChat.GetVoiceWrapper3D();
+        private static IVoiceWrapper<IGtmpVoiceClient> _voiceWrapper => Wrapper.JustAnotherVoiceChat<IGtmpVoiceClient>.GetVoiceWrapper();
 
         public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId)
         {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), _voiceWrapper, _voiceWrapper3D, hostname, port, channelId);
+            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), _voiceWrapper, hostname, port, channelId);
         }
         
         public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), _voiceWrapper, _voiceWrapper3D, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), _voiceWrapper, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
         }
         
     }

@@ -30,14 +30,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {
-    public interface IGtmpVoiceServer : IVoiceServer
+    public interface IGtmpVoiceServer : IVoiceServer<IGtmpVoiceClient>
     {
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
-
-        new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientConnected;
-        new event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientDisconnected;
-        
-        new event GtmpVoiceDelegates.GtmpVoiceClientStatusEvent OnClientTalkingChanged;
         
         IGtmpVoiceClient GetVoiceClient(Client player);
 
