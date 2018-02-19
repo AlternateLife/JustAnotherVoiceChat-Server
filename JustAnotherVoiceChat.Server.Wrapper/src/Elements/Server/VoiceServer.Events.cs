@@ -44,6 +44,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public event Delegates<TClient>.ClientGroupEvent OnClientJoinedGroup;
         public event Delegates<TClient>.ClientGroupEvent OnClientLeftGroup;
+
+        public event Delegates<TClient>.LogMessageEvent OnLogMessage; 
         
         private void DisposeEvents()
         {

@@ -28,8 +28,8 @@
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
@@ -48,6 +48,29 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 
             base.OnServerStarted += OnVoiceServerStarted;
             base.OnServerStopping += OnVoiceServerStopping;
+            base.OnLogMessage += OnVoiceServerLogMessage;
+        }
+
+        private void OnVoiceServerLogMessage(string message, LogLevel logLevel)
+        {
+            LogCat logCat;
+            switch (logLevel)
+            {
+                case LogLevel.Debug:
+                    logCat = LogCat.Debug;
+                    break;
+                case LogLevel.Warning:
+                    logCat = LogCat.Warn;
+                    break;
+                case LogLevel.Error:
+                    logCat = LogCat.Error;
+                    break;
+                default:
+                    logCat = LogCat.Info;
+                    break;
+            }
+            
+            _api.consoleOutput(logCat, message);
         }
 
         private void OnVoiceServerStarted()

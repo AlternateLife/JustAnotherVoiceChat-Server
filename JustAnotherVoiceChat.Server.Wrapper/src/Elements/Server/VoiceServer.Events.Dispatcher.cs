@@ -26,6 +26,7 @@
  */
 
 using System;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
@@ -81,6 +82,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             {
                 OnClientMicrophoneMuteChanged?.Invoke(client, newStatus);
             });
+        }
+
+        private void OnLogMessageFromVoice(string message, int loglevel)
+        {
+            OnLogMessage?.Invoke(message, (LogLevel) loglevel);
         }
         
         
