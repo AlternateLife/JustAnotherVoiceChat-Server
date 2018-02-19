@@ -1,6 +1,7 @@
 ﻿using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
+using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes.Interfaces;
 using Moq;
 using NUnit.Framework;
 

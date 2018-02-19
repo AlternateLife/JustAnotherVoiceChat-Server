@@ -27,6 +27,7 @@
 
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
+using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes.Interfaces;
 using NUnit.Framework;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests

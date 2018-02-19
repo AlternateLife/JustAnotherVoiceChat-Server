@@ -2,6 +2,7 @@
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
