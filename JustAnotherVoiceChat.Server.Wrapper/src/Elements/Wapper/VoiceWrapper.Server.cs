@@ -25,30 +25,32 @@
  * SOFTWARE.
  */
 
+using System.Security;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceWrapper : IVoiceWrapper
+    [SecurityCritical]
+    internal partial class VoiceWrapper<TClient> : IVoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
         public void CreateNativeServer(ushort port)
         {
-            JV_CreateServer(port);
+            NativeWrapper.JV_CreateServer(port);
         }
 
         public bool StartNativeServer()
         {
-            return JV_StartServer();
+            return NativeWrapper.JV_StartServer();
         }
 
         public void StopNativeServer()
         {
-            JV_StopServer();
+            NativeWrapper.JV_StopServer();
         }
 
         public void Set3DSettings(float distanceFactor, float rolloffFactor)
         {
-            JV_Set3DSettings(distanceFactor, rolloffFactor);
+            NativeWrapper.JV_Set3DSettings(distanceFactor, rolloffFactor);
         }
     }
 }

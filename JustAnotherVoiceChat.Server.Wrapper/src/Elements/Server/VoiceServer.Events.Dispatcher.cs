@@ -26,12 +26,11 @@
  */
 
 using System;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
         
         private bool OnClientConnectedFromVoice(ushort handle)
@@ -86,10 +85,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         
         
-        private T RunWhenClientValid<T>(ushort handle, Func<VoiceClient, T> callback)
+        private T RunWhenClientValid<T>(ushort handle, Func<TClient, T> callback)
         {
-            var client = GetVoiceClient(handle) as VoiceClient;
-
+            var client = GetVoiceClient(handle);
+            
             if (client == null)
             {
                 return default(T);
@@ -98,9 +97,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             return callback(client);
         }
 
-        private void RunWhenClientValid(ushort handle, Action<VoiceClient> callback)
+        private void RunWhenClientValid(ushort handle, Action<TClient> callback)
         {
-            var client = GetVoiceClient(handle) as VoiceClient;
+            var client = GetVoiceClient(handle);
 
             if (client == null)
             {
@@ -110,7 +109,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             callback(client);
         }
         
-        private T RunWhenClientConnected<T>(ushort handle, Func<VoiceClient, T> callback)
+        private T RunWhenClientConnected<T>(ushort handle, Func<TClient, T> callback)
         {
             return RunWhenClientValid(handle, client =>
             {
@@ -123,7 +122,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             });
         }
 
-        private void RunWhenClientConnected(ushort handle, Action<VoiceClient> callback)
+        private void RunWhenClientConnected(ushort handle, Action<TClient> callback)
         {
             RunWhenClientValid(handle, client =>
             {

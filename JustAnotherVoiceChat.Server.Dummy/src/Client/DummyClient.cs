@@ -32,11 +32,11 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Dummy.Client
 {
-    public class DummyClient : VoiceClient
+    public class DummyClient : VoiceClient<DummyClient>
     {
         public override Vector3 Position { get; } = new Vector3(0, 1, 0);
 
-        public DummyClient(IVoiceServer server, VoiceHandle handle) : base(server, server.VoiceWrapper3D, handle)
+        public DummyClient(IVoiceServer<DummyClient> server, VoiceHandle handle) : base(server, handle)
         {
             
         }

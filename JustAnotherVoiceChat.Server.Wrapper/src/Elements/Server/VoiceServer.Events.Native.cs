@@ -28,11 +28,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
         private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
 
@@ -45,21 +46,21 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void AttachToNativeEvents()
         {
-            RegisterEvent<Delegates.ClientConnectCallback>(_voiceWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
-            RegisterEvent<Delegates.ClientCallback>(_voiceWrapper.RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
-            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangedFromVoice);
-            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientSpeakersMuteChangedFromVoice);
-            RegisterEvent<Delegates.ClientStatusCallback>(_voiceWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientMicrophoneMuteChangedFromVoice);
+            RegisterEvent<NativeDelegates.ClientConnectCallback>(NativeWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
+            RegisterEvent<NativeDelegates.ClientCallback>(NativeWrapper.RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
+            RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangedFromVoice);
+            RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientSpeakersMuteChangedFromVoice);
+            RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientMicrophoneMuteChangedFromVoice);
         }
 
         private void DisposeNativeEvents()
         {
-            _voiceWrapper.UnregisterClientConnectedCallback();
-            _voiceWrapper.UnregisterClientDisconnectedCallback();
+            NativeWrapper.UnregisterClientConnectedCallback();
+            NativeWrapper.UnregisterClientDisconnectedCallback();
             
-            _voiceWrapper.UnregisterClientTalkingChangedCallback();
-            _voiceWrapper.UnregisterClientSpeakersMuteChangedCallback();
-            _voiceWrapper.UnregisterClientMicrophoneMuteChangedCallback();
+            NativeWrapper.UnregisterClientTalkingChangedCallback();
+            NativeWrapper.UnregisterClientSpeakersMuteChangedCallback();
+            NativeWrapper.UnregisterClientMicrophoneMuteChangedCallback();
 
             foreach (var handle in _garbageCollectorHandles)
             {

@@ -27,47 +27,48 @@
 
 using System;
 using System.Collections.Generic;
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceServer : IDisposable
+    public interface IVoiceServer<TClient> : IDisposable where TClient : IVoiceClient<TClient>
     {
-        event Delegates.EmptyEvent OnServerStarted;
-        event Delegates.EmptyEvent OnServerStopping;
+        event Delegates<TClient>.EmptyEvent OnServerStarted;
+        event Delegates<TClient>.EmptyEvent OnServerStopping;
         
-        event Delegates.ClientEvent OnClientConnected;
-        event Delegates.ClientEvent OnClientDisconnected;
+        event Delegates<TClient>.ClientEvent OnClientConnected;
+        event Delegates<TClient>.ClientEvent OnClientDisconnected;
 
-        event Delegates.ClientStatusEvent OnClientTalkingChanged;
-        event Delegates.ClientStatusEvent OnClientMicrophoneMuteChanged;
-        event Delegates.ClientStatusEvent OnClientSpeakersMuteChanged;
+        event Delegates<TClient>.ClientStatusEvent OnClientTalkingChanged;
+        event Delegates<TClient>.ClientStatusEvent OnClientMicrophoneMuteChanged;
+        event Delegates<TClient>.ClientStatusEvent OnClientSpeakersMuteChanged;
 
         string Hostname { get; }
         ushort Port { get; }
         int ChannelId { get; }
         bool Started { get; }
+        
+        IVoiceWrapper<TClient> NativeWrapper { get; }
 
         double GlobalMaxDistance { get; }
         float GlobalDistanceFactor { get; }
         float GlobalRollOffScale { get; }
 
-        IVoiceWrapper3D VoiceWrapper3D { get; }
-
         void Start();
         void Stop();
 
-        IVoiceGroup CreateGroup();
-        IEnumerable<IVoiceGroup> GetAllGroups();
-        bool DestroyGroup(IVoiceGroup voiceGroup);
+        IVoiceGroup<TClient> CreateGroup();
+        IEnumerable<IVoiceGroup<TClient>> GetAllGroups();
+        bool DestroyGroup(IVoiceGroup<TClient> voiceGroup);
 
-        IVoiceClient GetVoiceClient(VoiceHandle handle);
-        IVoiceClient GetVoiceClient(ushort handle);
-        
-        T FindClient<T>(Func<T, bool> filter) where T : IVoiceClient;
+        TClient GetVoiceClient(VoiceHandle handle);
+        TClient GetVoiceClient(ushort handle);
 
-        IEnumerable<T> GetClients<T>(Func<T, bool> filter) where T : IVoiceClient;
-        IEnumerable<T> GetClients<T>() where T : IVoiceClient;
+        TClient FindClient(Func<TClient, bool> filter);
+
+        IEnumerable<TClient> GetClients(Func<TClient, bool> filter);
+        IEnumerable<TClient> GetClients();
 
         void AddTask(IVoiceTask voiceTask);
         void AddTasks(IEnumerable<IVoiceTask> voiceTasks);

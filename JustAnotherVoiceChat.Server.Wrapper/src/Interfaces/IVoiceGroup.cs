@@ -27,20 +27,21 @@
 
 using System;
 using System.Collections.Generic;
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceGroup : IDisposable
+    public interface IVoiceGroup<TClient> : IDisposable where TClient : IVoiceClient<TClient>
     {
 
-        event Delegates.ClientEvent OnClientJoined;
-        event Delegates.ClientEvent OnClientLeft;
+        event Delegates<TClient>.ClientEvent OnClientJoined;
+        event Delegates<TClient>.ClientEvent OnClientLeft;
         
-        IEnumerable<IVoiceClient> Clients { get; }
+        IEnumerable<TClient> Clients { get; }
 
-        bool AddClient(IVoiceClient client);
-        bool TryRemoveClient(IVoiceClient client, out IVoiceClient removedVoiceClient);
-        bool HasClient(IVoiceClient client);
+        bool AddClient(TClient client);
+        bool TryRemoveClient(TClient client, out TClient removedVoiceClient);
+        bool HasClient(TClient client);
 
     }
 }

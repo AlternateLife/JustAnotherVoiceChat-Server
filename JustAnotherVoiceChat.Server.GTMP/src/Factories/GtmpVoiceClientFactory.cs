@@ -35,7 +35,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public class GtmpVoiceClientFactory : IGtmpVoiceClientFactory
     {
-        public IGtmpVoiceClient MakeClient(Client player, IVoiceServer server, VoiceHandle handle)
+        public IGtmpVoiceClient MakeClient(Client player, IVoiceServer<IGtmpVoiceClient> server, VoiceHandle handle)
         {
             return new GtmpVoiceClient(player, server, handle);
         }

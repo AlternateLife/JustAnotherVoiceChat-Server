@@ -29,11 +29,11 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceWrapper
+    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
-        public void RemoveClient(IVoiceClient client)
+        public void RemoveClient(TClient client)
         {
-            JV_RemoveClient(client.Handle.Identifer);
+            NativeWrapper.JV_RemoveClient(client.Handle.Identifer);
         }
     }
 }

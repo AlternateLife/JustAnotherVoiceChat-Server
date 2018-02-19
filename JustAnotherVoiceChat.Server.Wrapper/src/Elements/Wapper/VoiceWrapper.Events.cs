@@ -25,58 +25,61 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceWrapper
+    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
 
-        public void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback)
+        public void RegisterClientConnectedCallback(NativeDelegates.ClientConnectCallback callback)
         {
-            JV_RegisterClientConnectedCallback(callback);
+            NativeWrapper.JV_RegisterClientConnectedCallback(callback);
         }
 
-        public void RegisterClientDisconnectedCallback(Delegates.ClientCallback callback)
+        public void RegisterClientDisconnectedCallback(NativeDelegates.ClientCallback callback)
         {
-            JV_RegisterClientDisconnectedCallback(callback);
+            NativeWrapper.JV_RegisterClientDisconnectedCallback(callback);
         }
 
-        public void RegisterClientTalkingChangedCallback(Delegates.ClientStatusCallback callback)
+        public void RegisterClientTalkingChangedCallback(NativeDelegates.ClientStatusCallback callback)
         {
-            JV_RegisterClientTalkingChangedCallback(callback);
+            NativeWrapper.JV_RegisterClientTalkingChangedCallback(callback);
         }
 
-        public void RegisterClientSpeakersMuteChangedCallback(Delegates.ClientStatusCallback callback)
+        public void RegisterClientSpeakersMuteChangedCallback(NativeDelegates.ClientStatusCallback callback)
         {
-            JV_RegisterClientSpeakersMuteChangedCallback(callback);
+            NativeWrapper.JV_RegisterClientSpeakersMuteChangedCallback(callback);
         }
 
-        public void RegisterClientMicrophoneMuteChangedCallback(Delegates.ClientStatusCallback callback)
+        public void RegisterClientMicrophoneMuteChangedCallback(NativeDelegates.ClientStatusCallback callback)
         {
-            JV_RegisterClientMicrophoneMuteChangedCallback(callback);
+            NativeWrapper.JV_RegisterClientMicrophoneMuteChangedCallback(callback);
         }
 
         public void UnregisterClientConnectedCallback()
         {
-            JV_UnregisterClientConnectedCallback();
+            NativeWrapper.JV_UnregisterClientConnectedCallback();
         }
 
         public void UnregisterClientDisconnectedCallback()
         {
-            JV_UnregisterClientDisconnectedCallback();
+            NativeWrapper.JV_UnregisterClientDisconnectedCallback();
         }
         public void UnregisterClientTalkingChangedCallback()
         {
-            JV_UnregisterClientTalkingChangedCallback();
+            NativeWrapper.JV_UnregisterClientTalkingChangedCallback();
         }
 
         public void UnregisterClientSpeakersMuteChangedCallback()
         {
-            JV_UnregisterClientSpeakersMuteChangedCallback();
+            NativeWrapper.JV_UnregisterClientSpeakersMuteChangedCallback();
         }
 
         public void UnregisterClientMicrophoneMuteChangedCallback()
         {
-            JV_UnregisterClientMicrophoneMuteChangedCallback();
+            NativeWrapper.JV_UnregisterClientMicrophoneMuteChangedCallback();
         }
     }
 }

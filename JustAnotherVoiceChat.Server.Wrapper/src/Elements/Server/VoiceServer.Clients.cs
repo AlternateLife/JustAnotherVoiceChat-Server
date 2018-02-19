@@ -34,9 +34,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
-        private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
+        private readonly ConcurrentDictionary<ushort, TClient> _clients = new ConcurrentDictionary<ushort, TClient>();
         private readonly object _voiceHandleGenerationLock = new object();
 
         protected internal TClient PrepareClient(TIdentifier identifier)
@@ -76,7 +76,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
         
-        private bool RegisterClient(IVoiceClient client)
+        private bool RegisterClient(TClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
@@ -94,7 +94,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
-        protected internal bool RemoveClient(IVoiceClient client)
+        protected internal bool RemoveClient(TClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
@@ -108,18 +108,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                     OnClientDisconnectedFromVoice(client.Handle.Identifer);
                 }
                 
-                _voiceWrapper.RemoveClient(client);
+                NativeWrapper.RemoveClient(client);
                 
                 return _clients.TryRemove(client.Handle.Identifer, out _);
             }
         }
 
-        public IVoiceClient GetVoiceClient(VoiceHandle handle)
+        public TClient GetVoiceClient(VoiceHandle handle)
         {
             return GetVoiceClient(handle.Identifer);
         }
 
-        public IVoiceClient GetVoiceClient(ushort handle)
+        public TClient GetVoiceClient(ushort handle)
         {
             lock (_voiceHandleGenerationLock)
             {
@@ -127,31 +127,31 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 {
                     return result;
                 }
-                return null;
+                return default(TClient);
             }
         }
 
-        public T FindClient<T>(Func<T, bool> filter) where T : IVoiceClient
+        public TClient FindClient(Func<TClient, bool> filter)
         {
             lock (_voiceHandleGenerationLock)
             {
-                return _clients.ToArray().Select(c => (T) c.Value).FirstOrDefault(filter);
+                return _clients.ToArray().Select(c => c.Value).FirstOrDefault(filter);
             }
         }
 
-        public IEnumerable<T> GetClients<T>(Func<T, bool> filter) where T : IVoiceClient
+        public IEnumerable<TClient> GetClients(Func<TClient, bool> filter) 
         {
             lock (_voiceHandleGenerationLock)
             {
-                return _clients.ToArray().Select(c => (T) c.Value).Where(filter);
+                return _clients.ToArray().Select(c => c.Value).Where(filter);
             }
         }
 
-        public IEnumerable<T> GetClients<T>() where T : IVoiceClient
+        public IEnumerable<TClient> GetClients()
         {
             lock (_voiceHandleGenerationLock)
             {
-                return _clients.ToArray().Select(c => (T) c.Value);
+                return _clients.ToArray().Select(c => c.Value);
             }
         }
 

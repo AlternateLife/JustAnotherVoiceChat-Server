@@ -30,7 +30,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 {
-    public interface IGtmpVoiceClient : IVoiceClient
+    public interface IGtmpVoiceClient : IVoiceClient<IGtmpVoiceClient>
     {
 
         Client Player { get; }

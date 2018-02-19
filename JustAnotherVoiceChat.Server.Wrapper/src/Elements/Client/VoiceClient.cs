@@ -34,10 +34,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
-    public abstract partial class VoiceClient : IVoiceClient
+    public abstract class VoiceClient<TClient> : IVoiceClient<TClient> where TClient : IVoiceClient<TClient>
     {
-        private readonly IVoiceServer _server;
-        private readonly IVoiceWrapper3D _voiceWrapper3D;
+        private readonly IVoiceServer<TClient> _server;
 
         public VoiceHandle Handle { get; }
 
@@ -49,45 +48,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
         
         public string HandshakeUrl { get; }
 
-        public bool Connected { get; internal set; }
+        public bool Connected { get; set; }
 
-        public IEnumerable<IVoiceGroup> Groups
-        {
-            get
-            {
-                return _server.GetAllGroups().Where(c => c.HasClient(this));
-            }
-        }
-
-        protected VoiceClient(IVoiceServer server, IVoiceWrapper3D voiceWrapper3D, VoiceHandle handle)
+        protected VoiceClient(IVoiceServer<TClient> server, VoiceHandle handle)
         {
             _server = server;
-            _voiceWrapper3D = voiceWrapper3D;
 
             Handle = handle;
             
             var handshakePayload = Uri.EscapeUriString($"{_server.Hostname}:{_server.Port}:{Handle.Identifer}");
             HandshakeUrl = $"http://localhost:23333/handshake/{handshakePayload}";
-        }
-
-        public void JoinGroup(IVoiceGroup group)
-        {
-            if (group == null)
-            {
-                throw new ArgumentNullException(nameof(group));
-            }
-            
-            group.AddClient(this);
-        }
-
-        public void LeaveGroup(IVoiceGroup group)
-        {
-            if (group == null)
-            {
-                throw new ArgumentNullException(nameof(group));
-            }
-            
-            group.TryRemoveClient(this, out _);
         }
     }
 }

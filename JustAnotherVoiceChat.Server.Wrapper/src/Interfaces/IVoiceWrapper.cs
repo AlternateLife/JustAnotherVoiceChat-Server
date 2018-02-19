@@ -25,15 +25,17 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper
+    public interface IVoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
         void CreateNativeServer(ushort port);
         bool StartNativeServer();
         void StopNativeServer();
 
-        void RemoveClient(IVoiceClient client);
+        void RemoveClient(TClient client);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
 
@@ -48,11 +50,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void UnregisterClientSpeakersMuteChangedCallback();
         void UnregisterClientMicrophoneMuteChangedCallback();
 
-        void RegisterClientConnectedCallback(Delegates.ClientConnectCallback callback);
-        void RegisterClientDisconnectedCallback(Delegates.ClientCallback callback);
+        void RegisterClientConnectedCallback(NativeDelegates.ClientConnectCallback callback);
+        void RegisterClientDisconnectedCallback(NativeDelegates.ClientCallback callback);
         
-        void RegisterClientTalkingChangedCallback(Delegates.ClientStatusCallback callback);
-        void RegisterClientSpeakersMuteChangedCallback(Delegates.ClientStatusCallback callback);
-        void RegisterClientMicrophoneMuteChangedCallback(Delegates.ClientStatusCallback callback);
+        void RegisterClientTalkingChangedCallback(NativeDelegates.ClientStatusCallback callback);
+        void RegisterClientSpeakersMuteChangedCallback(NativeDelegates.ClientStatusCallback callback);
+        void RegisterClientMicrophoneMuteChangedCallback(NativeDelegates.ClientStatusCallback callback);
+        
+        void SetListenerPosition(TClient listener);
+        void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker);
+        void ResetRelativeSpeakerPositionForListener(TClient listener, TClient speaker);
+        void ResetAllRelativePositionsForListener(TClient listener);
     }
 }

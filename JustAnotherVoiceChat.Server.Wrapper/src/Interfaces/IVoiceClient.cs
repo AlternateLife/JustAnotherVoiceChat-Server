@@ -25,18 +25,17 @@
  * SOFTWARE.
  */
 
-using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceClient
+    public interface IVoiceClient<TClient> where TClient : IVoiceClient<TClient>
     {
         
         VoiceHandle Handle { get; }
         
-        bool Connected { get; }
+        bool Connected { get; set; }
         
         bool Microphone { get; }
         bool Headphones { get; }
@@ -46,15 +45,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         string HandshakeUrl { get; }
         
-        IEnumerable<IVoiceGroup> Groups { get; }
+        /*
+        IEnumerable<IVoiceGroup<TClient>> Groups { get; }
 
-        void JoinGroup(IVoiceGroup group);
-        void LeaveGroup(IVoiceGroup group);
-
-        void SetVoicePosition();
-        void SetRelativeVoicePositionForClient(IVoiceClient foreignVoiceClient);
-
-        void ResetAllRelativeVoicePositions();
-        void ResetRelativeVoicePositionForClient(IVoiceClient foreignVoiceClient);
+        void JoinGroup(IVoiceGroup<TClient> group);
+        void LeaveGroup(IVoiceGroup<TClient> group);*/
     }
 }

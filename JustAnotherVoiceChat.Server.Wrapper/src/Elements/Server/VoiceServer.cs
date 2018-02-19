@@ -31,10 +31,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> : IVoiceServer where TClient : IVoiceClient
+    public partial class VoiceServer<TClient, TIdentifier> : IVoiceServer<TClient> where TClient : IVoiceClient<TClient>
     {
         private readonly IVoiceClientFactory<TClient, TIdentifier> _factory;
-        private readonly IVoiceWrapper _voiceWrapper;
 
         public string Hostname { get; }
         public ushort Port { get; }
@@ -44,14 +43,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         public double GlobalMaxDistance { get; }
         public float GlobalDistanceFactor { get; }
         public float GlobalRollOffScale { get; }
+        
+        public IVoiceWrapper<TClient> NativeWrapper { get; }
 
-        public IVoiceWrapper3D VoiceWrapper3D { get; }
-
-        protected internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, IVoiceWrapper voiceWrapper, IVoiceWrapper3D voiceWrapper3D, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f, float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
+        protected internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, IVoiceWrapper<TClient> voiceWrapper, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f, float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
-            _voiceWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
-            VoiceWrapper3D = voiceWrapper3D ?? throw new ArgumentNullException(nameof(voiceWrapper));
+            NativeWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
 
             var result = Uri.CheckHostName(hostname);
             if (result == UriHostNameType.Unknown)
@@ -67,7 +65,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             GlobalDistanceFactor = globalDistanceFactor;
             GlobalRollOffScale = globalRollOffScale;
 
-            _voiceWrapper.CreateNativeServer(Port);
+            NativeWrapper.CreateNativeServer(Port);
 
             AttachToNativeEvents();
             AttachTasksToStartAndStopEvent();
@@ -80,7 +78,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 throw new VoiceServerAlreadyStartedException();
             }
             
-            if (_voiceWrapper.StartNativeServer() == false)
+            if (NativeWrapper.StartNativeServer() == false)
             {
                 throw new VoiceServerNotStartedException();
             }
@@ -96,7 +94,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 throw new VoiceServerNotStartedException();
             }
             
-            _voiceWrapper.StopNativeServer();
+            NativeWrapper.StopNativeServer();
             
             OnServerStopping?.Invoke();
             Started = false;

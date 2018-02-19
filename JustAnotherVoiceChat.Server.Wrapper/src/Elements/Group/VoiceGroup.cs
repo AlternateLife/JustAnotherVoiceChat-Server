@@ -28,20 +28,21 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
 {
-    internal class VoiceGroup : IVoiceGroup
+    internal class VoiceGroup<TClient> : IVoiceGroup<TClient> where TClient : IVoiceClient<TClient>
     {
-        public event Delegates.ClientEvent OnClientJoined;
-        public event Delegates.ClientEvent OnClientLeft;
+        public event Delegates<TClient>.ClientEvent OnClientJoined;
+        public event Delegates<TClient>.ClientEvent OnClientLeft;
         
-        private readonly IVoiceServer _server;
-        private readonly ConcurrentDictionary<VoiceHandle, IVoiceClient> _clients = new ConcurrentDictionary<VoiceHandle, IVoiceClient>();
+        private readonly IVoiceServer<TClient> _server;
+        private readonly ConcurrentDictionary<VoiceHandle, TClient> _clients = new ConcurrentDictionary<VoiceHandle, TClient>();
 
-        public IEnumerable<IVoiceClient> Clients
+        public IEnumerable<TClient> Clients
         {
             get
             {
@@ -49,12 +50,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
             }
         }
         
-        internal VoiceGroup(IVoiceServer server)
+        internal VoiceGroup(IVoiceServer<TClient> server)
         {
             _server = server;
         }
 
-        public bool AddClient(IVoiceClient client)
+        public bool AddClient(TClient client)
         {
             if (client == null)
             {
@@ -71,7 +72,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
             return true;
         }
 
-        public bool TryRemoveClient(IVoiceClient client, out IVoiceClient removedVoiceClient)
+        public bool TryRemoveClient(TClient client, out TClient removedVoiceClient)
         {
             if (client == null)
             {
@@ -88,7 +89,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
             return true;
         }
 
-        public bool HasClient(IVoiceClient client)
+        public bool HasClient(TClient client)
         {
             if (client == null)
             {
