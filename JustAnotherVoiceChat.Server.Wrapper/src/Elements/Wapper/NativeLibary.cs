@@ -32,7 +32,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 // ReSharper disable UnusedMember.Local
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal static class NativeWrapper
+    internal static class NativeLibary
     {
 
 #if LINUX

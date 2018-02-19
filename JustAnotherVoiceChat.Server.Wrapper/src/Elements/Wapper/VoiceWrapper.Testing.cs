@@ -33,17 +33,17 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
         public void TestCallClientConnectedCallback(ushort handle)
         {
-            NativeWrapper.JVTest_CallClientConnectedCallback(handle);
+            NativeLibary.JVTest_CallClientConnectedCallback(handle);
         }
 
         public void TestCallClientDisconnectedCallback(ushort handle)
         {
-            NativeWrapper.JVTest_CallClientDisconnectedCallback(handle);
+            NativeLibary.JVTest_CallClientDisconnectedCallback(handle);
         }
 
         public void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus)
         {
-            NativeWrapper.JVTest_CallClientTalkingChangedCallback(handle, newStatus);
+            NativeLibary.JVTest_CallClientTalkingChangedCallback(handle, newStatus);
         }
     }
 }

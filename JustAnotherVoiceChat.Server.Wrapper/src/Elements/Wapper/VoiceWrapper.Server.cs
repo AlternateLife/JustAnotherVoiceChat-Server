@@ -35,22 +35,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     {
         public void CreateNativeServer(ushort port)
         {
-            NativeWrapper.JV_CreateServer(port);
+            NativeLibary.JV_CreateServer(port);
         }
 
         public bool StartNativeServer()
         {
-            return NativeWrapper.JV_StartServer();
+            return NativeLibary.JV_StartServer();
         }
 
         public void StopNativeServer()
         {
-            NativeWrapper.JV_StopServer();
+            NativeLibary.JV_StopServer();
         }
 
         public void Set3DSettings(float distanceFactor, float rolloffFactor)
         {
-            NativeWrapper.JV_Set3DSettings(distanceFactor, rolloffFactor);
+            NativeLibary.JV_Set3DSettings(distanceFactor, rolloffFactor);
         }
     }
 }
