@@ -1,10 +1,10 @@
 /*
- * File: AlternateVoice.h
- * Date: 25.01.2018
+ * File: src/internal.cpp
+ * Date: 29.01.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,21 +25,63 @@
  * SOFTWARE.
  */
 
-#pragma once
+#include "internal.h"
+
+#include <enet/enet.h>
 
 #ifdef _WIN32
-#ifdef JUSTANOTHERVOICECHAT_EXPORTS
-#define JUSTANOTHERVOICECHAT_API __declspec(dllexport)
-#else
-#define JUSTANOTHERVOICECHAT_API __declspec(dllimport)
-#endif
-#else
-#define JUSTANOTHERVOICECHAT_API
+#include <Windows.h>
 #endif
 
-// C++ public classes
-#include "Server.h"
-#include "Client.h"
+bool _isInitialized = false;
 
-// C wrapped API
-#include "API.h"
+bool initialize() {
+  if (_isInitialized) {
+    return true;
+  }
+
+  if (enet_initialize() != 0) {
+    return false;
+  }
+
+  _isInitialized = true;
+
+  return true;
+}
+
+void deinitialize() {
+  if (_isInitialized) {
+    enet_deinitialize();
+
+    _isInitialized = false;
+  }
+}
+
+bool isInitialized() {
+  return _isInitialized;
+}
+
+#ifdef _WIN32
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fwdReason, LPVOID lpvReserved) {
+    switch (fwdReason) {
+    case DLL_PROCESS_ATTACH:
+        
+        break;
+
+    case DLL_PROCESS_DETACH:
+
+        break;
+
+    case DLL_THREAD_ATTACH:
+
+        break;
+
+    case DLL_THREAD_DETACH:
+
+        break;
+    }
+
+    return TRUE;
+}
+
+#endif

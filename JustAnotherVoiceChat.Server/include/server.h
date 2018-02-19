@@ -1,10 +1,10 @@
 /*
- * File: Server.h
+ * File: include/server.h
  * Date: 25.01.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,25 +27,38 @@
 
 #pragma once
 
-#include "JustAnotherVoiceChat.h"
+#include "justAnotherVoiceChat.h"
 
 #include <enet/enet.h>
 #include <stdint.h>
+#include <thread>
+#include <vector>
+#include <linalg.h>
 
-namespace JustAnotherVoiceChat {
+namespace justAnotherVoiceChat {
   typedef bool (* ClientCallback_t)(uint16_t);
   typedef void (* ClientStatusCallback_t)(uint16_t, bool);
+
+  class Client;
 
   class JUSTANOTHERVOICECHAT_API Server {
   private:
     ENetAddress _address;
     ENetHost *_server;
 
+    std::thread *_thread;
+    std::thread *_clientUpdateThread;
+    std::vector<Client *> _clients;
+
     ClientCallback_t _clientConnectedCallback;
     ClientCallback_t _clientDisconnectedCallback;
     ClientStatusCallback_t _clientTalkingChangedCallback;
     ClientStatusCallback_t _clientSpeakersMuteChangedCallback;
     ClientStatusCallback_t _clientMicrophoneMuteChangedCallback;
+
+    bool _running;
+    float _distanceFactor;
+    float _rolloffFactor;
 
   public:
     Server(uint16_t port);
@@ -58,24 +71,43 @@ namespace JustAnotherVoiceChat {
     uint16_t port() const;
     int maxClients() const;
     int numberOfClients() const;
+    void removeClient(uint16_t gameId);
+    bool removeAllClients();
 
-    void muteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted = true);
-    void setClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z);
-    void setClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume);
+    void setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation);
+    void set3DSettings(float distanceFactor, float rolloffFactor);
 
     void registerClientConnectedCallback(ClientCallback_t callback);
     void unregisterClientConnectedCallback();
+    ClientCallback_t clientConnectedCallback() const;
 
     void registerClientDisconnectedCallback(ClientCallback_t callback);
     void unregisterClientDisconnectedCallback();
+    ClientCallback_t clientDisconnectedCallback() const;
 
     void registerClientTalkingChangedCallback(ClientStatusCallback_t callback);
     void unregisterClientTalkingChangedCallback();
+    ClientStatusCallback_t clientTalkingChangedCallback() const;
 
     void registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback);
     void unregisterClientSpeakersMuteChangedCallback();
+    ClientStatusCallback_t clientSpeakersMuteChangedCallback() const;
 
     void registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t callback);
     void unregisterClientMicrophoneMuteChangedCallback();
+    ClientStatusCallback_t clientMicrophoneMuteChangedCallback() const;
+
+  private:
+    void update();
+    void updateClients();
+    void abortThreads();
+
+    Client *clientByGameId(uint16_t gameId) const;
+    Client *clientByTeamspeakId(uint16_t teamspeakId) const;
+    Client *clientByPeer(ENetPeer *peer) const;
+
+    void onClientConnect(ENetEvent &event);
+    void onClientDisconnect(ENetEvent &event);
+    void onClientMessage(ENetEvent &event);
   };
 }

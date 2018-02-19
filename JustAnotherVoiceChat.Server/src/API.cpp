@@ -1,10 +1,10 @@
 /*
- * File: Server.cpp
+ * File: src/api.cpp
  * Date: 29.01.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,24 +25,32 @@
  * SOFTWARE.
  */
 
-#include "API.h"
+#include "api.h"
 
-#include "Server.h"
+#include "server.h"
 
-JV_ClientCallback_t _clientConnectedCallback = 0;
-JV_ClientCallback_t _clientDisconnectedCallback = 0;
-JV_ClientStatusCallback_t _clientTalkingChangedCallback = 0;
-JV_ClientStatusCallback_t _clientSpeakersMuteChangedCallback = 0;
-JV_ClientStatusCallback_t _clientMicrophoneMuteChangedCallback = 0;
+#include <iostream>
 
-JustAnotherVoiceChat::Server *_server = nullptr;
+static justAnotherVoiceChat::Server *_server = nullptr;
 
-void JV_StartServer(uint16_t port) {
+void JV_RegisterLogMessageCallback(logMessageCallback_t callback) {
+  setLogMessageCallback(callback);
+}
+
+void JV_CreateServer(uint16_t port) {
   if (_server != nullptr) {
     return;
   }
 
-  _server = new JustAnotherVoiceChat::Server(port);
+  _server = new justAnotherVoiceChat::Server(port);
+}
+
+bool JV_StartServer() {
+  if (_server == nullptr) {
+    return false;
+  }
+
+  return _server->create();
 }
 
 void JV_StopServer() {
@@ -51,114 +59,211 @@ void JV_StopServer() {
   }
 
   _server->close();
+
+  delete _server;
+  _server = nullptr;
 }
 
 bool JV_IsServerRunning() {
-  return (_server != nullptr && _server->isRunning());
+  if (_server == nullptr) {
+    return false;
+  }
+
+  return _server->isRunning();
 }
 
 void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
-  _clientConnectedCallback = callback;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientConnectedCallback(callback);
 }
 
 void JV_UnregisterClientConnectedCallback() {
-  _clientConnectedCallback = 0;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->unregisterClientConnectedCallback();
 }
 
 void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
-  _clientDisconnectedCallback = callback;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientDisconnectedCallback(callback);
 }
 
 void JV_UnregisterClientDisconnectedCallback() {
-  _clientDisconnectedCallback = 0;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->unregisterClientDisconnectedCallback();
 }
 
 void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback) {
-  _clientTalkingChangedCallback = callback;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientTalkingChangedCallback(callback);
 }
 
 void JV_UnregisterClientTalkingChangedCallback() {
-  _clientTalkingChangedCallback = 0;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->unregisterClientTalkingChangedCallback();
 }
 
 void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t callback) {
-  _clientSpeakersMuteChangedCallback = callback;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientSpeakersMuteChangedCallback(callback);
 }
 
 void JV_UnregisterClientSpeakersMuteChangedCallback() {
-  _clientSpeakersMuteChangedCallback = 0;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->unregisterClientSpeakersMuteChangedCallback();
 }
 
 void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t callback) {
-  _clientMicrophoneMuteChangedCallback = callback;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientMicrophoneMuteChangedCallback(callback);
 }
 
 void JV_UnregisterClientMicrophoneMuteChangedCallback() {
-  _clientMicrophoneMuteChangedCallback = 0;
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->unregisterClientMicrophoneMuteChangedCallback();
 }
 
 int JV_GetNumberOfClients() {
-  return 0;
+  if (_server == nullptr || _server->isRunning() == false) {
+    return 0;
+  }
+
+  return _server->numberOfClients();
 }
 
-void JV_GetClientIds(uint16_t *, size_t maxLength) {
+void JV_GetClientGameIds(uint16_t *gameIds, size_t maxLength) {
 
 }
 
 void JV_RemoveClient(uint16_t clientId) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return;
+  }
 
+  _server->removeClient(clientId);
 }
 
 void JV_RemoveAllClients() {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return;
+  }
+
+  _server->removeAllClients();
+}
+
+void JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return;
+  }
+
+  _server->setClientPosition(clientId, linalg::aliases::float3(x, y, z), rotation);
+}
+
+void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->set3DSettings(distanceFactor, rolloffFactor);
+}
+
+void JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z) {
+  
+}
+
+void JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
 
 }
 
-void JV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted) {
-
-}
-
-void JV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z) {
-
-}
-
-void JV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume) {
-
-}
-
-void JV_SetListenerDirection(uint16_t clientId, float rotation) {
-
-}
-
-void JV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale) {
+void JV_ResetAllRelativePositions(uint16_t clientId) {
   
 }
 
 void JVTest_CallClientConnectedCallback(uint16_t id) {
-  if (_clientConnectedCallback != 0) {
-    _clientConnectedCallback(id);
+  if (_server == nullptr) {
+    return;
+  }
+
+  auto callback = _server->clientConnectedCallback();
+
+  if (callback != 0) {
+    callback(id);
   }
 }
 
 void JVTest_CallClientDisconnectedCallback(uint16_t id) {
-  if (_clientDisconnectedCallback != 0) {
-    _clientDisconnectedCallback(id);
+  if (_server == nullptr) {
+    return;
+  }
+
+  auto callback = _server->clientDisconnectedCallback();
+
+  if (callback != 0) {
+    callback(id);
   }
 }
 
 void JVTest_CallClientTalkingChangedCallback(uint16_t id, bool state) {
-  if (_clientTalkingChangedCallback != 0) {
-    _clientTalkingChangedCallback(id, state);
+  if (_server == nullptr) {
+    return;
+  }
+
+  auto callback = _server->clientTalkingChangedCallback();
+
+  if (callback != 0) {
+    callback(id, state);
   }
 }
 
 void JVTest_CallClientSpeakersMuteChangedCallback(uint16_t id, bool state) {
-  if (_clientSpeakersMuteChangedCallback != 0) {
-    _clientSpeakersMuteChangedCallback(id, state);
+  if (_server == nullptr) {
+    return;
+  }
+
+  auto callback = _server->clientSpeakersMuteChangedCallback();
+
+  if (callback != 0) {
+    callback(id, state);
   }
 }
 
 void JVTest_CallClientMicrophoneMuteChangedCallback(uint16_t id, bool state) {
-  if (_clientMicrophoneMuteChangedCallback != 0) {
-    _clientMicrophoneMuteChangedCallback(id, state);
+  if (_server == nullptr) {
+    return;
+  }
+
+  auto callback = _server->clientMicrophoneMuteChangedCallback();
+
+  if (callback != 0) {
+    callback(id, state);
   }
 }

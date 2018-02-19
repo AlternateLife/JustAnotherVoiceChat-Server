@@ -1,10 +1,10 @@
 /*
- * File: Client.h
- * Date: 29.01.2018
+ * File: include/log.h
+ * Date: 17.02.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,23 +27,15 @@
 
 #pragma once
 
-#include "JustAnotherVoiceChat.h"
-
 #include <string>
-#include <enet/enet.h>
 
-namespace JustAnotherVoiceChat {
-  class JUSTANOTHERVOICECHAT_API Client {
-  private:
-    ENetAddress _address;
-    ENetHost *_client;
+#define LOG_LEVEL_ERROR 0
+#define LOG_LEVEL_WARNING 1
+#define LOG_LEVEL_INFO 2
+#define LOG_LEVEL_DEBUG 3
 
-  public:
-    Client();
-    virtual ~Client();
+typedef void (* logMessageCallback_t)(const char *, int level);
 
-    bool connect(std::string hostname, uint16_t port);
-    void disconnect();
-    bool isConnected() const;
-  };
-}
+void logMessage(std::string message, int level = LOG_LEVEL_INFO);
+
+void setLogMessageCallback(logMessageCallback_t callback);
