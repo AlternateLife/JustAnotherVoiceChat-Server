@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         private readonly ConcurrentDictionary<ushort, IVoiceClient> _clients = new ConcurrentDictionary<ushort, IVoiceClient>();
         private readonly object _voiceHandleGenerationLock = new object();
 
-        protected TClient PrepareClient(TIdentifier identifier)
+        protected internal TClient PrepareClient(TIdentifier identifier)
         {
             var client = CreateClient(identifier);
             if (ReferenceEquals(client, default(TClient)) || !RegisterClient(client))
@@ -94,7 +94,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
-        protected bool RemoveClient(IVoiceClient client)
+        protected internal bool RemoveClient(IVoiceClient client)
         {
             lock (_voiceHandleGenerationLock)
             {
