@@ -3,9 +3,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
-    public class FakeVoiceServer : VoiceServer<FakeVoiceClient, byte>
+    public class FakeVoiceServer : VoiceServer<IFakeVoiceClient, byte>
     {
-        protected internal FakeVoiceServer(IVoiceClientFactory<FakeVoiceClient, byte> factory, IVoiceWrapper<FakeVoiceClient> voiceWrapper, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(factory, voiceWrapper, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        protected internal FakeVoiceServer(IVoiceClientFactory<IFakeVoiceClient, byte> factory, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6, IVoiceWrapper<IFakeVoiceClient> voiceWrapper = null) : base(factory, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, voiceWrapper)
         {
             
         }

@@ -4,6 +4,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 {
     public interface IFakeVoiceClient : IVoiceClient<IFakeVoiceClient>
     {
-        
+        byte Identifer { get; }
     }
 }

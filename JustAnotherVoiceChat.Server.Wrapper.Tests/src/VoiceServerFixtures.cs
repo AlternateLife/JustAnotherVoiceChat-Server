@@ -62,12 +62,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             Assert.Throws<ArgumentNullException>(() =>
             {
-                var server = new VoiceServer<IFakeVoiceClient, byte>(null, _voiceWrapper.Object, "localhost", 23332, 23);
-            });
-            
-            Assert.Throws<ArgumentNullException>(() =>
-            {
-                var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, null, "localhost", 23332, 23);
+                var server = new VoiceServer<IFakeVoiceClient, byte>(null, "localhost", 23332, 23, 1, 1, 6, _voiceWrapper.Object);
             });
         }
 
@@ -80,7 +75,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             {
                 Assert.Throws<InvalidHostnameException>(() =>
                 {
-                    var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, invalidhostname, 23332, 23);
+                    var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, invalidhostname, 23332, 23, _voiceWrapper.Object);
                 });
             }
         }
@@ -88,13 +83,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void VoiceServerVariablesAreCorrectlySetOnConstruction()
         {
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "voice.dummydomain.com", 22233, 321);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "voice.dummydomain.com", 22233, 321, _voiceWrapper.Object);
             
             Assert.AreEqual(server.Hostname, "voice.dummydomain.com");
             Assert.AreEqual(server.Port, 22233);
             Assert.AreEqual(server.ChannelId, 321);
             
-            var server2 = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "voice.domaindummy.com", 33567, 576, 2f, 1f, 12d);
+            var server2 = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "voice.domaindummy.com", 33567, 576, 2f, 1f, 12d, _voiceWrapper.Object);
             
             Assert.AreEqual(server2.Hostname, "voice.domaindummy.com");
             Assert.AreEqual(server2.Port, 33567);
@@ -113,7 +108,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             fakeWrapper.Setup(e => e.StartNativeServer()).Returns(true);
             fakeWrapper.Setup(e => e.CreateNativeServer(23332));
             
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, fakeWrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, fakeWrapper.Object);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
@@ -130,7 +125,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StoppingVoiceServerWillSetStartedPropertyToFalseAndTriggerEvent()
         {
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var invokeAmount = 0;
             server.OnServerStopping += () => invokeAmount++;
@@ -145,7 +140,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerMultipleWillTriggerEventOnlyIfServerIsNotStarted()
         {
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
@@ -173,7 +168,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingAndStoppingServerWillTriggerEventMultipleTimes()
         {
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var startInvokeAmount = 0;
             server.OnServerStarted += () => startInvokeAmount++;
@@ -197,7 +192,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StoppingServerWithoutStartingItFirstWillThrowAnException()
         {
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             Assert.Throws<VoiceServerNotStartedException>(() =>
             {
@@ -217,7 +212,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
                 invokeAmount++;
             }
 
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, "localhost", 23332, 23);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
             
             server.RegisterEvent(Callback, 5);
             

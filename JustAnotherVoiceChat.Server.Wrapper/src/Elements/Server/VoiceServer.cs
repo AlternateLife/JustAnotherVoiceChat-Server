@@ -46,7 +46,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         public IVoiceWrapper<TClient> NativeWrapper { get; }
 
-        protected internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, IVoiceWrapper<TClient> voiceWrapper, string hostname, ushort port, int channelId, float globalRollOffScale = 1.0f, float globalDistanceFactor = 1.0f, double globalMaxDistance = 6.0)
+        protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId) : this(factory, hostname, port, channelId, 1, 1, 6, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        {
+            
+        }
+        
+        protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : this(factory, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        {
+            
+        }
+        
+        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, IVoiceWrapper<TClient> voiceWrapper) : this(factory, hostname, port, channelId, 1, 1, 6, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        {
+            
+        }
+
+        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, IVoiceWrapper<TClient> voiceWrapper)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             NativeWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
