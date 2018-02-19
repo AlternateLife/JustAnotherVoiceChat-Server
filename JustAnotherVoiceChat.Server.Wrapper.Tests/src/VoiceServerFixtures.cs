@@ -104,19 +104,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerWillSetStartedPropertyToTrueAndTriggerEvent()
         {
-            var fakeWrapper = new Mock<IVoiceWrapper<IFakeVoiceClient>>();
-            fakeWrapper.Setup(e => e.StartNativeServer()).Returns(true);
-            fakeWrapper.Setup(e => e.CreateNativeServer(23332));
+            _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
+            _voiceWrapper.Setup(e => e.CreateNativeServer(23332));
             
-            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, fakeWrapper.Object);
+            var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
             
             server.Start();
             
-            fakeWrapper.Verify(e => e.StartNativeServer(), Times.Once);
-            fakeWrapper.Verify(e => e.CreateNativeServer(23332), Times.Once);
+            _voiceWrapper.Verify(e => e.StartNativeServer(), Times.Once);
+            _voiceWrapper.Verify(e => e.CreateNativeServer(23332), Times.Once);
             
             Assert.AreEqual(1, invokeAmount);
             Assert.AreEqual(true, server.Started);
@@ -125,6 +124,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StoppingVoiceServerWillSetStartedPropertyToFalseAndTriggerEvent()
         {
+            _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
             var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var invokeAmount = 0;
@@ -140,6 +140,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingVoiceServerMultipleWillTriggerEventOnlyIfServerIsNotStarted()
         {
+            _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
             var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var invokeAmount = 0;
@@ -168,6 +169,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void StartingAndStoppingServerWillTriggerEventMultipleTimes()
         {
+            _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
             var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, "localhost", 23332, 23, _voiceWrapper.Object);
 
             var startInvokeAmount = 0;
