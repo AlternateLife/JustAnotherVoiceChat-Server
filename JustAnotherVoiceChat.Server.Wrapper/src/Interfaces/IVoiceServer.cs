@@ -43,6 +43,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         event Delegates<TClient>.ClientStatusEvent OnClientTalkingChanged;
         event Delegates<TClient>.ClientStatusEvent OnClientMicrophoneMuteChanged;
         event Delegates<TClient>.ClientStatusEvent OnClientSpeakersMuteChanged;
+        event Delegates<TClient>.LogMessageEvent OnLogMessage;
 
         string Hostname { get; }
         ushort Port { get; }

@@ -49,6 +49,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void UnregisterClientTalkingChangedCallback();
         void UnregisterClientSpeakersMuteChangedCallback();
         void UnregisterClientMicrophoneMuteChangedCallback();
+        void UnregisterLogMessageCallback();
 
         void RegisterClientConnectedCallback(NativeDelegates.ClientConnectCallback callback);
         void RegisterClientDisconnectedCallback(NativeDelegates.ClientCallback callback);
@@ -56,6 +57,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void RegisterClientTalkingChangedCallback(NativeDelegates.ClientStatusCallback callback);
         void RegisterClientSpeakersMuteChangedCallback(NativeDelegates.ClientStatusCallback callback);
         void RegisterClientMicrophoneMuteChangedCallback(NativeDelegates.ClientStatusCallback callback);
+        
+        void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback);
         
         void SetListenerPosition(TClient listener);
         void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker);

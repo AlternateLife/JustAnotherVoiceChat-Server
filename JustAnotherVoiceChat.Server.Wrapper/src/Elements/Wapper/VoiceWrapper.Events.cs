@@ -58,6 +58,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
             NativeLibary.JV_RegisterClientMicrophoneMuteChangedCallback(callback);
         }
 
+        public void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback)
+        {
+            NativeLibary.JV_RegisterLogMessageCallback(callback);
+        }
+
         public void UnregisterClientConnectedCallback()
         {
             NativeLibary.JV_UnregisterClientConnectedCallback();
@@ -78,6 +83,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
         }
 
         public void UnregisterClientMicrophoneMuteChangedCallback()
+        {
+            NativeLibary.JV_UnregisterClientMicrophoneMuteChangedCallback();
+        }
+
+        public void UnregisterLogMessageCallback()
         {
             NativeLibary.JV_UnregisterClientMicrophoneMuteChangedCallback();
         }

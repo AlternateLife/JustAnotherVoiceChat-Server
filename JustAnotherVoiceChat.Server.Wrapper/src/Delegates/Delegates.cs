@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
@@ -38,5 +39,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
         public delegate void ClientGroupEvent(TClient client, IVoiceGroup<TClient> group);
 
         public delegate void ClientStatusEvent(TClient client, bool newStatus);
+        public delegate void LogMessageEvent(string message, LogLevel logLevel);
     }
 }

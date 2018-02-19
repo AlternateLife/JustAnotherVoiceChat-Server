@@ -129,6 +129,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JVTest_CallClientMicrophoneMuteChangedCallback(ushort clientId, bool newStatus);
         
+        // LogMessage
+        
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_RegisterLogMessageCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.LogMessageCallback callback);
+        
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_UnregisterLogMessageCallback();
+        
         
         /**
          * 3D Voice
