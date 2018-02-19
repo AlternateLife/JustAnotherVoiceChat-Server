@@ -25,9 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
@@ -56,8 +53,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
             Handle = handle;
             
-            var handshakePayload = Uri.EscapeUriString($"{_server.Hostname}:{_server.Port}:{Handle.Identifer}");
-            HandshakeUrl = $"http://localhost:23333/handshake/{handshakePayload}";
+            HandshakeUrl = $"http://localhost:23333/?host={server.Hostname}&port={server.Port}&uid={Handle.Identifer}";
         }
     }
 }
