@@ -36,7 +36,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
     {
         private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
 
-        private void RegisterEvent<T>(Action<T> register, T callback)
+        internal void RegisterEvent<T>(Action<T> register, T callback)
         {
             _garbageCollectorHandles.Add(GCHandle.Alloc(callback));
 

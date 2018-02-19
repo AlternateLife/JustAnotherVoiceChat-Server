@@ -60,17 +60,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         }
 
         [Test]
-        public void ConstructorWillThrowExceptionIfWrapperIsNull()
+        public void ConstructorWillThrowExceptionsWhenAParameterIsNull()
         {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var server = new VoiceServer<IVoiceClient, byte>(null, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            });
+            
             Assert.Throws<ArgumentNullException>(() =>
             {
                 var server = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, null, _voiceWrapper3D.Object, "localhost", 23332, 23);
             });
-        }
-
-        [Test]
-        public void ConstructorWillThrowExceptionIfWrapper3DIsNull()
-        {
+            
             Assert.Throws<ArgumentNullException>(() =>
             {
                 var server = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, null, "localhost", 23332, 23);
@@ -92,14 +93,40 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         }
 
         [Test]
+        public void VoiceServerVariablesAreCorrectlySetOnConstruction()
+        {
+            var server = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "voice.dummydomain.com", 22233, 321);
+            
+            Assert.AreEqual(server.Hostname, "voice.dummydomain.com");
+            Assert.AreEqual(server.Port, 22233);
+            Assert.AreEqual(server.ChannelId, 321);
+            
+            var server2 = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "voice.domaindummy.com", 33567, 576, 2f, 1f, 12d);
+            
+            Assert.AreEqual(server2.Hostname, "voice.domaindummy.com");
+            Assert.AreEqual(server2.Port, 33567);
+            Assert.AreEqual(server2.ChannelId, 576);
+            
+            Assert.AreEqual(server2.GlobalRollOffScale, 2f);
+            Assert.AreEqual(server2.GlobalDistanceFactor, 1f);
+            Assert.AreEqual(server2.GlobalMaxDistance, 12d);
+            
+        }
+
+        [Test]
         public void StartingVoiceServerWillSetStartedPropertyToTrueAndTriggerEvent()
         {
-            var server = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            var fakeWrapper = new Mock<IVoiceWrapper>();
+            fakeWrapper.Setup(e => e.StartNativeServer(It.IsAny<ushort>()));
+            
+            var server = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, fakeWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
 
             var invokeAmount = 0;
             server.OnServerStarted += () => invokeAmount++;
             
             server.Start();
+            
+            fakeWrapper.Verify(e => e.StartNativeServer(It.IsAny<ushort>()), Times.Once);
             
             Assert.AreEqual(1, invokeAmount);
             Assert.AreEqual(true, server.Started);
@@ -181,6 +208,26 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             {
                 server.Stop();
             });
+        }
+
+        [Test]
+        public void RegisterEventWillCallRegisterEventAndAddsInstanceToGarbageCollection()
+        {
+            var invokeAmount = 0;
+            var givenNumber = 0;
+
+            void Callback(int e)
+            {
+                givenNumber = e;
+                invokeAmount++;
+            }
+
+            var server = new VoiceServer<IVoiceClient, byte>(_voiceClientFactory.Object, _voiceWrapper.Object, _voiceWrapper3D.Object, "localhost", 23332, 23);
+            
+            server.RegisterEvent(Callback, 5);
+            
+            Assert.AreEqual(invokeAmount, 1);
+            Assert.AreEqual(givenNumber, 5);
         }
         
     }
