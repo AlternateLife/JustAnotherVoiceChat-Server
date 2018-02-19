@@ -1,10 +1,10 @@
 /*
- * File: API.h
+ * File: include/api.h
  * Date: 29.01.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,8 @@
 
 #pragma once
 
-#include "JustAnotherVoiceChat.h"
+#include "justAnotherVoiceChat.h"
+#include "log.h"
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -47,9 +48,19 @@ typedef bool (* JV_ClientCallback_t)(uint16_t);
 typedef void (* JV_ClientStatusCallback_t)(uint16_t, bool);
 
 /**
+ *
+ */
+void JUSTANOTHERVOICECHAT_API JV_RegisterLogMessageCallback(logMessageCallback_t callback);
+
+/**
+ *
+ */
+void JUSTANOTHERVOICECHAT_API JV_CreateServer(uint16_t port);
+
+/**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_StartServer(uint16_t port);
+bool JUSTANOTHERVOICECHAT_API JV_StartServer();
 
 /**
  * 
@@ -119,7 +130,7 @@ int JUSTANOTHERVOICECHAT_API JV_GetNumberOfClients();
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_GetClientIds(uint16_t *, size_t maxLength);
+void JUSTANOTHERVOICECHAT_API JV_GetClientGameIds(uint16_t *gameIds, size_t maxLength);
 
 /**
  * 
@@ -134,27 +145,27 @@ void JUSTANOTHERVOICECHAT_API JV_RemoveAllClients();
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_MuteClientForClient(uint16_t listenerId, uint16_t clientId, bool muted = true);
+void JUSTANOTHERVOICECHAT_API JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_SetClientPositionForClient(uint16_t listenerId, uint16_t clientId, float x, float y, float z);
+void JUSTANOTHERVOICECHAT_API JV_Set3DSettings(float distanceFactor, float rolloffFactor);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_SetClientVolumeForClient(uint16_t listenerId, uint16_t clientId, float volume);
+void JUSTANOTHERVOICECHAT_API JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_SetListenerDirection(uint16_t clientId, float rotation);
+void JUSTANOTHERVOICECHAT_API JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_Set3DSettings(uint16_t clientId, float distanceFactor, float rolloffScale);
+void JUSTANOTHERVOICECHAT_API JV_ResetAllRelativePositions(uint16_t clientId);
 
 /**
  * 

@@ -1,10 +1,10 @@
 /*
- * File: Client.cpp
- * Date: 29.01.2018
+ * File: src/log.cpp
+ * Date: 17.02.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,34 +25,18 @@
  * SOFTWARE.
  */
 
-#include "Internal.h"
+#include "log.h"
 
-#include <enet/enet.h>
+static logMessageCallback_t _logMessageCallback = nullptr;
 
-bool _isInitialized = false;
+void logMessage(std::string message, int level) {
+    if (_logMessageCallback == nullptr) {
+        return;
+    }
 
-bool initialize() {
-  if (_isInitialized) {
-    return true;
-  }
-
-  if (enet_initialize() != 0) {
-    return false;
-  }
-
-  _isInitialized = true;
-
-  return true;
+    _logMessageCallback(message.c_str(), level);
 }
 
-void deinitialize() {
-  if (_isInitialized) {
-    enet_deinitialize();
-
-    _isInitialized = false;
-  }
-}
-
-bool isInitialized() {
-  return _isInitialized;
+void setLogMessageCallback(logMessageCallback_t callback) {
+    _logMessageCallback = callback;
 }

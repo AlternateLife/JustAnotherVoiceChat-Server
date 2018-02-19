@@ -145,6 +145,7 @@ typings/
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+*.code-workspace
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and

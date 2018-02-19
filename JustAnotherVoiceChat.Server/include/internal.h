@@ -1,10 +1,10 @@
 /*
- * File: Internal.h
+ * File: include/internal.h
  * Date: 29.01.2018
  *
  * MIT License
  *
- * Copyright (c) 2018 AlternateVoice
+ * Copyright (c) 2018 JustAnotherVoiceChat
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
