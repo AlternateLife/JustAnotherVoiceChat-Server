@@ -5,11 +5,11 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
-    public class FakeVoiceClient : VoiceClient<FakeVoiceClient>
+    public class FakeVoiceClient : VoiceClient<IFakeVoiceClient>, IFakeVoiceClient
     {
         public byte Identifer { get; }
 
-        public FakeVoiceClient(byte identifer, IVoiceServer<FakeVoiceClient> server, VoiceHandle handle) : base(server, handle)
+        public FakeVoiceClient(byte identifer, IVoiceServer<IFakeVoiceClient> server, VoiceHandle handle) : base(server, handle)
         {
             Identifer = identifer;
         }
