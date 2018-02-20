@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         }
 
         [Test]
-        public void TwoSameVectorsAreComparedCorrectly()
+        public void TwoEqualVectorsAreComparedCorrectly()
         {
             var vector1 = new Vector3(1, 2, 3);
             var vector2 = new Vector3(1, 2, 3);
@@ -52,6 +52,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             
             Assert.AreEqual(true, singleVector == tripleVector);
             Assert.AreEqual(false, singleVector != tripleVector);
+        }
+
+        [Test]
+        public void TheSameVectorIsAlwaysEqualToItself()
+        {
+            var vector = new Vector3(7, 11, 17);
+            
+            Assert.AreEqual(true, vector == vector);
         }
 
         [Test]
@@ -167,6 +175,31 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             Assert.AreEqual(5, product.X);
             Assert.AreEqual(15, product.Y);
             Assert.AreEqual(35, product.Z);
+        }
+
+        [Test]
+        public void CalculateDivisionOfTwoVectors()
+        {
+            var vector1 = new Vector3(20, 27, 33);
+            var vector2 = new Vector3(10, 9, 3);
+
+            var result = vector1 / vector2;
+            
+            Assert.AreEqual(2, result.X);
+            Assert.AreEqual(3, result.Y);
+            Assert.AreEqual(11, result.Z);
+        }
+
+        [Test]
+        public void CalculateDivisionOfVectorAndFloat()
+        {
+            var vector = new Vector3(20, 30, 50);
+
+            var result = vector / 10;
+            
+            Assert.AreEqual(2, result.X);
+            Assert.AreEqual(3, result.Y);
+            Assert.AreEqual(5, result.Z);
         }
         
     }
