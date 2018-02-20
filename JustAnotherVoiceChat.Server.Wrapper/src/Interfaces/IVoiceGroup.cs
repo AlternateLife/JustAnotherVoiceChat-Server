@@ -31,7 +31,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceGroup<TClient> : IDisposable where TClient : IVoiceClient<TClient>
+    public interface IVoiceGroup<TClient> : IDisposable where TClient : IVoiceClient
     {
 
         event Delegates<TClient>.ClientEvent OnClientJoined;

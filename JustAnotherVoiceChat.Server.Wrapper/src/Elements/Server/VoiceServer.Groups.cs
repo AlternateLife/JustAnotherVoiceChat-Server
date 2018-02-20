@@ -33,7 +33,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
         private readonly ConcurrentBag<IVoiceGroup<TClient>> _groups = new ConcurrentBag<IVoiceGroup<TClient>>();
 

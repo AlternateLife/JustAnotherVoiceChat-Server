@@ -29,7 +29,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
         
         protected void FireClientTalkingChange(ushort handle, bool newStatus)

@@ -30,7 +30,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper
 {
-    internal static class JustAnotherVoiceChat<TClient> where TClient : IVoiceClient<TClient>
+    internal static class JustAnotherVoiceChat<TClient> where TClient : IVoiceClient
     {
         private static IVoiceWrapper<TClient> _voiceWrapper;
 

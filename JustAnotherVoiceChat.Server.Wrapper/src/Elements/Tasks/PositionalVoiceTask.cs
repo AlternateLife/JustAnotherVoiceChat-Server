@@ -4,7 +4,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
 {
-    public class PositionalVoiceTask<TClient> : IVoiceTask<TClient> where TClient : IVoiceClient<TClient>
+    public class PositionalVoiceTask<TClient> : IVoiceTask<TClient> where TClient : IVoiceClient
     {
         public virtual async Task RunVoiceTask(IVoiceServer<TClient> server)
         {

@@ -34,7 +34,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Group
 {
-    internal class VoiceGroup<TClient> : IVoiceGroup<TClient> where TClient : IVoiceClient<TClient>
+    internal class VoiceGroup<TClient> : IVoiceGroup<TClient> where TClient : IVoiceClient
     {
         public event Delegates<TClient>.ClientEvent OnClientJoined;
         public event Delegates<TClient>.ClientEvent OnClientLeft;

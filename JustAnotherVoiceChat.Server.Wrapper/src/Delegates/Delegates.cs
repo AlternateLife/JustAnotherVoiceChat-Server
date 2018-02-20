@@ -30,7 +30,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
 {
-    public class Delegates<TClient> where TClient : IVoiceClient<TClient>
+    public class Delegates<TClient> where TClient : IVoiceClient
     {
         public delegate void EmptyEvent();
         

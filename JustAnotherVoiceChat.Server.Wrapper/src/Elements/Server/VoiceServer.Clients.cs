@@ -34,7 +34,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
         private readonly ConcurrentDictionary<ushort, TClient> _clients = new ConcurrentDictionary<ushort, TClient>();
         private readonly object _voiceHandleGenerationLock = new object();
