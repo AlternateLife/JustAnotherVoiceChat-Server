@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
@@ -58,6 +59,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         void Start();
         void Stop();
+
+        void Log(LogLevel logLevel, string message);
+        void Log(string message);
 
         IVoiceGroup<TClient> CreateGroup();
         IEnumerable<IVoiceGroup<TClient>> GetAllGroups();

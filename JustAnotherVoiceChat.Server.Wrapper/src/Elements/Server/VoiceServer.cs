@@ -26,6 +26,7 @@
  */
 
 using System;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
@@ -113,6 +114,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             
             OnServerStopping?.Invoke();
             Started = false;
+        }
+
+        public void Log(LogLevel logLevel, string message)
+        {
+            OnLogMessage?.Invoke(message, logLevel);
+        }
+
+        public void Log(string message)
+        {
+            Log(LogLevel.Info, message);
         }
 
         public void Dispose()
