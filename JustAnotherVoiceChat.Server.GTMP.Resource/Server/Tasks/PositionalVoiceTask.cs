@@ -19,7 +19,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource.Tasks
                 Console.WriteLine("SET POSITION: " + client.Handle.Identifer + " -> " + client.Position + " -> " + client.CameraRotation);
             }
             
-            await Task.Delay(333).ConfigureAwait(false);
+            await Task.Delay(50).ConfigureAwait(false);
         }
         
         public void Dispose()
