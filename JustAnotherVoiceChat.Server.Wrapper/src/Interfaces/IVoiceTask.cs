@@ -26,13 +26,11 @@
  */
 
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceTask<TClient> : IDisposable where TClient : IVoiceClient
     {
-        Task RunVoiceTask(IVoiceServer<TClient> server);
+        int RunVoiceTask(IVoiceServer<TClient> server);
     }
 }
