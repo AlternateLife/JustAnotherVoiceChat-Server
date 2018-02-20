@@ -26,13 +26,14 @@
  */
 
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
-        void CreateNativeServer(ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword);
+        void CreateNativeServer(VoiceServerConfiguration configuration);
         bool StartNativeServer();
         void StopNativeServer();
 

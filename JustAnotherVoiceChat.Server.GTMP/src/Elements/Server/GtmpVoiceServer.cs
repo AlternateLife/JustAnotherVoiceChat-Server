@@ -28,6 +28,7 @@
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
@@ -37,14 +38,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
     {
         private readonly API _api;
         
-        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword) : base(clientRepository, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword)
-        {
-            _api = api;
-
-            AttachToEvents();
-        }
-        
-        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : base(clientRepository, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, VoiceServerConfiguration configuration) : base(clientRepository, configuration)
         {
             _api = api;
 

@@ -26,6 +26,7 @@
  */
 
 using System.Security;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
@@ -33,9 +34,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
     [SecurityCritical]
     internal partial class VoiceWrapper<TClient> : IVoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
-        public void CreateNativeServer(ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword)
+        public void CreateNativeServer(VoiceServerConfiguration configuration)
         {
-            NativeLibary.JV_CreateServer(port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword);
+            NativeLibary.JV_CreateServer(configuration.Port, configuration.TeamspeakServerId, configuration.TeamspeakChannelId, configuration.TeamspeakChannelPassword);
         }
 
         public bool StartNativeServer()

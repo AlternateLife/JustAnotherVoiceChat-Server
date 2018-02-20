@@ -28,6 +28,7 @@
 using System;
 using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Dummy.Repositories;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
@@ -71,7 +72,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                 {
                     if (_server == null)
                     {
-                        _server = new ServerHandler(new DummyClientFactory(), "localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123");
+                        _server = new ServerHandler(new DummyClientFactory(), new VoiceServerConfiguration("localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123"));
                     }
                     
                     Logger.Info("Starting JustAnotherVoiceChat DummyServer...");

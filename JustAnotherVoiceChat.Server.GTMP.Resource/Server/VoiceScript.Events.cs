@@ -38,7 +38,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         {
             server.OnServerStarted += () =>
             {
-                API.consoleOutput(LogCat.Info, $"GtmpVoiceServer started, listening on {server.Hostname}:{server.Port}");
+                var config = server.Configuration;
+                API.consoleOutput(LogCat.Info, $"GtmpVoiceServer started, listening on {config.Hostname}:{config.Port}");
             };
             
             server.OnServerStopping += () =>
