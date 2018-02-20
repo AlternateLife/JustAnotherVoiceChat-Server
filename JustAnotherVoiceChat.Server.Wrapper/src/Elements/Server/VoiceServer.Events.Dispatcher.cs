@@ -86,7 +86,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void OnLogMessageFromVoice(string message, int loglevel)
         {
-            OnLogMessage?.Invoke(message, (LogLevel) loglevel);
+            Log((LogLevel) loglevel, message);
         }
         
         
