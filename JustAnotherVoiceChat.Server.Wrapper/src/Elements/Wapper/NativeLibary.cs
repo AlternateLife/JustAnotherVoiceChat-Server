@@ -42,7 +42,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 #endif
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_CreateServer(ushort port);
+        internal static extern void JV_CreateServer(ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]

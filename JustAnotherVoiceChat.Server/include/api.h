@@ -55,7 +55,7 @@ void JUSTANOTHERVOICECHAT_API JV_RegisterLogMessageCallback(logMessageCallback_t
 /**
  *
  */
-void JUSTANOTHERVOICECHAT_API JV_CreateServer(uint16_t port);
+void JUSTANOTHERVOICECHAT_API JV_CreateServer(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakChannelId, std::string teamspeakChannelPassword);
 
 /**
  * 
