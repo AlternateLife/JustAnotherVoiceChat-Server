@@ -31,11 +31,8 @@ using System.Threading.Tasks;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceTask : IDisposable
+    public interface IVoiceTask<TClient> : IDisposable where TClient : IVoiceClient<TClient>
     {
-        CancellationTokenSource TokenSource { get; }
-
-        Task RunVoiceTask();
-        void CancelVoiceTask();
+        Task RunVoiceTask(IVoiceServer<TClient> server);
     }
 }
