@@ -136,10 +136,10 @@ void Client::sendUpdate() {
   // send new audible clients
   for (auto it = _addAudibleClients.begin(); it != _addAudibleClients.end(); it++) {
     // add to update packet
-    clientVolumeUpdate_t volumeUpdate;
-    volumeUpdate.teamspeakId = (*it)->teamspeakId();
-    volumeUpdate.muted = false;
-    updatePacket.volumes.push_back(volumeUpdate);
+    clientAudioUpdate_t audioUpdate;
+    audioUpdate.teamspeakId = (*it)->teamspeakId();
+    audioUpdate.muted = false;
+    updatePacket.audioUpdates.push_back(audioUpdate);
 
     _audibleClients.insert(*it);
   }
@@ -147,15 +147,15 @@ void Client::sendUpdate() {
   // send removed audible clients
   for (auto it = _removeAudibleClients.begin(); it != _removeAudibleClients.end(); it++) {
     // add to update packet
-    clientVolumeUpdate_t volumeUpdate;
-    volumeUpdate.teamspeakId = (*it)->teamspeakId();
-    volumeUpdate.muted = true;
-    updatePacket.volumes.push_back(volumeUpdate);
+    clientAudioUpdate_t audioUpdate;
+    audioUpdate.teamspeakId = (*it)->teamspeakId();
+    audioUpdate.muted = true;
+    updatePacket.audioUpdates.push_back(audioUpdate);
 
     _audibleClients.erase(*it);
   }
 
-  if (updatePacket.volumes.empty() && updatePacket.positions.empty()) {
+  if (updatePacket.audioUpdates.empty() && updatePacket.positionUpdates.empty()) {
     return;
   }
 
