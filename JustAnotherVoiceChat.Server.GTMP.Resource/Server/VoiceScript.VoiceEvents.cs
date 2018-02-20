@@ -59,14 +59,14 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
             _voiceServer.OnClientMicrophoneMuteChanged += (client, newStatus) =>
             {
-                API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "activated" : "deactivated")} the microphone!");
-                client.Player.sendChatMessage($"You {(newStatus ? "~g~activated" : "~r~deactivated")}~s~ your microphone!");
+                API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "muted" : "unmuted")} the microphone!");
+                client.Player.sendChatMessage($"You {(newStatus ? "~r~muted" : "~g~unmuted")}~s~ your microphone!");
             };
             
             _voiceServer.OnClientSpeakersMuteChanged += (client, newStatus) =>
             {
-                API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "activated" : "deactivated")} the speakers!");
-                client.Player.sendChatMessage($"You {(newStatus ? "~g~activated" : "~r~deactivated")}~s~ your speakers!");
+                API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "muted" : "unmuted")} the speakers!");
+                client.Player.sendChatMessage($"You {(newStatus ? "~r~muted" : "~g~unmuted")}~s~ your speakers!");
             };
         }
 
