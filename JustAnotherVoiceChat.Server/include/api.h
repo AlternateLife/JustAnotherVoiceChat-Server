@@ -150,6 +150,11 @@ void JUSTANOTHERVOICECHAT_API JV_SetClientPosition(uint16_t clientId, float x, f
 /**
  * 
  */
+void JUSTANOTHERVOICECHAT_API JV_SetClientVoiceRange(uint16_t clientId, float voiceRange);
+
+/**
+ * 
+ */
 void JUSTANOTHERVOICECHAT_API JV_Set3DSettings(float distanceFactor, float rolloffFactor);
 
 /**
