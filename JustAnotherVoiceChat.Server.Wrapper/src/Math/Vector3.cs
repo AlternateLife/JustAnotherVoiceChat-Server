@@ -61,11 +61,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Math
 
         public static double Distance(Vector3 vector1, Vector3 vector2)
         {
-            return System.Math.Sqrt(
-                (vector1.X - vector2.X) * (vector1.X - vector2.X) +
-                (vector1.Y - vector2.Y) * (vector1.Y - vector2.Y) +
-                (vector1.Z - vector2.Z) * (vector1.Z - vector2.Z)
-            );
+            return (vector1 - vector2).Length();
         }
 
         public double Distance(Vector3 vector)
