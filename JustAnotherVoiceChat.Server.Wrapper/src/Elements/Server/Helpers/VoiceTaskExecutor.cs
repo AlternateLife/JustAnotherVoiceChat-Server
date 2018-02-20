@@ -6,7 +6,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server.Helpers
 {
-    internal class VoiceTaskExecutor<TClient> : IVoiceTaskExecutor where TClient : IVoiceClient<TClient>
+    internal class VoiceTaskExecutor<TClient> : IVoiceTaskExecutor where TClient : IVoiceClient
     {
 
         private readonly IVoiceTask<TClient> _voiceTask;
