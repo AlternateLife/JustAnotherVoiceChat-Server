@@ -33,7 +33,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> : IVoiceServer<TClient> where TClient : IVoiceClient<TClient>
+    public partial class VoiceServer<TClient, TIdentifier> : IVoiceServer<TClient> where TClient : IVoiceClient
     {
         private readonly IVoiceClientFactory<TClient, TIdentifier> _factory;
 

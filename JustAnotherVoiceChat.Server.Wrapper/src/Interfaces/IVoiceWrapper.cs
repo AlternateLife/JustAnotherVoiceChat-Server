@@ -31,7 +31,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Math;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
+    public interface IVoiceWrapper<TClient> where TClient : IVoiceClient
     {
         void CreateNativeServer(VoiceServerConfiguration configuration);
         bool StartNativeServer();

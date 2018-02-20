@@ -29,7 +29,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
-    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
+    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient
     {
         public void TestCallClientConnectedCallback(ushort handle)
         {

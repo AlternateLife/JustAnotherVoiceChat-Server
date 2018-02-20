@@ -29,7 +29,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceClientFactory<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
+    public interface IVoiceClientFactory<TClient, TIdentifier> where TClient : IVoiceClient
     {
 
         TClient MakeClient(TIdentifier identifier, IVoiceServer<TClient> server, VoiceHandle handle);

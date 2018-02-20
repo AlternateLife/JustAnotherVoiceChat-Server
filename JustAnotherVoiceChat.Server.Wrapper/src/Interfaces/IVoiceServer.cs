@@ -34,7 +34,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceServer<TClient> : IDisposable where TClient : IVoiceClient<TClient>
+    public interface IVoiceServer<TClient> : IDisposable where TClient : IVoiceClient
     {
         event Delegates<TClient>.EmptyEvent OnServerStarted;
         event Delegates<TClient>.EmptyEvent OnServerStopping;

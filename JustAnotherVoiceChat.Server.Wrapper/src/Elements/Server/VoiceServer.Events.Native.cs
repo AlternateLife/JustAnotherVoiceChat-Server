@@ -33,7 +33,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
         private readonly List<GCHandle> _garbageCollectorHandles = new List<GCHandle>();
 
