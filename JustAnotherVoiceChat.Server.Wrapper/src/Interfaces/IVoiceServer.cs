@@ -48,7 +48,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         string Hostname { get; }
         ushort Port { get; }
-        int ChannelId { get; }
+        ulong TeamspeakChannelId { get; }
+        string TeamspeakChannelPassword { get; }
+        string TeamspeakServerId { get; }
+        
         bool Started { get; }
         
         IVoiceWrapper<TClient> NativeWrapper { get; }

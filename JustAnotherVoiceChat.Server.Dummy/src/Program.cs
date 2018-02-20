@@ -71,7 +71,7 @@ namespace JustAnotherVoiceChat.Server.Dummy
                 {
                     if (_server == null)
                     {
-                        _server = new ServerHandler(new DummyClientFactory(), "localhost", 23332, 23);
+                        _server = new ServerHandler(new DummyClientFactory(), "localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123");
                     }
                     
                     Logger.Info("Starting JustAnotherVoiceChat DummyServer...");

@@ -34,14 +34,14 @@ namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {
-        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId)
+        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword)
         {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), hostname, port, channelId);
+            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword);
         }
         
-        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
+        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
         }
         
     }
