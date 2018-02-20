@@ -1,9 +1,12 @@
-﻿using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
-using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes.Interfaces;
-using Moq;
-using NUnit.Framework;
+﻿using System;
+ using System.Linq;
+ using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+ using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
+ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+ using JustAnotherVoiceChat.Server.Wrapper.Structs;
+ using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
+ using Moq;
+ using NUnit.Framework;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 {
@@ -79,10 +82,63 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void PreparedClientWillBeSearchableInGetClients()
         {
-            var client1 = _voiceServer.PrepareClient(5);
+            for (byte i = 0; i < 10; i = (byte) (i + 2))
+            {
+                _voiceServer.PrepareClient(i);
+            }
             
-            //Assert.AreSame(client1, _voiceServer.FindClient(c => .c);
+            var client = _voiceServer.PrepareClient(100);
+            
+            Assert.NotNull(client);
+            Assert.AreSame(client, _voiceServer.FindClient(c => c.Identifer == 100));
         }
+
+        [Test]
+        public void PreparedAndRemovedClientIsRemovedFromKnownClients()
+        {
+            var client = _voiceServer.PrepareClient(5);
+            _voiceServer.RemoveClient(client);
+            
+            Assert.Null(_voiceServer.FindClient(c => c.Identifer == 5));
+
+            
+            var overwriteClient = _voiceServer.PrepareClient(5);
+            
+            Assert.AreNotSame(client, _voiceServer.FindClient(c => c.Identifer == 5));
+            Assert.AreSame(overwriteClient, _voiceServer.FindClient(c => c.Identifer == 5));
+        }
+
+        [Test]
+        public void FindingClientWithVariousWays()
+        {
+            var client = _voiceServer.PrepareClient(10);
+            
+            Assert.AreSame(client, _voiceServer.GetVoiceClient(client.Handle));
+            Assert.AreSame(client, _voiceServer.GetVoiceClient(client.Handle.Identifer));
+            Assert.IsTrue(_voiceServer.GetClients().Any(c => ReferenceEquals(c, client)));
+        }
+
+        [Test]
+        public void RemovingNullThrowsException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                _voiceServer.RemoveClient(null);
+            });
+        }
+
+        [Test]
+        public void RemoveNonExistentClientThrowsInvalidClientException()
+        {
+            var client = _voiceServer.PrepareClient(5);
+            _voiceServer.RemoveClient(client);
+            
+            var fakeClient = new FakeVoiceClient(10, _voiceServer, VoiceHandle.Empty);
+            
+            Assert.Throws<InvalidClientException>(() => { _voiceServer.RemoveClient(client); });
+            Assert.Throws<InvalidClientException>(() => { _voiceServer.RemoveClient(fakeClient); });
+        }
+        
         
     }
 }
