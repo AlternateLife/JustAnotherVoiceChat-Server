@@ -34,7 +34,7 @@
 void test_api() {
   // test if methods exists
   JV_RegisterLogMessageCallback(NULL);
-  JV_CreateServer(ENET_PORT);
+  JV_CreateServer(ENET_PORT, "", 0, "");
   JV_StartServer();
   JV_IsServerRunning();
   JV_StopServer();

@@ -101,7 +101,7 @@ int main() {
 #endif
   
   // create server
-  JV_CreateServer(ENET_PORT);
+  JV_CreateServer(ENET_PORT, "", 0, "");
   JV_RegisterLogMessageCallback(logMessage);
 
   if (JV_StartServer() == false) {

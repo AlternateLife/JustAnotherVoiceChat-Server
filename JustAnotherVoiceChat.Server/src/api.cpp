@@ -37,12 +37,12 @@ void JV_RegisterLogMessageCallback(logMessageCallback_t callback) {
   setLogMessageCallback(callback);
 }
 
-void JV_CreateServer(uint16_t port) {
+void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t teamspeakChannelId, const char *teamspeakChannelPassword) {
   if (_server != nullptr) {
     return;
   }
 
-  _server = new justAnotherVoiceChat::Server(port);
+  _server = new justAnotherVoiceChat::Server(port, std::string(teamspeakServerId), teamspeakChannelId, std::string(teamspeakChannelPassword));
 }
 
 bool JV_StartServer() {
