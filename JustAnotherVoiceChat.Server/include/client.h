@@ -44,6 +44,7 @@ namespace justAnotherVoiceChat {
     linalg::aliases::float3 _position;
     float _rotation;
     bool _positionChanged;
+    float _voiceRange;
     std::set<Client *> _audibleClients;
     std::set<Client *> _addAudibleClients;
     std::set<Client *> _removeAudibleClients;
@@ -80,6 +81,8 @@ namespace justAnotherVoiceChat {
     float rotation() const;
     void resetPositionChanged();
     bool positionChanged() const;
+    void setVoiceRange(float range);
+    float voiceRange() const;
 
   private:
     void sendResponse(int statusCode, std::string reason, int channelId);

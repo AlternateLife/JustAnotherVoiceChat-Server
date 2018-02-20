@@ -42,6 +42,7 @@ Client::Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId) {
   _microphoneMuted = false;
   _speakersMuted = false;
   _positionChanged = false;
+  _voiceRange = 10;
 }
 
 Client::~Client() {
@@ -202,6 +203,15 @@ void Client::resetPositionChanged() {
 
 bool Client::positionChanged() const {
   return _positionChanged;
+}
+
+void Client::setVoiceRange(float range) {
+  _voiceRange = range;
+  _positionChanged = true;
+}
+
+float Client::voiceRange() const {
+  return _voiceRange;
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {

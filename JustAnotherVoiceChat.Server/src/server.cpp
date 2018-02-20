@@ -274,18 +274,20 @@ void Server::updateClients() {
       Client *client = *it;
 
       for (auto clientIt = _clients.begin(); clientIt != _clients.end(); clientIt++) {
-        if (*clientIt == client) {
+        // client to be heard
+        Client *audibleClient = *clientIt;
+        if (audibleClient == client) {
           continue;
         }
 
-        if ((*clientIt)->positionChanged() == false) {
+        if (audibleClient->positionChanged() == false) {
           continue;
         }
 
-        if (linalg::distance((*clientIt)->position(), client->position()) < 10) {
-          client->addAudibleClient(*clientIt);
+        if (linalg::distance(audibleClient->position(), client->position()) < audibleClient->voiceRange()) {
+          client->addAudibleClient(audibleClient);
         } else {
-          client->removeAudibleClient(*clientIt);
+          client->removeAudibleClient(audibleClient);
         }
       }
 
