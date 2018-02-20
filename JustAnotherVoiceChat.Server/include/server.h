@@ -82,6 +82,7 @@ namespace justAnotherVoiceChat {
     bool removeAllClients();
 
     void setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation);
+    void setClientVoiceRange(uint16_t gameId, float voiceRange);
     void set3DSettings(float distanceFactor, float rolloffFactor);
 
     void registerClientConnectedCallback(ClientCallback_t callback);

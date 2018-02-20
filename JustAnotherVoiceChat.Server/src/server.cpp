@@ -170,6 +170,15 @@ void Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position
   client->setRotation(rotation);
 }
 
+void Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
+  auto client = clientByGameId(gameId);
+  if (client == nullptr) {
+    return;
+  }
+
+  client->setVoiceRange(voiceRange);
+}
+
 void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
   _distanceFactor = distanceFactor;
   _rolloffFactor = rolloffFactor;

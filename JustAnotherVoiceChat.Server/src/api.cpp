@@ -188,6 +188,14 @@ void JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float ro
   _server->setClientPosition(clientId, linalg::aliases::float3(x, y, z), rotation);
 }
 
+void JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return;
+  }
+
+  _server->setClientVoiceRange(clientId, voiceRange);
+}
+
 void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
   if (_server == nullptr) {
     return;

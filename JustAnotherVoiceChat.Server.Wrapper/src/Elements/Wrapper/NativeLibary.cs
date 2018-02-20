@@ -145,6 +145,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         internal static extern void JV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_SetClientVoiceRange(ushort clientId, float voiceRange);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
