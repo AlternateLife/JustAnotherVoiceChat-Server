@@ -60,7 +60,10 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             }
 
             var client = GetVoiceClient(player);
-            RemoveClient(client);
+            if (client != null)
+            {
+                RemoveClient(client);
+            }
         }
     }
 }
