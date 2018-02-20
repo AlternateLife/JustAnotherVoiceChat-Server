@@ -1,4 +1,6 @@
-﻿namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
+﻿using JustAnotherVoiceChat.Server.Wrapper.Math;
+
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
 {
     internal partial class VoiceWrapper<TClient>
     {
@@ -13,14 +15,14 @@
             NativeLibary.JV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
         }
 
-        public void SetListenerPosition(TClient listener)
+        public void SetListenerPosition(TClient listener, Vector3 position, float rotation)
         {
-            NativeLibary.JV_SetClientPosition(listener.Handle.Identifer, listener.Position.X, listener.Position.Y, listener.Position.Z, listener.CameraRotation);
+            NativeLibary.JV_SetClientPosition(listener.Handle.Identifer, position.X, position.Y, position.Z, rotation);
         }
 
-        public void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker)
+        public void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker, Vector3 position)
         {
-            NativeLibary.JV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, speaker.Position.X, speaker.Position.Y, speaker.Position.Z);
+            NativeLibary.JV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, position.X, position.Y, position.Z);
         }
     }
 }

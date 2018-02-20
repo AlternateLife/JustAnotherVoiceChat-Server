@@ -26,9 +26,11 @@
  */
 
 using GrandTheftMultiplayer.Server.API;
+using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Resource
 {
@@ -40,13 +42,21 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         public VoiceScript()
         {
             _voiceServer = GtmpVoice.CreateServer(API, "localhost", 23332, 23);
+            _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
             AttachServerEvents(_voiceServer);
 
             API.onClientEventTrigger += OnClientEventTrigger;
             API.onResourceStop += OnResourceStop;
+            
+            API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
 
             _voiceServer.Start();
+        }
+
+        private void OnPlayerFinishedDownload(Client player)
+        {
+            player.setSkin(PedHash.FreemodeMale01);
         }
 
         private void OnClientEventTrigger(Client sender, string eventName, params object[] arguments)

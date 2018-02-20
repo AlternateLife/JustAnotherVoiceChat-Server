@@ -283,7 +283,7 @@ void Server::updateClients() {
     }
 
     // wait for next update
-    std::this_thread::sleep_for(std::chrono::milliseconds(250));
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
 }
 

@@ -26,39 +26,67 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient<TClient>
     {
-        private ConcurrentBag<IVoiceTask> _voiceTasks = new ConcurrentBag<IVoiceTask>();
+        private readonly ConcurrentBag<IVoiceTask<TClient>> _voiceTasks = new ConcurrentBag<IVoiceTask<TClient>>();
+
+        private Task _taskRunner;
+        private CancellationTokenSource _cancellationToken;
 
         private void AttachTasksToStartAndStopEvent()
         {
-            OnServerStarted += StartTasks;
-            OnServerStopping += StopTasks;
+            OnServerStarted += StartupTaskRunner;
+            OnServerStopping += StopTaskRunner;
         }
 
-        private void StartTasks()
+        private void StartupTaskRunner()
         {
-            foreach(var voiceTask in _voiceTasks)
+            if (_taskRunner != null)
             {
-                voiceTask.RunVoiceTask();
+                return;
+            }
+            _cancellationToken = new CancellationTokenSource();
+
+            var cancelToken = _cancellationToken.Token;
+            
+            _taskRunner = Task.Factory.StartNew(() =>
+            {
+                cancelToken.ThrowIfCancellationRequested();
+                
+                while (true)
+                {
+                    cancelToken.ThrowIfCancellationRequested();
+                    
+                    foreach (var voiceTask in _voiceTasks)
+                    {
+                        voiceTask.RunVoiceTask(this).Wait(cancelToken);
+                    }
+                }
+            }, _cancellationToken.Token);
+        }
+
+        private void StopTaskRunner()
+        {
+            _cancellationToken.Cancel();
+            try
+            {
+                _taskRunner.Wait();
+            }
+            catch (AggregateException e)
+            {
+                
             }
         }
 
-        private void StopTasks()
-        {
-            foreach (var voiceTask in _voiceTasks)
-            {
-                voiceTask.CancelVoiceTask();
-            }
-        }
-
-        public void AddTask(IVoiceTask voiceTask)
+        public void AddTask(IVoiceTask<TClient> voiceTask)
         { 
             if (voiceTask == null)
             {
@@ -68,7 +96,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             _voiceTasks.Add(voiceTask);
         }
 
-        public void AddTasks(IEnumerable<IVoiceTask> voiceTasks)
+        public void AddTasks(IEnumerable<IVoiceTask<TClient>> voiceTasks)
         {
             foreach (var voiceTask in voiceTasks)
             {
@@ -82,6 +110,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             {
                 voiceTask.Dispose();
             }
+            
+            _cancellationToken.Dispose();
         }
     }
 }
