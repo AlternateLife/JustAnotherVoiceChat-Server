@@ -38,7 +38,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public string Hostname { get; }
         public ushort Port { get; }
-        public int ChannelId { get; }
+        public string TeamspeakServerId { get; }
+        public ulong TeamspeakChannelId { get; }
+        public string TeamspeakChannelPassword { get; }
+        
         public bool Started { get; private set; }
 
         public double GlobalMaxDistance { get; }
@@ -47,22 +50,56 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         public IVoiceWrapper<TClient> NativeWrapper { get; }
 
-        protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId) : this(factory, hostname, port, channelId, 1, 1, 6, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        protected VoiceServer(
+            IVoiceClientFactory<TClient, TIdentifier> factory, 
+            string hostname, 
+            ushort port, 
+            string teamspeakServerId, 
+            ulong teamspeakChannelId, 
+            string teamspeakChannelPassword) 
+            : this(factory, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, 1, 1, 6, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
         {
             
         }
         
-        protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance) : this(factory, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        protected VoiceServer(
+            IVoiceClientFactory<TClient, TIdentifier> factory, 
+            string hostname, 
+            ushort port, 
+            string teamspeakServerId, 
+            ulong teamspeakChannelId, 
+            string teamspeakChannelPassword, 
+            float globalRollOffScale, 
+            float globalDistanceFactor, 
+            double globalMaxDistance) 
+            : this(factory, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, globalRollOffScale, globalDistanceFactor, globalMaxDistance, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
         {
             
         }
         
-        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, IVoiceWrapper<TClient> voiceWrapper) : this(factory, hostname, port, channelId, 1, 1, 6, voiceWrapper)
+        internal VoiceServer(
+            IVoiceClientFactory<TClient, TIdentifier> factory, 
+            string hostname, 
+            ushort port, 
+            string teamspeakServerId,
+            ulong teamspeakChannelId, 
+            string teamspeakChannelPassword, 
+            IVoiceWrapper<TClient> voiceWrapper) 
+            : this(factory, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, 1, 1, 6, voiceWrapper)
         {
             
         }
 
-        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, string hostname, ushort port, int channelId, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance, IVoiceWrapper<TClient> voiceWrapper)
+        internal VoiceServer(
+            IVoiceClientFactory<TClient, TIdentifier> factory, 
+            string hostname, 
+            ushort port, 
+            string teamspeakServerId, 
+            ulong teamspeakChannelId, 
+            string teamspeakChannelPassword, 
+            float globalRollOffScale, 
+            float globalDistanceFactor, 
+            double globalMaxDistance, IVoiceWrapper<TClient> voiceWrapper)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             NativeWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
@@ -75,13 +112,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             
             Hostname = hostname;
             Port = port;
-            ChannelId = channelId;
+            TeamspeakServerId = teamspeakServerId;
+            TeamspeakChannelId = teamspeakChannelId;
+            TeamspeakChannelPassword = teamspeakChannelPassword;
 
             GlobalMaxDistance = globalMaxDistance;
             GlobalDistanceFactor = globalDistanceFactor;
             GlobalRollOffScale = globalRollOffScale;
 
-            NativeWrapper.CreateNativeServer(Port);
+            NativeWrapper.CreateNativeServer(Port, TeamspeakServerId, TeamspeakChannelId, TeamspeakChannelPassword);
 
             AttachToNativeEvents();
             AttachTasksToStartAndStopEvent();

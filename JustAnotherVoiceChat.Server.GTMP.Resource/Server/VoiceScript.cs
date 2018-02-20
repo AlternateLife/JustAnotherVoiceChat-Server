@@ -41,7 +41,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
         public VoiceScript()
         {
-            _voiceServer = GtmpVoice.CreateServer(API, "localhost", 23332, 23);
+            _voiceServer = GtmpVoice.CreateServer(API, "localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123");
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
             AttachServerEvents(_voiceServer);

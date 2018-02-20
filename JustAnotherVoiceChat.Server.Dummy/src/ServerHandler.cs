@@ -41,7 +41,17 @@ namespace JustAnotherVoiceChat.Server.Dummy
         
         private readonly ConcurrentBag<DummyClient> _voiceClients = new ConcurrentBag<DummyClient>();
 
-        public ServerHandler(IDummyClientFactory clientRepository, string hostname, ushort port, int channelId, float globalRollOffScale = 1, float globalDistanceFactor = 1, double globalMaxDistance = 6) : base(clientRepository, hostname, port, channelId, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public ServerHandler(
+            IDummyClientFactory clientRepository, 
+            string hostname, 
+            ushort port, 
+            string teamspeakServerId, 
+            ulong teamspeakChannelId, 
+            string teamspeakChannelPassword, 
+            float globalRollOffScale = 1, 
+            float globalDistanceFactor = 1, 
+            double globalMaxDistance = 6) 
+            : base(clientRepository, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
         {
             OnServerStarted += () =>
             {
