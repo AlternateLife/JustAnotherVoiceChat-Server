@@ -90,9 +90,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 throw new VoiceServerNotStartedException();
             }
             
+            OnServerStopping?.Invoke();
+            
             NativeWrapper.StopNativeServer();
             
-            OnServerStopping?.Invoke();
             Started = false;
         }
 
