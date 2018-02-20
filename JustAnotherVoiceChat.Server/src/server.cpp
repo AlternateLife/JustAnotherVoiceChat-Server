@@ -37,7 +37,7 @@
 
 using namespace justAnotherVoiceChat;
 
-Server::Server(uint16_t port) {
+Server::Server(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakChannelId, std::string teamspeakChannelPassword) {
   _address.host = ENET_HOST_ANY;
   _address.port = port;
 
@@ -47,6 +47,10 @@ Server::Server(uint16_t port) {
   _running = false;
   _distanceFactor = 1;
   _rolloffFactor = 1;
+
+  _teamspeakServerId = teamspeakServerId;
+  _teamspeakChannelId = teamspeakChannelId;
+  _teamspeakChannelPassword = teamspeakChannelPassword;
 
   _clientConnectedCallback = nullptr;
   _clientDisconnectedCallback = nullptr;
@@ -109,6 +113,18 @@ void Server::close() {
 
 bool Server::isRunning() const {
   return (_server != nullptr && _running);
+}
+
+std::string Server::teamspeakServerId() const {
+  return _teamspeakServerId;
+}
+
+uint64_t Server::teamspeakChannelId() const {
+  return _teamspeakChannelId;
+}
+
+std::string Server::teamspeakChannelPassword() const {
+  return _teamspeakChannelPassword;
 }
 
 uint16_t Server::port() const {
@@ -471,9 +487,9 @@ void Server::sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string r
   handshakeResponsePacket_t packet;
   packet.statusCode = statusCode;
   packet.reason = reason;
-  packet.teamspeakServerUniqueIdentifier = "S1u8otSWS/L/V1luEkMnupTwgeA=";
-  packet.channelId = 130;
-  packet.channelPassword = "123";
+  packet.teamspeakServerUniqueIdentifier = _teamspeakServerId;
+  packet.channelId = _teamspeakChannelId;
+  packet.channelPassword = _teamspeakChannelPassword;
 
   // serialize packet
   std::ostringstream os;

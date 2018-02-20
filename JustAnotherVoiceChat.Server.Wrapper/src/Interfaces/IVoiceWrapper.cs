@@ -32,7 +32,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
     public interface IVoiceWrapper<TClient> where TClient : IVoiceClient<TClient>
     {
-        void CreateNativeServer(ushort port);
+        void CreateNativeServer(ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword);
         bool StartNativeServer();
         void StopNativeServer();
 

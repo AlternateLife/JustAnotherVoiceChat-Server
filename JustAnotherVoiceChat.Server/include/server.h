@@ -59,14 +59,21 @@ namespace justAnotherVoiceChat {
     bool _running;
     float _distanceFactor;
     float _rolloffFactor;
+    std::string _teamspeakServerId;
+    uint64_t _teamspeakChannelId;
+    std::string _teamspeakChannelPassword;
 
   public:
-    Server(uint16_t port);
+    Server(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakChannelId, std::string teamspeakChannelPassword);
     virtual ~Server();
 
     bool create();
     void close();
     bool isRunning() const;
+
+    std::string teamspeakServerId() const;
+    uint64_t teamspeakChannelId() const;
+    std::string teamspeakChannelPassword() const;
 
     uint16_t port() const;
     int maxClients() const;
