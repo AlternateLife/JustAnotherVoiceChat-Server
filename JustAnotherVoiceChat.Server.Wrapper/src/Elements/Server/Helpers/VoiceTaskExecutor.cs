@@ -39,14 +39,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server.Helpers
             _isRunning = true;
             
             var token = _cancellationTokenSource.Token;
-            _task = Task.Run(async () =>
+            _task = Task.Factory.StartNew(() =>
             {
-                token.ThrowIfCancellationRequested();
-                
                 while (true)
                 {
                     token.ThrowIfCancellationRequested();
-
 
                     int waitTime;
                     try
@@ -59,9 +56,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server.Helpers
                         _voiceServer.Log(LogLevel.Error, "Exception in VoiceTask: " + e);
                     }
 
-                    await Task.Delay(waitTime, token).ConfigureAwait(false);
+                    Task.Delay(waitTime, token).Wait(waitTime, token);
                 }
-            }, _cancellationTokenSource.Token);
+            }, token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
         public void Stop()
