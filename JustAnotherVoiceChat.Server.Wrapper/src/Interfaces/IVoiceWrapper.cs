@@ -26,6 +26,7 @@
  */
 
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Math;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
@@ -60,8 +61,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback);
         
-        void SetListenerPosition(TClient listener);
-        void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker);
+        void SetListenerPosition(TClient listener, Vector3 position, float rotation);
+        void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker, Vector3 position);
         void ResetRelativeSpeakerPositionForListener(TClient listener, TClient speaker);
         void ResetAllRelativePositionsForListener(TClient listener);
     }

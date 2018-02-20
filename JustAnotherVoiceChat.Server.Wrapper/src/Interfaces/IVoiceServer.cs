@@ -71,7 +71,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         IEnumerable<TClient> GetClients(Func<TClient, bool> filter);
         IEnumerable<TClient> GetClients();
 
-        void AddTask(IVoiceTask voiceTask);
-        void AddTasks(IEnumerable<IVoiceTask> voiceTasks);
+        void AddTask(IVoiceTask<TClient> voiceTask);
+        void AddTasks(IEnumerable<IVoiceTask<TClient>> voiceTasks);
     }
 }
