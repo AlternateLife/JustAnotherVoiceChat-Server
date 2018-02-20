@@ -48,6 +48,20 @@ API.onServerEventTrigger.connect((eventName, args) => {
     }
 });
 
+API.onUpdate.connect(() => {
+    const players = API.getStreamedPlayers();
+    const localPosition = API.getEntityPosition(API.getLocalPlayer());
+    
+    for(let i = 0; i < players.Length; i++) {
+        const player = players[i];
+        const playerPosition = API.getEntityPosition(player);
+ 
+        const screen = API.worldToScreenMaintainRatio(playerPosition);
+        
+        API.drawText((Math.round(localPosition.DistanceTo(playerPosition) * 10) / 10) + "m", screen.X, screen.Y, 2.0, 255, 255, 255, 255, 0, 1, false, true, 100);
+    }
+});
+
 class GtmpVoiceHandler {
 
     constructor() {
