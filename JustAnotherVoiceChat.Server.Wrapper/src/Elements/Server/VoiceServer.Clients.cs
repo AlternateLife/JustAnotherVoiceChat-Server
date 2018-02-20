@@ -29,6 +29,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
@@ -78,13 +79,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         private bool RegisterClient(TClient client)
         {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+            
             lock (_voiceHandleGenerationLock)
             {
-                if (client == null)
-                {
-                    throw new ArgumentNullException(nameof(client));
-                }
-                
                 if (client.Handle.IsEmpty)
                 {
                     return false;
@@ -96,13 +97,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         protected internal bool RemoveClient(TClient client)
         {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+            
             lock (_voiceHandleGenerationLock)
             {
-                if (client == null)
+                if (!_clients.ContainsKey(client.Handle.Identifer))
                 {
-                    throw new ArgumentNullException(nameof(client));
+                    throw new InvalidClientException(client.Handle);
                 }
-
+                
                 if (client.Connected)
                 {
                     OnClientDisconnectedFromVoice(client.Handle.Identifer);
