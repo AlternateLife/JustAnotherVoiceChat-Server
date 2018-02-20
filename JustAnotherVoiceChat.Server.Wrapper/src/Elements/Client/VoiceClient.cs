@@ -52,8 +52,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             _server = server;
 
             Handle = handle;
-            
-            HandshakeUrl = $"http://localhost:23333/?host={server.Hostname}&port={server.Port}&uid={Handle.Identifer}";
+
+            var config = _server.Configuration;
+            HandshakeUrl = $"http://localhost:23333/?host={config.Hostname}&port={config.Port}&uid={Handle.Identifer}";
         }
     }
 }

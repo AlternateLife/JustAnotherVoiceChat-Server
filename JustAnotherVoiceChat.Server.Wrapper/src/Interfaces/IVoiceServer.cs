@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
@@ -46,19 +47,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         event Delegates<TClient>.ClientStatusEvent OnClientSpeakersMuteChanged;
         event Delegates<TClient>.LogMessageEvent OnLogMessage;
 
-        string Hostname { get; }
-        ushort Port { get; }
-        ulong TeamspeakChannelId { get; }
-        string TeamspeakChannelPassword { get; }
-        string TeamspeakServerId { get; }
-        
         bool Started { get; }
         
+        VoiceServerConfiguration Configuration { get; }
         IVoiceWrapper<TClient> NativeWrapper { get; }
-
-        double GlobalMaxDistance { get; }
-        float GlobalDistanceFactor { get; }
-        float GlobalRollOffScale { get; }
 
         void Start();
         void Stop();

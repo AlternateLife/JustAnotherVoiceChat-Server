@@ -29,6 +29,7 @@ using System.Collections.Concurrent;
 using System.Threading;
 using JustAnotherVoiceChat.Server.Dummy.Client;
 using JustAnotherVoiceChat.Server.Dummy.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using NLog;
@@ -41,21 +42,11 @@ namespace JustAnotherVoiceChat.Server.Dummy
         
         private readonly ConcurrentBag<DummyClient> _voiceClients = new ConcurrentBag<DummyClient>();
 
-        public ServerHandler(
-            IDummyClientFactory clientRepository, 
-            string hostname, 
-            ushort port, 
-            string teamspeakServerId, 
-            ulong teamspeakChannelId, 
-            string teamspeakChannelPassword, 
-            float globalRollOffScale = 1, 
-            float globalDistanceFactor = 1, 
-            double globalMaxDistance = 6) 
-            : base(clientRepository, hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, globalRollOffScale, globalDistanceFactor, globalMaxDistance)
+        public ServerHandler(IDummyClientFactory clientRepository, VoiceServerConfiguration configuration) : base(clientRepository, configuration)
         {
             OnServerStarted += () =>
             {
-                _logger.Debug($"JustAnotherVoiceChat: Listening on {Hostname}:{Port}");
+                _logger.Debug($"JustAnotherVoiceChat: Listening on {Configuration.Hostname}:{Configuration.Port}");
             };
             
             OnServerStopping += () =>

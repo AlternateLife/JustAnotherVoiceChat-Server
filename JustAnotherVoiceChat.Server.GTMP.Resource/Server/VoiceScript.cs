@@ -30,6 +30,7 @@ using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Resource
@@ -41,7 +42,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
         public VoiceScript()
         {
-            _voiceServer = GtmpVoice.CreateServer(API, "localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123");
+            _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration("localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123"));
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
             AttachServerEvents(_voiceServer);

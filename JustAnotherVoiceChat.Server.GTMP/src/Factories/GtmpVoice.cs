@@ -28,20 +28,16 @@
 using GrandTheftMultiplayer.Server.API;
 using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {
-        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword)
+        public static IGtmpVoiceServer CreateServer(API api, VoiceServerConfiguration configuration)
         {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword);
-        }
-        
-        public static IGtmpVoiceServer CreateServer(API api, string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
-        {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword, globalRollOffScale, globalDistanceFactor, globalMaxDistance);
+            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), configuration);
         }
         
     }

@@ -1,4 +1,5 @@
-﻿using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+﻿using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
 using Moq;
 using NUnit.Framework;
@@ -19,7 +20,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             _voiceWrapper = new Mock<IVoiceWrapper<IFakeVoiceClient>>();
             _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
             
-            _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), "localhost", 23332, "Identit3y7rrV3RYNiC3MnupTwgeA=", 130, "123", _voiceWrapper.Object);
+            _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), new VoiceServerConfiguration("localhost", 23332, "Identit3y7rrV3RYNiC3MnupTwgeA=", 130, "123"), _voiceWrapper.Object);
             _voiceServer.Start();
         }
 
