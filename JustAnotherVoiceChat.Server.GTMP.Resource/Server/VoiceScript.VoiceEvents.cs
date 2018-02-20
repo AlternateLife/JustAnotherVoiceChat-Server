@@ -41,12 +41,12 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             _voiceServer.OnServerStarted += () =>
             {
                 var config = _voiceServer.Configuration;
-                API.consoleOutput(LogCat.Info, $"GtmpVoiceServer started, listening on {config.Hostname}:{config.Port}");
+                API.consoleOutput(LogCat.Info, $"JustAnotherVoiceChatServer started, listening on {config.Hostname}:{config.Port}");
             };
             
             _voiceServer.OnServerStopping += () =>
             {
-                API.consoleOutput(LogCat.Info, "GtmpVoiceServer stopping!");
+                API.consoleOutput(LogCat.Info, "JustAnotherVoiceChatServer stopping!");
             };
 
             _voiceServer.OnClientPrepared += OnClientPrepared;
@@ -56,6 +56,18 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             _voiceServer.OnClientDisconnected += OnHandshakeShouldResend;
 
             _voiceServer.OnClientTalkingChanged += OnPlayerTalkingChanged;
+
+            _voiceServer.OnClientMicrophoneMuteChanged += (client, newStatus) =>
+            {
+                API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "activated" : "deactivated")} the microphone!");
+                client.Player.sendChatMessage($"You {(newStatus ? "~g~activated" : "~r~deactivated")}~s~ your microphone!");
+            };
+            
+            _voiceServer.OnClientSpeakersMuteChanged += (client, newStatus) =>
+            {
+                API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "activated" : "deactivated")} the speakers!");
+                client.Player.sendChatMessage($"You {(newStatus ? "~g~activated" : "~r~deactivated")}~s~ your speakers!");
+            };
         }
 
         private void OnClientConnected(IGtmpVoiceClient client)
