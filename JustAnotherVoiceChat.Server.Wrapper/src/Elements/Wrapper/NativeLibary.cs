@@ -27,10 +27,9 @@
 
 using System.Runtime.InteropServices;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 // ReSharper disable UnusedMember.Local
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     internal static class NativeLibary
     {

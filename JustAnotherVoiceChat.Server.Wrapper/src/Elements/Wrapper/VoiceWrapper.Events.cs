@@ -28,7 +28,7 @@
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient
     {

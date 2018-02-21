@@ -1,5 +1,5 @@
 ﻿/*
- * File: VoiceWrapper.Clients.cs
+ * File: VoiceWrapper.Testing.cs
  * Date: 15.2.2018,
  *
  * MIT License
@@ -27,13 +27,23 @@
 
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient
     {
-        public void RemoveClient(TClient client)
+        public void TestCallClientConnectedCallback(ushort handle)
         {
-            NativeLibary.JV_RemoveClient(client.Handle.Identifer);
+            NativeLibary.JVTest_CallClientConnectedCallback(handle);
+        }
+
+        public void TestCallClientDisconnectedCallback(ushort handle)
+        {
+            NativeLibary.JVTest_CallClientDisconnectedCallback(handle);
+        }
+
+        public void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus)
+        {
+            NativeLibary.JVTest_CallClientTalkingChangedCallback(handle, newStatus);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * File: VoiceWrapper.Server.cs
+ * File: VoiceWrapper.Clients.cs
  * Date: 15.2.2018,
  *
  * MIT License
@@ -25,33 +25,15 @@
  * SOFTWARE.
  */
 
-using System.Security;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
-    [SecurityCritical]
-    internal partial class VoiceWrapper<TClient> : IVoiceWrapper<TClient> where TClient : IVoiceClient
+    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient
     {
-        public void CreateNativeServer(VoiceServerConfiguration configuration)
+        public void RemoveClient(TClient client)
         {
-            NativeLibary.JV_CreateServer(configuration.Port, configuration.TeamspeakServerId, configuration.TeamspeakChannelId, configuration.TeamspeakChannelPassword);
-        }
-
-        public bool StartNativeServer()
-        {
-            return NativeLibary.JV_StartServer();
-        }
-
-        public void StopNativeServer()
-        {
-            NativeLibary.JV_StopServer();
-        }
-
-        public void Set3DSettings(float distanceFactor, float rolloffFactor)
-        {
-            NativeLibary.JV_Set3DSettings(distanceFactor, rolloffFactor);
+            NativeLibary.JV_RemoveClient(client.Handle.Identifer);
         }
     }
 }
