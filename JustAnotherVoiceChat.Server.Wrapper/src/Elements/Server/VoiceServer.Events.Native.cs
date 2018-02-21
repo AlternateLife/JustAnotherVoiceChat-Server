@@ -49,10 +49,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             RegisterEvent<NativeDelegates.ClientConnectingCallback>(NativeWrapper.RegisterClientConnectingCallback, OnClientConnectingFromVoice);
             RegisterEvent<NativeDelegates.ClientCallback>(NativeWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
             RegisterEvent<NativeDelegates.ClientCallback>(NativeWrapper.RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
+            RegisterEvent<NativeDelegates.ClientRejectedCallback>(NativeWrapper.RegisterClientRejectedCallback, OnClientRejectedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientSpeakersMuteChangedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientMicrophoneMuteChangedFromVoice);
-            RegisterEvent<NativeDelegates.ClientRejectedCallback>(NativeWrapper.RegisterClientRejectedCallback, OnClientRejectedFromVoice);
             RegisterEvent<NativeDelegates.LogMessageCallback>(NativeWrapper.RegisterLogMessageCallback, OnLogMessageFromVoice);
         }
 
@@ -61,6 +61,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             NativeWrapper.UnregisterClientConnectedCallback();
             NativeWrapper.UnregisterClientConnectingCallback();
             NativeWrapper.UnregisterClientDisconnectedCallback();
+            NativeWrapper.UnregisterClientRejectedCallback();
             
             NativeWrapper.UnregisterClientTalkingChangedCallback();
             NativeWrapper.UnregisterClientSpeakersMuteChangedCallback();

@@ -87,6 +87,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         {
             NativeLibary.JV_UnregisterClientDisconnectedCallback();
         }
+
+        public void UnregisterClientRejectedCallback()
+        {
+            NativeLibary.JV_UnregisterClientRejectedCallback();
+        }
+        
         public void UnregisterClientTalkingChangedCallback()
         {
             NativeLibary.JV_UnregisterClientTalkingChangedCallback();
