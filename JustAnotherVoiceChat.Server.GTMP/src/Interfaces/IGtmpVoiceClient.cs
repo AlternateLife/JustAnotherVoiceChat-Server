@@ -26,6 +26,7 @@
  */
 
 using GrandTheftMultiplayer.Server.Elements;
+using GrandTheftMultiplayer.Shared.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
@@ -34,6 +35,9 @@ namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
     {
 
         Client Player { get; }
+        
+        void SetRelativeSpeakerPosition(Client speaker, Vector3 position);
+        void ResetRelativeSpeakerPosition(Client speaker);
 
     }
 }

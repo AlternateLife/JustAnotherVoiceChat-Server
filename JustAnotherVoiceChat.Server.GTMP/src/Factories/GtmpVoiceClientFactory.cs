@@ -27,6 +27,7 @@
 
 using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Elements.Clients;
+using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
@@ -37,7 +38,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Factories
     {
         public IGtmpVoiceClient MakeClient(Client player, IVoiceServer<IGtmpVoiceClient> server, VoiceHandle handle)
         {
-            return new GtmpVoiceClient(player, server, handle);
+            return new GtmpVoiceClient(player, (GtmpVoiceServer) server, handle);
         }
     }
 }

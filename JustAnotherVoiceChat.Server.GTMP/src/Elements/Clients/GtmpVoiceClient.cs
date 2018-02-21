@@ -26,6 +26,7 @@
  */
 
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -39,10 +40,21 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
         public Client Player { get; }
 
         public override Vector3 Position => new Vector3(Player.position.X, Player.position.Y, Player.position.Z);
+        private new IGtmpVoiceServer Server => (IGtmpVoiceServer) base.Server;
         
-        internal GtmpVoiceClient(Client player, IVoiceServer<IGtmpVoiceClient> server, VoiceHandle handle) : base(server, handle)
+        internal GtmpVoiceClient(Client player, GtmpVoiceServer server, VoiceHandle handle) : base(server, handle)
         {
             Player = player;
+        }
+        
+        public void SetRelativeSpeakerPosition(Client speaker, GrandTheftMultiplayer.Shared.Math.Vector3 position)
+        {
+            SetRelativeSpeakerPosition(Server.GetVoiceClient(speaker), new Vector3(position.X, position.Y, position.Z));
+        }
+
+        public void ResetRelativeSpeakerPosition(Client speaker)
+        {
+            ResetRelativeSpeakerPosition(Server.GetVoiceClient(speaker));
         }
         
     }
