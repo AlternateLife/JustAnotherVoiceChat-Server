@@ -46,6 +46,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void UnregisterClientConnectedCallback();
         void UnregisterClientConnectingCallback();
         void UnregisterClientDisconnectedCallback();
+        void UnregisterClientRejectedCallback();
         
         void UnregisterClientTalkingChangedCallback();
         void UnregisterClientSpeakersMuteChangedCallback();
