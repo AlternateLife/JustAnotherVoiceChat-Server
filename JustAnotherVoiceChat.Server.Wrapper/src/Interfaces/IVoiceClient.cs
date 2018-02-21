@@ -46,11 +46,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         string HandshakeUrl { get; }
 
         bool SetNickname(string nickname);
-
-        /*
-        IEnumerable<IVoiceGroup<TClient>> Groups { get; }
-
-        void JoinGroup(IVoiceGroup<TClient> group);
-        void LeaveGroup(IVoiceGroup<TClient> group);*/
+        void SetListeningPositionToCurrentPosition();
+        void SetListeningPosition(Vector3 position, float rotation);
+        void SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position);
+        void ResetRelativeSpeakerPosition(IVoiceClient speaker);
+        void ResetAllRelativeSpeakerPositions();
     }
 }

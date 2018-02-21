@@ -1,5 +1,4 @@
-﻿using JustAnotherVoiceChat.Server.Wrapper.Enums;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+﻿using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
 {
@@ -7,15 +6,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
     {
         public virtual int RunVoiceTask(IVoiceServer<TClient> server)
         {
-            var native = server.NativeWrapper;
-            
             foreach (var client in server.GetClients())
             {
-                native.SetListenerPosition(client, client.Position, client.CameraRotation);
-                //server.Log(LogLevel.Debug,  $"Set position of {client.Handle.Identifer}: {client.Position} -> {client.CameraRotation}");
+                client.SetListeningPositionToCurrentPosition();
             }
 
-            return 50;
+            return 125;
         }
         
         public virtual void Dispose()
