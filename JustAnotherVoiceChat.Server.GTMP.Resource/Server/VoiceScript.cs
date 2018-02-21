@@ -28,6 +28,7 @@
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Server.Elements;
+using JustAnotherVoiceChat.Server.GTMP.Extensions;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
@@ -67,15 +68,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
                 return;
             }
 
-            var rotation = (float) arguments[0];
-            var voiceClient = _voiceServer.GetVoiceClient(sender);
-
-            if (voiceClient == null)
-            {
-                return;
-            }
-
-            voiceClient.CameraRotation = rotation;
+            sender.SetVoiceRotation((float) arguments[0]);
         }
 
         private void OnResourceStop()
