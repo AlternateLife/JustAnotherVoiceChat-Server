@@ -38,10 +38,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         private readonly IVoiceClientFactory<TClient, TIdentifier> _factory;
 
         public VoiceServerConfiguration Configuration { get; }
+        public IVoiceWrapper NativeWrapper { get; }
         
         public bool Started { get; private set; }
-        
-        public IVoiceWrapper NativeWrapper { get; }
 
         protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, VoiceServerConfiguration configuration) : this(factory, configuration, JustAnotherVoiceChat.GetVoiceWrapper())
         {
