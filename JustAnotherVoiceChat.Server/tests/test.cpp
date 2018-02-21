@@ -41,9 +41,8 @@
 
 #include "test_api.h"
 
-bool clientConnectedCallback(uint16_t clientId) {
+void clientConnectedCallback(uint16_t clientId) {
   std::cout << "[TEST] Client connected " << clientId << std::endl;
-  return true;
 }
 
 void clientTalkingChangedCallback(uint16_t clientId, bool talking) {

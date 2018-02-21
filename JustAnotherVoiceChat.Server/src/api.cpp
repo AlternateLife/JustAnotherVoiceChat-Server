@@ -82,6 +82,22 @@ bool JV_IsServerRunning() {
   return _server->isRunning();
 }
 
+void JV_RegisterClientConnectingCallback(JV_ClientConnectingCallback_t callback) {
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientConnectingCallback(callback);
+}
+
+void JV_UnregisterClientConnectingCallback() {
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientConnectedCallback(nullptr);
+}
+
 void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
   if (_server == nullptr) {
     return;
@@ -95,7 +111,7 @@ void JV_UnregisterClientConnectedCallback() {
     return;
   }
 
-  _server->unregisterClientConnectedCallback();
+  _server->registerClientConnectedCallback(nullptr);
 }
 
 void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
@@ -111,7 +127,7 @@ void JV_UnregisterClientDisconnectedCallback() {
     return;
   }
 
-  _server->unregisterClientDisconnectedCallback();
+  _server->registerClientDisconnectedCallback(nullptr);
 }
 
 void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback) {
@@ -127,7 +143,7 @@ void JV_UnregisterClientTalkingChangedCallback() {
     return;
   }
 
-  _server->unregisterClientTalkingChangedCallback();
+  _server->registerClientTalkingChangedCallback(nullptr);
 }
 
 void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t callback) {
@@ -143,7 +159,7 @@ void JV_UnregisterClientSpeakersMuteChangedCallback() {
     return;
   }
 
-  _server->unregisterClientSpeakersMuteChangedCallback();
+  _server->registerClientSpeakersMuteChangedCallback(nullptr);
 }
 
 void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t callback) {
@@ -159,7 +175,7 @@ void JV_UnregisterClientMicrophoneMuteChangedCallback() {
     return;
   }
 
-  _server->unregisterClientMicrophoneMuteChangedCallback();
+  _server->registerClientMicrophoneMuteChangedCallback(nullptr);
 }
 
 int JV_GetNumberOfClients() {
