@@ -65,6 +65,19 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 OnClientConnected?.Invoke(client);
             });
         }
+        
+        private void OnClientRejectedFromVoice(ushort handle, int statusCode)
+        {
+            RunWhenClientValid(handle, client =>
+            {
+                if (client.Connected)
+                {
+                    return;
+                }
+                
+                OnClientRejected?.Invoke(client, (StatusCode) statusCode);
+            });
+        }
 
         private void OnClientDisconnectedFromVoice(ushort handle)
         {

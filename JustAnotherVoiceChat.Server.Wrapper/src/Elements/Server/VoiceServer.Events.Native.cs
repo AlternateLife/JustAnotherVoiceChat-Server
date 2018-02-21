@@ -52,6 +52,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientSpeakersMuteChangedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientMicrophoneMuteChangedCallback, OnClientMicrophoneMuteChangedFromVoice);
+            RegisterEvent<NativeDelegates.ClientRejectedCallback>(NativeWrapper.RegisterClientRejectedCallback, OnClientRejectedFromVoice);
             RegisterEvent<NativeDelegates.LogMessageCallback>(NativeWrapper.RegisterLogMessageCallback, OnLogMessageFromVoice);
         }
 

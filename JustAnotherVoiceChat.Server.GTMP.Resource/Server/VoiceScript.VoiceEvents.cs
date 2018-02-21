@@ -25,9 +25,11 @@
  * SOFTWARE.
  */
 
+using System;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Shared.Gta.Tasks;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Resource
 {
@@ -50,6 +52,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             _voiceServer.OnClientPrepared += OnClientPrepared;
             
             _voiceServer.OnClientConnected += OnClientConnected;
+            _voiceServer.OnClientRejected += OnClientRejected;
             _voiceServer.OnClientDisconnected += OnHandshakeShouldResend;
 
             _voiceServer.OnClientTalkingChanged += OnPlayerTalkingChanged;
@@ -59,6 +62,12 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         {
             client.Player.triggerEvent("VOICE_SET_HANDSHAKE", false);
             client.SetNickname(client.Player.name);
+        }
+
+        private void OnClientRejected(IGtmpVoiceClient client, StatusCode statusCode)
+        {
+            API.consoleOutput($"The voice-connection of {client.Player.name} has been rejected: {statusCode.ToString()}");
+            client.Player.kick($"~r~Your voice-connection has been rejected: {statusCode.ToString()}");
         }
 
         private void OnClientPrepared(IGtmpVoiceClient client)

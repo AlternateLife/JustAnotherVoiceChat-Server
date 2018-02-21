@@ -37,10 +37,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         {
             NativeLibary.JV_RegisterClientConnectedCallback(callback);
         }
-        
+
         public void RegisterClientConnectingCallback(NativeDelegates.ClientConnectingCallback callback)
         {
             NativeLibary.JV_RegisterClientConnectingCallback(callback);
+        }
+
+        public void RegisterClientRejectedCallback(NativeDelegates.ClientRejectedCallback callback)
+        {
+            NativeLibary.JV_RegisterClientRejectedCallback(callback);
         }
 
         public void RegisterClientDisconnectedCallback(NativeDelegates.ClientCallback callback)
