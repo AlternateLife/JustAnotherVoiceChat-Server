@@ -39,6 +39,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void StopNativeServer();
 
         bool RemoveClient(IVoiceClient client);
+        bool SetClientNickname(IVoiceClient client, string nickname);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
 

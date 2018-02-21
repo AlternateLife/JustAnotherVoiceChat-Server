@@ -35,6 +35,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         {
             return NativeLibary.JV_RemoveClient(client.Handle.Identifer);
         }
+        
+        public bool SetClientNickname(IVoiceClient client, string nickname)
+        {
+            return NativeLibary.JV_SetClientNickname(client.Handle.Identifer, nickname);
+        }
 
         public void SetClientVoiceRange(IVoiceClient client, float voiceRange)
         {

@@ -68,6 +68,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         internal static extern bool JV_RemoveClient(ushort handle);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_SetClientNickname(ushort handle, string nickname);
+        
+        [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_RemoveAllClients();
 
         [DllImport(JustAnotherVoiceChatLibrary)]

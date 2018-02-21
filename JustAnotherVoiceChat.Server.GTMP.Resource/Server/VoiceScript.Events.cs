@@ -58,6 +58,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         private void OnClientConnected(IGtmpVoiceClient client)
         {
             client.Player.triggerEvent("VOICE_SET_HANDSHAKE", false);
+            client.SetNickname(client.Player.name);
         }
 
         private void OnClientPrepared(IGtmpVoiceClient client)
