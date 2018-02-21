@@ -34,7 +34,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
-    public class GtmpVoiceClientFactory : IGtmpVoiceClientFactory
+    internal class GtmpVoiceClientFactory : IGtmpVoiceClientFactory
     {
         public IGtmpVoiceClient MakeClient(Client player, IVoiceServer<IGtmpVoiceClient> server, VoiceHandle handle)
         {

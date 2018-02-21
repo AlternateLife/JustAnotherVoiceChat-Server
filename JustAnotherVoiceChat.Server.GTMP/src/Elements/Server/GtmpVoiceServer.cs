@@ -38,7 +38,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
     {
         private readonly API _api;
         
-        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, VoiceServerConfiguration configuration) : base(clientRepository, configuration)
+        internal GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, VoiceServerConfiguration configuration) : base(clientRepository, configuration)
         {
             _api = api;
 
