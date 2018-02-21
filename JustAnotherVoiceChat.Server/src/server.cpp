@@ -52,6 +52,7 @@ Server::Server(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakC
   _teamspeakChannelId = teamspeakChannelId;
   _teamspeakChannelPassword = teamspeakChannelPassword;
 
+  _clientConnectingCallback = nullptr;
   _clientConnectedCallback = nullptr;
   _clientDisconnectedCallback = nullptr;
   _clientTalkingChangedCallback = nullptr;
@@ -198,44 +199,28 @@ void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
   // TODO: Update settings on clients
 }
 
-void Server::registerClientConnectedCallback(ClientCallback_t callback) {
-  _clientConnectedCallback = callback;
+void Server::registerClientConnectingCallback(ClientConnectingCallback_t callback) {
+  _clientConnectingCallback = callback;
 }
 
-void Server::unregisterClientConnectedCallback() {
-  _clientConnectedCallback = nullptr;
+void Server::registerClientConnectedCallback(ClientCallback_t callback) {
+  _clientConnectedCallback = callback;
 }
 
 void Server::registerClientDisconnectedCallback(ClientCallback_t callback) {
   _clientDisconnectedCallback = callback;
 }
 
-void Server::unregisterClientDisconnectedCallback() {
-  _clientDisconnectedCallback = nullptr;
-}
-
 void Server::registerClientTalkingChangedCallback(ClientStatusCallback_t callback) {
   _clientTalkingChangedCallback = callback;
-}
-
-void Server::unregisterClientTalkingChangedCallback() {
-  _clientTalkingChangedCallback = nullptr;
 }
 
 void Server::registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback) {
   _clientSpeakersMuteChangedCallback = callback;
 }
 
-void Server::unregisterClientSpeakersMuteChangedCallback() {
-  _clientSpeakersMuteChangedCallback = nullptr;
-}
-
 void Server::registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t callback) {
   _clientMicrophoneMuteChangedCallback = callback;
-}
-
-void Server::unregisterClientMicrophoneMuteChangedCallback() {
-  _clientMicrophoneMuteChangedCallback = nullptr;
 }
 
 void Server::update() {
@@ -474,13 +459,18 @@ void Server::handleHandshake(ENetEvent &event) {
       return;
     }
 
-    if (_clientConnectedCallback != nullptr && _clientConnectedCallback(handshakePacket.gameId) == false) {
+    // TODO: Send teamspeak client identity
+    if (_clientConnectingCallback != nullptr && _clientConnectingCallback(handshakePacket.gameId, "") == false) {
       return;
     }
 
     // save new client in list
     client = new Client(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
     _clients.push_back(client);
+
+    if (_clientConnectedCallback != nullptr) {
+      _clientConnectedCallback(handshakePacket.gameId);
+    }
 
     logMessage("New client established " + std::to_string(client->gameId()) + " " + std::to_string(client->teamspeakId()), LOG_LEVEL_INFO);
   }

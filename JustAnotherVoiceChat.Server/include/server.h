@@ -37,7 +37,8 @@
 #include <string>
 
 namespace justAnotherVoiceChat {
-  typedef bool (* ClientCallback_t)(uint16_t);
+  typedef void (* ClientCallback_t)(uint16_t);
+  typedef bool (* ClientConnectingCallback_t)(uint16_t, const char *);
   typedef void (* ClientStatusCallback_t)(uint16_t, bool);
 
   class Client;
@@ -51,6 +52,7 @@ namespace justAnotherVoiceChat {
     std::thread *_clientUpdateThread;
     std::vector<Client *> _clients;
 
+    ClientConnectingCallback_t _clientConnectingCallback;
     ClientCallback_t _clientConnectedCallback;
     ClientCallback_t _clientDisconnectedCallback;
     ClientStatusCallback_t _clientTalkingChangedCallback;
@@ -87,20 +89,12 @@ namespace justAnotherVoiceChat {
     bool setClientNickname(uint16_t gameId, std::string nickname);
     void set3DSettings(float distanceFactor, float rolloffFactor);
 
+    void registerClientConnectingCallback(ClientConnectingCallback_t callback);
     void registerClientConnectedCallback(ClientCallback_t callback);
-    void unregisterClientConnectedCallback();
-
     void registerClientDisconnectedCallback(ClientCallback_t callback);
-    void unregisterClientDisconnectedCallback();
-
     void registerClientTalkingChangedCallback(ClientStatusCallback_t callback);
-    void unregisterClientTalkingChangedCallback();
-
     void registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback);
-    void unregisterClientSpeakersMuteChangedCallback();
-
     void registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t callback);
-    void unregisterClientMicrophoneMuteChangedCallback();
 
   private:
     void update();

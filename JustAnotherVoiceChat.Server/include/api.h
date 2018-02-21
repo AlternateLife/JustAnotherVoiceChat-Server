@@ -40,7 +40,12 @@ extern "C" {
 /**
  * 
  */
-typedef bool (* JV_ClientCallback_t)(uint16_t);
+typedef void (* JV_ClientCallback_t)(uint16_t);
+
+/**
+ * 
+ */
+typedef bool (* JV_ClientConnectingCallback_t)(uint16_t, const char *);
 
 /**
  * 
@@ -81,6 +86,16 @@ void JUSTANOTHERVOICECHAT_API JV_StopServer();
  * 
  */
 bool JUSTANOTHERVOICECHAT_API JV_IsServerRunning();
+
+/**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientConnectingCallback(JV_ClientConnectingCallback_t callback);
+
+/**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientConnectingCallback();
 
 /**
  * 
