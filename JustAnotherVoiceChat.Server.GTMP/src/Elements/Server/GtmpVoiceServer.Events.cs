@@ -108,20 +108,5 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
         {
             UnregisterPlayer(player);
         }
-
-        public void TriggerOnClientConnectedEvent(ushort handle)
-        {
-            FireClientConnected(handle);
-        }
-
-        public void TriggerOnClientDisonnectedEvent(ushort handle)
-        {
-            FireClientDisconnected(handle);
-        }
-
-        public void TriggerTalkingChangeEvent(ushort handle, bool newStatus)
-        {
-            FireClientTalkingChange(handle, newStatus);
-        }
     }
 }

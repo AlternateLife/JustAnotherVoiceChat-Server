@@ -116,14 +116,6 @@ namespace JustAnotherVoiceChat.Server.Dummy
                     Logger.Info("Prepared new client-slot: " + client.Handle.Identifer);      
                     break;
                 }
-                case "connect":
-                {
-                    _server.TriggerClientConnect(_lastClient.Handle.Identifer);
-
-                    Logger.Info("Event Triggered");
-                    
-                    break;
-                }
                 case "exit":
                 {
                     ExitApplication();

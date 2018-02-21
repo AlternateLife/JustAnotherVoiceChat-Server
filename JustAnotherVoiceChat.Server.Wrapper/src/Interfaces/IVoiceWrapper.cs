@@ -43,10 +43,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
 
-        void TestCallClientTalkingChangedCallback(ushort handle, bool newStatus);
-        void TestCallClientConnectedCallback(ushort handle);
-        void TestCallClientDisconnectedCallback(ushort handle);
-
         void UnregisterClientConnectedCallback();
         void UnregisterClientDisconnectedCallback();
         
