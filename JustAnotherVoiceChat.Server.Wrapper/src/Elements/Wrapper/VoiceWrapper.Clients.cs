@@ -29,9 +29,9 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
-    internal partial class VoiceWrapper<TClient> where TClient : IVoiceClient
+    internal partial class VoiceWrapper
     {
-        public void RemoveClient(TClient client)
+        public void RemoveClient(IVoiceClient client)
         {
             NativeLibary.JV_RemoveClient(client.Handle.Identifer);
         }

@@ -12,12 +12,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 
         private FakeVoiceServer _voiceServer;
         
-        private Mock<IVoiceWrapper<IFakeVoiceClient>> _voiceWrapper;
+        private Mock<IVoiceWrapper> _voiceWrapper;
 
         [SetUp]
         public void SetUp()
         {
-            _voiceWrapper = new Mock<IVoiceWrapper<IFakeVoiceClient>>();
+            _voiceWrapper = new Mock<IVoiceWrapper>();
             _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
             
             _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), new VoiceServerConfiguration("localhost", 23332, "Identit3y7rrV3RYNiC3MnupTwgeA=", 130, "123"), _voiceWrapper.Object);

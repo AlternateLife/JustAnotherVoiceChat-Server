@@ -6,7 +6,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
     internal class FakeVoiceServer : VoiceServer<IFakeVoiceClient, byte>
     {
-        public FakeVoiceServer(IVoiceClientFactory<IFakeVoiceClient, byte> factory, VoiceServerConfiguration configuration, IVoiceWrapper<IFakeVoiceClient> voiceWrapper = null) : base(factory, configuration, voiceWrapper)
+        public FakeVoiceServer(IVoiceClientFactory<IFakeVoiceClient, byte> factory, VoiceServerConfiguration configuration, IVoiceWrapper voiceWrapper = null) : base(factory, configuration, voiceWrapper)
         {
             
         }

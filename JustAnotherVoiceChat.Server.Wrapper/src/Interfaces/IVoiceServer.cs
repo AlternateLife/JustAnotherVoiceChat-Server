@@ -50,7 +50,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         bool Started { get; }
         
         VoiceServerConfiguration Configuration { get; }
-        IVoiceWrapper<TClient> NativeWrapper { get; }
+        IVoiceWrapper NativeWrapper { get; }
 
         void Start();
         void Stop();
