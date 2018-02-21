@@ -26,6 +26,7 @@
  */
 
 using System;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
@@ -34,7 +35,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
     public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
         
-        private bool OnClientConnectedFromVoice(ushort handle)
+        private bool OnClientConnectingFromVoice(ushort handle, string teamspeakId)
         {
             return RunWhenClientValid(handle, client =>
             {
@@ -42,11 +43,26 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 {
                     return false;
                 }
-                
-                client.Connected = true;
-                OnClientConnected?.Invoke(client);
 
-                return true;
+                var eventArgs = new ClientConnectingEventArgs();
+                OnClientConnecting?.Invoke(client, teamspeakId, eventArgs);
+                
+                return !eventArgs.Reject;
+            });
+        }
+
+        private void OnClientConnectedFromVoice(ushort handle)
+        {
+            RunWhenClientValid(handle, client =>
+            {
+                if (client.Connected)
+                {
+                    return;
+                }
+
+                client.Connected = true;
+
+                OnClientConnected?.Invoke(client);
             });
         }
 
