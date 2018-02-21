@@ -40,6 +40,7 @@ namespace justAnotherVoiceChat {
   typedef void (* ClientCallback_t)(uint16_t);
   typedef bool (* ClientConnectingCallback_t)(uint16_t, const char *);
   typedef void (* ClientStatusCallback_t)(uint16_t, bool);
+  typedef void (* ClientRejectedCallback_t)(uint16_t, int);
 
   class Client;
 
@@ -54,6 +55,7 @@ namespace justAnotherVoiceChat {
 
     ClientConnectingCallback_t _clientConnectingCallback;
     ClientCallback_t _clientConnectedCallback;
+    ClientRejectedCallback_t _clientRejectedCallback;
     ClientCallback_t _clientDisconnectedCallback;
     ClientStatusCallback_t _clientTalkingChangedCallback;
     ClientStatusCallback_t _clientSpeakersMuteChangedCallback;
@@ -91,6 +93,7 @@ namespace justAnotherVoiceChat {
 
     void registerClientConnectingCallback(ClientConnectingCallback_t callback);
     void registerClientConnectedCallback(ClientCallback_t callback);
+    void registerClientRejectedCallback(ClientRejectedCallback_t callback);
     void registerClientDisconnectedCallback(ClientCallback_t callback);
     void registerClientTalkingChangedCallback(ClientStatusCallback_t callback);
     void registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback);

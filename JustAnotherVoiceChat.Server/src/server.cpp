@@ -54,6 +54,7 @@ Server::Server(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakC
 
   _clientConnectingCallback = nullptr;
   _clientConnectedCallback = nullptr;
+  _clientRejectedCallback = nullptr;
   _clientDisconnectedCallback = nullptr;
   _clientTalkingChangedCallback = nullptr;
   _clientMicrophoneMuteChangedCallback = nullptr;
@@ -205,6 +206,10 @@ void Server::registerClientConnectingCallback(ClientConnectingCallback_t callbac
 
 void Server::registerClientConnectedCallback(ClientCallback_t callback) {
   _clientConnectedCallback = callback;
+}
+
+void Server::registerClientRejectedCallback(ClientRejectedCallback_t callback) {
+  _clientRejectedCallback = callback;
 }
 
 void Server::registerClientDisconnectedCallback(ClientCallback_t callback) {
@@ -440,6 +445,12 @@ void Server::handleHandshake(ENetEvent &event) {
 
   if (handshakePacket.statusCode != STATUS_CODE_OK) {
     logMessage("Handshake error: " + std::to_string(handshakePacket.statusCode), LOG_LEVEL_INFO);
+
+    enet_peer_disconnect(event.peer, 0);
+
+    if (_clientRejectedCallback != nullptr) {
+      _clientRejectedCallback(handshakePacket.gameId, handshakePacket.statusCode);
+    }
     return;
   }
 
@@ -448,6 +459,10 @@ void Server::handleHandshake(ENetEvent &event) {
     sendHandshakeResponse(event.peer, STATUS_CODE_OUTDATED_PROTOCOL_VERSION, "Outdated protocol version");
 
     enet_peer_disconnect(event.peer, 0);
+
+    if (_clientRejectedCallback != nullptr) {
+      _clientRejectedCallback(handshakePacket.gameId, STATUS_CODE_OUTDATED_PROTOCOL_VERSION);
+    }
     return;
   }
 
