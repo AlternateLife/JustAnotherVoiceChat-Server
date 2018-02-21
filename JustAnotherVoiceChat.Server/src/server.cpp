@@ -181,6 +181,16 @@ void Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
   client->setVoiceRange(voiceRange);
 }
 
+bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
+  auto client = clientByGameId(gameId);
+  if (client == nullptr) {
+    return false;
+  }
+
+  client->setNickname(nickname);
+  return true;
+}
+
 void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
   _distanceFactor = distanceFactor;
   _rolloffFactor = rolloffFactor;

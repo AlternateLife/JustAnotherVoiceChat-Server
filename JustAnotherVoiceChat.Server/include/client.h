@@ -52,6 +52,7 @@ namespace justAnotherVoiceChat {
     bool _talking;
     bool _microphoneMuted;
     bool _speakersMuted;
+    std::string _nickname;
 
   public:
     Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId);
@@ -84,8 +85,11 @@ namespace justAnotherVoiceChat {
     void setVoiceRange(float range);
     float voiceRange() const;
 
+    void setNickname(std::string nickname);
+    std::string nickname() const;
+
   private:
-    void sendResponse(int statusCode, std::string reason, int channelId);
+    void sendControlMessage();
     void sendPacket(void *data, size_t length, int channel, bool reliable = true);
   };
 }

@@ -43,6 +43,7 @@ Client::Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId) {
   _speakersMuted = false;
   _positionChanged = false;
   _voiceRange = 10;
+  _nickname = "";
 }
 
 Client::~Client() {
@@ -212,6 +213,36 @@ void Client::setVoiceRange(float range) {
 
 float Client::voiceRange() const {
   return _voiceRange;
+}
+
+void Client::setNickname(std::string nickname) {
+  _nickname = nickname;
+
+  sendControlMessage();
+}
+
+std::string Client::nickname() const {
+  return _nickname;
+}
+
+void Client::sendControlMessage() {
+  // create control packet
+  controlPacket_t controlPacket;
+  controlPacket.nickname = _nickname;
+
+  // send update packet
+  std::ostringstream os;
+
+  try {
+    cereal::BinaryOutputArchive archive(os);
+    archive(controlPacket);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+    return;
+  }
+
+  auto data = os.str();
+  sendPacket((void *)data.c_str(), data.size(), NETWORK_CONTROL_CHANNEL);
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
