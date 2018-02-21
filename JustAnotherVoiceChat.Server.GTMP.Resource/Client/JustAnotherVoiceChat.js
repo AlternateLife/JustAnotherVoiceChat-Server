@@ -93,7 +93,6 @@ class GtmpVoiceHandler {
             return;
         }
 
-        API.sendChatMessage("Rotation: " + rotation);
         API.triggerServerEvent("VOICE_ROTATION", rotation);
 
         this.lastRotation = rotation;
