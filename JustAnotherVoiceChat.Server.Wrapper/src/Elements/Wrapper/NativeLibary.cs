@@ -44,6 +44,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         internal static extern void JV_CreateServer(ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_DestroyServer();
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]
         internal static extern bool JV_StartServer();
             
@@ -61,7 +64,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         internal static extern unsafe void JV_GetClientGameIds(ushort* list, int maxlength);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_RemoveClient(ushort handle);
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_RemoveClient(ushort handle);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_RemoveAllClients();
@@ -142,19 +146,23 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
          */
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
-
-        [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_SetClientVoiceRange(ushort clientId, float voiceRange);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_SetClientPosition(ushort clientId, float x, float y, float z, float rotation);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_ResetRelativePositionForClient(ushort listenerId, ushort speakerId);
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_ResetAllRelativePositions(ushort clientId);
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_ResetRelativePositionForClient(ushort listenerId, ushort speakerId);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_ResetAllRelativePositions(ushort clientId);
 
     }
 }

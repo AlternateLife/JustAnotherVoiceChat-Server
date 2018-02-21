@@ -113,6 +113,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             DisposeTasks();
 
             DisposeEvents();
+
+            NativeWrapper.DestroyNativeServer();
         }
     }
 }

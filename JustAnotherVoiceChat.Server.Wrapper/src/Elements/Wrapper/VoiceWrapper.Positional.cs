@@ -6,24 +6,24 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
     internal partial class VoiceWrapper
     {
         
-        public void ResetAllRelativePositionsForListener(IVoiceClient listener)
+        public bool ResetAllRelativePositionsForListener(IVoiceClient listener)
         {
-            NativeLibary.JV_ResetAllRelativePositions(listener.Handle.Identifer);
+            return NativeLibary.JV_ResetAllRelativePositions(listener.Handle.Identifer);
         }
 
-        public void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
+        public bool ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
         {
-            NativeLibary.JV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
+            return NativeLibary.JV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
         }
 
-        public void SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)
+        public bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)
         {
-            NativeLibary.JV_SetClientPosition(listener.Handle.Identifer, position.X, position.Y, position.Z, rotation);
+            return NativeLibary.JV_SetClientPosition(listener.Handle.Identifer, position.X, position.Y, position.Z, rotation);
         }
 
-        public void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position)
+        public bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position)
         {
-            NativeLibary.JV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, position.X, position.Y, position.Z);
+            return NativeLibary.JV_SetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer, position.X, position.Y, position.Z);
         }
     }
 }

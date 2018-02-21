@@ -34,10 +34,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
     public interface IVoiceWrapper
     {
         void CreateNativeServer(VoiceServerConfiguration configuration);
+        void DestroyNativeServer();
         bool StartNativeServer();
         void StopNativeServer();
 
-        void RemoveClient(IVoiceClient client);
+        bool RemoveClient(IVoiceClient client);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
 
@@ -61,11 +62,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void RegisterClientMicrophoneMuteChangedCallback(NativeDelegates.ClientStatusCallback callback);
         
         void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback);
-
+        
         void SetClientVoiceRange(IVoiceClient client, float voiceRange);
-        void SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
-        void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
-        void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
-        void ResetAllRelativePositionsForListener(IVoiceClient listener);
+        bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
+        bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
+        bool ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
+        bool ResetAllRelativePositionsForListener(IVoiceClient listener);
     }
 }

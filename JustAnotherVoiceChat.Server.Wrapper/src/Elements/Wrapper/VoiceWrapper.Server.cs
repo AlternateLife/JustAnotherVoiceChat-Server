@@ -39,6 +39,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
             NativeLibary.JV_CreateServer(configuration.Port, configuration.TeamspeakServerId, configuration.TeamspeakChannelId, configuration.TeamspeakChannelPassword);
         }
 
+        public void DestroyNativeServer()
+        {
+            NativeLibary.JV_DestroyServer();
+        }
+
         public bool StartNativeServer()
         {
             return NativeLibary.JV_StartServer();

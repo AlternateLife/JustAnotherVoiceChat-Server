@@ -31,9 +31,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     internal partial class VoiceWrapper
     {
-        public void RemoveClient(IVoiceClient client)
+        public bool RemoveClient(IVoiceClient client)
         {
-            NativeLibary.JV_RemoveClient(client.Handle.Identifer);
+            return NativeLibary.JV_RemoveClient(client.Handle.Identifer);
         }
 
         public void SetClientVoiceRange(IVoiceClient client, float voiceRange)
