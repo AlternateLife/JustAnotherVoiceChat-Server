@@ -41,14 +41,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         public bool Started { get; private set; }
         
-        public IVoiceWrapper<TClient> NativeWrapper { get; }
+        public IVoiceWrapper NativeWrapper { get; }
 
-        protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, VoiceServerConfiguration configuration) : this(factory, configuration, JustAnotherVoiceChat<TClient>.GetVoiceWrapper())
+        protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, VoiceServerConfiguration configuration) : this(factory, configuration, JustAnotherVoiceChat.GetVoiceWrapper())
         {
             
         }
         
-        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, VoiceServerConfiguration configuration, IVoiceWrapper<TClient> voiceWrapper)
+        internal VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, VoiceServerConfiguration configuration, IVoiceWrapper voiceWrapper)
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             NativeWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));

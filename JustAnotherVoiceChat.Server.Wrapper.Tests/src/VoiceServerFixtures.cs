@@ -39,13 +39,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
     [TestFixture]
     public class VoiceServerFixtures
     {
-        private Mock<IVoiceWrapper<IFakeVoiceClient>> _voiceWrapper;
+        private Mock<IVoiceWrapper> _voiceWrapper;
         private Mock<IVoiceClientFactory<IFakeVoiceClient, byte>> _voiceClientFactory;
 
         [SetUp]
         public void SetUp()
         {
-            _voiceWrapper = new Mock<IVoiceWrapper<IFakeVoiceClient>>();
+            _voiceWrapper = new Mock<IVoiceWrapper>();
             _voiceClientFactory = new Mock<IVoiceClientFactory<IFakeVoiceClient, byte>>();
         }
 

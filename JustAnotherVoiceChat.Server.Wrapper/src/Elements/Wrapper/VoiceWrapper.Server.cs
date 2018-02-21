@@ -32,7 +32,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     [SecurityCritical]
-    internal partial class VoiceWrapper<TClient> : IVoiceWrapper<TClient> where TClient : IVoiceClient
+    internal partial class VoiceWrapper : IVoiceWrapper
     {
         public void CreateNativeServer(VoiceServerConfiguration configuration)
         {

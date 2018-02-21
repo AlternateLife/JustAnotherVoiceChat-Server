@@ -30,15 +30,15 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper
 {
-    internal static class JustAnotherVoiceChat<TClient> where TClient : IVoiceClient
+    internal static class JustAnotherVoiceChat
     {
-        private static IVoiceWrapper<TClient> _voiceWrapper;
+        private static IVoiceWrapper _voiceWrapper;
 
-        internal static IVoiceWrapper<TClient> GetVoiceWrapper()
+        internal static IVoiceWrapper GetVoiceWrapper()
         {
             if(_voiceWrapper == null)
             {
-                _voiceWrapper = new VoiceWrapper<TClient>();
+                _voiceWrapper = new VoiceWrapper();
             }
 
             return _voiceWrapper;

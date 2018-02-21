@@ -31,13 +31,13 @@ using JustAnotherVoiceChat.Server.Wrapper.Math;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceWrapper<TClient> where TClient : IVoiceClient
+    public interface IVoiceWrapper
     {
         void CreateNativeServer(VoiceServerConfiguration configuration);
         bool StartNativeServer();
         void StopNativeServer();
 
-        void RemoveClient(TClient client);
+        void RemoveClient(IVoiceClient client);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
 
@@ -62,9 +62,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback);
         
-        void SetListenerPosition(TClient listener, Vector3 position, float rotation);
-        void SetRelativeSpeakerPositionForListener(TClient listener, TClient speaker, Vector3 position);
-        void ResetRelativeSpeakerPositionForListener(TClient listener, TClient speaker);
-        void ResetAllRelativePositionsForListener(TClient listener);
+        void SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
+        void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
+        void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
+        void ResetAllRelativePositionsForListener(IVoiceClient listener);
     }
 }

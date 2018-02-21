@@ -37,8 +37,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void GetVoiceWrapperWillReturnsAnIVoiceWrapperInstance()
         {
-            var voiceWrapper = JustAnotherVoiceChat<IFakeVoiceClient>.GetVoiceWrapper();
-            Assert.IsInstanceOf<IVoiceWrapper<IFakeVoiceClient>>(voiceWrapper);
+            var voiceWrapper = JustAnotherVoiceChat.GetVoiceWrapper();
+            Assert.IsInstanceOf<IVoiceWrapper>(voiceWrapper);
         }
     }
 }
