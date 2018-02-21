@@ -43,7 +43,10 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
         public VoiceScript()
         {
+            // Create a JustAnotherVoiceServer based GtmpVoice Server.
             _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration("localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123"));
+            
+            // Enables 3D Voice
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
             AttachServerEvents(_voiceServer);
@@ -53,6 +56,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             
             API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
 
+            // Startup VoiceServer
             _voiceServer.Start();
         }
 
