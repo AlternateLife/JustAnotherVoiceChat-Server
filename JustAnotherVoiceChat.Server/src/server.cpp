@@ -139,13 +139,14 @@ int Server::numberOfClients() const {
   return _clients.size();
 }
 
-void Server::removeClient(uint16_t gameId) {
+bool Server::removeClient(uint16_t gameId) {
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
-    return;
+    return false;
   }
 
   client->disconnect();
+  return true;
 }
 
 bool Server::removeAllClients() {
@@ -160,14 +161,15 @@ bool Server::removeAllClients() {
   return true;
 }
 
-void Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation) {
+bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation) {
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
-    return;
+    return false;
   }
 
   client->setPosition(position);
   client->setRotation(rotation);
+  return true;
 }
 
 void Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {

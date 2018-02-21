@@ -53,6 +53,11 @@ typedef void (* JV_ClientStatusCallback_t)(uint16_t, bool);
 void JUSTANOTHERVOICECHAT_API JV_RegisterLogMessageCallback(logMessageCallback_t callback);
 
 /**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_UnregisterLogMessageCallback();
+
+/**
  *
  */
 void JUSTANOTHERVOICECHAT_API JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t teamspeakChannelId, const char *teamspeakChannelPassword);
@@ -61,6 +66,11 @@ void JUSTANOTHERVOICECHAT_API JV_CreateServer(uint16_t port, const char *teamspe
  * 
  */
 bool JUSTANOTHERVOICECHAT_API JV_StartServer();
+
+/**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_DestroyServer();
 
 /**
  * 
@@ -135,7 +145,7 @@ void JUSTANOTHERVOICECHAT_API JV_GetClientGameIds(uint16_t *gameIds, size_t maxL
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_RemoveClient(uint16_t clientId);
+bool JUSTANOTHERVOICECHAT_API JV_RemoveClient(uint16_t clientId);
 
 /**
  * 
@@ -145,7 +155,7 @@ void JUSTANOTHERVOICECHAT_API JV_RemoveAllClients();
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation);
+bool JUSTANOTHERVOICECHAT_API JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation);
 
 /**
  * 
@@ -160,17 +170,17 @@ void JUSTANOTHERVOICECHAT_API JV_Set3DSettings(float distanceFactor, float rollo
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z);
+bool JUSTANOTHERVOICECHAT_API JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId);
+bool JUSTANOTHERVOICECHAT_API JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId);
 
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_ResetAllRelativePositions(uint16_t clientId);
+bool JUSTANOTHERVOICECHAT_API JV_ResetAllRelativePositions(uint16_t clientId);
 
 /**
  * 

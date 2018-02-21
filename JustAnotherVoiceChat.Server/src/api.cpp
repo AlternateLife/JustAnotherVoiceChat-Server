@@ -37,12 +37,25 @@ void JV_RegisterLogMessageCallback(logMessageCallback_t callback) {
   setLogMessageCallback(callback);
 }
 
+void JV_UnregisterLogMessageCallback() {
+  setLogMessageCallback(0);
+}
+
 void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t teamspeakChannelId, const char *teamspeakChannelPassword) {
   if (_server != nullptr) {
     return;
   }
 
   _server = new justAnotherVoiceChat::Server(port, std::string(teamspeakServerId), teamspeakChannelId, std::string(teamspeakChannelPassword));
+}
+
+void JV_DestroyServer() {
+  if (_server == nullptr) {
+    return;
+  }
+
+  delete _server;
+  _server = nullptr;
 }
 
 bool JV_StartServer() {
@@ -59,9 +72,6 @@ void JV_StopServer() {
   }
 
   _server->close();
-
-  delete _server;
-  _server = nullptr;
 }
 
 bool JV_IsServerRunning() {
@@ -164,12 +174,12 @@ void JV_GetClientGameIds(uint16_t *gameIds, size_t maxLength) {
 
 }
 
-void JV_RemoveClient(uint16_t clientId) {
+bool JV_RemoveClient(uint16_t clientId) {
   if (_server == nullptr || _server->isRunning() == false) {
-    return;
+    return false;
   }
 
-  _server->removeClient(clientId);
+  return _server->removeClient(clientId);
 }
 
 void JV_RemoveAllClients() {
@@ -180,12 +190,12 @@ void JV_RemoveAllClients() {
   _server->removeAllClients();
 }
 
-void JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation) {
+bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation) {
   if (_server == nullptr || _server->isRunning() == false) {
-    return;
+    return false;
   }
 
-  _server->setClientPosition(clientId, linalg::aliases::float3(x, y, z), rotation);
+  return _server->setClientPosition(clientId, linalg::aliases::float3(x, y, z), rotation);
 }
 
 void JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
@@ -204,16 +214,28 @@ void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
   _server->set3DSettings(distanceFactor, rolloffFactor);
 }
 
-void JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z) {
-  
+bool JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return false;
 }
 
-void JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
 
+  return false;
 }
 
-void JV_ResetAllRelativePositions(uint16_t clientId) {
-  
+bool JV_ResetAllRelativePositions(uint16_t clientId) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return false;
 }
 
 void JVTest_CallClientConnectedCallback(uint16_t id) {
