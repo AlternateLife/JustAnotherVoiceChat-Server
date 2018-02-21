@@ -44,7 +44,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         float CameraRotation { get; set; }
 
         string HandshakeUrl { get; }
-        
+
+        bool SetNickname(string nickname);
+
         /*
         IEnumerable<IVoiceGroup<TClient>> Groups { get; }
 

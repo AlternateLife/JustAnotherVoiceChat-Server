@@ -55,5 +55,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             var config = Server.Configuration;
             HandshakeUrl = $"http://localhost:23333/?host={config.Hostname}&port={config.Port}&uid={Handle.Identifer}";
         }
+        
+        public bool SetNickname(string nickname)
+        {
+            return Server.NativeWrapper.SetClientNickname(this, nickname);
+        }
     }
 }
