@@ -43,6 +43,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
         public VoiceScript()
         {
+            API.onResourceStop += OnResourceStop;
+            
             // Create a JustAnotherVoiceServer based GtmpVoice Server.
             _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration("localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123"));
             
@@ -50,29 +52,10 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
             AttachToVoiceServerEvents();
-
-            API.onClientEventTrigger += OnClientEventTrigger;
-            API.onResourceStop += OnResourceStop;
-            
-            API.onPlayerFinishedDownload += OnPlayerFinishedDownload;
+            AttachToGtmpEvents(true);
 
             // Startup VoiceServer
             _voiceServer.Start();
-        }
-
-        private void OnPlayerFinishedDownload(Client player)
-        {
-            player.setSkin(PedHash.FreemodeMale01);
-        }
-
-        private void OnClientEventTrigger(Client sender, string eventName, params object[] arguments)
-        {
-            if (eventName != "VOICE_ROTATION")
-            {
-                return;
-            }
-
-            sender.SetVoiceRotation((float) arguments[0]);
         }
 
         private void OnResourceStop()
