@@ -36,10 +36,5 @@ namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
         
         IGtmpVoiceClient GetVoiceClient(Client player);
 
-        void TriggerTalkingChangeEvent(ushort handle, bool newStatus);
-
-        void TriggerOnClientConnectedEvent(ushort handle);
-        void TriggerOnClientDisonnectedEvent(ushort handle);
-
     }
 }

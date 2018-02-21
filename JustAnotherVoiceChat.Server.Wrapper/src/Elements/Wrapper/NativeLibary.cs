@@ -89,9 +89,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientConnectedCallback();
         
-        [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JVTest_CallClientConnectedCallback(ushort clientId);
-        
         // ClientDisconnected
         
         [DllImport(JustAnotherVoiceChatLibrary)]
@@ -99,9 +96,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientDisconnectedCallback();
-        
-        [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JVTest_CallClientDisconnectedCallback(ushort clientId);
         
         // ClientStartsTalking
         
@@ -111,9 +105,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientTalkingChangedCallback();
         
-        [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JVTest_CallClientTalkingChangedCallback(ushort clientId, bool newStatus);
-        
         // ClientSpeakersMuteChanged
         
         [DllImport(JustAnotherVoiceChatLibrary)]
@@ -122,9 +113,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientSpeakersMuteChangedCallback();
         
-        [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JVTest_CallClientSpeakersMuteChangedCallback(ushort clientId, bool newStatus);
-        
         // ClientMicrophoneMuteChanged
         
         [DllImport(JustAnotherVoiceChatLibrary)]
@@ -132,9 +120,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientMicrophoneMuteChangedCallback();
-        
-        [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JVTest_CallClientMicrophoneMuteChangedCallback(ushort clientId, bool newStatus);
         
         // LogMessage
         

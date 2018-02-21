@@ -33,25 +33,6 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
     public partial class VoiceScript
     {
         
-        [Command("lip")]
-        public void SetLipSync(Client sender, ushort handler, bool active)
-        {
-            _voiceServer.TriggerTalkingChangeEvent(handler, active);
-        }
-        
-        [Command("connect")]
-        public void VoicePlayerConnect(Client sender, ushort handle, bool connected)
-        {
-            if (connected)
-            {
-                _voiceServer.TriggerOnClientConnectedEvent(handle);
-            }
-            else
-            {
-                _voiceServer.TriggerOnClientDisonnectedEvent(handle);
-            }
-        }
-
         [Command("range")]
         public void PlayerVoiceRange(Client sender, float range)
         {
@@ -59,6 +40,5 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             
             _voiceServer.NativeWrapper.SetClientVoiceRange(client, range);
         }
-        
     }
 }

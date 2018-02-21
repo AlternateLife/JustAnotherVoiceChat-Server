@@ -65,11 +65,6 @@ namespace JustAnotherVoiceChat.Server.Dummy
             return PrepareClient(1);
         }
 
-        public void TriggerClientConnect(ushort handle)
-        {
-            FireClientConnected(handle);
-        }
-
         public void StartStresstest()
         {
             for (var i = 0; i < 20; i++)
