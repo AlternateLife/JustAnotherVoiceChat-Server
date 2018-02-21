@@ -61,7 +61,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void RegisterClientMicrophoneMuteChangedCallback(NativeDelegates.ClientStatusCallback callback);
         
         void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback);
-        
+
+        void SetClientVoiceRange(IVoiceClient client, float voiceRange);
         void SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
         void SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
         void ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
