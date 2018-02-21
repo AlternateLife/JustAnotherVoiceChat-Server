@@ -42,6 +42,12 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         [Command("call")]
         public void CallPlayer(Client sender, Client target)
         {
+            if (sender == target)
+            {
+                sender.sendChatMessage("I don't think that would be smart...");
+                return;
+            }
+            
             if (_phoneHandler.StartCall(sender, target))
             {
                 sender.sendChatMessage($"Calling {target.name}...");
