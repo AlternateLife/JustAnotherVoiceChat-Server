@@ -53,6 +53,11 @@ typedef bool (* JV_ClientConnectingCallback_t)(uint16_t, const char *);
 typedef void (* JV_ClientStatusCallback_t)(uint16_t, bool);
 
 /**
+ * 
+ */
+typedef void (* JV_ClientRejectedCallback_t)(uint16_t, int);
+
+/**
  *
  */
 void JUSTANOTHERVOICECHAT_API JV_RegisterLogMessageCallback(logMessageCallback_t callback);
@@ -106,6 +111,16 @@ void JUSTANOTHERVOICECHAT_API JV_RegisterClientConnectedCallback(JV_ClientCallba
  * 
  */
 void JUSTANOTHERVOICECHAT_API JV_UnregisterClientConnectedCallback();
+
+/**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_RegisterClientRejectedCallback(JV_ClientRejectedCallback_t callback);
+
+/**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_UnregisterClientRejectedCallback();
 
 /**
  * 

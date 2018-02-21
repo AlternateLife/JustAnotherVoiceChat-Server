@@ -114,6 +114,22 @@ void JV_UnregisterClientConnectedCallback() {
   _server->registerClientConnectedCallback(nullptr);
 }
 
+void JV_RegisterClientRejectedCallback(JV_ClientRejectedCallback_t callback) {
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientRejectedCallback(callback);
+}
+
+void JV_UnregisterClientRejectedCallback() {
+  if (_server == nullptr) {
+    return;
+  }
+
+  _server->registerClientRejectedCallback(nullptr);
+}
+
 void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
   if (_server == nullptr) {
     return;
