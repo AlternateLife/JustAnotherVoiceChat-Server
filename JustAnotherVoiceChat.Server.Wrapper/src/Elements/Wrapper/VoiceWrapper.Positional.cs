@@ -1,6 +1,6 @@
 ﻿using JustAnotherVoiceChat.Server.Wrapper.Math;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     internal partial class VoiceWrapper<TClient>
     {

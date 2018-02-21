@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Wapper;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper
