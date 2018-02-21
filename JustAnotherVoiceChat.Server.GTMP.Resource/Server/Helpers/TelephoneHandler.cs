@@ -94,11 +94,13 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource.Helpers
             
             player.resetData(DataCallOpponent);
             player.resetData(DataCallStatus);
+            player.resetData(DataCallIsCaller);
 
             voiceClient.ResetRelativeSpeakerPosition(voiceClientOpponent);
                 
             opponent.resetData(DataCallOpponent);
             opponent.resetData(DataCallStatus);
+            opponent.resetData(DataCallIsCaller);
             
             voiceClientOpponent.ResetRelativeSpeakerPosition(voiceClient);
             
