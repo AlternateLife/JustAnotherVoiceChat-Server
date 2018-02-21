@@ -27,24 +27,33 @@ namespace JustAnotherVoiceChat.Server.GTMP.Extensions
             return Server.GetVoiceClient(client);
         }
 
+        public static void SetVoiceRotation(this Client client, float rotation)
+        {
+            var voiceClient = client.GetVoiceClient();
+            if (voiceClient != null)
+            {
+                voiceClient.CameraRotation = rotation;
+            }
+        }
+
         public static void SetListeningPosition(this Client listener, Vector3 position, float rotation)
         {
-            listener.GetVoiceClient().SetListeningPosition(new Wrapper.Math.Vector3(position.X, position.Y, position.Z), rotation);
+            listener.GetVoiceClient()?.SetListeningPosition(new Wrapper.Math.Vector3(position.X, position.Y, position.Z), rotation);
         }
 
         public static void SetRelativeSpeakerPosition(this Client listener, Client speaker, Vector3 position)
         {
-            listener.GetVoiceClient().SetRelativeSpeakerPosition(speaker, position);
+            listener.GetVoiceClient()?.SetRelativeSpeakerPosition(speaker, position);
         }
 
         public static void ResetRelativeSpeakerPosition(this Client listener, Client speaker)
         {
-            listener.GetVoiceClient().ResetRelativeSpeakerPosition(speaker);
+            listener.GetVoiceClient()?.ResetRelativeSpeakerPosition(speaker);
         }
 
         public static void ResetAllRelativeSpeakerPositions(this Client listener)
         {
-            listener.GetVoiceClient().ResetAllRelativeSpeakerPositions();
+            listener.GetVoiceClient()?.ResetAllRelativeSpeakerPositions();
         }
         
     }
