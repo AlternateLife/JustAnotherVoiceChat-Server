@@ -89,23 +89,18 @@ namespace justAnotherVoiceChat {
 
     void registerClientConnectedCallback(ClientCallback_t callback);
     void unregisterClientConnectedCallback();
-    ClientCallback_t clientConnectedCallback() const;
 
     void registerClientDisconnectedCallback(ClientCallback_t callback);
     void unregisterClientDisconnectedCallback();
-    ClientCallback_t clientDisconnectedCallback() const;
 
     void registerClientTalkingChangedCallback(ClientStatusCallback_t callback);
     void unregisterClientTalkingChangedCallback();
-    ClientStatusCallback_t clientTalkingChangedCallback() const;
 
     void registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback);
     void unregisterClientSpeakersMuteChangedCallback();
-    ClientStatusCallback_t clientSpeakersMuteChangedCallback() const;
 
     void registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t callback);
     void unregisterClientMicrophoneMuteChangedCallback();
-    ClientStatusCallback_t clientMicrophoneMuteChangedCallback() const;
 
   private:
     void update();
