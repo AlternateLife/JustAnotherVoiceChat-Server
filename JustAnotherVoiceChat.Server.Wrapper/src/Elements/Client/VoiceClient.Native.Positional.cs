@@ -6,29 +6,34 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
     public partial class VoiceClient<TClient> where TClient : IVoiceClient
     {
 
-        public void SetListeningPositionToCurrentPosition()
+        public bool SetListeningPositionToCurrentPosition()
         {
-            SetListeningPosition(Position, CameraRotation);
+            return SetListeningPosition(Position, CameraRotation);
         }
         
-        public void SetListeningPosition(Vector3 position, float rotation)
+        public bool SetListeningPosition(Vector3 position, float rotation)
         {
-            Server.NativeWrapper.SetListenerPosition(this, position, rotation);
+            return Server.NativeWrapper.SetListenerPosition(this, position, rotation);
         }
         
-        public void SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position)
+        public bool SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position)
         {
-            Server.NativeWrapper.SetRelativeSpeakerPositionForListener(this, speaker, position);
+            return Server.NativeWrapper.SetRelativeSpeakerPositionForListener(this, speaker, position);
         }
         
-        public void ResetRelativeSpeakerPosition(IVoiceClient speaker)
+        public bool ResetRelativeSpeakerPosition(IVoiceClient speaker)
         {
-            Server.NativeWrapper.ResetRelativeSpeakerPositionForListener(this, speaker);
+            return Server.NativeWrapper.ResetRelativeSpeakerPositionForListener(this, speaker);
         }
 
-        public void ResetAllRelativeSpeakerPositions()
+        public bool ResetAllRelativeSpeakerPositions()
         {
-            Server.NativeWrapper.ResetAllRelativePositionsForListener(this);
+            return Server.NativeWrapper.ResetAllRelativePositionsForListener(this);
+        }
+        
+        public void SetVoiceRange(float range)
+        {
+            Server.NativeWrapper.SetClientVoiceRange(this, range);
         }
         
     }

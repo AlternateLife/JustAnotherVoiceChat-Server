@@ -27,18 +27,16 @@
 
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Server.Managers;
+using JustAnotherVoiceChat.Server.GTMP.Extensions;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Resource
 {
     public partial class VoiceScript
     {
-        
         [Command("range")]
         public void PlayerVoiceRange(Client sender, float range)
         {
-            var client = _voiceServer.GetVoiceClient(sender);
-            
-            _voiceServer.NativeWrapper.SetClientVoiceRange(client, range);
+            sender.SetVoiceRange(range);
         }
     }
 }

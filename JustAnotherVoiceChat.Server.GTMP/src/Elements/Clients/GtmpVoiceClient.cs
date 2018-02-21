@@ -47,14 +47,14 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
             Player = player;
         }
         
-        public void SetRelativeSpeakerPosition(Client speaker, GrandTheftMultiplayer.Shared.Math.Vector3 position)
+        public bool SetRelativeSpeakerPosition(Client speaker, GrandTheftMultiplayer.Shared.Math.Vector3 position)
         {
-            SetRelativeSpeakerPosition(Server.GetVoiceClient(speaker), new Vector3(position.X, position.Y, position.Z));
+            return SetRelativeSpeakerPosition(Server.GetVoiceClient(speaker), new Vector3(position.X, position.Y, position.Z));
         }
 
-        public void ResetRelativeSpeakerPosition(Client speaker)
+        public bool ResetRelativeSpeakerPosition(Client speaker)
         {
-            ResetRelativeSpeakerPosition(Server.GetVoiceClient(speaker));
+            return ResetRelativeSpeakerPosition(Server.GetVoiceClient(speaker));
         }
         
     }
