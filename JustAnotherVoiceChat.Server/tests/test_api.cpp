@@ -57,11 +57,4 @@ void test_api() {
   JV_SetRelativePositionForClient(0, 0, 0, 0, 0);
   JV_ResetRelativePositionForClient(0, 0);
   JV_ResetAllRelativePositions(0);
-  
-  JVTest_CallClientConnectedCallback(0);
-  JVTest_CallClientDisconnectedCallback(0);
-  JVTest_CallClientTalkingChangedCallback(0, false);
-  JVTest_CallClientMicrophoneMuteChangedCallback(0, false);
-  JVTest_CallClientSpeakersMuteChangedCallback(0, false);
-  JVTest_CallClientTalkingChangedCallback(0, false);
 }

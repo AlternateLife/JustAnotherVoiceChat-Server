@@ -206,20 +206,12 @@ void Server::unregisterClientConnectedCallback() {
   _clientConnectedCallback = nullptr;
 }
 
-ClientCallback_t Server::clientConnectedCallback() const {
-  return _clientConnectedCallback;
-}
-
 void Server::registerClientDisconnectedCallback(ClientCallback_t callback) {
   _clientDisconnectedCallback = callback;
 }
 
 void Server::unregisterClientDisconnectedCallback() {
   _clientDisconnectedCallback = nullptr;
-}
-
-ClientCallback_t Server::clientDisconnectedCallback() const {
-  return _clientDisconnectedCallback;
 }
 
 void Server::registerClientTalkingChangedCallback(ClientStatusCallback_t callback) {
@@ -230,10 +222,6 @@ void Server::unregisterClientTalkingChangedCallback() {
   _clientTalkingChangedCallback = nullptr;
 }
 
-ClientStatusCallback_t Server::clientTalkingChangedCallback() const {
-  return _clientTalkingChangedCallback;
-}
-
 void Server::registerClientSpeakersMuteChangedCallback(ClientStatusCallback_t callback) {
   _clientSpeakersMuteChangedCallback = callback;
 }
@@ -242,20 +230,12 @@ void Server::unregisterClientSpeakersMuteChangedCallback() {
   _clientSpeakersMuteChangedCallback = nullptr;
 }
 
-ClientStatusCallback_t Server::clientSpeakersMuteChangedCallback() const {
-  return _clientSpeakersMuteChangedCallback;
-}
-
 void Server::registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t callback) {
   _clientMicrophoneMuteChangedCallback = callback;
 }
 
 void Server::unregisterClientMicrophoneMuteChangedCallback() {
   _clientMicrophoneMuteChangedCallback = nullptr;
-}
-
-ClientStatusCallback_t Server::clientMicrophoneMuteChangedCallback() const {
-  return _clientMicrophoneMuteChangedCallback;
 }
 
 void Server::update() {
