@@ -1,7 +1,7 @@
-﻿using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
+﻿using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
-using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes.Interfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -13,15 +13,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 
         private FakeVoiceServer _voiceServer;
         private FakeVoiceClientFactory _voiceClientFactory;
-        private Mock<IVoiceWrapper<IFakeVoiceClient>> _voiceWrapper;
+        private Mock<IVoiceWrapper> _voiceWrapper;
 
         [SetUp]
         public void SetUp()
         {
             _voiceClientFactory = new FakeVoiceClientFactory();
-            _voiceWrapper = new Mock<IVoiceWrapper<IFakeVoiceClient>>();
+            _voiceWrapper = new Mock<IVoiceWrapper>();
             
-            _voiceServer = new FakeVoiceServer(_voiceClientFactory, "localhost", 23332, 123, _voiceWrapper.Object);
+            _voiceServer = new FakeVoiceServer(_voiceClientFactory, new VoiceServerConfiguration("voice.domaindummy.com", 33567, "Identit3y7rrV3RYNiC3EEEEEwgeA=", 987, "verySecurePassword"), _voiceWrapper.Object);
         }
 
         [TearDown]
@@ -48,11 +48,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void CreatingAServerCreatesANativeServerWithPort()
         {
-            _voiceWrapper.Setup(e => e.CreateNativeServer(23123));
+            var configuration = new VoiceServerConfiguration("voice.domaindummy.com", 33567, "Identit3y7rrV3RYNiC3EEEEEwgeA=", 987, "verySecurePassword");
+            _voiceWrapper.Setup(e => e.CreateNativeServer(configuration));
             
-            var tmpServer = new FakeVoiceServer(_voiceClientFactory, "localhost", 23123, 232, _voiceWrapper.Object);
+            var tmpServer = new FakeVoiceServer(_voiceClientFactory, configuration, _voiceWrapper.Object);
             
-            _voiceWrapper.Verify(e => e.CreateNativeServer(23123), Times.Once);
+            _voiceWrapper.Verify(e => e.CreateNativeServer(configuration), Times.Once);
         }
 
         [Test]
