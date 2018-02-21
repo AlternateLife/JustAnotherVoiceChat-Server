@@ -13,7 +13,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
             foreach (var client in server.GetClients())
             {
                 native.SetListenerPosition(client, client.Position, client.CameraRotation);
-                server.Log(LogLevel.Debug,  $"Set position of {client.Handle.Identifer}: {client.Position} -> {client.CameraRotation}");
+                //server.Log(LogLevel.Debug,  $"Set position of {client.Handle.Identifer}: {client.Position} -> {client.CameraRotation}");
             }
             
             await Task.Delay(50).ConfigureAwait(false);
