@@ -38,5 +38,51 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         {
             sender.SetVoiceRange(range);
         }
+
+        [Command("call")]
+        public void CallPlayer(Client sender, Client target)
+        {
+            if (_phoneHandler.StartCall(sender, target))
+            {
+                sender.sendChatMessage($"Calling {target.name}...");
+                target.sendChatMessage($"Incoming call from {sender.name}! Accept the call with ~g~/answer true");
+            }
+            else
+            {
+                sender.sendChatMessage($"Can't call {target.name}! Please try again later.");
+            }
+        }
+
+        [Command("answer")]
+        public void AnswerCall(Client sender, bool decision)
+        {
+            if (!_phoneHandler.AnswerCall(sender, decision, out var caller))
+            {
+                return;
+            }
+
+            if (decision)
+            {
+                sender.sendChatMessage($"You accepted the call with {caller.name}! You can talk now.");
+                caller.sendChatMessage($"{sender.name} accepted your call! You can talk now.");
+            }
+            else
+            {
+                sender.sendChatMessage($"You denied the call with {caller.name}! Maybe someone else?");
+                caller.sendChatMessage($"{sender.name} denied your call! :(");
+            }
+        }
+
+        [Command("hangup")]
+        public void HangupCall(Client sender)
+        {
+            if (!_phoneHandler.HangupCall(sender, out var opponent))
+            {
+                return;
+            }
+            
+            sender.sendChatMessage($"You stopped the call with {opponent.name}!");
+            opponent.sendChatMessage($"{sender.name} has stopped the call!");
+        }
     }
 }

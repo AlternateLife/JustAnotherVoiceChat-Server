@@ -31,6 +31,7 @@ using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Extensions;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
+using JustAnotherVoiceChat.Server.GTMP.Resource.Helpers;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
 
@@ -40,6 +41,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
     {
 
         private readonly IGtmpVoiceServer _voiceServer;
+
+        private readonly TelephoneHandler _phoneHandler;
 
         public VoiceScript()
         {
@@ -56,6 +59,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             
             // Attach to GTMP-Events, so the connection works and camera rotation updates.
             AttachToGtmpEvents(true);
+            
+            _phoneHandler = new TelephoneHandler(_voiceServer);
 
             // Startup VoiceServer, so players are able to connect.
             _voiceServer.Start();
