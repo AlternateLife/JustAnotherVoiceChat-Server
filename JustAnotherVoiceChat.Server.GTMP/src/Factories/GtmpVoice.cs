@@ -29,15 +29,28 @@ using GrandTheftMultiplayer.Server.API;
 using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {
-        public static IGtmpVoiceServer CreateServer(API api, VoiceServerConfiguration configuration)
+        
+        public static IGtmpVoiceServer Shared { get; internal set; }
+        
+        public static IGtmpVoiceServer CreateServer(API api, VoiceServerConfiguration configuration, bool setShared = true)
         {
-            return new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), configuration);
+            if (Shared != null)
+            {
+                return Shared;
+            }
+
+            var server = new GtmpVoiceServer(api, new GtmpVoiceClientFactory(), configuration);
+            if (setShared)
+            {
+                Shared = server;
+            }
+
+            return server;
         }
         
     }
