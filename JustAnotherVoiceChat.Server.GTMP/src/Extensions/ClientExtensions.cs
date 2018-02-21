@@ -9,21 +9,15 @@ namespace JustAnotherVoiceChat.Server.GTMP.Extensions
     public static class ClientExtensions
     {
 
-        private static IGtmpVoiceServer Server
-        {
-            get
-            {
-                if (GtmpVoice.Shared == null)
-                {
-                    throw new ServerNotSharedException();
-                }
-                
-                return GtmpVoice.Shared;
-            }
-        }
+        private static IGtmpVoiceServer Server => GtmpVoice.Shared;
 
         public static IGtmpVoiceClient GetVoiceClient(this Client client)
         {
+            if (Server == null)
+            {
+                throw new ServerNotSharedException();
+            }
+
             return Server.GetVoiceClient(client);
         }
 
