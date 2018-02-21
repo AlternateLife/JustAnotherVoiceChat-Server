@@ -47,7 +47,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
                 API.consoleOutput(LogCat.Info, "GtmpVoiceServer stopping!");
             };
 
-            server.OnClientPrepared += OnHandshakeShouldResend;
+            server.OnClientPrepared += OnClientPrepared;
             
             server.OnClientConnected += OnClientConnected;
             server.OnClientDisconnected += OnHandshakeShouldResend;
@@ -58,6 +58,13 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         private void OnClientConnected(IGtmpVoiceClient client)
         {
             client.Player.triggerEvent("VOICE_SET_HANDSHAKE", false);
+        }
+
+        private void OnClientPrepared(IGtmpVoiceClient client)
+        {
+            _voiceServer.NativeWrapper.SetClientVoiceRange(client, 15);
+            
+            OnHandshakeShouldResend(client);
         }
 
         private void OnHandshakeShouldResend(IGtmpVoiceClient client)

@@ -51,6 +51,14 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
                 _voiceServer.TriggerOnClientDisonnectedEvent(handle);
             }
         }
+
+        [Command("range")]
+        public void PlayerVoiceRange(Client sender, float range)
+        {
+            var client = _voiceServer.GetVoiceClient(sender);
+            
+            _voiceServer.NativeWrapper.SetClientVoiceRange(client, range);
+        }
         
     }
 }
