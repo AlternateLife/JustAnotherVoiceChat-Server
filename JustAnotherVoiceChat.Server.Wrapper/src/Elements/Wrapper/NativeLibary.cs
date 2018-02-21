@@ -96,6 +96,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientConnectingCallback();
+
+        // ClientRejected
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_RegisterClientRejectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientRejectedCallback callback);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_UnregisterClientRejectedCallback();
         
         // ClientDisconnected
         
