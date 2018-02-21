@@ -206,6 +206,14 @@ void JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
   _server->setClientVoiceRange(clientId, voiceRange);
 }
 
+bool JV_SetClientNickname(uint16_t clientId, const char *nickname) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return _server->setClientNickname(clientId, std::string(nickname));
+}
+
 void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
   if (_server == nullptr) {
     return;
