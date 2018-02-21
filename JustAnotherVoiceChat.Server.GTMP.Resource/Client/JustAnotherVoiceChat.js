@@ -58,7 +58,9 @@ API.onUpdate.connect(() => {
  
         const screen = API.worldToScreenMaintainRatio(playerPosition);
         
-        API.drawText((Math.round(localPosition.DistanceTo(playerPosition) * 10) / 10) + "m", screen.X, screen.Y, 2.0, 255, 255, 255, 255, 0, 1, false, true, 100);
+        if (screen.X > 0 && screen.Y > 0) {
+            API.drawText((Math.round(localPosition.DistanceTo(playerPosition) * 10) / 10) + "m", screen.X, screen.Y, 0.5, 255, 255, 255, 255, 0, 1, false, true, 100);
+        }
     }
 });
 
