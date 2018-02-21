@@ -69,6 +69,8 @@
     <Compile Include="src\Elements\Server\GtmpVoiceServer.cs" />
     <Compile Include="src\Elements\Server\GtmpVoiceServer.Events.cs" />
     <Compile Include="src\Elements\Server\GtmpVoiceServer.Players.cs" />
+    <Compile Include="src\Exceptions\ServerNotSharedException.cs" />
+    <Compile Include="src\Extensions\ClientExtensions.cs" />
     <Compile Include="src\Factories\GtmpVoice.cs" />
     <Compile Include="src\Factories\GtmpVoiceClientFactory.cs" />
     <Compile Include="src\GtmpVoiceDelegates.cs" />
