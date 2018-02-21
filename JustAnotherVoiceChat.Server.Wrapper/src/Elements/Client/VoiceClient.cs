@@ -33,8 +33,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
     public abstract class VoiceClient<TClient> : IVoiceClient where TClient : IVoiceClient
     {
-        private readonly IVoiceServer<TClient> _server;
-
+        protected readonly IVoiceServer<TClient> Server;
+        
         public VoiceHandle Handle { get; }
 
         public bool Microphone { get; set; }
@@ -49,11 +49,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
         protected VoiceClient(IVoiceServer<TClient> server, VoiceHandle handle)
         {
-            _server = server;
-
+            Server = server;
             Handle = handle;
 
-            var config = _server.Configuration;
+            var config = Server.Configuration;
             HandshakeUrl = $"http://localhost:23333/?host={config.Hostname}&port={config.Port}&uid={Handle.Identifer}";
         }
     }
