@@ -37,6 +37,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         public event Delegates<TClient>.ClientEvent OnClientConnected;
         public event Delegates<TClient>.ClientConnectingEvent OnClientConnecting;
+        public event Delegates<TClient>.ClientRejectedEvent OnClientRejected;
         public event Delegates<TClient>.ClientEvent OnClientDisconnected;
 
         public event Delegates<TClient>.ClientStatusEvent OnClientTalkingChanged;

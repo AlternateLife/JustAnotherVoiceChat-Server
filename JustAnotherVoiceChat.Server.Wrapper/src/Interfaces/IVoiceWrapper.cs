@@ -54,6 +54,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         void RegisterClientConnectingCallback(NativeDelegates.ClientConnectingCallback callback);
         void RegisterClientConnectedCallback(NativeDelegates.ClientCallback callback);
+        void RegisterClientRejectedCallback(NativeDelegates.ClientRejectedCallback callback);
         void RegisterClientDisconnectedCallback(NativeDelegates.ClientCallback callback);
         
         void RegisterClientTalkingChangedCallback(NativeDelegates.ClientStatusCallback callback);

@@ -110,7 +110,7 @@ class GtmpVoiceHandler {
                 this.rotationTimer = -1;
             }
 
-            this.handshakeTimer = API.every(1000, "resendHandshake", url);
+            this.handshakeTimer = API.every(3000, "resendHandshake", url);
             resendHandshake(url);
         } else {
             if (this.handshakeTimer !== -1) {

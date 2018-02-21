@@ -41,6 +41,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
         public delegate void ClientGroupEvent(TClient client, IVoiceGroup<TClient> group);
 
         public delegate void ClientStatusEvent(TClient client, bool newStatus);
+        public delegate void ClientRejectedEvent(TClient client, StatusCode statusCode);
         public delegate void LogMessageEvent(string message, LogLevel logLevel);
     }
 }
