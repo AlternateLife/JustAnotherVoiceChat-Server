@@ -33,9 +33,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
     internal partial class VoiceWrapper
     {
 
-        public void RegisterClientConnectedCallback(NativeDelegates.ClientConnectCallback callback)
+        public void RegisterClientConnectedCallback(NativeDelegates.ClientCallback callback)
         {
             NativeLibary.JV_RegisterClientConnectedCallback(callback);
+        }
+        
+        public void RegisterClientConnectingCallback(NativeDelegates.ClientConnectingCallback callback)
+        {
+            NativeLibary.JV_RegisterClientConnectingCallback(callback);
         }
 
         public void RegisterClientDisconnectedCallback(NativeDelegates.ClientCallback callback)
@@ -66,6 +71,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         public void UnregisterClientConnectedCallback()
         {
             NativeLibary.JV_UnregisterClientConnectedCallback();
+        }
+
+        public void UnregisterClientConnectingCallback()
+        {
+            NativeLibary.JV_UnregisterClientConnectingCallback();
         }
 
         public void UnregisterClientDisconnectedCallback()

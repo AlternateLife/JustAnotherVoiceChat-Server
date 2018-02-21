@@ -84,10 +84,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         // ClientConnected
         
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientConnectCallback callback);
+        internal static extern void JV_RegisterClientConnectedCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientCallback callback);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientConnectedCallback();
+        
+        // ClientConnected
+        
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_RegisterClientConnectingCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.ClientConnectingCallback callback);
+        
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_UnregisterClientConnectingCallback();
         
         // ClientDisconnected
         

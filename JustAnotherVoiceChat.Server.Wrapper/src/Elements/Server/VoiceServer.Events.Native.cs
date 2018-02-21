@@ -46,7 +46,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void AttachToNativeEvents()
         {
-            RegisterEvent<NativeDelegates.ClientConnectCallback>(NativeWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
+            RegisterEvent<NativeDelegates.ClientConnectingCallback>(NativeWrapper.RegisterClientConnectingCallback, OnClientConnectingFromVoice);
+            RegisterEvent<NativeDelegates.ClientCallback>(NativeWrapper.RegisterClientConnectedCallback, OnClientConnectedFromVoice);
             RegisterEvent<NativeDelegates.ClientCallback>(NativeWrapper.RegisterClientDisconnectedCallback, OnClientDisconnectedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientTalkingChangedCallback, OnClientTalkingStatusChangedFromVoice);
             RegisterEvent<NativeDelegates.ClientStatusCallback>(NativeWrapper.RegisterClientSpeakersMuteChangedCallback, OnClientSpeakersMuteChangedFromVoice);
@@ -57,6 +58,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         private void DisposeNativeEvents()
         {
             NativeWrapper.UnregisterClientConnectedCallback();
+            NativeWrapper.UnregisterClientConnectingCallback();
             NativeWrapper.UnregisterClientDisconnectedCallback();
             
             NativeWrapper.UnregisterClientTalkingChangedCallback();

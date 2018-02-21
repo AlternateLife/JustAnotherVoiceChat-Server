@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
@@ -35,6 +36,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
         public delegate void EmptyEvent();
         
         public delegate void ClientEvent(TClient client);
+        public delegate void ClientConnectingEvent(TClient client, string teamspeakId, ClientConnectingEventArgs eventArgs);
 
         public delegate void ClientGroupEvent(TClient client, IVoiceGroup<TClient> group);
 
