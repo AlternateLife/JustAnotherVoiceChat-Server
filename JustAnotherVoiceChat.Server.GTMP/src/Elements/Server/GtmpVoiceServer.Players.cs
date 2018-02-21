@@ -27,15 +27,21 @@
 
 using System;
 using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.GTMP.Elements.Clients;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
     internal partial class GtmpVoiceServer
     {
+        private const string PlayerDataKey = "JV_HANDLE";
+        
         public IGtmpVoiceClient GetVoiceClient(Client player)
         {
+            if (player.hasData(PlayerDataKey))
+            {
+                return (IGtmpVoiceClient) player.getData(PlayerDataKey);
+            }
+            
             return FindClient(c => c.Player == player);
         }
 
@@ -46,6 +52,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             {
                 return null;
             }
+            
+            player.setData(PlayerDataKey, voiceClient);
             
             OnClientPrepared?.Invoke(voiceClient);
             
@@ -63,6 +71,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             if (client != null)
             {
                 RemoveClient(client);
+                client.Player.resetData(PlayerDataKey);
             }
         }
     }
