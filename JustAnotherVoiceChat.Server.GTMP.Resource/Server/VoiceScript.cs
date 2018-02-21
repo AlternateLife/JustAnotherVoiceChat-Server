@@ -49,7 +49,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             // Enables 3D Voice
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
-            AttachServerEvents(_voiceServer);
+            AttachToVoiceServerEvents();
 
             API.onClientEventTrigger += OnClientEventTrigger;
             API.onResourceStop += OnResourceStop;

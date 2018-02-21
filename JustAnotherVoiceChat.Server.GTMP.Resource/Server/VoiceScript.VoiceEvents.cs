@@ -34,25 +34,25 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
     public partial class VoiceScript
     {
 
-        private void AttachServerEvents(IGtmpVoiceServer server)
+        private void AttachToVoiceServerEvents()
         {
-            server.OnServerStarted += () =>
+            _voiceServer.OnServerStarted += () =>
             {
-                var config = server.Configuration;
+                var config = _voiceServer.Configuration;
                 API.consoleOutput(LogCat.Info, $"GtmpVoiceServer started, listening on {config.Hostname}:{config.Port}");
             };
             
-            server.OnServerStopping += () =>
+            _voiceServer.OnServerStopping += () =>
             {
                 API.consoleOutput(LogCat.Info, "GtmpVoiceServer stopping!");
             };
 
-            server.OnClientPrepared += OnClientPrepared;
+            _voiceServer.OnClientPrepared += OnClientPrepared;
             
-            server.OnClientConnected += OnClientConnected;
-            server.OnClientDisconnected += OnHandshakeShouldResend;
+            _voiceServer.OnClientConnected += OnClientConnected;
+            _voiceServer.OnClientDisconnected += OnHandshakeShouldResend;
 
-            server.OnClientTalkingChanged += OnPlayerTalkingChanged;
+            _voiceServer.OnClientTalkingChanged += OnPlayerTalkingChanged;
         }
 
         private void OnClientConnected(IGtmpVoiceClient client)
