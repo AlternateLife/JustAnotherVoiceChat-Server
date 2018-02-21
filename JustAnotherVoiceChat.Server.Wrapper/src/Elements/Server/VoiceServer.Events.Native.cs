@@ -63,7 +63,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             NativeWrapper.UnregisterClientSpeakersMuteChangedCallback();
             NativeWrapper.UnregisterClientMicrophoneMuteChangedCallback();
             
-            //NativeWrapper.UnregisterLogMessageCallback();
+            NativeWrapper.UnregisterLogMessageCallback();
 
             foreach (var handle in _garbageCollectorHandles)
             {
