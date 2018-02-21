@@ -45,16 +45,19 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         {
             API.onResourceStop += OnResourceStop;
             
-            // Create a JustAnotherVoiceServer based GtmpVoice Server.
+            // Create a JustAnotherVoiceServer based GtmpVoice Server!
             _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration("localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123"));
             
             // Enables 3D Voice
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
 
+            // Attach to some IVoiceServer events to react to certain them with certain actions.
             AttachToVoiceServerEvents();
+            
+            // Attach to GTMP-Events, so the connection works and camera rotation updates.
             AttachToGtmpEvents(true);
 
-            // Startup VoiceServer
+            // Startup VoiceServer, so players are able to connect.
             _voiceServer.Start();
         }
 
