@@ -36,8 +36,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
 
         Client Player { get; }
         
-        void SetRelativeSpeakerPosition(Client speaker, Vector3 position);
-        void ResetRelativeSpeakerPosition(Client speaker);
+        bool SetRelativeSpeakerPosition(Client speaker, Vector3 position);
+        bool ResetRelativeSpeakerPosition(Client speaker);
 
     }
 }

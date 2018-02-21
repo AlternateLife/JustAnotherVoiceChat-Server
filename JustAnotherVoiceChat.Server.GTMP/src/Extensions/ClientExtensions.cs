@@ -30,24 +30,29 @@ namespace JustAnotherVoiceChat.Server.GTMP.Extensions
             }
         }
 
-        public static void SetListeningPosition(this Client listener, Vector3 position, float rotation)
+        public static void SetVoiceRange(this Client listener, float range)
         {
-            listener.GetVoiceClient()?.SetListeningPosition(new Wrapper.Math.Vector3(position.X, position.Y, position.Z), rotation);
+            listener.GetVoiceClient()?.SetVoiceRange(range);
         }
 
-        public static void SetRelativeSpeakerPosition(this Client listener, Client speaker, Vector3 position)
+        public static bool SetListeningPosition(this Client listener, Vector3 position, float rotation)
         {
-            listener.GetVoiceClient()?.SetRelativeSpeakerPosition(speaker, position);
+            return listener.GetVoiceClient()?.SetListeningPosition(new Wrapper.Math.Vector3(position.X, position.Y, position.Z), rotation) ?? false;
         }
 
-        public static void ResetRelativeSpeakerPosition(this Client listener, Client speaker)
+        public static bool SetRelativeSpeakerPosition(this Client listener, Client speaker, Vector3 position)
         {
-            listener.GetVoiceClient()?.ResetRelativeSpeakerPosition(speaker);
+            return listener.GetVoiceClient()?.SetRelativeSpeakerPosition(speaker, position) ?? false;
         }
 
-        public static void ResetAllRelativeSpeakerPositions(this Client listener)
+        public static bool ResetRelativeSpeakerPosition(this Client listener, Client speaker)
         {
-            listener.GetVoiceClient()?.ResetAllRelativeSpeakerPositions();
+            return listener.GetVoiceClient()?.ResetRelativeSpeakerPosition(speaker) ?? false;
+        }
+
+        public static bool ResetAllRelativeSpeakerPositions(this Client listener)
+        {
+            return listener.GetVoiceClient()?.ResetAllRelativeSpeakerPositions() ?? false;
         }
         
     }
