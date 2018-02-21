@@ -395,10 +395,6 @@ void Server::onClientMessage(ENetEvent &event) {
   }
 
   switch (event.channelID) {
-    case NETWORK_HANDSHAKE_CHANNEL:
-      
-      break;
-
     case NETWORK_STATUS_CHANNEL:
       bool talkingChanged;
       bool microphoneChanged;
@@ -444,6 +440,14 @@ void Server::handleHandshake(ENetEvent &event) {
 
   if (handshakePacket.statusCode != STATUS_CODE_OK) {
     logMessage("Handshake error: " + std::to_string(handshakePacket.statusCode), LOG_LEVEL_INFO);
+    return;
+  }
+
+  if (verifyProtocolVersion(handshakePacket.protocolVersionMajor, handshakePacket.protocolVersionMinor) == false) {
+    logMessage("Client uses an outdated protocol version: " + std::to_string(handshakePacket.protocolVersionMajor) + "." + std::to_string(handshakePacket.protocolVersionMinor), LOG_LEVEL_WARNING);
+    sendHandshakeResponse(event.peer, STATUS_CODE_OUTDATED_PROTOCOL_VERSION, "Outdated protocol version");
+
+    enet_peer_disconnect(event.peer, 0);
     return;
   }
 
