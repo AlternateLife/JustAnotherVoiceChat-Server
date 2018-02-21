@@ -31,7 +31,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
-    public abstract class VoiceClient<TClient> : IVoiceClient where TClient : IVoiceClient
+    public abstract partial class VoiceClient<TClient> : IVoiceClient where TClient : IVoiceClient
     {
         protected readonly IVoiceServer<TClient> Server;
         
