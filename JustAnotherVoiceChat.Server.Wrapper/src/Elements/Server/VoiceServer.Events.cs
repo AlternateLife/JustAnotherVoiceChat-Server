@@ -46,9 +46,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         public event Delegates<TClient>.ClientStatusEvent OnClientSpeakersMuteChanged;
         public event Delegates<TClient>.ClientStatusEvent OnClientMicrophoneMuteChanged;
 
-        public event Delegates<TClient>.ClientGroupEvent OnClientJoinedGroup;
-        public event Delegates<TClient>.ClientGroupEvent OnClientLeftGroup;
-
         public event Delegates<TClient>.LogMessageEvent OnLogMessage; 
         
         private void DisposeEvents()
@@ -65,22 +62,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             OnClientSpeakersMuteChanged = null;
             OnClientMicrophoneMuteChanged = null;
             
-            OnClientJoinedGroup = null;
-            OnClientLeftGroup = null;
-
             OnLogMessage = null;
-            
+
             DisposeNativeEvents();
-        }
-
-        internal void FireClientJoinedGroup(TClient client, IVoiceGroup<TClient> group)
-        {
-            InvokeProtectedEvent(() => OnClientJoinedGroup?.Invoke(client, group));
-        }
-
-        internal void FireClientLeftGroup(TClient client, IVoiceGroup<TClient> group)
-        {
-            InvokeProtectedEvent(() => OnClientLeftGroup?.Invoke(client, group));
         }
 
         internal void InvokeProtectedEvent(Action callback)

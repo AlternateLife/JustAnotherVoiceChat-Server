@@ -60,10 +60,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void Log(LogLevel logLevel, string message);
         void Log(string message);
 
-        IVoiceGroup<TClient> CreateGroup();
-        IEnumerable<IVoiceGroup<TClient>> GetAllGroups();
-        bool DestroyGroup(IVoiceGroup<TClient> voiceGroup);
-
         TClient GetVoiceClient(VoiceHandle handle);
         TClient GetVoiceClient(ushort handle);
 

@@ -109,8 +109,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public void Dispose()
         {
-            DisposeGroups();
-
             DisposeTasks();
 
             DisposeEvents();
