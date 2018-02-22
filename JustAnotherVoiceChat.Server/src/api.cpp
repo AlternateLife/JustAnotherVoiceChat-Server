@@ -259,7 +259,7 @@ bool JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, fl
     return false;
   }
 
-  return false;
+  return _server->setRelativePositionForClient(listenerId, speakerId, linalg::aliases::float3(x, y, z));
 }
 
 bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
@@ -267,7 +267,7 @@ bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) 
     return false;
   }
 
-  return false;
+  return _server->resetRelativePositionForClient(listenerId, speakerId);
 }
 
 bool JV_ResetAllRelativePositions(uint16_t clientId) {
@@ -275,5 +275,5 @@ bool JV_ResetAllRelativePositions(uint16_t clientId) {
     return false;
   }
 
-  return false;
+  return _server->resetAllRelativePositions(clientId);
 }
