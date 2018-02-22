@@ -51,12 +51,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             NativeWrapper = voiceWrapper ?? throw new ArgumentNullException(nameof(voiceWrapper));
-
-            var result = Uri.CheckHostName(configuration.Hostname);
-            if (result == UriHostNameType.Unknown)
-            {
-                throw new InvalidHostnameException(configuration.Hostname);
-            }
             
             Configuration = configuration;
 

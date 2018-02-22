@@ -25,6 +25,9 @@
  * SOFTWARE.
  */
 
+using System;
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
+
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Models
 {
     public class VoiceServerConfiguration
@@ -48,6 +51,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Models
 
         public VoiceServerConfiguration(string hostname, ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword, float globalRollOffScale, float globalDistanceFactor, double globalMaxDistance)
         {
+            if (string.IsNullOrWhiteSpace(hostname) || Uri.CheckHostName(hostname) == UriHostNameType.Unknown)
+            {
+                throw new ArgumentException($"The provided hostname \"{hostname}\" is invalid!");
+            }
+
+            if (string.IsNullOrWhiteSpace(teamspeakServerId))
+            {
+                throw new ArgumentException($"The provided teamspeakServerId \"{teamspeakServerId}\" is invalid!");
+            }
+            
             Hostname = hostname;
             Port = port;
 
