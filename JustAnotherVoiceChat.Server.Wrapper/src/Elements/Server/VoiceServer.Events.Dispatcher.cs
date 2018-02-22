@@ -45,7 +45,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 }
 
                 var eventArgs = new ClientConnectingEventArgs();
-                OnClientConnecting?.Invoke(client, teamspeakId, eventArgs);
+                InvokeProtectedEvent(() => OnClientConnecting?.Invoke(client, teamspeakId, eventArgs));
                 
                 return !eventArgs.Reject;
             });
@@ -62,7 +62,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
                 client.Connected = true;
 
-                OnClientConnected?.Invoke(client);
+                InvokeProtectedEvent(() => OnClientConnected?.Invoke(client));
             });
         }
         
@@ -75,7 +75,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                     return;
                 }
                 
-                OnClientRejected?.Invoke(client, (StatusCode) statusCode);
+                InvokeProtectedEvent(() => OnClientRejected?.Invoke(client, (StatusCode) statusCode));
             });
         }
 
@@ -85,7 +85,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             {
                 client.Connected = false;
                 
-                OnClientDisconnected?.Invoke(client);
+                InvokeProtectedEvent(() =>OnClientDisconnected?.Invoke(client));
             });
         }
 
@@ -93,7 +93,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             RunWhenClientConnected(handle, client =>
             {
-                OnClientTalkingChanged?.Invoke(client, newStatus);
+                InvokeProtectedEvent(() => OnClientTalkingChanged?.Invoke(client, newStatus));
             });
         }
 
@@ -101,7 +101,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             RunWhenClientConnected(handle, client =>
             {
-                OnClientSpeakersMuteChanged?.Invoke(client, newStatus);
+                InvokeProtectedEvent(() => OnClientSpeakersMuteChanged?.Invoke(client, newStatus));
             });
         }
 
@@ -109,7 +109,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             RunWhenClientConnected(handle, client =>
             {
-                OnClientMicrophoneMuteChanged?.Invoke(client, newStatus);
+                InvokeProtectedEvent(() => OnClientMicrophoneMuteChanged?.Invoke(client, newStatus));
             });
         }
 
