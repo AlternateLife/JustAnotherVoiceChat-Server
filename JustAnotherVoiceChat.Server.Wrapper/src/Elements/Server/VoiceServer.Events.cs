@@ -57,10 +57,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             OnServerStopping = null;
             
             OnClientConnected = null;
-            OnClientConnected = null;
+            OnClientConnecting = null;
+            OnClientDisconnected = null;
+            OnClientRejected = null;
+
+            OnClientTalkingChanged = null;
+            OnClientSpeakersMuteChanged = null;
+            OnClientMicrophoneMuteChanged = null;
             
             OnClientJoinedGroup = null;
             OnClientLeftGroup = null;
+
+            OnLogMessage = null;
             
             DisposeNativeEvents();
         }
