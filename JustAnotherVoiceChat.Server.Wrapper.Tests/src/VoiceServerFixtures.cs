@@ -75,7 +75,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 
             foreach (var invalidhostname in invalidhostnames)
             {
-                Assert.Throws<InvalidHostnameException>(() =>
+                Assert.Throws<ArgumentException>(() =>
                 {
                     var server = new VoiceServer<IFakeVoiceClient, byte>(_voiceClientFactory.Object, new VoiceServerConfiguration(invalidhostname, 23332, "Identit3y7rrV3RYNiC3MnupTwgeA=", 130, "123"), _voiceWrapper.Object);
                 });
