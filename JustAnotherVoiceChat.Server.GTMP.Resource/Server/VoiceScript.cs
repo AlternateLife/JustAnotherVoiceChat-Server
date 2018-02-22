@@ -25,10 +25,8 @@
  * SOFTWARE.
  */
 
+using System;
 using GrandTheftMultiplayer.Server.API;
-using GrandTheftMultiplayer.Server.Constant;
-using GrandTheftMultiplayer.Server.Elements;
-using JustAnotherVoiceChat.Server.GTMP.Extensions;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.GTMP.Resource.Helpers;
@@ -40,16 +38,27 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
     public partial class VoiceScript : Script
     {
 
-        private readonly IGtmpVoiceServer _voiceServer;
+        private IGtmpVoiceServer _voiceServer;
 
         private readonly TelephoneHandler _phoneHandler;
 
         public VoiceScript()
         {
             API.onResourceStop += OnResourceStop;
-            
+            API.onResourceStart += OnResourceStart;
+        }
+
+        private void OnResourceStart()
+        {
             // Create a JustAnotherVoiceServer based GtmpVoice Server!
-            _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration("localhost", 23332, "S1u8otSWS/L/V1luEkMnupTwgeA=", 130, "123"));
+            var hostname = API.getResourceSetting<string>("justanothervoicechat", "voice_host");
+            var port = API.getResourceSetting<ushort>("justanothervoicechat", "voice_port");
+            
+            var teamspeakServerId = API.getResourceSetting<string>("justanothervoicechat", "voice_teamspeak_serverid");
+            var teamspeakChannelId = API.getResourceSetting<ulong>("justanothervoicechat", "voice_teamspeak_channelid");
+            var teamspeakChannelPassword = API.getResourceSetting<string>("justanothervoicechat", "voice_teamspeak_channelpassword");
+            
+            _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration(hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword));
             
             // Enables 3D Voice
             _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
