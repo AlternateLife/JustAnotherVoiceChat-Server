@@ -1,6 +1,6 @@
 ﻿/*
  * File: IVoiceClientFactory.cs
- * Date: 18.2.2018,
+ * Date: 21.2.2018,
  *
  * MIT License
  *

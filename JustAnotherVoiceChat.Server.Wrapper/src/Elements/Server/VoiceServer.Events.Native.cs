@@ -1,6 +1,6 @@
 ﻿/*
  * File: VoiceServer.Events.Native.cs
- * Date: 15.2.2018,
+ * Date: 21.2.2018,
  *
  * MIT License
  *
