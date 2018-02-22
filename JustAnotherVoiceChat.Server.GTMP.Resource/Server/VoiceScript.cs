@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
 using GrandTheftMultiplayer.Server.API;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
@@ -39,8 +38,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
     {
 
         private IGtmpVoiceServer _voiceServer;
-
-        private readonly TelephoneHandler _phoneHandler;
+        private TelephoneHandler _phoneHandler;
 
         public VoiceScript()
         {
