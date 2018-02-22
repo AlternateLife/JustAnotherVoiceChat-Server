@@ -79,7 +79,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
             
             Started = true;
-            OnServerStarted?.Invoke();
+            InvokeProtectedEvent(() => OnServerStarted?.Invoke());
         }
 
         public void Stop()
@@ -89,7 +89,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 throw new VoiceServerNotStartedException();
             }
             
-            OnServerStopping?.Invoke();
+            InvokeProtectedEvent(() => OnServerStopping?.Invoke());
             
             NativeWrapper.StopNativeServer();
             

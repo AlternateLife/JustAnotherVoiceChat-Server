@@ -25,7 +25,9 @@
  * SOFTWARE.
  */
 
+using System;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
@@ -65,12 +67,24 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         internal void FireClientJoinedGroup(TClient client, IVoiceGroup<TClient> group)
         {
-            OnClientJoinedGroup?.Invoke(client, group);
+            InvokeProtectedEvent(() => OnClientJoinedGroup?.Invoke(client, group));
         }
 
         internal void FireClientLeftGroup(TClient client, IVoiceGroup<TClient> group)
         {
-            OnClientLeftGroup?.Invoke(client, group);
+            InvokeProtectedEvent(() => OnClientLeftGroup?.Invoke(client, group));
+        }
+
+        internal void InvokeProtectedEvent(Action callback)
+        {
+            try
+            {
+                callback();
+            }
+            catch (Exception e)
+            {
+                Log(LogLevel.Error, $"An error occured inside eventhandler: {e}");
+            }
         }
         
     }
