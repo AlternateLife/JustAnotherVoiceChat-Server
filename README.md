@@ -6,10 +6,10 @@ JustAnotherVoiceChat-Server is the control unit of the [JustAnotherVoiceChat Tea
 
 | Project                                   | Description                                                          |
 | ----------------------------------------- | -------------------------------------------------------------------- |
-| JustAnotherVoiceChat.Server               | Native C++ networking library base                                   | 
-| JustAnotherVoiceChat.Server.Wrapper       | Abstract .NET Standard wrapper for the C++ library base              | 
-| JustAnotherVoiceChat.Server.GTMP          | GT-MP integration and event-handlers for an easy GT-MP resource base | 
-| JustAnotherVoiceChat.Server.GTMP.Resource | Example GT-MP resource and implementation with active 3D Voice       | 
+| [JustAnotherVoiceChat.Server](JustAnotherVoiceChat.Server)               | Native C++ networking library base                                   | 
+| [JustAnotherVoiceChat.Server.Wrapper](JustAnotherVoiceChat.Server.Wrapper)       | Abstract .NET Standard wrapper for the C++ library base              | 
+| [JustAnotherVoiceChat.Server.GTMP](JustAnotherVoiceChat.Server.GTMP)          | GT-MP integration and event-handlers for an easy GT-MP resource base | 
+| [JustAnotherVoiceChat.Server.GTMP.Resource](JustAnotherVoiceChat.Server.GTMP.Resource) | Example GT-MP resource and implementation with active 3D Voice       | 
 
 ## Requirements
 
@@ -22,13 +22,13 @@ JustAnotherVoiceChat-Server is the control unit of the [JustAnotherVoiceChat Tea
 
 ### GT-MP
 
->We currently offer an example resource for an easy integration in the [JustAnotherVoiceChat.Server.GTMP.Resource](https://github.com/AlternateLife/JustAnotherVoiceChat-Server/tree/master/JustAnotherVoiceChat.Server.GTMP.Resource) project
+>We currently offer an example resource for an easy integration in the [JustAnotherVoiceChat.Server.GTMP.Resource](JustAnotherVoiceChat.Server.GTMP.Resource) project
 
-**[Basic GT-MP installation manual](https://github.com/AlternateLife/JustAnotherVoiceChat-Server/tree/master/docs/installation-gtmp.md)**
+**[Basic GT-MP installation manual](docs/installation-gtmp.md)**
 
 ## Documentation
 
-*Coming soon, but every needed interface can be found [here](https://github.com/AlternateLife/JustAnotherVoiceChat-Server/tree/master/JustAnotherVoiceChat.Server.Wrapper/src/Interfaces)!*
+*Coming soon, but every needed interface can be found [here](JustAnotherVoiceChat.Server.Wrapper/src/Interfaces)!*
 
 ## Authors
 
