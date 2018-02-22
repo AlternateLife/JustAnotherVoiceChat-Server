@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceWrapper.Wrapper.cs
- * Date: 15.2.2018,
+ * File: NativeLibary.cs
+ * Date: 21.2.2018,
  *
  * MIT License
  *

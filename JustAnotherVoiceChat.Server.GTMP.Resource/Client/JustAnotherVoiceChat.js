@@ -1,6 +1,6 @@
 /*
  * File: JustAnotherVoiceChat.js
- * Date: 15.2.2018,
+ * Date: 22.2.2018,
  *
  * MIT License
  *

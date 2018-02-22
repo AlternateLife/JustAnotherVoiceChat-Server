@@ -1,6 +1,6 @@
 ﻿/*
- * File: VoiceScript.Events.cs
- * Date: 15.2.2018,
+ * File: VoiceScript.VoiceEvents.cs
+ * Date: 22.2.2018,
  *
  * MIT License
  *

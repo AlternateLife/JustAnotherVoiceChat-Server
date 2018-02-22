@@ -1,6 +1,6 @@
 ﻿/*
- * File: GtmpClientRepository.cs
- * Date: 17.2.2018,
+ * File: GtmpVoiceClientFactory.cs
+ * Date: 21.2.2018,
  *
  * MIT License
  *

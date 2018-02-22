@@ -1,6 +1,6 @@
 ﻿/*
- * File: IGtmpClientRepository.cs
- * Date: 17.2.2018,
+ * File: IGtmpVoiceClientFactory.cs
+ * Date: 21.2.2018,
  *
  * MIT License
  *
