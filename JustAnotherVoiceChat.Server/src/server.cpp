@@ -193,6 +193,38 @@ bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
   return true;
 }
 
+bool Server::setRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, linalg::aliases::float3 position) {
+  auto client = clientByGameId(listenerId);
+  auto speaker = clientByGameId(speakerId);
+  if (client == nullptr || speaker == nullptr) {
+    return false;
+  }
+
+  client->addRelativeAudibleClient(speaker, position);
+  return true;
+}
+
+bool Server::resetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+  auto client = clientByGameId(listenerId);
+  auto speaker = clientByGameId(speakerId);
+  if (client == nullptr || speaker == nullptr) {
+    return false;
+  }
+
+  client->removeRelativeAudibleClient(speaker);
+  return true;
+}
+
+bool Server::resetAllRelativePositions(uint16_t gameId) {
+  auto client = clientByGameId(gameId);
+  if (client == nullptr) {
+    return false;
+  }
+
+  client->removeAllRelativeAudibleClients();
+  return true;
+}
+
 void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
   _distanceFactor = distanceFactor;
   _rolloffFactor = rolloffFactor;

@@ -49,6 +49,10 @@ namespace justAnotherVoiceChat {
     std::set<Client *> _addAudibleClients;
     std::set<Client *> _removeAudibleClients;
 
+    std::set<Client *> _relativeAudibleClients;
+    std::set<Client *> _addRelativeAudibleClients;
+    std::set<Client *> _removeRelativeAudibleClients;
+
     bool _talking;
     bool _microphoneMuted;
     bool _speakersMuted;
@@ -74,6 +78,9 @@ namespace justAnotherVoiceChat {
 
     void addAudibleClient(Client *client);
     void removeAudibleClient(Client *client);
+    void addRelativeAudibleClient(Client *client, linalg::aliases::float3 position);
+    void removeRelativeAudibleClient(Client *client);
+    void removeAllRelativeAudibleClients();
     void sendUpdate();
 
     void setPosition(linalg::aliases::float3 position);

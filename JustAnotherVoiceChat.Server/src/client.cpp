@@ -41,7 +41,7 @@ Client::Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId) {
   _talking = false;
   _microphoneMuted = false;
   _speakersMuted = false;
-  _positionChanged = false;
+  _positionChanged = true;  // set true to update position on first updateClients loop
   _voiceRange = 10;
   _nickname = "";
 }
@@ -131,6 +131,28 @@ void Client::removeAudibleClient(Client *client) {
   _removeAudibleClients.insert(client);
 }
 
+void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
+  if (_relativeAudibleClients.find(client) != _relativeAudibleClients.end()) {
+    return;
+  }
+
+  _addRelativeAudibleClients.insert(client);
+}
+
+void Client::removeRelativeAudibleClient(Client *client) {
+  if (_relativeAudibleClients.find(client) == _relativeAudibleClients.end()) {
+    return;
+  }
+
+  _removeRelativeAudibleClients.insert(client);
+}
+
+void Client::removeAllRelativeAudibleClients() {
+  for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
+    _removeAudibleClients.insert(*it);
+  }
+}
+
 void Client::sendUpdate() {
   // create update packet
   updatePacket_t updatePacket;
@@ -146,15 +168,43 @@ void Client::sendUpdate() {
     _audibleClients.insert(*it);
   }
 
-  // send removed audible clients
-  for (auto it = _removeAudibleClients.begin(); it != _removeAudibleClients.end(); it++) {
-    // add to update packet
+  for (auto it = _addRelativeAudibleClients.begin(); it != _addRelativeAudibleClients.end(); it++) {
+    // add update packet
     clientAudioUpdate_t audioUpdate;
     audioUpdate.teamspeakId = (*it)->teamspeakId();
-    audioUpdate.muted = true;
+    audioUpdate.muted = false;
     updatePacket.audioUpdates.push_back(audioUpdate);
 
+    // TODO: Send relative 3d position
+
+    _relativeAudibleClients.insert(*it);
+  }
+
+  // send removed audible clients
+  for (auto it = _removeAudibleClients.begin(); it != _removeAudibleClients.end(); it++) {
+    // only unmute if also not relative list
+    if (_relativeAudibleClients.find(*it) == _relativeAudibleClients.end()) {
+      // add to update packet
+      clientAudioUpdate_t audioUpdate;
+      audioUpdate.teamspeakId = (*it)->teamspeakId();
+      audioUpdate.muted = true;
+      updatePacket.audioUpdates.push_back(audioUpdate);
+    }
+
     _audibleClients.erase(*it);
+  }
+
+  for (auto it = _removeRelativeAudibleClients.begin(); it != _removeRelativeAudibleClients.end(); it++) {
+    // only unmute if also not in normal list
+    if (_audibleClients.find(*it) == _audibleClients.end()) {
+      // add update packet
+      clientAudioUpdate_t audioUpdate;
+      audioUpdate.teamspeakId = (*it)->teamspeakId();
+      audioUpdate.muted = true;
+      updatePacket.audioUpdates.push_back(audioUpdate);
+    }
+
+    _relativeAudibleClients.erase(*it);
   }
 
   if (updatePacket.audioUpdates.empty() && updatePacket.positionUpdates.empty()) {
@@ -178,6 +228,8 @@ void Client::sendUpdate() {
   // clear update lists
   _addAudibleClients.clear();
   _removeAudibleClients.clear();
+  _addRelativeAudibleClients.clear();
+  _removeRelativeAudibleClients.clear();
 }
 
 void Client::setPosition(linalg::aliases::float3 position) {
