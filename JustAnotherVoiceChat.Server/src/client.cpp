@@ -149,7 +149,7 @@ void Client::removeRelativeAudibleClient(Client *client) {
 
 void Client::removeAllRelativeAudibleClients() {
   for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
-    _removeAudibleClients.insert(*it);
+    _removeRelativeAudibleClients.insert(*it);
   }
 }
 
@@ -159,21 +159,27 @@ void Client::sendUpdate() {
 
   // send new audible clients
   for (auto it = _addAudibleClients.begin(); it != _addAudibleClients.end(); it++) {
-    // add to update packet
-    clientAudioUpdate_t audioUpdate;
-    audioUpdate.teamspeakId = (*it)->teamspeakId();
-    audioUpdate.muted = false;
-    updatePacket.audioUpdates.push_back(audioUpdate);
+    // only unmute if also not relative list
+    if (_relativeAudibleClients.find(*it) == _relativeAudibleClients.end()) {
+      // add to update packet
+      clientAudioUpdate_t audioUpdate;
+      audioUpdate.teamspeakId = (*it)->teamspeakId();
+      audioUpdate.muted = false;
+      updatePacket.audioUpdates.push_back(audioUpdate);
+    }
 
     _audibleClients.insert(*it);
   }
 
   for (auto it = _addRelativeAudibleClients.begin(); it != _addRelativeAudibleClients.end(); it++) {
-    // add update packet
-    clientAudioUpdate_t audioUpdate;
-    audioUpdate.teamspeakId = (*it)->teamspeakId();
-    audioUpdate.muted = false;
-    updatePacket.audioUpdates.push_back(audioUpdate);
+    // only unmute if also not normal list
+    if (_audibleClients.find(*it) == _audibleClients.end()) {
+      // add update packet
+      clientAudioUpdate_t audioUpdate;
+      audioUpdate.teamspeakId = (*it)->teamspeakId();
+      audioUpdate.muted = false;
+      updatePacket.audioUpdates.push_back(audioUpdate);
+    }
 
     // TODO: Send relative 3d position
 
@@ -182,7 +188,7 @@ void Client::sendUpdate() {
 
   // send removed audible clients
   for (auto it = _removeAudibleClients.begin(); it != _removeAudibleClients.end(); it++) {
-    // only unmute if also not relative list
+    // only mute if also not relative list
     if (_relativeAudibleClients.find(*it) == _relativeAudibleClients.end()) {
       // add to update packet
       clientAudioUpdate_t audioUpdate;
@@ -195,7 +201,7 @@ void Client::sendUpdate() {
   }
 
   for (auto it = _removeRelativeAudibleClients.begin(); it != _removeRelativeAudibleClients.end(); it++) {
-    // only unmute if also not in normal list
+    // only mute if also not in normal list
     if (_audibleClients.find(*it) == _audibleClients.end()) {
       // add update packet
       clientAudioUpdate_t audioUpdate;
