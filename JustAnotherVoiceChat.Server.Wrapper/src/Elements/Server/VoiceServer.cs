@@ -98,7 +98,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public void Log(LogLevel logLevel, string message)
         {
-            OnLogMessage?.Invoke(message, logLevel);
+            try
+            {
+                OnLogMessage?.Invoke(message, logLevel);
+            }
+            catch
+            {
+                // We can't do anything if an exception occurs here...
+            }
         }
 
         public void Log(string message)
