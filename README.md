@@ -18,6 +18,28 @@ JustAnotherVoiceChat-Server is the control unit of the [JustAnotherVoiceChat Tea
     - Virtual TeamSpeak3-Server instance unique indentity *(This way, the client picks the right connection)*
  * Custom game server to include the JustAnotherVoiceChat server
 
+### Find the unique identity of my TeamSpeak 3 server
+
+### I have access to the TeamSpeak 3 ServerQuery
+
+To find your server unique identity, you need to log into the ServerQuery and enter the following commands:
+
+```
+use port=9987
+serverinfo
+```
+
+The output should start with the `virtualserver_unique_identifier`. This is the needed value for the server-creation.
+
+**Example-Output**
+```
+virtualserver_unique_identifier=FEymkeQpMFKW+uRsuoCWti5F3II= virtualserver_name=...
+```
+
+### I **do not have access** to the TeamSpeak 3 ServerQuery
+
+*Coming soon...*
+
 ## Installation
 
 ### GT-MP
