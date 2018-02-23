@@ -14,7 +14,7 @@
     <dependencies>
       <dependency id="JustAnotherVoiceChat.Server.Wrapper" version="$version$" />
       <dependency id="grandtheftmultiplayer.api" version="0.1.640.64" />
-      <dependency id="NLog" version="4.5.0-rc04" />
+      <dependency id="NLog" version="4.4.12" />
     </dependencies>
   </metadata>
 </package>
