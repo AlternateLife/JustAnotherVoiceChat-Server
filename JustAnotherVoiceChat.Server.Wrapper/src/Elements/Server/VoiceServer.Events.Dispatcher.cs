@@ -101,6 +101,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             RunWhenClientConnected(handle, client =>
             {
+                client.Headphones = newStatus;
+
                 InvokeProtectedEvent(() => OnClientSpeakersMuteChanged?.Invoke(client, newStatus));
             });
         }
@@ -109,6 +111,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             RunWhenClientConnected(handle, client =>
             {
+                client.Microphone = newStatus;
+
                 InvokeProtectedEvent(() => OnClientMicrophoneMuteChanged?.Invoke(client, newStatus));
             });
         }

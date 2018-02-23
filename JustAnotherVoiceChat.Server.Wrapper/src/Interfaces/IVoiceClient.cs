@@ -37,8 +37,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         bool Connected { get; set; }
         
-        bool Microphone { get; }
-        bool Headphones { get; }
+        bool Microphone { get; set; }
+        bool Headphones { get; set; }
         
         Vector3 Position { get; }
         float CameraRotation { get; set; }
