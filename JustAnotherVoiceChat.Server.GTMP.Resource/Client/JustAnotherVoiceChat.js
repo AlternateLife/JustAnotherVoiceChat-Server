@@ -26,7 +26,7 @@
  */
 
 let voiceHandler = null;
-let rotationThreshold = 0.001;
+let rotationThreshold = 0.1;
 
 API.onResourceStart.connect(() => { voiceHandler = new GtmpVoiceHandler(); });
 
