@@ -110,7 +110,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 
         public void UnregisterLogMessageCallback()
         {
-            NativeLibary.JV_UnregisterClientMicrophoneMuteChangedCallback();
+            NativeLibary.JV_UnregisterLogMessageCallback();
         }
     }
 }
