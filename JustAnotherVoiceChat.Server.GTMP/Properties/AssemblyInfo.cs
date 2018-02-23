@@ -32,9 +32,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("JustAnotherVoiceChat.Server.GTMP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("JustAnotherVoiceChat-Server is the control unit of the JustAnotherVoiceChat TeamSpeak3-Plugin. It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("JustAnotherVoiceChat")]
 [assembly: AssemblyProduct("JustAnotherVoiceChat.Server.GTMP")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

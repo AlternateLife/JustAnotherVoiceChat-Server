@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>JustAnotherVoiceChat contributors</authors>
+    <owners>JustAnotherVoiceChat contributors</owners>
+    <licenseUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server</projectUrl>
+    <description>JustAnotherVoiceChat-Server is the control unit of the JustAnotherVoiceChat TeamSpeak3-Plugin. It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server.</description>
+    <copyright>2018 JustAnotherVoiceChat</copyright>
+    <repository type="git" url="https://github.com/AlternateLife/JustAnotherVoiceChat-Server" />
+    <dependencies>
+      <dependency id="JustAnotherVoiceChat.Wrapper" version="$version$" />
+      <dependency id="grandtheftmultiplayer.api" version="0.1.640.64" />
+      <dependency id="NLog" version="4.5.0-rc04" />
+    </dependencies>
+  </metadata>
+</package>
