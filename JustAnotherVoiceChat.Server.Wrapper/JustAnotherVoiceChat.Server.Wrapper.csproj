@@ -1,11 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug Windows</Configuration>
+    <Configuration Condition=" '$(VoiceChatVersion)' == '' ">1.0.0.0</Configuration>
     <TargetFramework>netstandard1.2</TargetFramework>
-    <AssemblyVersion>1.0</AssemblyVersion>
-    <FileVersion>1.0</FileVersion>
+    <AssemblyVersion>$(VoiceChatVersion)</AssemblyVersion>
+    <FileVersion>$(VoiceChatVersion)</FileVersion>
+    <Version>$(VoiceChatVersion)</Version>
     <LangVersion>7</LangVersion>
     <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
+    <Description>JustAnotherVoiceChat-Server is the control unit of the JustAnotherVoiceChat TeamSpeak3-Plugin. It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server.</Description>
+    <Copyright>2018 JustAnotherVoiceChat</Copyright>
+    <Company>JustAnotherVoiceChat</Company>
+    <PackageLicenseUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>JustAnotherVoiceChat contributors</Authors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
     <WarningLevel>0</WarningLevel>
