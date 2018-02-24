@@ -34,8 +34,21 @@ namespace JustAnotherVoiceChat.Server.GTMP.Factories
 {
     public static class GtmpVoice
     {
-        
-        public static IGtmpVoiceServer Shared { get; internal set; }
+        private static IGtmpVoiceServer _shared;
+
+        public static IGtmpVoiceServer Shared
+        {
+            get => _shared;
+            set
+            {
+                if (_shared != null)
+                {
+                    return;
+                }
+
+                _shared = value;
+            }
+        }
         
         public static IGtmpVoiceServer CreateServer(API api, VoiceServerConfiguration configuration, bool setShared = true)
         {

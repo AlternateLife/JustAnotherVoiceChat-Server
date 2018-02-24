@@ -31,7 +31,7 @@ using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal partial class GtmpVoiceServer
+    public partial class GtmpVoiceServer
     {
         private const string PlayerDataKey = "JV_HANDLE";
         
