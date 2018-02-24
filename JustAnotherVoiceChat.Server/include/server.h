@@ -116,7 +116,9 @@ namespace justAnotherVoiceChat {
     void onClientDisconnect(ENetEvent &event);
     void onClientMessage(ENetEvent &event);
 
+    void handleProtocolMessage(ENetEvent &event);
     void handleHandshake(ENetEvent &event);
     void sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string reason);
+    void sendProtocolResponse(ENetPeer *peer, int statusCode);
   };
 }
