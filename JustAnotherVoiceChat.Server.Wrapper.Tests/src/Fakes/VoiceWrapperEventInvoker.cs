@@ -2,12 +2,15 @@
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
+using Moq;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
     public class VoiceWrapperEventInvoker : IVoiceWrapper
     {
 
+        public readonly Mock<IVoiceWrapper> Mock = new Mock<IVoiceWrapper>();
+        
         private NativeDelegates.ClientConnectingCallback _clientConnecting;
         private NativeDelegates.ClientCallback _clientConnected;
         private NativeDelegates.ClientRejectedCallback _clientRejected;
@@ -139,62 +142,62 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 
         public void SetClientVoiceRange(IVoiceClient client, float voiceRange)
         {
-            
+            Mock.Object.SetClientVoiceRange(client, voiceRange);
         }
 
         public bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)
         {
-            return true;
+            return Mock.Object.SetListenerPosition(listener, position, rotation);
         }
 
         public bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position)
         {
-            return true;
+            return Mock.Object.SetRelativeSpeakerPositionForListener(listener, speaker, position);
         }
 
         public bool ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker)
         {
-            return true;
+            return Mock.Object.ResetRelativeSpeakerPositionForListener(listener, speaker);
         }
 
         public bool ResetAllRelativePositionsForListener(IVoiceClient listener)
         {
-            return true;
+            return Mock.Object.ResetAllRelativePositionsForListener(listener);
         }
         
         public void CreateNativeServer(VoiceServerConfiguration configuration)
         {
-            
+            Mock.Object.CreateNativeServer(configuration);
         }
 
         public void DestroyNativeServer()
         {
-            
+            Mock.Object.DestroyNativeServer();
         }
 
         public bool StartNativeServer()
         {
-            return true;
+            return Mock.Object.StartNativeServer();
         }
 
         public void StopNativeServer()
         {
-            
+            Mock.Object.StopNativeServer();
         }
 
         public bool RemoveClient(IVoiceClient client)
         {
-            return true;
+            return Mock.Object.RemoveClient(client);
         }
 
         public bool SetClientNickname(IVoiceClient client, string nickname)
         {
-            return true;
+            return Mock.Object.SetClientNickname(client, nickname);
         }
 
         public void Set3DSettings(float distanceFactor, float rolloffFactor)
         {
-            
+            Mock.Object.Set3DSettings(distanceFactor, rolloffFactor);
         }
     }
 }
