@@ -40,6 +40,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
         public new event Delegates<IGtmpVoiceClient>.EmptyEvent OnServerStopping;
         
         public event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+        public new event GtmpVoiceDelegates.GtmpVoiceLogMessageEvent OnLogMessage;
 
         private void AttachToEvents()
         {
@@ -70,7 +71,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
                     break;
             }
             
-            _api.consoleOutput(logCat, message);
+            OnLogMessage?.Invoke(logCat, message);
         }
 
         private void OnVoiceServerStarted()

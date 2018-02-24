@@ -33,6 +33,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
     public interface IGtmpVoiceServer : IVoiceServer<IGtmpVoiceClient>
     {
         event GtmpVoiceDelegates.GtmpVoiceClientEvent OnClientPrepared;
+        new event GtmpVoiceDelegates.GtmpVoiceLogMessageEvent OnLogMessage;
         
         IGtmpVoiceClient GetVoiceClient(Client player);
 
