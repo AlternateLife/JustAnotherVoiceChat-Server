@@ -47,7 +47,7 @@ test_script:
   - cd C:\projects\justanothervoicechat-server
   - dotnet test JustAnotherVoiceChat.Server.Wrapper.Tests\JustAnotherVoiceChat.Server.Wrapper.Tests.csproj -c "Release Windows" --logger trx;LogFileName=results.xml
   
-after_test:
+on_finish:
   - ps: |
       $wc = New-Object 'System.Net.WebClient' 
       $files = Get-ChildItem -Include results.xml -Recurse
