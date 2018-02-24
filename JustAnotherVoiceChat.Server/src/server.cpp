@@ -544,7 +544,8 @@ void Server::handleHandshake(ENetEvent &event) {
     }
 
     // TODO: Send teamspeak client identity
-    if (_clientConnectingCallback != nullptr && _clientConnectingCallback(handshakePacket.gameId, "") == false) {
+    if (_clientConnectingCallback != nullptr && _clientConnectingCallback(handshakePacket.gameId, handshakePacket.teamspeakClientUniqueIdentity.c_str()) == false) {
+      enet_peer_disconnect(event.peer, DISCONNECT_STATUS_REJECTED);
       return;
     }
 
