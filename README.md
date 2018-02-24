@@ -61,6 +61,9 @@ virtualserver_unique_identifier=FEymkeQpMFKW+uRsuoCWti5F3II= virtualserver_name=
 - Cryma  
 - dr1zzle  
 
+## Contributors
+
+- Elbloody  
 
 ## MIT license
 Copyright (c) 2018 JustAnotherVoiceChat

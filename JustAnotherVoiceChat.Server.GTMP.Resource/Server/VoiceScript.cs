@@ -38,6 +38,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
     {
 
         private IGtmpVoiceServer _voiceServer;
+        private RadioHandler _radioHandler;
         private TelephoneHandler _phoneHandler;
 
         public VoiceScript()
@@ -66,7 +67,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             
             // Attach to GTMP-Events, so the connection works and camera rotation updates.
             AttachToGtmpEvents(true);
-            
+
+            _radioHandler = new RadioHandler();
             _phoneHandler = new TelephoneHandler(_voiceServer);
 
             // Startup VoiceServer, so players are able to connect.
@@ -75,6 +77,12 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
 
         private void OnResourceStop()
         {
+            API.onResourceStop -= OnResourceStop;
+            API.onResourceStart -= OnResourceStart;
+
+            _radioHandler = null;
+            _phoneHandler = null;
+
             _voiceServer.Stop();
             _voiceServer.Dispose();
         }
