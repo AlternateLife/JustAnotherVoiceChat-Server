@@ -131,7 +131,7 @@ void Client::removeAudibleClient(Client *client) {
   _removeAudibleClients.insert(client);
 }
 
-void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
+void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3) {
   if (_relativeAudibleClients.find(client) != _relativeAudibleClients.end()) {
     return;
   }
@@ -304,12 +304,12 @@ void Client::sendControlMessage() {
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
-  enet_uint32 flags;
+  enet_uint32 flags = 0;
 
   if (reliable) {
     flags = ENET_PACKET_FLAG_RELIABLE;
   }
 
-  ENetPacket *packet = enet_packet_create(data, length, flags);
-  enet_peer_send(_peer, channel, packet);
+  ENetPacket *packet = enet_packet_create(data, (int)length, flags);
+  enet_peer_send(_peer, (enet_uint8)channel, packet);
 }

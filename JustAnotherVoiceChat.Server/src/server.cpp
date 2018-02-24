@@ -138,7 +138,7 @@ int Server::maxClients() const {
 }
 
 int Server::numberOfClients() const {
-  return _clients.size();
+  return (int)_clients.size();
 }
 
 bool Server::removeClient(uint16_t gameId) {

@@ -202,7 +202,7 @@ int JV_GetNumberOfClients() {
   return _server->numberOfClients();
 }
 
-void JV_GetClientGameIds(uint16_t *gameIds, size_t maxLength) {
+void JV_GetClientGameIds(uint16_t *, size_t) {
 
 }
 
