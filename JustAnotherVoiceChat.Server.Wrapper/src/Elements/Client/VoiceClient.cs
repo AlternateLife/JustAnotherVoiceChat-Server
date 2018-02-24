@@ -37,8 +37,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
         
         public VoiceHandle Handle { get; }
 
-        public bool Microphone { get; set; }
-        public bool Headphones { get; set; }
+        public bool Microphone { get; private set; }
+        public bool Headphones => Speakers;
+        public bool Speakers { get; private set; }
 
         public abstract Vector3 Position { get; }
         public float CameraRotation { get; set; }
@@ -54,11 +55,18 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
             var config = Server.Configuration;
             HandshakeUrl = $"http://localhost:23333/?host={config.Hostname}&port={config.Port}&uid={Handle.Identifer}";
+            
+            AttachToStatusChangeEvents();
         }
         
         public bool SetNickname(string nickname)
         {
             return Server.NativeWrapper.SetClientNickname(this, nickname);
+        }
+
+        public void Dispose()
+        {
+            DetachFromStatusChangeEvents();
         }
     }
 }

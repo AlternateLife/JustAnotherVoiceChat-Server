@@ -109,6 +109,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public void Dispose()
         {
+            lock (_voiceHandleGenerationLock)
+            {
+                foreach (var client in _clients.Values)
+                {
+                    client.Dispose();
+                }
+                
+                _clients.Clear();
+            }
+            
             DisposeTasks();
 
             DisposeEvents();
