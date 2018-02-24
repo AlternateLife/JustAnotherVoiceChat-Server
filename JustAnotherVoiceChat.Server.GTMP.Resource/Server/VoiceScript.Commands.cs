@@ -104,5 +104,38 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             sender.MuteSpeaker(speaker, status);
             sender.sendChatMessage($"You {(status ? "muted" : "unmuted")} {speaker.name} locally.");
         }
+
+        [Command("enableRadio", Alias = "ER")]
+        public void EnableRadio(Client sender, string channel)
+        {
+            if (channel == null)
+            {
+                return;
+            }
+
+            _radioHandler.EnableRadio(sender, channel);
+            sender.sendChatMessage("Radio ~g~ON");
+        }
+
+        [Command("disableRadio", Alias = "DR")]
+        public void DisableRadio(Client sender)
+        {
+            _radioHandler.DisableRadio(sender);
+            sender.sendChatMessage("Radio ~r~OFF");
+        }
+
+        [Command("useRadio", Alias = "UR")]
+        public void UseRadio(Client sender, string channel, bool decision)
+        {
+            _radioHandler.UseRadio(sender, channel, decision);
+            if (decision == true)
+            {
+                sender.sendChatMessage("~g~ Radio activ");
+            }
+            else
+            {
+                sender.sendChatMessage("~r~ Radio inactiv");
+            }
+        }
     }
 }
