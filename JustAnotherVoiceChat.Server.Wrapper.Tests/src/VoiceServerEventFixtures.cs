@@ -64,6 +64,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void ClientMuteNativeChangesWillSetClientProperties()
         {
+            _voiceWrapper.InvokeClientConnectedCallback(1);
+            
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(1, true);
             _voiceWrapper.InvokeClientSpeakersMuteChangedCallback(1, true);
             
@@ -74,7 +76,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             _voiceWrapper.InvokeClientSpeakersMuteChangedCallback(1, false);
             
             Assert.IsTrue(_voiceClient.Microphone);
-            Assert.IsTrue(_voiceClient.Microphone);
+            Assert.IsTrue(_voiceClient.Speakers);
             
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(2, true);
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(1, true);
@@ -88,7 +90,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             _voiceWrapper.InvokeClientSpeakersMuteChangedCallback(1, true);
             
             Assert.IsFalse(_voiceClient.Microphone);
-            Assert.IsFalse(_voiceClient.Microphone);
+            Assert.IsFalse(_voiceClient.Speakers);
         }
 
         [Test]
@@ -132,7 +134,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             _voiceWrapper.InvokeClientConnectedCallback(3);
             _voiceWrapper.InvokeClientConnectedCallback(1);
             
-            Assert.AreEqual(1, _clientConnectingInvokes);
+            Assert.AreEqual(2, _clientConnectingInvokes);
             Assert.AreEqual(1, _clientConnectedInvokes);
         }
 
