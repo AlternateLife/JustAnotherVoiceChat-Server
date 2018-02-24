@@ -45,7 +45,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
         
         public string HandshakeUrl { get; }
 
-        public bool Connected { get; set; }
+        public bool Connected => Server.IsVoiceClientConnected(this);
 
         protected VoiceClient(IVoiceServer<TClient> server, VoiceHandle handle)
         {
