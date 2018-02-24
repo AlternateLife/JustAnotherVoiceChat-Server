@@ -116,7 +116,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         
         
-        private T RunWhenClientValid<T>(ushort handle, Func<TClient, T> callback)
+        internal T RunWhenClientValid<T>(ushort handle, Func<TClient, T> callback)
         {
             var client = GetVoiceClient(handle);
             
@@ -128,7 +128,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             return callback(client);
         }
 
-        private void RunWhenClientValid(ushort handle, Action<TClient> callback)
+        internal void RunWhenClientValid(ushort handle, Action<TClient> callback)
         {
             var client = GetVoiceClient(handle);
 
@@ -140,7 +140,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             callback(client);
         }
         
-        private T RunWhenClientConnected<T>(ushort handle, Func<TClient, T> callback)
+        internal T RunWhenClientConnected<T>(ushort handle, Func<TClient, T> callback)
         {
             return RunWhenClientValid(handle, client =>
             {
@@ -153,7 +153,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             });
         }
 
-        private void RunWhenClientConnected(ushort handle, Action<TClient> callback)
+        internal void RunWhenClientConnected(ushort handle, Action<TClient> callback)
         {
             RunWhenClientValid(handle, client =>
             {

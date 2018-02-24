@@ -20,9 +20,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         private NativeDelegates.ClientStatusCallback _clientMicrophoneMuteChanged;
         private NativeDelegates.LogMessageCallback _logMessage;
 
-        public void InvokeClientConnectingCallback(ushort handle, string teamspeakId)
+        public bool InvokeClientConnectingCallback(ushort handle, string teamspeakId)
         {
-            _clientConnecting(handle, teamspeakId);
+            return _clientConnecting(handle, teamspeakId);
         }
 
         public void InvokeClientConnectedCallback(ushort handle)
