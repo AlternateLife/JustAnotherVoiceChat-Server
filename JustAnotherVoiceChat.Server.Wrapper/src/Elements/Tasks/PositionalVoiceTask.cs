@@ -31,6 +31,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
 {
     public class PositionalVoiceTask<TClient> : IVoiceTask<TClient> where TClient : IVoiceClient
     {
+        private readonly int _sleepTime;
+
+        public PositionalVoiceTask(int sleepTime = 125)
+        {
+            _sleepTime = sleepTime;
+        }
+        
         public virtual int RunVoiceTask(IVoiceServer<TClient> server)
         {
             foreach (var client in server.GetClients())
@@ -38,7 +45,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
                 client.SetListeningPositionToCurrentPosition();
             }
 
-            return 125;
+            return _sleepTime;
         }
         
         public virtual void Dispose()
