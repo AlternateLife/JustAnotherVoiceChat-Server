@@ -26,14 +26,14 @@
  */
 
 using System;
- using System.Linq;
- using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
- using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
- using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
- using JustAnotherVoiceChat.Server.Wrapper.Structs;
- using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
- using Moq;
- using NUnit.Framework;
+using System.Linq;
+using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
+using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
+using Moq;
+using NUnit.Framework;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 {
