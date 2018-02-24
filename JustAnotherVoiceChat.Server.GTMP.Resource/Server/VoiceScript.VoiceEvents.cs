@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
 using GrandTheftMultiplayer.Server.Constant;
 using GrandTheftMultiplayer.Shared.Gta.Tasks;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
@@ -48,6 +47,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             {
                 API.consoleOutput(LogCat.Info, "JustAnotherVoiceChatServer stopping!");
             };
+            
+            _voiceServer.OnLogMessage += OnLogMessage;
 
             _voiceServer.OnClientPrepared += OnClientPrepared;
             
@@ -68,6 +69,11 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
                 API.consoleOutput(LogCat.Debug, $"{client.Player.name} {(newStatus ? "muted" : "unmuted")} the speakers!");
                 client.Player.sendChatMessage($"You {(newStatus ? "~r~muted" : "~g~unmuted")}~s~ your speakers!");
             };
+        }
+
+        private void OnLogMessage(LogCat category, string message)
+        {
+            API.consoleOutput(category, message);
         }
 
         private void OnClientConnected(IGtmpVoiceClient client)

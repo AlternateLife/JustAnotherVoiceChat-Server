@@ -25,6 +25,7 @@
  * SOFTWARE.
  */
 
+using GrandTheftMultiplayer.Server.Constant;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP
@@ -34,6 +35,8 @@ namespace JustAnotherVoiceChat.Server.GTMP
 
         public delegate void GtmpVoiceClientEvent(IGtmpVoiceClient client);
         public delegate void GtmpVoiceClientStatusEvent(IGtmpVoiceClient client, bool newStatus);
+
+        public delegate void GtmpVoiceLogMessageEvent(LogCat category, string message);
 
     }
 }
