@@ -415,8 +415,13 @@ void Server::onClientDisconnect(ENetEvent &event) {
 void Server::onClientMessage(ENetEvent &event) {
   logMessage("Message received on channel " + std::to_string(event.channelID), LOG_LEVEL_DEBUG);
 
-  // handle handshake message before anything else
-  if (event.channelID == NETWORK_HANDSHAKE_CHANNEL) {
+  // handle protocol check and handshake message before anything else
+  if (event.channelID == NETWORK_PROTOCOL_CHANNEL) {
+    handleProtocolMessage(event);
+    enet_packet_destroy(event.packet);
+
+    return;
+  } else if (event.channelID == NETWORK_HANDSHAKE_CHANNEL) {
     handleHandshake(event);
     enet_packet_destroy(event.packet);
 
@@ -461,6 +466,46 @@ void Server::onClientMessage(ENetEvent &event) {
   enet_packet_destroy(event.packet);
 }
 
+void Server::handleProtocolMessage(ENetEvent &event) {
+  protocolPacket_t protocolPacket;
+
+  std::string data((char *)event.packet->data, event.packet->dataLength);
+  std::istringstream is(data);
+
+  try {
+    cereal::BinaryInputArchive archive(is);
+    archive(protocolPacket);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+    return;
+  }
+
+  // compare protocol versions
+  bool clientMatches = verifyProtocolVersion(protocolPacket.versionMajor, protocolPacket.versionMinor, PROTOCOL_MIN_VERSION_MAJOR, PROTOCOL_MIN_VERSION_MINOR);
+  bool serverMatches = verifyProtocolVersion(PROTOCOL_VERSION_MAJOR, PROTOCOL_VERSION_MINOR, protocolPacket.minimumVersionMajor, protocolPacket.minimumVersionMinor);
+
+  if (clientMatches == false || serverMatches == false) {
+    int disconnectStatus;
+
+    if (clientMatches == false) {
+      logMessage("Client uses an outdated protocol version: " + std::to_string(protocolPacket.versionMajor) + "." + std::to_string(protocolPacket.versionMinor), LOG_LEVEL_WARNING);
+
+      disconnectStatus = DISCONNECT_STATUS_OUTDATED_CLIENT;
+    } else {
+      logMessage("Server uses an outdated protocol version: " + std::to_string(PROTOCOL_VERSION_MAJOR) + "." + std::to_string(PROTOCOL_VERSION_MINOR), LOG_LEVEL_WARNING);
+
+      disconnectStatus = DISCONNECT_STATUS_OUTDATED_SERVER;
+    }
+
+    sendProtocolResponse(event.peer, STATUS_CODE_OUTDATED_PROTOCOL_VERSION);
+
+    enet_peer_disconnect_later(event.peer, disconnectStatus);
+    return;
+  }
+
+  sendProtocolResponse(event.peer, STATUS_CODE_OK);
+}
+
 void Server::handleHandshake(ENetEvent &event) {
   handshakePacket_t handshakePacket;
 
@@ -482,18 +527,6 @@ void Server::handleHandshake(ENetEvent &event) {
 
     if (_clientRejectedCallback != nullptr) {
       _clientRejectedCallback(handshakePacket.gameId, handshakePacket.statusCode);
-    }
-    return;
-  }
-
-  if (verifyProtocolVersion(handshakePacket.protocolVersionMajor, handshakePacket.protocolVersionMinor) == false) {
-    logMessage("Client uses an outdated protocol version: " + std::to_string(handshakePacket.protocolVersionMajor) + "." + std::to_string(handshakePacket.protocolVersionMinor), LOG_LEVEL_WARNING);
-    sendHandshakeResponse(event.peer, STATUS_CODE_OUTDATED_PROTOCOL_VERSION, "Outdated protocol version");
-
-    enet_peer_disconnect(event.peer, 0);
-
-    if (_clientRejectedCallback != nullptr) {
-      _clientRejectedCallback(handshakePacket.gameId, STATUS_CODE_OUTDATED_PROTOCOL_VERSION);
     }
     return;
   }
@@ -551,4 +584,28 @@ void Server::sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string r
 
   ENetPacket *rawPacket = enet_packet_create(data.c_str(), data.size(), ENET_PACKET_FLAG_RELIABLE);
   enet_peer_send(peer, NETWORK_HANDSHAKE_CHANNEL, rawPacket);
+}
+
+void Server::sendProtocolResponse(ENetPeer *peer, int statusCode) {
+  protocolResponsePacket_t packet;
+  packet.statusCode = statusCode;
+  packet.versionMajor = PROTOCOL_VERSION_MAJOR;
+  packet.versionMinor = PROTOCOL_VERSION_MINOR;
+
+  // serialize packet
+  std::ostringstream os;
+
+  try {
+    cereal::BinaryOutputArchive archive(os);
+    archive(packet);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+    return;
+  }
+
+  // send packet
+  auto data = os.str();
+
+  ENetPacket *rawPacket = enet_packet_create(data.c_str(), data.size(), ENET_PACKET_FLAG_RELIABLE);
+  enet_peer_send(peer, NETWORK_PROTOCOL_CHANNEL, rawPacket);
 }
