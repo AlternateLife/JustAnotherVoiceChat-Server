@@ -68,6 +68,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         IEnumerable<TClient> GetClients(Func<TClient, bool> filter);
         IEnumerable<TClient> GetClients();
 
+        bool IsVoiceClientConnected(IVoiceClient client);
+
         void AddTask(IVoiceTask<TClient> voiceTask);
         void AddTasks(IEnumerable<IVoiceTask<TClient>> voiceTasks);
     }

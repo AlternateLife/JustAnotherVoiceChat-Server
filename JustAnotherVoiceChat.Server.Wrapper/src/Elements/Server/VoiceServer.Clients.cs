@@ -161,6 +161,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             }
         }
 
+        public bool IsVoiceClientConnected(IVoiceClient voiceClient)
+        {
+            lock (_voiceHandleGenerationLock)
+            {
+                return _clients.ContainsKey(voiceClient.Handle.Identifer);
+            }
+        }
+
         private VoiceHandle CreateFreeVoiceHandle()
         {
             var freeHandle = Enumerable
