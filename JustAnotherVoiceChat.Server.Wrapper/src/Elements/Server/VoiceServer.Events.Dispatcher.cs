@@ -60,8 +60,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                     return;
                 }
 
-                client.Connected = true;
-
                 InvokeProtectedEvent(() => OnClientConnected?.Invoke(client));
             });
         }
@@ -83,9 +81,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             RunWhenClientConnected(handle, client =>
             {
-                client.Connected = false;
-                
-                InvokeProtectedEvent(() =>OnClientDisconnected?.Invoke(client));
+                InvokeProtectedEvent(() => OnClientDisconnected?.Invoke(client));
             });
         }
 

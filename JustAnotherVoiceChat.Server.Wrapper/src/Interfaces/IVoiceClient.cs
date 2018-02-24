@@ -35,7 +35,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         VoiceHandle Handle { get; }
         
-        bool Connected { get; set; }
+        bool Connected { get; }
         
         bool Microphone { get; set; }
         bool Headphones { get; set; }
