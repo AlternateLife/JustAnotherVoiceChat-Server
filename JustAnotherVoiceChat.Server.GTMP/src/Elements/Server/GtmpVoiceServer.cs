@@ -34,11 +34,11 @@ using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal partial class GtmpVoiceServer : VoiceServer<IGtmpVoiceClient, Client>, IGtmpVoiceServer
+    public partial class GtmpVoiceServer : VoiceServer<IGtmpVoiceClient, Client>, IGtmpVoiceServer
     {
         private readonly API _api;
         
-        internal GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, VoiceServerConfiguration configuration) : base(clientRepository, configuration)
+        public GtmpVoiceServer(API api, IGtmpVoiceClientFactory clientRepository, VoiceServerConfiguration configuration) : base(clientRepository, configuration)
         {
             _api = api;
 

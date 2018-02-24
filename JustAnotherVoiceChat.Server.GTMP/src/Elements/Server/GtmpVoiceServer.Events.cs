@@ -33,7 +33,7 @@ using JustAnotherVoiceChat.Server.Wrapper.Enums;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
-    internal partial class GtmpVoiceServer
+    public partial class GtmpVoiceServer
     {
 
         public new event Delegates<IGtmpVoiceClient>.EmptyEvent OnServerStarted;
