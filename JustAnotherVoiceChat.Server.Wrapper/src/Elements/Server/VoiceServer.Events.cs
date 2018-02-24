@@ -43,8 +43,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         public event Delegates<TClient>.ClientEvent OnClientDisconnected;
 
         public event Delegates<TClient>.ClientStatusEvent OnClientTalkingChanged;
-        public event Delegates<TClient>.ClientStatusEvent OnClientSpeakersMuteChanged;
-        public event Delegates<TClient>.ClientStatusEvent OnClientMicrophoneMuteChanged;
+        public event Delegates<TClient>.ClientMuteStatusEvent OnClientSpeakersMuteChanged;
+        public event Delegates<TClient>.ClientMuteStatusEvent OnClientMicrophoneMuteChanged;
 
         public event Delegates<TClient>.LogMessageEvent OnLogMessage; 
         

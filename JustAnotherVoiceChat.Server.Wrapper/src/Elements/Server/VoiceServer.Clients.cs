@@ -116,7 +116,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 
                 NativeWrapper.RemoveClient(client);
                 
-                return _clients.TryRemove(client.Handle.Identifer, out _);
+                var success = _clients.TryRemove(client.Handle.Identifer, out var removedClient);
+
+                if (success)
+                {
+                    removedClient.Dispose();
+                }
+                
+                return success;
             }
         }
 

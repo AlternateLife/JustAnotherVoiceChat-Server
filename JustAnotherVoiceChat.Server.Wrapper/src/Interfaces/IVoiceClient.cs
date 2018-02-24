@@ -25,20 +25,24 @@
  * SOFTWARE.
  */
 
+using System;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
-    public interface IVoiceClient
+    public interface IVoiceClient : IDisposable
     {
         
         VoiceHandle Handle { get; }
         
         bool Connected { get; }
         
-        bool Microphone { get; set; }
-        bool Headphones { get; set; }
+        bool Microphone { get; }
+        
+        [Obsolete]
+        bool Headphones { get; }
+        bool Speakers { get; }
         
         Vector3 Position { get; }
         float CameraRotation { get; set; }
