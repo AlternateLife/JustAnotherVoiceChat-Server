@@ -50,6 +50,12 @@ virtualserver_unique_identifier=FEymkeQpMFKW+uRsuoCWti5F3II= virtualserver_name=
 
 **[Basic GT-MP installation manual](docs/installation-gtmp.md)**
 
+## Upgrading
+
+### 0.2 to 0.3
+
+- Change Camera-Rotation update value to `((API.getGamePlayCamRot().Z * -1) * Math.PI) / 180` [See commit](https://github.com/AlternateLife/JustAnotherVoiceChat-Server/commit/869504a5932ccec5157048e55f991cc27fb7629f#diff-dc55f06e6193cb5efd184191f3962aecR90)
+
 ## Documentation
 
 *Coming soon, but every needed interface can be found [here](JustAnotherVoiceChat.Server.Wrapper/src/Interfaces)!*
