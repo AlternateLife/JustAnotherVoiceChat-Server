@@ -29,6 +29,8 @@
 
 #include "log.h"
 
+#include <math.h>
+
 #include "../thirdparty/JustAnotherVoiceChat/include/protocol.h"
 
 using namespace justAnotherVoiceChat;
@@ -131,16 +133,20 @@ void Client::removeAudibleClient(Client *client) {
   _removeAudibleClients.insert(client);
 }
 
-void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3) {
-  if (_relativeAudibleClients.find(client) != _relativeAudibleClients.end()) {
+void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
+  if (isRelativeClient(client)) {
     return;
   }
 
-  _addRelativeAudibleClients.insert(client);
+  auto *relativeClient = new relativeClient_t;
+  relativeClient->client = client;
+  relativeClient->offset = position;
+
+  _addRelativeAudibleClients.insert(relativeClient);
 }
 
 void Client::removeRelativeAudibleClient(Client *client) {
-  if (_relativeAudibleClients.find(client) == _relativeAudibleClients.end()) {
+  if (isRelativeClient(client) == false) {
     return;
   }
 
@@ -149,7 +155,7 @@ void Client::removeRelativeAudibleClient(Client *client) {
 
 void Client::removeAllRelativeAudibleClients() {
   for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
-    _removeRelativeAudibleClients.insert(*it);
+    _removeRelativeAudibleClients.insert((*it)->client);
   }
 }
 
@@ -159,8 +165,7 @@ void Client::sendUpdate() {
 
   // send new audible clients
   for (auto it = _addAudibleClients.begin(); it != _addAudibleClients.end(); it++) {
-    // only unmute if also not relative list
-    if (_relativeAudibleClients.find(*it) == _relativeAudibleClients.end()) {
+    if (isRelativeClient(*it) == false) {
       // add to update packet
       clientAudioUpdate_t audioUpdate;
       audioUpdate.teamspeakId = (*it)->teamspeakId();
@@ -173,15 +178,23 @@ void Client::sendUpdate() {
 
   for (auto it = _addRelativeAudibleClients.begin(); it != _addRelativeAudibleClients.end(); it++) {
     // only unmute if also not normal list
-    if (_audibleClients.find(*it) == _audibleClients.end()) {
+    if (_audibleClients.find((*it)->client) == _audibleClients.end()) {
       // add update packet
       clientAudioUpdate_t audioUpdate;
-      audioUpdate.teamspeakId = (*it)->teamspeakId();
+      audioUpdate.teamspeakId = (*it)->client->teamspeakId();
       audioUpdate.muted = false;
       updatePacket.audioUpdates.push_back(audioUpdate);
     }
 
-    // TODO: Send relative 3d position
+    // send offset once
+    clientPositionUpdate_t positionUpdate;
+    positionUpdate.teamspeakId = (*it)->client->teamspeakId();
+    positionUpdate.x = (*it)->offset.x;
+    positionUpdate.y = (*it)->offset.y;
+    positionUpdate.z = (*it)->offset.z;
+    positionUpdate.voiceRange = 10;
+
+    updatePacket.positionUpdates.push_back(positionUpdate);
 
     _relativeAudibleClients.insert(*it);
   }
@@ -189,7 +202,7 @@ void Client::sendUpdate() {
   // send removed audible clients
   for (auto it = _removeAudibleClients.begin(); it != _removeAudibleClients.end(); it++) {
     // only mute if also not relative list
-    if (_relativeAudibleClients.find(*it) == _relativeAudibleClients.end()) {
+    if (isRelativeClient(*it) == false) {
       // add to update packet
       clientAudioUpdate_t audioUpdate;
       audioUpdate.teamspeakId = (*it)->teamspeakId();
@@ -210,10 +223,19 @@ void Client::sendUpdate() {
       updatePacket.audioUpdates.push_back(audioUpdate);
     }
 
-    _relativeAudibleClients.erase(*it);
+    auto removeIt = _relativeAudibleClients.begin();
+    while (removeIt != _relativeAudibleClients.end()) {
+      if ((*removeIt)->client == *it) {
+        relativeClient_t *relativeClient = *removeIt;
+        removeIt = _relativeAudibleClients.erase(removeIt);
+        delete relativeClient;
+      } else {
+        removeIt++;
+      }
+    }
   }
 
-  if (updatePacket.audioUpdates.empty()) {
+  if (updatePacket.audioUpdates.empty() && updatePacket.positionUpdates.empty()) {
     return;
   }
 
@@ -246,11 +268,26 @@ void Client::sendPositions() {
   packet.rotation = _rotation;
 
   for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
+    if (isRelativeClient(*it)) {
+      continue;
+    }
+
+    // calculate relative position
+    float x = (*it)->position().x - _position.x;
+    float y = (*it)->position().y - _position.y;
+
+    float rotatedX = x * cos(_rotation) - y * sin(_rotation);
+    float rotatedY = x * sin(_rotation) + y * cos(_rotation);
+
+    rotatedX *= 10 / (*it)->voiceRange();
+    rotatedY *= 10 / (*it)->voiceRange();
+
+    // create update packet
     clientPositionUpdate_t positionUpdate;
     positionUpdate.teamspeakId = (*it)->teamspeakId();
-    positionUpdate.x = (*it)->position().x;
-    positionUpdate.y = (*it)->position().y;
-    positionUpdate.z = (*it)->position().z;
+    positionUpdate.x = rotatedX;
+    positionUpdate.y = rotatedY;
+    positionUpdate.z = 0;
     positionUpdate.voiceRange = (*it)->voiceRange();
 
     packet.positions.push_back(positionUpdate);
@@ -357,4 +394,14 @@ void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
 
   ENetPacket *packet = enet_packet_create(data, (int)length, flags);
   enet_peer_send(_peer, (enet_uint8)channel, packet);
+}
+
+bool Client::isRelativeClient(Client *client) const {
+  for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
+    if ((*it)->client == client) {
+      return true;
+    }
+  }
+
+  return false;
 }
