@@ -199,5 +199,25 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         {
             Mock.Object.Set3DSettings(distanceFactor, rolloffFactor);
         }
+
+        public bool MuteClientForAll(IVoiceClient client, bool muted)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool IsClientMutedForAll(IVoiceClient client)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool MuteClientForClient(IVoiceClient speaker, IVoiceClient listener, bool muted)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool IsClientMutedForClient(IVoiceClient speaker, IVoiceClient listener)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
