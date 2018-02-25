@@ -303,7 +303,7 @@ void Server::updateClients() {
           continue;
         }
 
-        if (audibleClient->positionChanged() == false) {
+        if (client->positionChanged() == false && audibleClient->positionChanged() == false) {
           continue;
         }
 
@@ -316,6 +316,9 @@ void Server::updateClients() {
 
       // create update packet
       client->sendUpdate();
+
+      // send positions after audible list was updated
+      client->sendPositions();
     }
 
     // reset all position flags
