@@ -113,7 +113,7 @@ void Client::setMutedClient(Client *client, bool muted) {
 }
 
 bool Client::isMutedClient(Client *client) const {
-  return (_mutedClients.find(client) == _mutedClients.end());
+  return (_mutedClients.find(client) != _mutedClients.end());
 }
 
 bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged) {
