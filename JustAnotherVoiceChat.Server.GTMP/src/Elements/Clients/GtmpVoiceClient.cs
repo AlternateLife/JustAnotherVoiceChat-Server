@@ -29,7 +29,6 @@ using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Elements.Server;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Client;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
@@ -56,6 +55,15 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
         {
             return ResetRelativeSpeakerPosition(Server.GetVoiceClient(speaker));
         }
-        
+
+        public bool MuteSpeakerForListener(Client speaker, bool muted)
+        {
+            return MuteSpeakerForListener(Server.GetVoiceClient(speaker), muted);
+        }
+
+        public bool IsSpeakerMutedForListener(Client speaker)
+        {
+            return IsSpeakerMutedForListener(Server.GetVoiceClient(speaker));
+        }
     }
 }
