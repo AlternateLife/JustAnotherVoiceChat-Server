@@ -37,6 +37,11 @@
 namespace justAnotherVoiceChat {
   class JUSTANOTHERVOICECHAT_API Client {
   private:
+    typedef struct {
+      Client *client;
+      linalg::aliases::float3 offset;
+    } relativeClient_t;
+
     ENetPeer *_peer;
     uint16_t _gameId;
     uint16_t _teamspeakId;
@@ -49,8 +54,8 @@ namespace justAnotherVoiceChat {
     std::set<Client *> _addAudibleClients;
     std::set<Client *> _removeAudibleClients;
 
-    std::set<Client *> _relativeAudibleClients;
-    std::set<Client *> _addRelativeAudibleClients;
+    std::set<relativeClient_t *> _relativeAudibleClients;
+    std::set<relativeClient_t *> _addRelativeAudibleClients;
     std::set<Client *> _removeRelativeAudibleClients;
 
     bool _talking;
@@ -100,5 +105,7 @@ namespace justAnotherVoiceChat {
   private:
     void sendControlMessage();
     void sendPacket(void *data, size_t length, int channel, bool reliable = true);
+  
+    bool isRelativeClient(Client *client) const;
   };
 }

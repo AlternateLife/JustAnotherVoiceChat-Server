@@ -91,8 +91,8 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource.Helpers
                 var voiceClientCaller = caller.GetVoiceClient();
                 var voiceClientCallee = callee.GetVoiceClient();
 
-                voiceClientCallee.SetRelativeSpeakerPosition(voiceClientCaller, new Vector3(0, 1, 0));
-                voiceClientCaller.SetRelativeSpeakerPosition(voiceClientCallee, new Vector3(0, 1, 0));
+                voiceClientCallee.SetRelativeSpeakerPosition(voiceClientCaller, new Vector3(1, 0, 0));
+                voiceClientCaller.SetRelativeSpeakerPosition(voiceClientCallee, new Vector3(1, 0, 0));
             }
             else
             {
