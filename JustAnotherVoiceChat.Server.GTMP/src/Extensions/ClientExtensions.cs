@@ -82,24 +82,24 @@ namespace JustAnotherVoiceChat.Server.GTMP.Extensions
             return listener.GetVoiceClient()?.ResetAllRelativeSpeakerPositions() ?? false;
         }
 
-        public static bool MuteClientForAll(this Client listener, bool muted)
+        public static bool MuteForAll(this Client listener, bool muted)
         {
-            return listener.GetVoiceClient()?.MuteClientForAll(muted) ?? false;
+            return listener.GetVoiceClient()?.MuteForAll(muted) ?? false;
         }
         
-        public static bool IsClientMutedForAll(this Client listener)
+        public static bool IsMutedForAll(this Client listener)
         {
-            return listener.GetVoiceClient()?.IsClientMutedForAll() ?? false;
+            return listener.GetVoiceClient()?.IsMutedForAll() ?? false;
         }
 
-        public static bool MuteSpeakerForListener(this Client listener, Client speaker, bool muted)
+        public static bool MuteSpeaker(this Client listener, Client speaker, bool muted)
         {
-            return listener.GetVoiceClient()?.MuteSpeakerForListener(speaker, muted) ?? false;
+            return listener.GetVoiceClient()?.MuteSpeaker(speaker, muted) ?? false;
         }
 
-        public static bool IsSpeakerMutedForListener(this Client listener, Client speaker)
+        public static bool IsSpeakerMuted(this Client listener, Client speaker)
         {
-            return listener.GetVoiceClient()?.IsSpeakerMutedForListener(speaker) ?? false;
+            return listener.GetVoiceClient()?.IsSpeakerMuted(speaker) ?? false;
         }
     }
 }

@@ -58,9 +58,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         bool ResetRelativeSpeakerPosition(IVoiceClient speaker);
         bool ResetAllRelativeSpeakerPositions();
 
-        bool MuteClientForAll(bool muted);
-        bool IsClientMutedForAll();
-        bool MuteSpeakerForListener(IVoiceClient speaker, bool muted);
-        bool IsSpeakerMutedForListener(IVoiceClient speaker);
+        bool MuteForAll(bool muted);
+        bool IsMutedForAll();
+        bool MuteSpeaker(IVoiceClient speaker, bool muted);
+        bool IsSpeakerMuted(IVoiceClient speaker);
     }
 }

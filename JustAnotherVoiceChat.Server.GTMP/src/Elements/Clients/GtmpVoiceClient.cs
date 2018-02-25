@@ -56,14 +56,14 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Clients
             return ResetRelativeSpeakerPosition(Server.GetVoiceClient(speaker));
         }
 
-        public bool MuteSpeakerForListener(Client speaker, bool muted)
+        public bool MuteSpeaker(Client speaker, bool muted)
         {
-            return MuteSpeakerForListener(Server.GetVoiceClient(speaker), muted);
+            return MuteSpeaker(Server.GetVoiceClient(speaker), muted);
         }
 
-        public bool IsSpeakerMutedForListener(Client speaker)
+        public bool IsSpeakerMuted(Client speaker)
         {
-            return IsSpeakerMutedForListener(Server.GetVoiceClient(speaker));
+            return IsSpeakerMuted(Server.GetVoiceClient(speaker));
         }
     }
 }
