@@ -35,6 +35,7 @@
 #include <vector>
 #include <linalg.h>
 #include <string>
+#include <mutex>
 
 namespace justAnotherVoiceChat {
   typedef void (* ClientCallback_t)(uint16_t);

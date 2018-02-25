@@ -37,6 +37,8 @@
 
 using namespace justAnotherVoiceChat;
 
+std::mutex _clientsMutex;
+
 Server::Server(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakChannelId, std::string teamspeakChannelPassword) {
   _address.host = ENET_HOST_ANY;
   _address.port = port;
@@ -155,6 +157,9 @@ bool Server::removeAllClients() {
   if (_clients.empty()) {
     return false;
   }
+
+  // lock clients usage
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     (*it)->disconnect();
@@ -358,6 +363,8 @@ void Server::update() {
 
 void Server::updateClients() {
   while (_running) {
+    _clientsMutex.lock();
+
     // calculate update for clients
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
       // calculate update packet for this client
@@ -393,6 +400,8 @@ void Server::updateClients() {
       (*it)->resetPositionChanged(); 
     }
 
+    _clientsMutex.unlock();
+
     // wait for next update
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
@@ -423,6 +432,8 @@ void Server::abortThreads() {
 }
 
 Client *Server::clientByGameId(uint16_t gameId) const {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->gameId() == gameId) {
       return *it;
@@ -433,6 +444,8 @@ Client *Server::clientByGameId(uint16_t gameId) const {
 }
 
 Client *Server::clientByTeamspeakId(uint16_t teamspeakId) const {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->teamspeakId() == teamspeakId) {
       return *it;
@@ -443,6 +456,8 @@ Client *Server::clientByTeamspeakId(uint16_t teamspeakId) const {
 }
 
 Client *Server::clientByPeer(ENetPeer *peer) const {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->peer() == peer) {
       return *it;
@@ -466,6 +481,9 @@ void Server::onClientDisconnect(ENetEvent &event) {
   enet_address_get_host_ip(&(event.peer->address), ip, 20);
 
   logMessage(std::string("Client disconnected ") + ip + ":" + std::to_string(event.peer->address.port), LOG_LEVEL_INFO);
+
+  // remove client from list
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   auto it = _clients.begin();
   while (it != _clients.end()) {
@@ -620,8 +638,12 @@ void Server::handleHandshake(ENetEvent &event) {
     }
 
     // save new client in list
+    _clientsMutex.lock();
+
     client = new Client(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
     _clients.push_back(client);
+
+    _clientsMutex.unlock();
 
     if (_clientConnectedCallback != nullptr) {
       _clientConnectedCallback(handshakePacket.gameId);
