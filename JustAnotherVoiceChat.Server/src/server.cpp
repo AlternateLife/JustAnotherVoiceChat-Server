@@ -232,6 +232,73 @@ void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
   // TODO: Update settings on clients
 }
 
+bool Server::muteClientForAll(uint16_t gameId, bool muted) {
+  auto client = clientByGameId(gameId);
+  if (client == nullptr) {
+    return false;
+  }
+
+  client->setMuted(muted);
+
+  // calculate for every other client if mute changed
+  for (auto it = _clients.begin(); it != _clients.end(); it++) {
+    if (*it == client) {
+      continue;
+    }
+
+    if (muted) {
+      // client muted, see if anybody needs to remove it's from his list
+      (*it)->removeAudibleClient(client);
+    } else {
+      // client unmuted, see if anybody can hear him
+      if (linalg::distance(client->position(), (*it)->position()) < client->voiceRange()) {
+        (*it)->addAudibleClient(client);
+      }
+    }
+  }
+
+  return true;
+}
+
+bool Server::isClientMutedForAll(uint16_t gameId) {
+  auto client = clientByGameId(gameId);
+  if (client == nullptr) {
+    return false;
+  }
+
+  return client->isMuted();
+}
+
+bool Server::muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted) {
+  auto listener = clientByGameId(listenerId);
+  auto speaker = clientByGameId(speakerId);
+  if (listener == nullptr || speaker == nullptr) {
+    return false;
+  }
+
+  listener->setMutedClient(speaker, muted);
+
+  if (muted) {
+    listener->removeAudibleClient(speaker);
+  } else {
+    if (linalg::distance(speaker->position(), listener->position()) < speaker->voiceRange()) {
+      listener->addAudibleClient(speaker);
+    }
+  }
+
+  return true;
+}
+
+bool Server::isClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
+  auto listener = clientByGameId(listenerId);
+  auto speaker = clientByGameId(speakerId);
+  if (listener == nullptr || speaker == nullptr) {
+    return false;
+  }
+
+  return listener->isMutedClient(speaker);
+}
+
 void Server::registerClientConnectingCallback(ClientConnectingCallback_t callback) {
   _clientConnectingCallback = callback;
 }

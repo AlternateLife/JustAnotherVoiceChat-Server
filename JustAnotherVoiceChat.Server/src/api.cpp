@@ -277,3 +277,35 @@ bool JV_ResetAllRelativePositions(uint16_t clientId) {
 
   return _server->resetAllRelativePositions(clientId);
 }
+
+bool JV_MuteClientForAll(uint16_t clientId, bool muted) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return _server->muteClientForAll(clientId, muted);
+}
+
+bool JV_IsClientMutedForAll(uint16_t clientId) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return _server->isClientMutedForAll(clientId);
+}
+
+bool JV_MuteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return _server->muteClientForClient(speakerId, listenerId, muted);
+}
+
+bool JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return _server->isClientMutedForClient(speakerId, listenerId);
+}

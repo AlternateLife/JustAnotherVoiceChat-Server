@@ -63,6 +63,9 @@ namespace justAnotherVoiceChat {
     bool _speakersMuted;
     std::string _nickname;
 
+    bool _muted;
+    std::set<Client *> _mutedClients;
+
   public:
     Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId);
     virtual ~Client();
@@ -77,6 +80,11 @@ namespace justAnotherVoiceChat {
     bool hasMicrophoneMuted() const;
     bool hasSpeakersMuted() const;
     ENetPeer *peer() const;
+
+    void setMuted(bool muted);
+    bool isMuted() const;
+    void setMutedClient(Client *client, bool muted);
+    bool isMutedClient(Client *client) const;
 
     bool handleHandshake(ENetPacket *packet);
     bool handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged);

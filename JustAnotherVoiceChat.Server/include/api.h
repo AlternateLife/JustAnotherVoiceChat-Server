@@ -217,6 +217,26 @@ bool JUSTANOTHERVOICECHAT_API JV_ResetRelativePositionForClient(uint16_t listene
  */
 bool JUSTANOTHERVOICECHAT_API JV_ResetAllRelativePositions(uint16_t clientId);
 
+/**
+ * 
+ */
+bool JUSTANOTHERVOICECHAT_API JV_MuteClientForAll(uint16_t clientId, bool muted);
+
+/**
+ * 
+ */
+bool JUSTANOTHERVOICECHAT_API JV_IsClientMutedForAll(uint16_t clientId);
+
+/**
+ * 
+ */
+bool JUSTANOTHERVOICECHAT_API JV_MuteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted);
+
+/**
+ * 
+ */
+bool JUSTANOTHERVOICECHAT_API JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId);
+
 #ifdef __cplusplus
 }
 #endif
