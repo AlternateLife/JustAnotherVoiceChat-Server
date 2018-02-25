@@ -272,6 +272,10 @@ void Client::sendPositions() {
 }
 
 void Client::setPosition(linalg::aliases::float3 position) {
+  if (_position == position) {
+    return;
+  }
+
   _position = position;
   _positionChanged = true;
 }
@@ -281,6 +285,10 @@ linalg::aliases::float3 Client::position() const {
 }
 
 void Client::setRotation(float rotation) {
+  if (_rotation == rotation) {
+    return;
+  }
+
   _rotation = rotation;
   _positionChanged = true;
 }
@@ -298,6 +306,10 @@ bool Client::positionChanged() const {
 }
 
 void Client::setVoiceRange(float range) {
+  if (range == _voiceRange) {
+    return;
+  }
+
   _voiceRange = range;
   _positionChanged = true;
 }
