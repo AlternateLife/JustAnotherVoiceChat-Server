@@ -65,7 +65,7 @@ deploy:
   - provider: GitHub
     auth_token:
       secure: b0P+CkQJzqs4JIluFMp+DMpQZ93e9ZzbzibKPOgaSDgzBgwUiIqKXtzSu7JaMQtJ
-    release: v$(APPVEYOR_REPO_TAG_NAME)
+    release: $(APPVEYOR_REPO_TAG_NAME)
     prerelease: true
     draft: true
     description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
