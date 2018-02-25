@@ -89,7 +89,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource.Helpers
 
             if (decision == true)
             {
-                foreach (Client reciever in API.getAllPlayers())
+                foreach (var reciever in API.getAllPlayers())
                 {
                     if (reciever == null || reciever.IsNull)
                     {
@@ -98,24 +98,22 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource.Helpers
 
                     if (reciever.getData(RadioChannel) == channel && reciever.getData(RadioStatus) == true)
                     {
-                        var FunkReciever = reciever.GetVoiceClient();
-                        FunkReciever.SetRelativeSpeakerPosition(sender, new Vector3(0, 1, 0));
+                        reciever.SetRelativeSpeakerPosition(sender, new Vector3(1, 0, 0));
                     }
                 }
             }
             else
             {
-                foreach (Client recievers in API.getAllPlayers())
+                foreach (var reciever in API.getAllPlayers())
                 {
-                    if (recievers == null || recievers.IsNull)
+                    if (reciever == null || reciever.IsNull)
                     {
                         continue;
                     }
 
-                    if (recievers.getData(RadioChannel) == channel && recievers.getData(RadioStatus) == true || recievers.hasData(RadioStatus) == false)
+                    if (reciever.getData(RadioChannel) == channel && reciever.getData(RadioStatus) == true || reciever.hasData(RadioStatus) == false)
                     {
-                        var FunkReciever = recievers.GetVoiceClient();
-                        FunkReciever.ResetRelativeSpeakerPosition(sender);
+                        reciever.ResetRelativeSpeakerPosition(sender);
                     }
                 }
             }
