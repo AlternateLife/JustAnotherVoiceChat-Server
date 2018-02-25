@@ -336,7 +336,7 @@ void Server::update() {
   ENetEvent event;
 
   while (_running) {
-    int code = enet_host_service (_server, &event, 100);
+    int code = enet_host_service(_server, &event, 1);
 
     if (code > 0) {
       switch (event.type) {
