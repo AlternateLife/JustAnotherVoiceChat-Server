@@ -145,7 +145,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterLogMessageCallback();
         
-        
         /**
          * 3D Voice
          */
@@ -168,6 +167,26 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]
         internal static extern bool JV_ResetAllRelativePositions(ushort clientId);
+
+        /**
+         * Muting
+         */
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_MuteClientForAll(ushort clientId, bool muted);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_IsClientMutedForAll(ushort clientId);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_MuteClientForClient(ushort speakerId, ushort listenerId, bool muted);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_IsClientMutedForClient(ushort speakerId, ushort listenerId);
 
     }
 }
