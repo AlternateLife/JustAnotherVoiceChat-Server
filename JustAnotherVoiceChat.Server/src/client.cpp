@@ -213,7 +213,7 @@ void Client::sendUpdate() {
     _relativeAudibleClients.erase(*it);
   }
 
-  if (updatePacket.audioUpdates.empty() && updatePacket.positionUpdates.empty()) {
+  if (updatePacket.audioUpdates.empty()) {
     return;
   }
 
@@ -236,6 +236,39 @@ void Client::sendUpdate() {
   _removeAudibleClients.clear();
   _addRelativeAudibleClients.clear();
   _removeRelativeAudibleClients.clear();
+}
+
+void Client::sendPositions() {
+  positionPacket_t packet;
+  packet.x = _position.x;
+  packet.y = _position.y;
+  packet.z = _position.z;
+  packet.rotation = _rotation;
+
+  for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
+    clientPositionUpdate_t positionUpdate;
+    positionUpdate.teamspeakId = (*it)->teamspeakId();
+    positionUpdate.x = (*it)->position().x;
+    positionUpdate.y = (*it)->position().y;
+    positionUpdate.z = (*it)->position().z;
+    positionUpdate.voiceRange = (*it)->voiceRange();
+
+    packet.positions.push_back(positionUpdate);
+  }
+
+  // serialize packet
+  std::ostringstream os;
+
+  try {
+    cereal::BinaryOutputArchive archive(os);
+    archive(packet);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+    return;
+  }
+
+  auto data = os.str();
+  sendPacket((void *)data.c_str(), data.size(), NETWORK_POSITION_CHANNEL, false);
 }
 
 void Client::setPosition(linalg::aliases::float3 position) {

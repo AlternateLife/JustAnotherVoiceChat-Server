@@ -87,7 +87,7 @@ class GtmpVoiceHandler {
     }
 
     sendRotation() {
-        const rotation = API.getGameplayCamRot().Z + 180;
+        const rotation = ((API.getGamePlayCamRot().Z * -1) * Math.PI) / 180;
 
         if (Math.abs(this.lastRotation - rotation) < rotationThreshold) {
             return;

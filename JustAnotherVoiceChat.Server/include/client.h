@@ -81,7 +81,9 @@ namespace justAnotherVoiceChat {
     void addRelativeAudibleClient(Client *client, linalg::aliases::float3 position);
     void removeRelativeAudibleClient(Client *client);
     void removeAllRelativeAudibleClients();
+
     void sendUpdate();
+    void sendPositions();
 
     void setPosition(linalg::aliases::float3 position);
     linalg::aliases::float3 position() const;
