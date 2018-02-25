@@ -202,22 +202,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 
         public bool MuteClientForAll(IVoiceClient client, bool muted)
         {
-            throw new System.NotImplementedException();
+            return Mock.Object.MuteClientForAll(client, muted);
         }
 
         public bool IsClientMutedForAll(IVoiceClient client)
         {
-            throw new System.NotImplementedException();
+            return Mock.Object.IsClientMutedForAll(client);
         }
 
         public bool MuteClientForClient(IVoiceClient speaker, IVoiceClient listener, bool muted)
         {
-            throw new System.NotImplementedException();
+            return Mock.Object.MuteClientForClient(speaker, listener, muted);
         }
 
         public bool IsClientMutedForClient(IVoiceClient speaker, IVoiceClient listener)
         {
-            throw new System.NotImplementedException();
+            return Mock.Object.IsClientMutedForClient(speaker, listener);
         }
     }
 }
