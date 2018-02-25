@@ -88,6 +88,34 @@ ENetPeer *Client::peer() const {
   return _peer;
 }
 
+void Client::setMuted(bool muted) {
+  _muted = muted;
+}
+
+bool Client::isMuted() const {
+  return _muted;
+}
+
+void Client::setMutedClient(Client *client, bool muted) {
+  if (muted) {
+    if (_mutedClients.find(client) != _mutedClients.end()) {
+      return;
+    }
+
+    _mutedClients.insert(client);
+  } else {
+    if (_mutedClients.find(client) == _mutedClients.end()) {
+      return;
+    }
+
+    _mutedClients.erase(client);
+  }
+}
+
+bool Client::isMutedClient(Client *client) const {
+  return (_mutedClients.find(client) == _mutedClients.end());
+}
+
 bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged) {
   statusPacket_t statusPacket;
 
@@ -118,6 +146,10 @@ bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microp
 }
 
 void Client::addAudibleClient(Client *client) {
+  if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
+    return;
+  }
+
   if (_audibleClients.find(client) != _audibleClients.end()) {
     return;
   }
@@ -134,6 +166,10 @@ void Client::removeAudibleClient(Client *client) {
 }
 
 void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
+  if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
+    return;
+  }
+
   if (isRelativeClient(client)) {
     return;
   }
@@ -236,6 +272,12 @@ void Client::sendUpdate() {
   }
 
   if (updatePacket.audioUpdates.empty() && updatePacket.positionUpdates.empty()) {
+    // clear update lists
+    _addAudibleClients.clear();
+    _removeAudibleClients.clear();
+    _addRelativeAudibleClients.clear();
+    _removeRelativeAudibleClients.clear();
+
     return;
   }
 

@@ -95,6 +95,11 @@ namespace justAnotherVoiceChat {
 
     void set3DSettings(float distanceFactor, float rolloffFactor);
 
+    bool muteClientForAll(uint16_t gameId, bool muted);
+    bool isClientMutedForAll(uint16_t gameId);
+    bool muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted);
+    bool isClientMutedForClient(uint16_t speakerId, uint16_t listenerId);
+
     void registerClientConnectingCallback(ClientConnectingCallback_t callback);
     void registerClientConnectedCallback(ClientCallback_t callback);
     void registerClientRejectedCallback(ClientRejectedCallback_t callback);
