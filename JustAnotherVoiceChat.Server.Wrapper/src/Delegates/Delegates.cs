@@ -35,12 +35,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Delegates
     {
         public delegate void EmptyEvent();
         
-        public delegate void ClientEvent(TClient client);
-        public delegate void ClientConnectingEvent(TClient client, string teamspeakId, ClientConnectingEventArgs eventArgs);
+        public delegate void ClientEvent(TClient voiceClient);
+        public delegate void ClientConnectingEvent(TClient voiceClient, string teamspeakId, ClientConnectingEventArgs eventArgs);
 
-        public delegate void ClientStatusEvent(TClient client, bool newStatus);
-        public delegate void ClientMuteStatusEvent(TClient client, bool isMuted);
-        public delegate void ClientRejectedEvent(TClient client, StatusCode statusCode);
+        public delegate void ClientStatusEvent(TClient voiceClient, bool newStatus);
+        public delegate void ClientMuteStatusEvent(TClient voiceClient, bool isMuted);
+        public delegate void ClientRejectedEvent(TClient voiceClient, StatusCode statusCode);
         public delegate void LogMessageEvent(string message, LogLevel logLevel);
     }
 }
