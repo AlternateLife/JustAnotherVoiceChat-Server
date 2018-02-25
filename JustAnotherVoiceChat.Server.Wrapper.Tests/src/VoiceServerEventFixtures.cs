@@ -66,6 +66,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             _voiceWrapper.InvokeClientConnectedCallback(1);
             
+            Assert.IsTrue(_voiceClient.Microphone);
+            Assert.IsTrue(_voiceClient.Speakers);
+            
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(1, true);
             _voiceWrapper.InvokeClientSpeakersMuteChangedCallback(1, true);
             
