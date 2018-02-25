@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Interfaces
         bool SetRelativeSpeakerPosition(Client speaker, Vector3 position);
         bool ResetRelativeSpeakerPosition(Client speaker);
 
-        bool MuteSpeakerForListener(Client speaker, bool muted);
-        bool IsSpeakerMutedForListener(Client speaker);
+        bool MuteSpeaker(Client speaker, bool muted);
+        bool IsSpeakerMuted(Client speaker);
     }
 }

@@ -90,5 +90,19 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             sender.sendChatMessage($"You stopped the call with {opponent.name}!");
             opponent.sendChatMessage($"{sender.name} has stopped the call!");
         }
+
+        [Command("mute")]
+        public void MuteMe(Client sender, bool status)
+        {
+            sender.MuteForAll(status);
+            sender.sendChatMessage($"You have been {(status ? "muted" : "unmuted")} for all.");
+        }
+
+        [Command("muteplayer")]
+        public void MutePlayer(Client sender, Client speaker, bool status)
+        {
+            sender.MuteSpeaker(speaker, status);
+            sender.sendChatMessage($"You {(status ? "muted" : "unmuted")} {speaker.name} locally.");
+        }
     }
 }
