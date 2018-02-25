@@ -46,6 +46,8 @@ Client::Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId) {
   _positionChanged = true;  // set true to update position on first updateClients loop
   _voiceRange = 10;
   _nickname = "";
+
+  _muted = false;
 }
 
 Client::~Client() {
