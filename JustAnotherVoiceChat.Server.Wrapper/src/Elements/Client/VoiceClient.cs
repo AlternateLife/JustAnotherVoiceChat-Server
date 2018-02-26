@@ -38,7 +38,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
         public VoiceHandle Handle { get; }
 
         public bool Microphone { get; private set; }
-        public bool Headphones => Speakers;
         public bool Speakers { get; private set; }
 
         public abstract Vector3 Position { get; }
