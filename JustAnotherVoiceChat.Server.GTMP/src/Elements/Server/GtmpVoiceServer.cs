@@ -30,7 +30,6 @@ using GrandTheftMultiplayer.Server.Elements;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Server;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
 {
