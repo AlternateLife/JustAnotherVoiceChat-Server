@@ -26,6 +26,7 @@
  */
 
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using System;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
@@ -43,11 +44,21 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
         public bool MuteSpeaker(IVoiceClient speaker, bool muted)
         {
+            if (speaker == null)
+            {
+                throw new ArgumentNullException(nameof(speaker));
+            }
+
             return Server.NativeWrapper.MuteClientForClient(speaker, this, muted);
         }
 
         public bool IsSpeakerMuted(IVoiceClient speaker)
         {
+            if (speaker == null)
+            {
+                throw new ArgumentNullException(nameof(speaker));
+            }
+
             return Server.NativeWrapper.IsClientMutedForClient(speaker, this);
         }
     }

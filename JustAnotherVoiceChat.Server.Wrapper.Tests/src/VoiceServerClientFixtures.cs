@@ -165,7 +165,72 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             Assert.Throws<InvalidClientException>(() => { _voiceServer.RemoveClient(client); });
             Assert.Throws<InvalidClientException>(() => { _voiceServer.RemoveClient(fakeClient); });
         }
-        
-        
+
+        [Test]
+        public void MuteForNullThrowsArgumentNullException()
+        {
+            var client = _voiceServer.PrepareClient(49);
+
+            Assert.Throws<ArgumentNullException>(() => { client.MuteSpeaker(null, true); });
+        }
+
+        [Test]
+        public void IsMutedForNullThrowsArgumentNullException()
+        {
+            var client = _voiceServer.PrepareClient(1);
+
+            Assert.Throws<ArgumentNullException>(() => { client.IsSpeakerMuted(null); });
+        }
+
+        [Test]
+        public void MuteForAllTriggersWrapper()
+        {
+            var client = _voiceServer.PrepareClient(2);
+            var wrapperTriggered = false;
+            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForAll(client, true)).Callback(() => wrapperTriggered = true);
+
+            client.MuteForAll(true);
+
+            Assert.IsTrue(wrapperTriggered);
+        }
+
+        [Test]
+        public void IsMutedForAllTriggersWrapper()
+        {
+            var client = _voiceServer.PrepareClient(2);
+            var wrapperTriggered = false;
+            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForAll(client)).Callback(() => wrapperTriggered = true);
+
+            client.IsMutedForAll();
+
+            Assert.IsTrue(wrapperTriggered);
+        }
+
+        [Test]
+        public void MuteSpeakerTriggersNativeWrapper()
+        {
+            var listener = _voiceServer.PrepareClient(2);
+            var speaker = _voiceServer.PrepareClient(3);
+            var wrapperTriggered = false;
+            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForClient(speaker, listener, true)).Callback(() => wrapperTriggered = true);
+
+            listener.MuteSpeaker(speaker, true);
+
+            Assert.IsTrue(wrapperTriggered);
+        }
+
+        [Test]
+        public void IsSpeakerMutedTriggersNativeWrapper()
+        {
+            var listener = _voiceServer.PrepareClient(2);
+            var speaker = _voiceServer.PrepareClient(3);
+            var wrapperTriggered = false;
+            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForClient(speaker, listener)).Callback(() => wrapperTriggered = true);
+
+            listener.IsSpeakerMuted(speaker);
+
+            Assert.IsTrue(wrapperTriggered);
+        }
+
     }
 }
