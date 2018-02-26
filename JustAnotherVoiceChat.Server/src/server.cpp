@@ -517,8 +517,6 @@ void Server::onClientDisconnect(ENetEvent &event) {
 }
 
 void Server::onClientMessage(ENetEvent &event) {
-  logMessage("Message received on channel " + std::to_string(event.channelID), LOG_LEVEL_DEBUG);
-
   // handle protocol check and handshake message before anything else
   if (event.channelID == NETWORK_PROTOCOL_CHANNEL) {
     handleProtocolMessage(event);

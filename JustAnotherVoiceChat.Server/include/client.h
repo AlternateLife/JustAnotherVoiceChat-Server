@@ -33,6 +33,7 @@
 #include <enet/enet.h>
 #include <linalg.h>
 #include <set>
+#include <mutex>
 
 namespace justAnotherVoiceChat {
   class JUSTANOTHERVOICECHAT_API Client {
@@ -66,6 +67,9 @@ namespace justAnotherVoiceChat {
     bool _muted;
     std::set<Client *> _mutedClients;
 
+    std::mutex _audibleClientsMutex;
+    std::mutex _mutedClientsMutex;
+
   public:
     Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId);
     virtual ~Client();
@@ -84,7 +88,7 @@ namespace justAnotherVoiceChat {
     void setMuted(bool muted);
     bool isMuted() const;
     void setMutedClient(Client *client, bool muted);
-    bool isMutedClient(Client *client) const;
+    bool isMutedClient(Client *client);
 
     bool handleHandshake(ENetPacket *packet);
     bool handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged);
