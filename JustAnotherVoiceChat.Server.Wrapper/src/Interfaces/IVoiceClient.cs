@@ -50,7 +50,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         string HandshakeUrl { get; }
 
         bool SetNickname(string nickname);
-        void SetVoiceRange(float range);
+        bool SetVoiceRange(float range);
         
         bool SetListeningPositionToCurrentPosition();
         bool SetListeningPosition(Vector3 position, float rotation);

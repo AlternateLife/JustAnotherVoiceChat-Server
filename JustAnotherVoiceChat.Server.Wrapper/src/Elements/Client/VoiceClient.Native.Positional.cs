@@ -58,9 +58,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             return Server.NativeWrapper.ResetAllRelativePositionsForListener(this);
         }
         
-        public void SetVoiceRange(float range)
+        public bool SetVoiceRange(float range)
         {
-            Server.NativeWrapper.SetClientVoiceRange(this, range);
+            return Server.NativeWrapper.SetClientVoiceRange(this, range);
         }
         
     }

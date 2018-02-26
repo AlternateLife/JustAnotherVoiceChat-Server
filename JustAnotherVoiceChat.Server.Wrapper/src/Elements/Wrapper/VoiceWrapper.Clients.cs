@@ -41,9 +41,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
             return NativeLibary.JV_SetClientNickname(client.Handle.Identifer, nickname);
         }
 
-        public void SetClientVoiceRange(IVoiceClient client, float voiceRange)
+        public bool SetClientVoiceRange(IVoiceClient client, float voiceRange)
         {
-            NativeLibary.JV_SetClientVoiceRange(client.Handle.Identifer, voiceRange);
+            return NativeLibary.JV_SetClientVoiceRange(client.Handle.Identifer, voiceRange);
         }
     }
 }
