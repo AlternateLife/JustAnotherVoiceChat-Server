@@ -144,24 +144,23 @@ int Server::numberOfClients() const {
 }
 
 bool Server::removeClient(uint16_t gameId) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+  
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->disconnect();
   return true;
 }
 
 bool Server::removeAllClients() {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   if (_clients.empty()) {
     return false;
   }
-
-  // lock clients usage
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     (*it)->disconnect();
@@ -171,12 +170,12 @@ bool Server::removeAllClients() {
 }
 
 bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->setPosition(position);
   client->setRotation(rotation);
@@ -184,62 +183,62 @@ bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position
 }
 
 bool Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->setVoiceRange(voiceRange);
   return true;
 }
 
 bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->setNickname(nickname);
   return true;
 }
 
 bool Server::setRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, linalg::aliases::float3 position) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (client == nullptr || speaker == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->addRelativeAudibleClient(speaker, position);
   return true;
 }
 
 bool Server::resetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (client == nullptr || speaker == nullptr) {
     return false;
   }
 
-  std::lock_guard<std::mutex> guard(_clientsMutex);
-
   client->removeRelativeAudibleClient(speaker);
   return true;
 }
 
 bool Server::resetAllRelativePositions(uint16_t gameId) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->removeAllRelativeAudibleClients();
   return true;
@@ -253,12 +252,12 @@ void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
 }
 
 bool Server::muteClientForAll(uint16_t gameId, bool muted) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->setMuted(muted);
 
@@ -283,24 +282,24 @@ bool Server::muteClientForAll(uint16_t gameId, bool muted) {
 }
 
 bool Server::isClientMutedForAll(uint16_t gameId) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     return false;
   }
 
-  std::lock_guard<std::mutex> guard(_clientsMutex);
-
   return client->isMuted();
 }
 
 bool Server::muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto listener = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (listener == nullptr || speaker == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   listener->setMutedClient(speaker, muted);
 
@@ -316,13 +315,13 @@ bool Server::muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool m
 }
 
 bool Server::isClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto listener = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (listener == nullptr || speaker == nullptr) {
     return false;
   }
-
-  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   return listener->isMutedClient(speaker);
 }
@@ -455,8 +454,6 @@ void Server::abortThreads() {
 }
 
 Client *Server::clientByGameId(uint16_t gameId) const {
-  std::lock_guard<std::mutex> guard(_clientsMutex);
-
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->gameId() == gameId) {
       return *it;
@@ -467,8 +464,6 @@ Client *Server::clientByGameId(uint16_t gameId) const {
 }
 
 Client *Server::clientByTeamspeakId(uint16_t teamspeakId) const {
-  std::lock_guard<std::mutex> guard(_clientsMutex);
-
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->teamspeakId() == teamspeakId) {
       return *it;
@@ -479,8 +474,6 @@ Client *Server::clientByTeamspeakId(uint16_t teamspeakId) const {
 }
 
 Client *Server::clientByPeer(ENetPeer *peer) const {
-  std::lock_guard<std::mutex> guard(_clientsMutex);
-
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->peer() == peer) {
       return *it;
@@ -540,6 +533,8 @@ void Server::onClientMessage(ENetEvent &event) {
   }
 
   // get client for message
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   auto client = clientByPeer(event.peer);
   if (client == nullptr) {
     logMessage("Client not found for peer", LOG_LEVEL_WARNING);
@@ -647,12 +642,16 @@ void Server::handleHandshake(ENetEvent &event) {
     // send handshake response
     sendHandshakeResponse(event.peer, STATUS_CODE_OK, "OK");
   } else {
-    // create new client
+    // search for already existing client
+    _clientsMutex.lock();
+
     auto client = clientByPeer(event.peer);
     if (client != nullptr) {
       logMessage("Client with that peer is already in list", LOG_LEVEL_WARNING);
       return;
     }
+
+    _clientsMutex.unlock();
 
     // TODO: Send teamspeak client identity
     if (_clientConnectingCallback != nullptr && _clientConnectingCallback(handshakePacket.gameId, handshakePacket.teamspeakClientUniqueIdentity.c_str()) == false) {
