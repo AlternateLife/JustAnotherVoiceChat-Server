@@ -37,8 +37,6 @@
 
 using namespace justAnotherVoiceChat;
 
-std::mutex _clientsMutex;
-
 Server::Server(uint16_t port, std::string teamspeakServerId, uint64_t teamspeakChannelId, std::string teamspeakChannelPassword) {
   _address.host = ENET_HOST_ANY;
   _address.port = port;
