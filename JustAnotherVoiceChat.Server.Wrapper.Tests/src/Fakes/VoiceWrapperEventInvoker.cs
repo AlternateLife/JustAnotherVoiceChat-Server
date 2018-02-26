@@ -140,9 +140,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
             _logMessage = null;
         }
 
-        public void SetClientVoiceRange(IVoiceClient client, float voiceRange)
+        public bool SetClientVoiceRange(IVoiceClient client, float voiceRange)
         {
-            Mock.Object.SetClientVoiceRange(client, voiceRange);
+            return Mock.Object.SetClientVoiceRange(client, voiceRange);
         }
 
         public bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)

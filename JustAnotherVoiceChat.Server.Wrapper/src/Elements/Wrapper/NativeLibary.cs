@@ -150,7 +150,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
          */
 
         [DllImport(JustAnotherVoiceChatLibrary)]
-        internal static extern void JV_SetClientVoiceRange(ushort clientId, float voiceRange);
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_SetClientVoiceRange(ushort clientId, float voiceRange);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]

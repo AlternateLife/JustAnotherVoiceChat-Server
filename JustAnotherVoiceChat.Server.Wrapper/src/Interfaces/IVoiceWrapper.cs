@@ -64,7 +64,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         void RegisterLogMessageCallback(NativeDelegates.LogMessageCallback callback);
         
-        void SetClientVoiceRange(IVoiceClient client, float voiceRange);
+        bool SetClientVoiceRange(IVoiceClient client, float voiceRange);
         bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
         bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
         bool ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
