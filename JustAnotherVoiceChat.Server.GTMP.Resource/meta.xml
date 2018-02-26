@@ -14,9 +14,9 @@
         <setting name="voice_host" value="localhost" default="localhost" description="External hostname of the JustAnotherVoiceChat-Server" />
         <setting name="voice_port" value="23332" default="23332" description="Port of the JustAnotherVoiceChat-Server" />
 
-        <setting name="voice_teamspeak_serverid" value="S1u8otSWS/L/V1luEkMnupTwgeA=" default="" description="Unique identitiy of the target TeamSpeak3 Server" />
-        <setting name="voice_teamspeak_channelid" value="130" default="0" description="Id of the channel where all players join" />
-        <setting name="voice_teamspeak_channelpassword" value="123" default="" description="Password of the channel where all players join" />
+        <setting name="voice_teamspeak_serverid" value="" default="" description="Unique identitiy of the target TeamSpeak3 Server" />
+        <setting name="voice_teamspeak_channelid" value="" default="0" description="Id of the channel where all players join" />
+        <setting name="voice_teamspeak_channelpassword" value="" default="" description="Password of the channel where all players join" />
     </settings>
     
 </meta>
