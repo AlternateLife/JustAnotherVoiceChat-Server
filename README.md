@@ -2,6 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/6fsulqaq7wccjtm7/branch/master?svg=true)](https://ci.appveyor.com/project/Micky5991/justanothervoicechat-server/branch/master)
 [![Build Status](https://travis-ci.org/AlternateLife/JustAnotherVoiceChat-Server.svg?branch=master)](https://travis-ci.org/AlternateLife/JustAnotherVoiceChat-Server)
+[![NuGet](https://img.shields.io/nuget/dt/JustAnotherVoiceChat.Server.Wrapper.svg)](https://www.nuget.org/packages/JustAnotherVoiceChat.Server.Wrapper/)
 
 JustAnotherVoiceChat-Server is the control unit of the [JustAnotherVoiceChat TeamSpeak3-Plugin](https://github.com/AlternateLife/JustAnotherVoiceChat). It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server. The initial version is built for [GT-MP](http://gt-mp.net) but it can be used for any other games or mods, too.
 
