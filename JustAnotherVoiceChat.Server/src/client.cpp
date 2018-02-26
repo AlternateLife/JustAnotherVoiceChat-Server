@@ -99,6 +99,8 @@ bool Client::isMuted() const {
 }
 
 void Client::setMutedClient(Client *client, bool muted) {
+  std::lock_guard<std::mutex> guard(_mutedClientsMutex);
+
   if (muted) {
     if (_mutedClients.find(client) != _mutedClients.end()) {
       return;
@@ -114,7 +116,9 @@ void Client::setMutedClient(Client *client, bool muted) {
   }
 }
 
-bool Client::isMutedClient(Client *client) const {
+bool Client::isMutedClient(Client *client) {
+  std::lock_guard<std::mutex> guard(_mutedClientsMutex);
+
   return (_mutedClients.find(client) != _mutedClients.end());
 }
 
@@ -148,9 +152,15 @@ bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microp
 }
 
 void Client::addAudibleClient(Client *client) {
+  _mutedClientsMutex.lock();
+
   if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
     return;
   }
+
+  _mutedClientsMutex.unlock();
+
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
   if (_audibleClients.find(client) != _audibleClients.end()) {
     return;
@@ -160,6 +170,8 @@ void Client::addAudibleClient(Client *client) {
 }
 
 void Client::removeAudibleClient(Client *client) {
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
+
   if (_audibleClients.find(client) == _audibleClients.end()) {
     return;
   }
@@ -168,9 +180,15 @@ void Client::removeAudibleClient(Client *client) {
 }
 
 void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
+  _mutedClientsMutex.lock();
+
   if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
     return;
   }
+
+  _mutedClientsMutex.unlock();
+
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
   if (isRelativeClient(client)) {
     return;
@@ -184,6 +202,8 @@ void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 po
 }
 
 void Client::removeRelativeAudibleClient(Client *client) {
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
+
   if (isRelativeClient(client) == false) {
     return;
   }
@@ -192,6 +212,8 @@ void Client::removeRelativeAudibleClient(Client *client) {
 }
 
 void Client::removeAllRelativeAudibleClients() {
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
+
   for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
     _removeRelativeAudibleClients.insert((*it)->client);
   }
@@ -202,6 +224,8 @@ void Client::sendUpdate() {
   updatePacket_t updatePacket;
 
   // send new audible clients
+  _audibleClientsMutex.lock();
+
   for (auto it = _addAudibleClients.begin(); it != _addAudibleClients.end(); it++) {
     if (isRelativeClient(*it) == false) {
       // add to update packet
@@ -280,8 +304,12 @@ void Client::sendUpdate() {
     _addRelativeAudibleClients.clear();
     _removeRelativeAudibleClients.clear();
 
+    _audibleClientsMutex.unlock();
+
     return;
   }
+
+  _audibleClientsMutex.unlock();
 
   // send update packet
   std::ostringstream os;
@@ -298,6 +326,8 @@ void Client::sendUpdate() {
   sendPacket((void *)data.c_str(), data.size(), NETWORK_UPDATE_CHANNEL);
 
   // clear update lists
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
+
   _addAudibleClients.clear();
   _removeAudibleClients.clear();
   _addRelativeAudibleClients.clear();
@@ -310,6 +340,8 @@ void Client::sendPositions() {
   packet.y = _position.y;
   packet.z = _position.z;
   packet.rotation = _rotation;
+
+  _audibleClientsMutex.lock();
 
   for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
     if (isRelativeClient(*it)) {
@@ -336,6 +368,8 @@ void Client::sendPositions() {
 
     packet.positions.push_back(positionUpdate);
   }
+
+  _audibleClientsMutex.unlock();
 
   // serialize packet
   std::ostringstream os;

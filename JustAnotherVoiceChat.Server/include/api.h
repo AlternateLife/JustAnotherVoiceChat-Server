@@ -190,7 +190,7 @@ bool JUSTANOTHERVOICECHAT_API JV_SetClientPosition(uint16_t clientId, float x, f
 /**
  * 
  */
-void JUSTANOTHERVOICECHAT_API JV_SetClientVoiceRange(uint16_t clientId, float voiceRange);
+bool JUSTANOTHERVOICECHAT_API JV_SetClientVoiceRange(uint16_t clientId, float voiceRange);
 
 /**
  * 
