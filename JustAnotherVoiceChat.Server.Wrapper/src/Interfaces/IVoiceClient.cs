@@ -40,8 +40,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         bool Microphone { get; }
         
-        [Obsolete]
-        bool Headphones { get; }
         bool Speakers { get; }
         
         Vector3 Position { get; }
