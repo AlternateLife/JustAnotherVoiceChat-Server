@@ -186,24 +186,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         public void MuteForAllTriggersWrapper()
         {
             var client = _voiceServer.PrepareClient(2);
-            var wrapperTriggered = false;
-            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForAll(client, true)).Callback(() => wrapperTriggered = true);
+            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForAll(client, true));
 
             client.MuteForAll(true);
 
-            Assert.IsTrue(wrapperTriggered);
+            _voiceWrapper.Verify(e => e.MuteClientForAll(client, true), Times.Once);
         }
 
         [Test]
         public void IsMutedForAllTriggersWrapper()
         {
             var client = _voiceServer.PrepareClient(2);
-            var wrapperTriggered = false;
-            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForAll(client)).Callback(() => wrapperTriggered = true);
+            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForAll(client));
 
             client.IsMutedForAll();
 
-            Assert.IsTrue(wrapperTriggered);
+            _voiceWrapper.Verify(e => e.IsClientMutedForAll(client), Times.Once);
         }
 
         [Test]
@@ -211,12 +209,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             var listener = _voiceServer.PrepareClient(2);
             var speaker = _voiceServer.PrepareClient(3);
-            var wrapperTriggered = false;
-            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForClient(speaker, listener, true)).Callback(() => wrapperTriggered = true);
+            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForClient(speaker, listener, true));
 
             listener.MuteSpeaker(speaker, true);
 
-            Assert.IsTrue(wrapperTriggered);
+            _voiceWrapper.Verify(e => e.MuteClientForClient(speaker, listener, true), Times.Once);
         }
 
         [Test]
@@ -224,12 +221,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             var listener = _voiceServer.PrepareClient(2);
             var speaker = _voiceServer.PrepareClient(3);
-            var wrapperTriggered = false;
-            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForClient(speaker, listener)).Callback(() => wrapperTriggered = true);
+            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForClient(speaker, listener));
 
             listener.IsSpeakerMuted(speaker);
 
-            Assert.IsTrue(wrapperTriggered);
+            _voiceWrapper.Verify(e => e.IsClientMutedForClient(speaker, listener), Times.Once);
         }
 
     }
