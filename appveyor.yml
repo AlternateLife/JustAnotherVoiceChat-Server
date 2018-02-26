@@ -21,6 +21,9 @@ artifacts:
   - path: 'JustAnotherVoiceChat-%APPVEYOR_BUILD_VERSION%-GTMP.zip'
     name: GT-MP Resource
 
+  - path: 'JustAnotherVoiceChat.Server.dll'
+    name: Server x64
+
 install:
   - mkdir C:\projects\dependencies
   - cd C:\projects\dependencies
