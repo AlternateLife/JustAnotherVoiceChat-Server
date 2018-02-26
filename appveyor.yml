@@ -48,6 +48,7 @@ build_script:
   - cd build
   - cmake .. -G "Visual Studio 15 2017 Win64"
   - cmake --build . --config Release
+  - cp src\Release\JustAnotherVoiceChat.Server.dll C:\projects\justanothervoicechat-server\
   - move src\Release\JustAnotherVoiceChat.Server.dll ..\..\JustAnotherVoiceChat.Server.Wrapper\
 
   # C#
@@ -95,7 +96,7 @@ deploy:
     prerelease: true
     draft: true
     description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-    artifact: /.*\.nupkg/, JustAnotherVoiceChat-$(appveyor_build_version)-GTMP.zip
+    artifact: /.*\.nupkg/, JustAnotherVoiceChat-$(appveyor_build_version)-GTMP.zip, JustAnotherVoiceChat.Server.dll
     on:
       branch: master
       appveyor_repo_tag: true
