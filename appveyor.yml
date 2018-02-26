@@ -1,6 +1,8 @@
 os: Visual Studio 2017
 version: 0.3.2.{build}
 
+skip_branch_with_pr: true
+
 dotnet_csproj:
   patch: true
   file: 'JustAnotherVoiceChat.Server.Wrapper\*.csproj'
