@@ -21,14 +21,40 @@ artifacts:
   - path: 'JustAnotherVoiceChat-%APPVEYOR_BUILD_VERSION%-GTMP.zip'
     name: GT-MP Resource
 
+install:
+  - mkdir C:\projects\dependencies
+  - cd C:\projects\dependencies
+
+  # install cmake
+  - set CMAKE_URL="https://cmake.org/files/v3.8/cmake-3.8.0-win64-x64.zip"
+  - appveyor DownloadFile %CMAKE_URL% -FileName cmake.zip
+  - 7z x cmake.zip -oC:\projects\deps > nul
+  - move C:\projects\deps\cmake-* C:\projects\deps\cmake # Move to a version-agnostic directory
+  - set PATH=C:\projects\deps\cmake\bin;%PATH%
+  - cmake --version
+
 before_build:
   - cd C:\projects\justanothervoicechat-server
   - nuget restore
 
-build_script:   
+  # get submodules
+  - ps: (Get-Content .gitmodules).replace('git@github.com:', 'https://github.com/') | Set-Content .gitmodules
+  - git submodule update --init
+
+build_script:
+  # C++
+  - cd JustAnotherVoiceChat.Server
+  - mkdir build
+  - cd build
+  - cmake .. -G "Visual Studio 15 2017 Win64"
+  - cmake --build . --config Release
+  - move src\Release\JustAnotherVoiceChat.Server.dll ..\..\JustAnotherVoiceChat.Server.Wrapper\
+
+  # C#
+  - cd C:\projects\justanothervoicechat-server
+  - dotnet build JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release Windows" -f netstandard1.2
   - dotnet build JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj -c "Release Windows" -f net452
   - dotnet build JustAnotherVoiceChat.Server.GTMP.Resource\JustAnotherVoiceChat.Server.GTMP.Resource.csproj -c "Release Windows" -f net452
-  - dotnet build JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release Windows" -f netstandard1.2
 
 after_build:
   - dotnet pack JustAnotherVoiceChat.Server.Wrapper/JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release Windows" -o "..\"
