@@ -53,6 +53,7 @@ namespace justAnotherVoiceChat {
     std::thread *_thread;
     std::thread *_clientUpdateThread;
     std::vector<Client *> _clients;
+    std::mutex _clientsMutex;
 
     ClientConnectingCallback_t _clientConnectingCallback;
     ClientCallback_t _clientConnectedCallback;
