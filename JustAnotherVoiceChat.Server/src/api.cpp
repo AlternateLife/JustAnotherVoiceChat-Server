@@ -230,12 +230,12 @@ bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float ro
   return _server->setClientPosition(clientId, linalg::aliases::float3(x, y, z), rotation);
 }
 
-void JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
+bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
   if (_server == nullptr || _server->isRunning() == false) {
-    return;
+    return false;
   }
 
-  _server->setClientVoiceRange(clientId, voiceRange);
+  return _server->setClientVoiceRange(clientId, voiceRange);
 }
 
 bool JV_SetClientNickname(uint16_t clientId, const char *nickname) {
