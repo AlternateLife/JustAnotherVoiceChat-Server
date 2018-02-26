@@ -383,7 +383,7 @@ void Server::update() {
 
 void Server::updateClients() {
   while (_running) {
-    _clientsMutex.lock();
+    std::unique_lock<std::mutex> guard(_clientsMutex);
 
     // calculate update for clients
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
@@ -420,7 +420,7 @@ void Server::updateClients() {
       (*it)->resetPositionChanged(); 
     }
 
-    _clientsMutex.unlock();
+    guard.unlock();
 
     // wait for next update
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -639,7 +639,7 @@ void Server::handleHandshake(ENetEvent &event) {
     sendHandshakeResponse(event.peer, STATUS_CODE_OK, "OK");
   } else {
     // search for already existing client
-    _clientsMutex.lock();
+    std::unique_lock<std::mutex> guard(_clientsMutex);
 
     auto client = clientByPeer(event.peer);
     if (client != nullptr) {
@@ -647,7 +647,7 @@ void Server::handleHandshake(ENetEvent &event) {
       return;
     }
 
-    _clientsMutex.unlock();
+    guard.unlock();
 
     // TODO: Send teamspeak client identity
     if (_clientConnectingCallback != nullptr && _clientConnectingCallback(handshakePacket.gameId, handshakePacket.teamspeakClientUniqueIdentity.c_str()) == false) {
@@ -656,12 +656,12 @@ void Server::handleHandshake(ENetEvent &event) {
     }
 
     // save new client in list
-    _clientsMutex.lock();
+    guard.lock();
 
     client = new Client(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
     _clients.push_back(client);
 
-    _clientsMutex.unlock();
+    guard.unlock();
 
     if (_clientConnectedCallback != nullptr) {
       _clientConnectedCallback(handshakePacket.gameId);
