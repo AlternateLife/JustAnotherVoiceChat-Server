@@ -149,6 +149,8 @@ bool Server::removeClient(uint16_t gameId) {
     return false;
   }
 
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   client->disconnect();
   return true;
 }
@@ -174,18 +176,23 @@ bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position
     return false;
   }
 
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   client->setPosition(position);
   client->setRotation(rotation);
   return true;
 }
 
-void Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
+bool Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
-    return;
+    return false;
   }
 
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   client->setVoiceRange(voiceRange);
+  return true;
 }
 
 bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
@@ -193,6 +200,8 @@ bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
   if (client == nullptr) {
     return false;
   }
+
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->setNickname(nickname);
   return true;
@@ -205,6 +214,8 @@ bool Server::setRelativePositionForClient(uint16_t listenerId, uint16_t speakerI
     return false;
   }
 
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   client->addRelativeAudibleClient(speaker, position);
   return true;
 }
@@ -216,6 +227,8 @@ bool Server::resetRelativePositionForClient(uint16_t listenerId, uint16_t speake
     return false;
   }
 
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   client->removeRelativeAudibleClient(speaker);
   return true;
 }
@@ -225,6 +238,8 @@ bool Server::resetAllRelativePositions(uint16_t gameId) {
   if (client == nullptr) {
     return false;
   }
+
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->removeAllRelativeAudibleClients();
   return true;
@@ -242,6 +257,8 @@ bool Server::muteClientForAll(uint16_t gameId, bool muted) {
   if (client == nullptr) {
     return false;
   }
+
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   client->setMuted(muted);
 
@@ -271,6 +288,8 @@ bool Server::isClientMutedForAll(uint16_t gameId) {
     return false;
   }
 
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+
   return client->isMuted();
 }
 
@@ -280,6 +299,8 @@ bool Server::muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool m
   if (listener == nullptr || speaker == nullptr) {
     return false;
   }
+
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   listener->setMutedClient(speaker, muted);
 
@@ -300,6 +321,8 @@ bool Server::isClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
   if (listener == nullptr || speaker == nullptr) {
     return false;
   }
+
+  std::lock_guard<std::mutex> guard(_clientsMutex);
 
   return listener->isMutedClient(speaker);
 }
