@@ -152,13 +152,13 @@ bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microp
 }
 
 void Client::addAudibleClient(Client *client) {
-  _mutedClientsMutex.lock();
+  std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
   if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
     return;
   }
 
-  _mutedClientsMutex.unlock();
+  muteGuard.unlock();
 
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
@@ -180,13 +180,13 @@ void Client::removeAudibleClient(Client *client) {
 }
 
 void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
-  _mutedClientsMutex.lock();
+  std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
   if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
     return;
   }
 
-  _mutedClientsMutex.unlock();
+  muteGuard.unlock();
 
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
@@ -224,7 +224,7 @@ void Client::sendUpdate() {
   updatePacket_t updatePacket;
 
   // send new audible clients
-  _audibleClientsMutex.lock();
+  std::unique_lock<std::mutex> guard(_audibleClientsMutex);
 
   for (auto it = _addAudibleClients.begin(); it != _addAudibleClients.end(); it++) {
     if (isRelativeClient(*it) == false) {
@@ -304,12 +304,12 @@ void Client::sendUpdate() {
     _addRelativeAudibleClients.clear();
     _removeRelativeAudibleClients.clear();
 
-    _audibleClientsMutex.unlock();
+    guard.unlock();
 
     return;
   }
 
-  _audibleClientsMutex.unlock();
+  guard.unlock();
 
   // send update packet
   std::ostringstream os;
@@ -326,12 +326,14 @@ void Client::sendUpdate() {
   sendPacket((void *)data.c_str(), data.size(), NETWORK_UPDATE_CHANNEL);
 
   // clear update lists
-  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
+  guard.lock();
 
   _addAudibleClients.clear();
   _removeAudibleClients.clear();
   _addRelativeAudibleClients.clear();
   _removeRelativeAudibleClients.clear();
+
+  guard.unlock();
 }
 
 void Client::sendPositions() {
@@ -341,7 +343,7 @@ void Client::sendPositions() {
   packet.z = _position.z;
   packet.rotation = _rotation;
 
-  _audibleClientsMutex.lock();
+  std::unique_lock<std::mutex> guard(_audibleClientsMutex);
 
   for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
     if (isRelativeClient(*it)) {
@@ -369,7 +371,7 @@ void Client::sendPositions() {
     packet.positions.push_back(positionUpdate);
   }
 
-  _audibleClientsMutex.unlock();
+  guard.unlock();
 
   // serialize packet
   std::ostringstream os;
