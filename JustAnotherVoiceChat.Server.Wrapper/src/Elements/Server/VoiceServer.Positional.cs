@@ -34,7 +34,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
     public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
 
-        public bool SetPlayerPositions(IList<ClientPosition> clientPositions)
+        public bool SetPlayerPositions(IEnumerable<ClientPosition> clientPositions)
         {
             return NativeWrapper.SetListenerPositions(clientPositions);
         }

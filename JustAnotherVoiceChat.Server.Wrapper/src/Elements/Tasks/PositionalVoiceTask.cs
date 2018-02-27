@@ -25,10 +25,8 @@
  * SOFTWARE.
  */
 
-using System.Collections.Generic;
 using System.Linq;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
 {
@@ -43,9 +41,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
         
         public virtual int RunVoiceTask(IVoiceServer<TClient> server)
         {
-            var clientPositions = server.GetClients().Select(client =>
-                new ClientPosition(client.Position.X, client.Position.Y, client.Position.Z, client.CameraRotation, client.Handle.Identifer))
-                .ToList();
+            var clientPositions = server.GetClients().Select(client => client.MakeClientPosition());
 
             server.SetPlayerPositions(clientPositions);
 

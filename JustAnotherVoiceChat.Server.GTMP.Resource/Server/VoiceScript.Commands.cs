@@ -27,6 +27,8 @@
 
 using GrandTheftMultiplayer.Server.Elements;
 using GrandTheftMultiplayer.Server.Managers;
+using GrandTheftMultiplayer.Shared;
+using GrandTheftMultiplayer.Shared.Math;
 using JustAnotherVoiceChat.Server.GTMP.Extensions;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Resource
@@ -136,6 +138,13 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             {
                 sender.sendChatMessage("~r~ Radio inactiv");
             }
+        }
+
+        [Command("veh")]
+        public void CreateVehicle(Client sender, VehicleHash vehicleHash)
+        {
+            var vehicle = API.createVehicle(vehicleHash, sender.position, sender.rotation, 0, 0);
+            API.setPlayerIntoVehicle(sender, vehicle, -1);
         }
     }
 }

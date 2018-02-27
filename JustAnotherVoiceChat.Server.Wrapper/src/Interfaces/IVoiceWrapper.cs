@@ -68,7 +68,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         bool SetClientVoiceRange(IVoiceClient client, float voiceRange);
         bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
-        bool SetListenerPositions(IList<ClientPosition> clientPositions);
+        bool SetListenerPositions(IEnumerable<ClientPosition> clientPositions);
         bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
         bool ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
         bool ResetAllRelativePositionsForListener(IVoiceClient listener);
