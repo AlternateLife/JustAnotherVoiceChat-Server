@@ -40,9 +40,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             return Server.NativeWrapper.SetListenerPosition(this, position, rotation);
         }
 
-        public bool SetListeningPositions(List<ClientPosition> clientPositions)
+        public ClientPosition MakeClientPosition(Vector3 position, float rotation)
         {
-            return Server.NativeWrapper.SetListenerPositions(clientPositions);
+            return new ClientPosition(Handle.Identifer, position.X, position.Y, position.Z, rotation);
+        }
+
+        public ClientPosition MakeClientPosition()
+        {
+            var position = Position;
+            return new ClientPosition(Handle.Identifer, position.X, position.Y, position.Z, CameraRotation);
         }
 
         public bool SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position)

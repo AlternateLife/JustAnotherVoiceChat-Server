@@ -179,7 +179,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
             return Mock.Object.SetListenerPosition(listener, position, rotation);
         }
 
-        public bool SetListenerPositions(IList<ClientPosition> clientPositions)
+        public bool SetListenerPositions(IEnumerable<ClientPosition> clientPositions)
         {
             return Mock.Object.SetListenerPositions(clientPositions);
         }

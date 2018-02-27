@@ -45,18 +45,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         {
             return NativeLibary.JV_ResetRelativePositionForClient(listener.Handle.Identifer, speaker.Handle.Identifer);
         }
-
+        
         public bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)
         {
-            return SetListenerPositions(new List<ClientPosition>
-            {
-                new ClientPosition(position.X, position.Y, position.Z, rotation, listener.Handle.Identifer)
-            });
+            return SetListenerPositions(new [] { listener.MakeClientPosition(position, rotation) });
         }
 
-        public bool SetListenerPositions(IList<ClientPosition> clientPositions)
+        public bool SetListenerPositions(IEnumerable<ClientPosition> clientPositions)
         {
-            return NativeLibary.JV_SetClientPositions(clientPositions.ToArray(), clientPositions.Count);
+            var positions = clientPositions.ToArray();
+            return NativeLibary.JV_SetClientPositions(positions, positions.Length);
         }
 
         public bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position)

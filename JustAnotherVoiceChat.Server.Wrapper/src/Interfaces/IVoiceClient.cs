@@ -52,7 +52,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         bool SetVoiceRange(float range);
         
         bool SetListeningPosition(Vector3 position, float rotation);
-        bool SetListeningPositions(List<ClientPosition> clientPositions);
         bool SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position);
         bool ResetRelativeSpeakerPosition(IVoiceClient speaker);
         bool ResetAllRelativeSpeakerPositions();
@@ -61,5 +60,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         bool IsMutedForAll();
         bool MuteSpeaker(IVoiceClient speaker, bool muted);
         bool IsSpeakerMuted(IVoiceClient speaker);
+
+        ClientPosition MakeClientPosition(Vector3 position, float rotation);
+        ClientPosition MakeClientPosition();
     }
 }

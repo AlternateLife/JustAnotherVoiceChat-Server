@@ -33,21 +33,21 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Structs
     public struct ClientPosition
     {
         
-        public float PositionX { get; set; }
-        public float PositionY { get; set; }
-        public float PositionZ { get; set; }
+        public float PositionX { get; }
+        public float PositionY { get; }
+        public float PositionZ { get; }
 
-        public float Rotation { get; set; }
+        public float Rotation { get; }
 
-        public ushort ClientId { get; set; }
+        public ushort Handle { get; }
 
-        public ClientPosition(float positionX, float positionY, float positionZ, float rotation, ushort clientId)
+        internal ClientPosition(ushort handle, float positionX, float positionY, float positionZ, float rotation)
         {
             PositionX = positionX;
             PositionY = positionY;
             PositionZ = positionZ;
             Rotation = rotation;
-            ClientId = clientId;
+            Handle = handle;
         }
     }
 }

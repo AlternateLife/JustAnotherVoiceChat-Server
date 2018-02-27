@@ -71,7 +71,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         void AddTask(IVoiceTask<TClient> voiceTask);
         void AddTasks(IEnumerable<IVoiceTask<TClient>> voiceTasks);
 
-        bool SetPlayerPositions(IList<ClientPosition> clientPositions);
+        bool SetPlayerPositions(IEnumerable<ClientPosition> clientPositions);
 
     }
 }
