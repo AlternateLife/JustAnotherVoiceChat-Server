@@ -80,6 +80,8 @@ namespace justAnotherVoiceChat {
     void disconnect();
     bool isConnected() const;
 
+    void cleanupKnownClient(Client *client);
+
     bool isTalking() const;
     bool hasMicrophoneMuted() const;
     bool hasSpeakersMuted() const;

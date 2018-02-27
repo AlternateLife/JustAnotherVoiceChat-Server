@@ -149,6 +149,14 @@ bool Server::removeClient(uint16_t gameId) {
     return false;
   }
 
+  for (auto it = _clients.begin(); it != _clients.end(); it++) {
+    if (*it == client) {
+      continue;
+    }
+    
+    (*it)->cleanupKnownClient(client);
+  }
+
   client->disconnect();
   return true;
 }
