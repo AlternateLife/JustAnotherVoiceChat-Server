@@ -74,6 +74,28 @@ bool Client::isConnected() const {
   return _peer != nullptr;
 }
 
+void Client::cleanupKnownClient(Client *client) {
+  // remove client reference from muted list
+  std::unique_lock<std::mutex> mutedGuard(_mutedClientsMutex);
+
+  if (_mutedClients.find(client) != _mutedClients.end()) {
+    _mutedClients.erase(client);
+  }
+
+  mutedGuard.unlock();
+
+  // remove client reference from audible lists
+  std::lock_guard<std::mutex> guard(_audibleClientsMutex);
+
+  if (_audibleClients.find(client) != _audibleClients.end()) {
+    _removeAudibleClients.insert(client);
+  }
+
+  if (isRelativeClient(client)) {
+    _removeRelativeAudibleClients.insert(client);
+  }
+}
+
 bool Client::isTalking() const {
   return _talking;
 }
