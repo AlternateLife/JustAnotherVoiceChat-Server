@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug RageMP|AnyCPU'" />
+  <ItemGroup>
+    <ProjectReference Include="..\JustAnotherVoiceChat.Server.RageMP\JustAnotherVoiceChat.Server.RageMP.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="gtanetwork.api" Version="0.3.5" />
+  </ItemGroup>
+</Project>
