@@ -50,7 +50,7 @@ namespace JustAnotherVoiceChat.Server.RageMP.Resource
 
         private void OnClientConnected(IRagempVoiceClient client)
         {
-            client.Player.TriggerEvent("VOICE_SET_HANDSHAKE", false);
+            client.Player.TriggerEvent("voiceSetHandhsake", false);
             client.SetNickname(client.Player.Name);
         }
 
@@ -69,7 +69,7 @@ namespace JustAnotherVoiceChat.Server.RageMP.Resource
 
         private void OnHandshakeShouldResend(IRagempVoiceClient client)
         {
-            client.Player.TriggerEvent("VOICE_SET_HANDSHAKE", true, client.HandshakeUrl);
+            client.Player.TriggerEvent("voiceSetHandhsake", true, client.HandshakeUrl);
         }
         
         private void OnPlayerTalkingChanged(IRagempVoiceClient speakingClient, bool newStatus)

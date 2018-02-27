@@ -21,12 +21,12 @@ namespace JustAnotherVoiceChat.Server.RageMP.Resource
         public void ResourceStartEvent()
         {
             // Create a JustAnotherVoiceServer based GtmpVoice Server!
-            var hostname = NAPI.Resource.GetResourceSetting<string>("justanothervoicechat", "voice_host");
-            var port = NAPI.Resource.GetResourceSetting<ushort>("justanothervoicechat", "voice_port");
+            var hostname = NAPI.Resource.GetSetting<string>(this, "voice_host");
+            var port = NAPI.Resource.GetSetting<ushort>(this, "voice_port");
             
-            var teamspeakServerId = NAPI.Resource.GetResourceSetting<string>("justanothervoicechat", "voice_teamspeak_serverid");
-            var teamspeakChannelId = NAPI.Resource.GetResourceSetting<ulong>("justanothervoicechat", "voice_teamspeak_channelid");
-            var teamspeakChannelPassword = NAPI.Resource.GetResourceSetting<string>("justanothervoicechat", "voice_teamspeak_channelpassword");
+            var teamspeakServerId = NAPI.Resource.GetSetting<string>(this, "voice_teamspeak_serverid");
+            var teamspeakChannelId = NAPI.Resource.GetSetting<ulong>(this, "voice_teamspeak_channelid");
+            var teamspeakChannelPassword = NAPI.Resource.GetSetting<string>(this, "voice_teamspeak_channelpassword");
             
             _voiceServer = RagempVoice.CreateServer(new VoiceServerConfiguration(hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword));
             
@@ -47,7 +47,7 @@ namespace JustAnotherVoiceChat.Server.RageMP.Resource
         }
 
         [ServerEvent(Event.PlayerDisconnected)]
-        public void PlayerDisconnected(Client client)
+        public void PlayerDisconnected(Client client, DisconnectionType type, string reason)
         {
             _voiceServer.BridgeOnClientDisconnectedEvent(client);
         }
