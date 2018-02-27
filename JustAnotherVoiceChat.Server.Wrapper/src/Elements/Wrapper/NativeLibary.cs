@@ -34,12 +34,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
     internal static class NativeLibary
     {
-
-#if LINUX
-        private const string JustAnotherVoiceChatLibrary = "libJustAnotherVoiceChat.Server.so";
-#else
-        private const string JustAnotherVoiceChatLibrary = "JustAnotherVoiceChat.Server.dll";
-#endif
+     
+        private const string JustAnotherVoiceChatLibrary = "JustAnotherVoiceChatServer";
 
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_CreateServer(ushort port, string teamspeakServerId, ulong teamspeakChannelId, string teamspeakChannelPassword);
