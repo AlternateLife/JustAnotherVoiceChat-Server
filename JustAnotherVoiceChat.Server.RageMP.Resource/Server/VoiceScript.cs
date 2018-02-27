@@ -52,7 +52,7 @@ namespace JustAnotherVoiceChat.Server.RageMP.Resource
             _voiceServer.BridgeOnClientDisconnectedEvent(client);
         }
 
-        [RemoteEvent("VOICE_ROTATION")]
+        [RemoteEvent("updateRotation")]
         public void UpdateVoiceRotation(Client sender, float rotation)
         {
             sender.SetVoiceRotation(rotation);
