@@ -1,6 +1,6 @@
 ﻿/*
- * File: IVoiceClient.cs
- * Date: 21.2.2018,
+ * File: VoiceServer.Positional.cs
+ * Date: 27.2.2018,
  *
  * MIT License
  *
@@ -25,41 +25,19 @@
  * SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
-using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
+namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
-    public interface IVoiceClient : IDisposable
+    public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
-        
-        VoiceHandle Handle { get; }
-        
-        bool Connected { get; }
-        
-        bool Microphone { get; }
-        
-        bool Speakers { get; }
-        
-        Vector3 Position { get; }
-        float CameraRotation { get; set; }
 
-        string HandshakeUrl { get; }
+        public bool SetPlayerPositions(IList<ClientPosition> clientPositions)
+        {
+            return NativeWrapper.SetListenerPositions(clientPositions);
+        }
 
-        bool SetNickname(string nickname);
-        bool SetVoiceRange(float range);
-        
-        bool SetListeningPosition(Vector3 position, float rotation);
-        bool SetListeningPositions(List<ClientPosition> clientPositions);
-        bool SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position);
-        bool ResetRelativeSpeakerPosition(IVoiceClient speaker);
-        bool ResetAllRelativeSpeakerPositions();
-
-        bool MuteForAll(bool muted);
-        bool IsMutedForAll();
-        bool MuteSpeaker(IVoiceClient speaker, bool muted);
-        bool IsSpeakerMuted(IVoiceClient speaker);
     }
 }

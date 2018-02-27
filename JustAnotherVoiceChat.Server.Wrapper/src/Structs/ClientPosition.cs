@@ -1,6 +1,6 @@
 ﻿/*
- * File: PositionalVoiceTask.cs
- * Date: 21.2.2018,
+ * File: ClientPosition.cs
+ * Date: 27.2.2018,
  *
  * MIT License
  *
@@ -25,36 +25,29 @@
  * SOFTWARE.
  */
 
-using System.Collections.Generic;
-using System.Linq;
-using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
-using JustAnotherVoiceChat.Server.Wrapper.Structs;
+using System.Runtime.InteropServices;
 
-namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks
+namespace JustAnotherVoiceChat.Server.Wrapper.Structs
 {
-    public class PositionalVoiceTask<TClient> : IVoiceTask<TClient> where TClient : IVoiceClient
+    [StructLayout(LayoutKind.Sequential)]
+    public struct ClientPosition
     {
-        private readonly int _sleepTime;
-
-        public PositionalVoiceTask(int sleepTime = 125)
-        {
-            _sleepTime = sleepTime;
-        }
         
-        public virtual int RunVoiceTask(IVoiceServer<TClient> server)
-        {
-            var clientPositions = server.GetClients().Select(client =>
-                new ClientPosition(client.Position.X, client.Position.Y, client.Position.Z, client.CameraRotation, client.Handle.Identifer))
-                .ToList();
+        public float PositionX { get; set; }
+        public float PositionY { get; set; }
+        public float PositionZ { get; set; }
 
-            server.SetPlayerPositions(clientPositions);
+        public float Rotation { get; set; }
 
-            return _sleepTime;
-        }
-        
-        public virtual void Dispose()
+        public ushort ClientId { get; set; }
+
+        public ClientPosition(float positionX, float positionY, float positionZ, float rotation, ushort clientId)
         {
-            
+            PositionX = positionX;
+            PositionY = positionY;
+            PositionZ = positionZ;
+            Rotation = rotation;
+            ClientId = clientId;
         }
     }
 }

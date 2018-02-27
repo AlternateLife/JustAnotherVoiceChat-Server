@@ -25,24 +25,26 @@
  * SOFTWARE.
  */
 
+using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
     public partial class VoiceClient<TClient> where TClient : IVoiceClient
     {
-
-        public bool SetListeningPositionToCurrentPosition()
-        {
-            return SetListeningPosition(Position, CameraRotation);
-        }
         
         public bool SetListeningPosition(Vector3 position, float rotation)
         {
             return Server.NativeWrapper.SetListenerPosition(this, position, rotation);
         }
-        
+
+        public bool SetListeningPositions(List<ClientPosition> clientPositions)
+        {
+            return Server.NativeWrapper.SetListenerPositions(clientPositions);
+        }
+
         public bool SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position)
         {
             return Server.NativeWrapper.SetRelativeSpeakerPositionForListener(this, speaker, position);

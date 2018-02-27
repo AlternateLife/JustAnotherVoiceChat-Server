@@ -25,10 +25,12 @@
  * SOFTWARE.
  */
 
+using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 using Moq;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
@@ -175,6 +177,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         public bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)
         {
             return Mock.Object.SetListenerPosition(listener, position, rotation);
+        }
+
+        public bool SetListenerPositions(IList<ClientPosition> clientPositions)
+        {
+            return Mock.Object.SetListenerPositions(clientPositions);
         }
 
         public bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position)

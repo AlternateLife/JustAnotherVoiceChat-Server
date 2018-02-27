@@ -27,6 +27,7 @@
 
 using System.Runtime.InteropServices;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 // ReSharper disable UnusedMember.Local
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
@@ -159,6 +160,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_SetClientPositions(ClientPosition[] clientPositions, int length);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
         internal static extern bool JV_SetRelativePositionForClient(ushort listenerId, ushort speakerId, float x, float y, float z);
 
         [DllImport(JustAnotherVoiceChatLibrary)]
@@ -188,6 +193,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]
         internal static extern bool JV_IsClientMutedForClient(ushort speakerId, ushort listenerId);
+
+
 
     }
 }

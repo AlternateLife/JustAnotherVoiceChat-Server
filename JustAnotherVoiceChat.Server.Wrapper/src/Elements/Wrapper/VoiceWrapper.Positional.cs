@@ -25,8 +25,11 @@
  * SOFTWARE.
  */
 
+using System.Collections.Generic;
+using System.Linq;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 {
@@ -45,7 +48,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 
         public bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation)
         {
-            return NativeLibary.JV_SetClientPosition(listener.Handle.Identifer, position.X, position.Y, position.Z, rotation);
+            return SetListenerPositions(new List<ClientPosition>
+            {
+                new ClientPosition(position.X, position.Y, position.Z, rotation, listener.Handle.Identifer)
+            });
+        }
+
+        public bool SetListenerPositions(IList<ClientPosition> clientPositions)
+        {
+            return NativeLibary.JV_SetClientPositions(clientPositions.ToArray(), clientPositions.Count);
         }
 
         public bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position)
