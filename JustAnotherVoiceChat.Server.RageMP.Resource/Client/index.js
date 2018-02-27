@@ -16,6 +16,7 @@ class VoiceScript {
 
         if(this.browser == null) {
             this.browser = mp.browsers.new(url);
+            this.browser.active = false;
         }
 
         if (this.handshakeTimer === -1) {
