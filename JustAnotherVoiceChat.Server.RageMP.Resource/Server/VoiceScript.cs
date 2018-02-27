@@ -5,7 +5,7 @@ using JustAnotherVoiceChat.Server.RageMP.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
 
-namespace JustAnotherVoiceChat.Server.RageMP.Resource.Server
+namespace JustAnotherVoiceChat.Server.RageMP.Resource
 {
     public partial class VoiceScript : Script
     {
