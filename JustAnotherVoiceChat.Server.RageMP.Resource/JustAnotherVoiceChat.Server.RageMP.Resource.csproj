@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <Configurations>Debug Linux;Debug Windows;Debug Windows RageMP;Release Linux;Release Windows</Configurations>
+    <RageMPPath>..\..\JustAnotherVoiceChat-RageMP\bridge\resources\justanothervoicechat\</RageMPPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug RageMP|AnyCPU'" />
   <ItemGroup>
@@ -10,4 +11,16 @@
   <ItemGroup>
     <PackageReference Include="gtanetwork.api" Version="0.3.5" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="meta.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Target Name="CopyAfter" AfterTargets="Build">
+    <Copy SourceFiles="$(OutputPath)\meta.xml" DestinationFolder="$(RageMPPath)" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)\JustAnotherVoiceChatServer.dll" DestinationFolder="$(RageMPPath)" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)\JustAnotherVoiceChat.Server.Wrapper.dll" DestinationFolder="$(RageMPPath)" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)\JustAnotherVoiceChat.Server.RageMP.dll" DestinationFolder="$(RageMPPath)" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)\JustAnotherVoiceChat.Server.RageMP.Resource.dll" DestinationFolder="$(RageMPPath)" ContinueOnError="true" />
+  </Target>
 </Project>
