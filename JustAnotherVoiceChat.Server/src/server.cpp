@@ -191,8 +191,6 @@ bool Server::setClientPositions(clientPosition_t *positionUpdates, int length) {
       continue;
     }
 
-    logMessage("Set position of client " + std::to_string(positionUpdates[i].gameId), LOG_LEVEL_DEBUG);
-
     client->setPosition(linalg::aliases::float3(positionUpdates[i].x, positionUpdates[i].y, positionUpdates[i].z));
     client->setRotation(positionUpdates[i].rotation);
   }
