@@ -245,7 +245,9 @@ bool JV_SetClientPositions(clientPosition_t *positionUpdates, int length) {
     return false;
   }
 
-  
+  logMessage("Set " + std::to_string(length) + " positions", LOG_LEVEL_DEBUG);
+
+  return _server->setClientPositions(positionUpdates, length);
 }
 
 bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
