@@ -188,6 +188,24 @@ bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position
   return true;
 }
 
+bool Server::setClientPositions(clientPosition_t *positionUpdates, int length) {
+  std::lock_guard<std::mutex> guard(_clientsMutex); 
+  bool success = true;
+
+  for (int i = 0; i < length; i++) {
+    auto client = clientByGameId(positionUpdates[i].gameId);
+    if (client == nullptr) {
+      success = false;
+      continue;
+    }
+
+    client->setPosition(linalg::aliases::float3(positionUpdates[i].x, positionUpdates[i].y, positionUpdates[i].z));
+    client->setRotation(positionUpdates[i].rotation);
+  }
+
+  return success;
+}
+
 bool Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
   std::lock_guard<std::mutex> guard(_clientsMutex);
 

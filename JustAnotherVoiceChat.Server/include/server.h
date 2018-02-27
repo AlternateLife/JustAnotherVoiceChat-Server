@@ -90,6 +90,7 @@ namespace justAnotherVoiceChat {
 
     bool setClientVoiceRange(uint16_t gameId, float voiceRange);
     bool setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation);
+    bool setClientPositions(clientPosition_t *positionUpdates, int length);
     bool setClientNickname(uint16_t gameId, std::string nickname);
     bool setRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, linalg::aliases::float3 position);
     bool resetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId);

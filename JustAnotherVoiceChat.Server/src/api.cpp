@@ -230,6 +230,24 @@ bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float ro
   return _server->setClientPosition(clientId, linalg::aliases::float3(x, y, z), rotation);
 }
 
+bool JV_SetPosition(clientPosition_t positionUpdate) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  logMessage("Set position of client " + std::to_string(positionUpdate.gameId), LOG_LEVEL_DEBUG);
+
+  return _server->setClientPosition(positionUpdate.gameId, linalg::aliases::float3(positionUpdate.x, positionUpdate.y, positionUpdate.z), positionUpdate.rotation);
+}
+
+bool JV_SetClientPositions(clientPosition_t *positionUpdates, int length) {
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  
+}
+
 bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
   if (_server == nullptr || _server->isRunning() == false) {
     return false;

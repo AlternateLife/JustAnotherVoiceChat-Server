@@ -37,6 +37,17 @@
 #define JUSTANOTHERVOICECHAT_API
 #endif
 
+#include <stdint.h>
+
+// global typedefs
+typedef struct {
+  float x;
+  float y;
+  float z;
+  float rotation;
+  uint16_t gameId;
+} clientPosition_t;
+
 // C++ public classes
 #include "server.h"
 #include "client.h"
