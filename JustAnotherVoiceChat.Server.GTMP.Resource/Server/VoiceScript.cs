@@ -26,11 +26,11 @@
  */
 
 using GrandTheftMultiplayer.Server.API;
+using JustAnotherVoiceChat.Server.GTMP.Elements.Tasks;
 using JustAnotherVoiceChat.Server.GTMP.Factories;
 using JustAnotherVoiceChat.Server.GTMP.Interfaces;
 using JustAnotherVoiceChat.Server.GTMP.Resource.Helpers;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
-using JustAnotherVoiceChat.Server.Wrapper.Elements.Tasks;
 
 namespace JustAnotherVoiceChat.Server.GTMP.Resource
 {
@@ -60,7 +60,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             _voiceServer = GtmpVoice.CreateServer(API, new VoiceServerConfiguration(hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword));
             
             // Enables 3D Voice
-            _voiceServer.AddTask(new PositionalVoiceTask<IGtmpVoiceClient>());
+            _voiceServer.AddTask(new GtmpPositionalTask());
 
             // Attach to some IVoiceServer events to react to certain them with certain actions.
             AttachToVoiceServerEvents();
