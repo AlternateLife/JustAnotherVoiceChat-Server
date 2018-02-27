@@ -1,5 +1,3 @@
-// COOL
-
 let voiceScript = null;
 
 class VoiceScript {
@@ -8,7 +6,12 @@ class VoiceScript {
         this.handshakeUrl = "";
 
         this.browser = null;
+        
         this.handshakeTimer = -1;
+        this.rotationTimer = -1;
+        
+        this.rotationThreshold = 0.05;
+        this.oldRotation = 0;
     }
 
     startHandshake(url) {
@@ -17,6 +20,11 @@ class VoiceScript {
         if(this.browser == null) {
             this.browser = mp.browsers.new(url);
             this.browser.active = false;
+        }
+        
+        if (this.rotationTimer !== -1) {
+            clearInterval(this.rotationTimer);
+            this.rotationTimer = -1;
         }
 
         if (this.handshakeTimer === -1) {
@@ -30,11 +38,28 @@ class VoiceScript {
             clearInterval(this.handshakeTimer);
             this.handshakeTimer = -1;
         }
+        
+        if (this.rotationTimer === -1) {
+            this.rotationTimer = setInterval(this.updateRotation.bind(this), 333);
+            this.updateRotation();
+        }        
     }
 
     refreshHandshake() {
-        mp.gui.chat.push("HS: " + this.handshakeUrl);
         this.browser.url = this.handshakeUrl;
+    }
+
+    updateRotation() {
+        const rotation = ((mp.game.cam.getGameplayCamRot(0).z * -1) * Math.PI) / 180;
+        
+        if (Math.abs(this.oldRotation - rotation) < this.rotationThreshold) {
+            return;
+        }
+        
+        mp.gui.chat.push("ROTATION: " + mp.game.cam.getGameplayCamRot(0).z + " -> " + rotation);
+        
+        this.oldRotation = rotation;
+        mp.events.call("updateRotation", [rotation]);
     }
 
     dispose() {
@@ -47,11 +72,11 @@ class VoiceScript {
 }
 
 mp.events.add({
-    "guiReady": () => {
-        mp.gui.chat.push("Start HUD");
-        voiceScript = new VoiceScript();
-    },
     "voiceSetHandhsake": (newStatus, handshakeUrl) => {
+        if (voiceScript == null) {
+            voiceScript = new VoiceScript();            
+        }
+        
         if(newStatus) {
             voiceScript.startHandshake(handshakeUrl);
         } else {
