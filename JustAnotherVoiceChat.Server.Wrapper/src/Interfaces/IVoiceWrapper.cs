@@ -25,9 +25,11 @@
  * SOFTWARE.
  */
 
+using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 {
@@ -66,6 +68,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         
         bool SetClientVoiceRange(IVoiceClient client, float voiceRange);
         bool SetListenerPosition(IVoiceClient listener, Vector3 position, float rotation);
+        bool SetListenerPositions(IList<ClientPosition> clientPositions);
         bool SetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker, Vector3 position);
         bool ResetRelativeSpeakerPositionForListener(IVoiceClient listener, IVoiceClient speaker);
         bool ResetAllRelativePositionsForListener(IVoiceClient listener);
