@@ -11,7 +11,7 @@ namespace JustAnotherVoiceChat.Server.RageMP.Elements.Server
         
         public event RagempVoiceDelegates.RagempVoiceClientEvent OnClientPrepared;
         
-        protected RagempVoiceServer(IVoiceClientFactory<IRagempVoiceClient, Client> factory, VoiceServerConfiguration configuration) : base(factory, configuration)
+        public RagempVoiceServer(IVoiceClientFactory<IRagempVoiceClient, Client> factory, VoiceServerConfiguration configuration) : base(factory, configuration)
         {
             AttachToEvents();
         }
