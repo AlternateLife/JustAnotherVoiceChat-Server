@@ -1,5 +1,6 @@
 ﻿using GTANetworkAPI;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
+using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
 namespace JustAnotherVoiceChat.Server.RageMP.Interfaces
 {
@@ -13,6 +14,8 @@ namespace JustAnotherVoiceChat.Server.RageMP.Interfaces
 
         bool MuteSpeaker(Client speaker, bool muted);
         bool IsSpeakerMuted(Client speaker);
-        
+
+        ClientPosition MakeClientPosition(Vector3 position, float rotation);
+
     }
 }

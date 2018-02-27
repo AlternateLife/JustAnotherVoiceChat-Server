@@ -52,5 +52,9 @@ namespace JustAnotherVoiceChat.Server.RageMP.Elements.Clients
             return IsSpeakerMuted(Server.GetVoiceClient(speaker));
         }
 
+        public ClientPosition MakeClientPosition(GTANetworkAPI.Vector3 position, float rotation)
+        {
+            return MakeClientPosition(new Vector3(position.X, position.Y, position.Z), rotation);
+        }
     }
 }
