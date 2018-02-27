@@ -1,4 +1,5 @@
 ﻿using GTANetworkAPI;
+using JustAnotherVoiceChat.Server.RageMP.Elements.Tasks;
 using JustAnotherVoiceChat.Server.RageMP.Extensions;
 using JustAnotherVoiceChat.Server.RageMP.Factories;
 using JustAnotherVoiceChat.Server.RageMP.Interfaces;
@@ -31,7 +32,7 @@ namespace JustAnotherVoiceChat.Server.RageMP.Resource
             _voiceServer = RagempVoice.CreateServer(new VoiceServerConfiguration(hostname, port, teamspeakServerId, teamspeakChannelId, teamspeakChannelPassword));
             
             // Enables 3D Voice
-            _voiceServer.AddTask(new PositionalVoiceTask<IRagempVoiceClient>());
+            _voiceServer.AddTask(new RagempPositionalTask());
 
             // Attach to some IVoiceServer events to react to certain them with certain actions.
             AttachToVoiceServerEvents();
