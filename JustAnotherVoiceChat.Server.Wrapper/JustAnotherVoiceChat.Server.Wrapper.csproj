@@ -19,6 +19,15 @@
     <Authors>JustAnotherVoiceChat contributors</Authors>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug GTMP|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <!-- LINUX NATIVE LIBRARY -->
   <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Linux' Or '$(Configuration)' == 'Release Linux'">
     <Delete Files="libJustAnotherVoiceChat.Server.so" />
