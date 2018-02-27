@@ -23,8 +23,8 @@ artifacts:
   - path: 'JustAnotherVoiceChat-%APPVEYOR_BUILD_VERSION%-GTMP.zip'
     name: GT-MP Resource
 
-  - path: 'JustAnotherVoiceChat.Server.dll'
-    name: Server x64
+  - path: 'JustAnotherVoiceChatServer.dll'
+    name: Server Win x64
 
 install:
   - mkdir C:\projects\dependencies
@@ -53,27 +53,27 @@ build_script:
   - cd build
   - cmake .. -G "Visual Studio 15 2017 Win64"
   - cmake --build . --config Release
-  - cp src\Release\JustAnotherVoiceChat.Server.dll C:\projects\justanothervoicechat-server\
-  - move src\Release\JustAnotherVoiceChat.Server.dll ..\..\JustAnotherVoiceChat.Server.Wrapper\
+  - cp src\Release\JustAnotherVoiceChatServer.dll C:\projects\justanothervoicechat-server\
+  - move src\Release\JustAnotherVoiceChatServer.dll ..\..\JustAnotherVoiceChat.Server.Wrapper\
 
   # C#
   - cd C:\projects\justanothervoicechat-server
-  - dotnet build JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release Windows" -f netstandard1.2
-  - dotnet build JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj -c "Release Windows" -f net452
-  - dotnet build JustAnotherVoiceChat.Server.GTMP.Resource\JustAnotherVoiceChat.Server.GTMP.Resource.csproj -c "Release Windows" -f net452
+  - dotnet build JustAnotherVoiceChat.Server.Wrapper\JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release" -f netstandard1.2
+  - dotnet build JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj -c "Release" -f net452
+  - dotnet build JustAnotherVoiceChat.Server.GTMP.Resource\JustAnotherVoiceChat.Server.GTMP.Resource.csproj -c "Release" -f net452
 
 after_build:
-  - dotnet pack JustAnotherVoiceChat.Server.Wrapper/JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release Windows" -o "..\"
-  - nuget pack JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj -Properties "Configuration=Release Windows"
+  - dotnet pack JustAnotherVoiceChat.Server.Wrapper/JustAnotherVoiceChat.Server.Wrapper.csproj -c "Release" -o "..\"
+  - nuget pack JustAnotherVoiceChat.Server.GTMP\JustAnotherVoiceChat.Server.GTMP.csproj -Properties "Configuration=Release"
   
   # Build GT-MP Resource
-  - cd C:\projects\justanothervoicechat-server\JustAnotherVoiceChat.Server.GTMP.Resource\bin\Release\Windows
+  - cd C:\projects\justanothervoicechat-server\JustAnotherVoiceChat.Server.GTMP.Resource\bin\Release
   - 7z a JustAnotherVoiceChat-%APPVEYOR_BUILD_VERSION%-GTMP.zip JustAnotherVoiceChat* meta.xml Client\JustAnotherVoiceChat.js
   - move JustAnotherVoiceChat-%APPVEYOR_BUILD_VERSION%-GTMP.zip C:\projects\justanothervoicechat-server\
 
 test_script:
   - cd C:\projects\justanothervoicechat-server
-  - dotnet test JustAnotherVoiceChat.Server.Wrapper.Tests\JustAnotherVoiceChat.Server.Wrapper.Tests.csproj -c "Release Windows" --logger trx;LogFileName=results.xml
+  - dotnet test JustAnotherVoiceChat.Server.Wrapper.Tests\JustAnotherVoiceChat.Server.Wrapper.Tests.csproj -c "Release" --logger trx;LogFileName=results.xml
   
 on_finish:
   - ps: |
@@ -101,7 +101,7 @@ deploy:
     prerelease: true
     draft: true
     description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-    artifact: /.*\.nupkg/, JustAnotherVoiceChat-$(appveyor_build_version)-GTMP.zip, JustAnotherVoiceChat.Server.dll
+    artifact: /.*\.nupkg/, JustAnotherVoiceChat-$(appveyor_build_version)-GTMP.zip, JustAnotherVoiceChatServer.dll
     on:
       branch: master
       appveyor_repo_tag: true
