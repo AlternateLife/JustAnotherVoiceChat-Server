@@ -54,7 +54,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             ExecuteOnMe(client, () => 
             {
                 Connected = true;
-                MuteForAll(_lastMuteForAllState);
+                bool lastState;
+                lock (_lastStateLock)
+                {
+                    lastState = _lastMuteForAllState;
+                }
+
+                MuteForAll(lastState);
             });
         }
 
