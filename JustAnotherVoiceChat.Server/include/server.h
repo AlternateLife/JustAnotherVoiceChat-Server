@@ -51,8 +51,8 @@ namespace justAnotherVoiceChat {
     ENetAddress _address;
     ENetHost *_server;
 
-    std::thread *_thread;
-    std::thread *_clientUpdateThread;
+    std::shared_ptr<std::thread> _thread;
+    std::shared_ptr<std::thread> _clientUpdateThread;
     std::vector<std::shared_ptr<Client>> _clients;
     std::mutex _clientsMutex;
 

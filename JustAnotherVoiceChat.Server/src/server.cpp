@@ -84,13 +84,9 @@ bool Server::create() {
     return false;
   }
 
-  if (_thread != nullptr) {
-    delete _thread;
-  }
-
   _running = true;
-  _thread = new std::thread(&Server::update, this);
-  _clientUpdateThread = new std::thread(&Server::updateClients, this);
+  _thread = std::make_shared<std::thread>(&Server::update, this);
+  _clientUpdateThread = std::make_shared<std::thread>(&Server::updateClients, this);
 
   logMessage("Voice server started", LOG_LEVEL_INFO);
 
@@ -461,7 +457,6 @@ void Server::abortThreads() {
       _thread->join();
     }
 
-    delete _thread;
     _thread = nullptr;
   }
 
@@ -470,7 +465,6 @@ void Server::abortThreads() {
       _clientUpdateThread->join();
     }
 
-    delete _clientUpdateThread;
     _clientUpdateThread = nullptr;
   }
 }
