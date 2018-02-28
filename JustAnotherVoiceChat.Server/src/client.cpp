@@ -48,6 +48,10 @@ Client::Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId) {
   _nickname = "";
 
   _muted = false;
+  _position.x = 0;
+  _position.y = 0;
+  _position.z = 0;
+  _rotation = 0;
 }
 
 Client::~Client() {
@@ -68,6 +72,7 @@ void Client::disconnect() {
   }
 
   enet_peer_disconnect(_peer, 0);
+  _peer = nullptr;
 }
 
 bool Client::isConnected() const {
@@ -204,7 +209,7 @@ bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microp
 void Client::addAudibleClient(std::shared_ptr<Client> client) {
   std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
-  if (client->isMuted()) {
+  if (client == nullptr || client->isMuted()) {
     return;
   }
 
@@ -290,6 +295,10 @@ void Client::sendUpdate() {
   std::unique_lock<std::mutex> guard(_audibleClientsMutex);
 
   for (auto it = _addAudibleClients.begin(); it != _addAudibleClients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     if (isRelativeClient(*it) == false) {
       // add to update packet
       clientAudioUpdate_t audioUpdate;
@@ -302,6 +311,10 @@ void Client::sendUpdate() {
   }
 
   for (auto it = _addRelativeAudibleClients.begin(); it != _addRelativeAudibleClients.end(); it++) {
+    if ((*it).client == nullptr) {
+      continue;
+    }
+
     // only unmute if also not normal list
     bool unmute = true;
 
@@ -335,6 +348,10 @@ void Client::sendUpdate() {
 
   // send removed audible clients
   for (auto it = _removeAudibleClients.begin(); it != _removeAudibleClients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     // only mute if also not relative list
     if (isRelativeClient(*it) == false) {
       // add to update packet
@@ -355,6 +372,10 @@ void Client::sendUpdate() {
   }
 
   for (auto it = _removeRelativeAudibleClients.begin(); it != _removeRelativeAudibleClients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     // only mute if also not in normal list
     bool mute = true;
 
@@ -432,6 +453,10 @@ void Client::sendPositions() {
   std::unique_lock<std::mutex> guard(_audibleClientsMutex);
 
   for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     if (isRelativeClient(*it)) {
       continue;
     }
