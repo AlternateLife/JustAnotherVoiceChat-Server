@@ -518,7 +518,7 @@ void Server::onClientDisconnect(ENetEvent &event) {
   std::lock_guard<std::mutex> guard(_clientsMutex);
 
   // remove client in other's references
-  auto client = getClientByPeer(event.peer);
+  auto client = clientByPeer(event.peer);
   if (client != nullptr) {
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
       if (*it == client) {
@@ -564,7 +564,6 @@ void Server::onClientMessage(ENetEvent &event) {
 
   auto client = clientByPeer(event.peer);
   if (client == nullptr) {
-    logMessage("Client not found for peer", LOG_LEVEL_WARNING);
     enet_packet_destroy(event.packet);
     return;
   }
