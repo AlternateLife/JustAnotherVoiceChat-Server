@@ -411,11 +411,14 @@ void Server::updateClients() {
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
       // calculate update packet for this client
       auto client = *it;
+      if (client == nullptr) {
+        continue;
+      }
 
       for (auto clientIt = _clients.begin(); clientIt != _clients.end(); clientIt++) {
         // client to be heard
         auto audibleClient = *clientIt;
-        if (audibleClient == client) {
+        if (audibleClient == nullptr || audibleClient == client) {
           continue;
         }
 
@@ -439,6 +442,10 @@ void Server::updateClients() {
 
     // reset all position flags
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
+      if (*it == nullptr) {
+        continue;
+      }
+
       (*it)->resetPositionChanged(); 
     }
 
