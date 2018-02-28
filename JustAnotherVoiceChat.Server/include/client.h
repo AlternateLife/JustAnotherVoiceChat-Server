@@ -55,8 +55,8 @@ namespace justAnotherVoiceChat {
     std::vector<Client *> _addAudibleClients;
     std::vector<Client *> _removeAudibleClients;
 
-    std::vector<relativeClient_t *> _relativeAudibleClients;
-    std::vector<relativeClient_t *> _addRelativeAudibleClients;
+    std::vector<relativeClient_t> _relativeAudibleClients;
+    std::vector<relativeClient_t> _addRelativeAudibleClients;
     std::vector<Client *> _removeRelativeAudibleClients;
 
     bool _talking;
