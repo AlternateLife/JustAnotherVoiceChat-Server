@@ -230,12 +230,10 @@ void Client::addAudibleClient(std::shared_ptr<Client> client) {
 void Client::removeAudibleClient(std::shared_ptr<Client> client) {
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
-  auto it = _audibleClients.begin();
-  while (it != _audibleClients.end()) {
+  for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
     if (*it == client) {
-      it = _audibleClients.erase(it);
-    } else {
-      it++;
+      _removeAudibleClients.push_back(client);
+      return;
     }
   }
 }
