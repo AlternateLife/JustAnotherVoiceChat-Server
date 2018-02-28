@@ -517,6 +517,19 @@ void Server::onClientDisconnect(ENetEvent &event) {
   // remove client from list
   std::lock_guard<std::mutex> guard(_clientsMutex);
 
+  // remove client in other's references
+  auto client = getClientByPeer(event.peer);
+  if (client != nullptr) {
+    for (auto it = _clients.begin(); it != _clients.end(); it++) {
+      if (*it == client) {
+        continue;
+      }
+
+      (*it)->cleanupKnownClient(client);
+    }
+  }
+
+  // delete client from list
   auto it = _clients.begin();
   while (it != _clients.end()) {
     if ((*it)->peer() == event.peer) {
