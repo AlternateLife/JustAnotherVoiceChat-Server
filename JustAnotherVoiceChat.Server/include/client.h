@@ -32,7 +32,7 @@
 #include <string>
 #include <enet/enet.h>
 #include <linalg.h>
-#include <set>
+#include <vector>
 #include <mutex>
 
 namespace justAnotherVoiceChat {
@@ -51,13 +51,13 @@ namespace justAnotherVoiceChat {
     float _rotation;
     bool _positionChanged;
     float _voiceRange;
-    std::set<Client *> _audibleClients;
-    std::set<Client *> _addAudibleClients;
-    std::set<Client *> _removeAudibleClients;
+    std::vector<Client *> _audibleClients;
+    std::vector<Client *> _addAudibleClients;
+    std::vector<Client *> _removeAudibleClients;
 
-    std::set<relativeClient_t *> _relativeAudibleClients;
-    std::set<relativeClient_t *> _addRelativeAudibleClients;
-    std::set<Client *> _removeRelativeAudibleClients;
+    std::vector<relativeClient_t *> _relativeAudibleClients;
+    std::vector<relativeClient_t *> _addRelativeAudibleClients;
+    std::vector<Client *> _removeRelativeAudibleClients;
 
     bool _talking;
     bool _microphoneMuted;
@@ -65,7 +65,7 @@ namespace justAnotherVoiceChat {
     std::string _nickname;
 
     bool _muted;
-    std::set<Client *> _mutedClients;
+    std::vector<Client *> _mutedClients;
 
     std::mutex _audibleClientsMutex;
     std::mutex _mutedClientsMutex;
