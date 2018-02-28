@@ -78,8 +78,13 @@ void Client::cleanupKnownClient(Client *client) {
   // remove client reference from muted list
   std::unique_lock<std::mutex> mutedGuard(_mutedClientsMutex);
 
-  if (_mutedClients.find(client) != _mutedClients.end()) {
-    _mutedClients.erase(client);
+  auto mutedIt = _mutedClients.begin();
+  while (mutedIt != _mutedClients.end()) {
+    if (*mutedIt == client) {
+      mutedIt = _mutedClients.erase(mutedIt);
+    } else {
+      mutedIt++;
+    }
   }
 
   mutedGuard.unlock();
@@ -87,12 +92,22 @@ void Client::cleanupKnownClient(Client *client) {
   // remove client reference from audible lists
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
-  if (_audibleClients.find(client) != _audibleClients.end()) {
-    _removeAudibleClients.insert(client);
+  auto audibleIt = _audibleClients.begin();
+  while (audibleIt != _audibleClients.end()) {
+    if (*audibleIt == client) {
+      audibleIt = _audibleClients.erase(audibleIt);
+    } else {
+      audibleIt++;
+    }
   }
 
-  if (isRelativeClient(client)) {
-    _removeRelativeAudibleClients.insert(client);
+  auto relativeIt = _relativeAudibleClients.begin();
+  while (relativeIt != _relativeAudibleClients.end()) {
+    if ((*relativeIt)->client == client) {
+      relativeIt = _relativeAudibleClients.erase(relativeIt);
+    } else {
+      relativeIt++;
+    }
   }
 }
 
@@ -124,24 +139,37 @@ void Client::setMutedClient(Client *client, bool muted) {
   std::lock_guard<std::mutex> guard(_mutedClientsMutex);
 
   if (muted) {
-    if (_mutedClients.find(client) != _mutedClients.end()) {
-      return;
+    // search for already existing muted client
+    for (auto it = _mutedClients.begin(); it != _mutedClients.end(); it++) {
+      if (*it == client) {
+        return;
+      }
     }
 
-    _mutedClients.insert(client);
+    _mutedClients.push_back(client);
   } else {
-    if (_mutedClients.find(client) == _mutedClients.end()) {
-      return;
+    // erase all entries pointing to this client
+    auto it = _mutedClients.begin();
+    while (it != _mutedClients.end()) {
+      if (*it == client) {
+        it = _mutedClients.erase(it);
+      } else {
+        it++;
+      }
     }
-
-    _mutedClients.erase(client);
   }
 }
 
 bool Client::isMutedClient(Client *client) {
   std::lock_guard<std::mutex> guard(_mutedClientsMutex);
 
-  return (_mutedClients.find(client) != _mutedClients.end());
+  for (auto it = _mutedClients.begin(); it != _mutedClients.end(); it++) {
+    if (*it == client) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged) {
@@ -176,36 +204,53 @@ bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microp
 void Client::addAudibleClient(Client *client) {
   std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
-  if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
+  if (client->isMuted()) {
     return;
+  }
+
+  for (auto it = _mutedClients.begin(); it != _mutedClients.end(); it++) {
+    if (*it == client) {
+      return;
+    }
   }
 
   muteGuard.unlock();
 
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
-  if (_audibleClients.find(client) != _audibleClients.end()) {
-    return;
+  for (auto it = _audibleClients.begin(); it != _audibleClients.end(); it++) {
+    if (*it == client) {
+      return;
+    }
   }
 
-  _addAudibleClients.insert(client);
+  _addAudibleClients.push_back(client);
 }
 
 void Client::removeAudibleClient(Client *client) {
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
-  if (_audibleClients.find(client) == _audibleClients.end()) {
-    return;
+  auto it = _audibleClients.begin();
+  while (it != _audibleClients.end()) {
+    if (*it == client) {
+      it = _audibleClients.erase(it);
+    } else {
+      it++;
+    }
   }
-
-  _removeAudibleClients.insert(client);
 }
 
 void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
   std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
-  if (client->isMuted() || _mutedClients.find(client) != _mutedClients.end()) {
+  if (client->isMuted()) {
     return;
+  }
+
+  for (auto it = _mutedClients.begin(); it != _mutedClients.end(); it++) {
+    if (*it == client) {
+      return;
+    }
   }
 
   muteGuard.unlock();
@@ -220,7 +265,7 @@ void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 po
   relativeClient->client = client;
   relativeClient->offset = position;
 
-  _addRelativeAudibleClients.insert(relativeClient);
+  _addRelativeAudibleClients.push_back(relativeClient);
 }
 
 void Client::removeRelativeAudibleClient(Client *client) {
@@ -230,14 +275,14 @@ void Client::removeRelativeAudibleClient(Client *client) {
     return;
   }
 
-  _removeRelativeAudibleClients.insert(client);
+  _removeRelativeAudibleClients.push_back(client);
 }
 
 void Client::removeAllRelativeAudibleClients() {
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
   for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
-    _removeRelativeAudibleClients.insert((*it)->client);
+    _removeRelativeAudibleClients.push_back((*it)->client);
   }
 }
 
@@ -257,12 +302,21 @@ void Client::sendUpdate() {
       updatePacket.audioUpdates.push_back(audioUpdate);
     }
 
-    _audibleClients.insert(*it);
+    _audibleClients.push_back(*it);
   }
 
   for (auto it = _addRelativeAudibleClients.begin(); it != _addRelativeAudibleClients.end(); it++) {
     // only unmute if also not normal list
-    if (_audibleClients.find((*it)->client) == _audibleClients.end()) {
+    bool unmute = true;
+
+    for (auto audibleIt = _audibleClients.begin(); audibleIt != _audibleClients.end(); audibleIt++) {
+      if ((*it)->client == *audibleIt) {
+        unmute = false;
+        break;
+      }
+    }
+
+    if (unmute) {
       // add update packet
       clientAudioUpdate_t audioUpdate;
       audioUpdate.teamspeakId = (*it)->client->teamspeakId();
@@ -280,7 +334,7 @@ void Client::sendUpdate() {
 
     updatePacket.positionUpdates.push_back(positionUpdate);
 
-    _relativeAudibleClients.insert(*it);
+    _relativeAudibleClients.push_back(*it);
   }
 
   // send removed audible clients
@@ -294,12 +348,28 @@ void Client::sendUpdate() {
       updatePacket.audioUpdates.push_back(audioUpdate);
     }
 
-    _audibleClients.erase(*it);
+    auto removeIt = _audibleClients.begin();
+    while (removeIt != _audibleClients.end()) {
+      if (*removeIt == *it) {
+        removeIt = _audibleClients.erase(removeIt);
+      } else {
+        removeIt++;
+      }
+    }
   }
 
   for (auto it = _removeRelativeAudibleClients.begin(); it != _removeRelativeAudibleClients.end(); it++) {
     // only mute if also not in normal list
-    if (_audibleClients.find(*it) == _audibleClients.end()) {
+    bool mute = true;
+
+    for (auto audibleIt = _audibleClients.begin(); audibleIt != _audibleClients.end(); audibleIt++) {
+      if (*it == *audibleIt) {
+        mute = false;
+        break;
+      }
+    }
+
+    if (mute) {
       // add update packet
       clientAudioUpdate_t audioUpdate;
       audioUpdate.teamspeakId = (*it)->teamspeakId();
