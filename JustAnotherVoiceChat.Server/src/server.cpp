@@ -146,7 +146,7 @@ bool Server::removeClient(uint16_t gameId) {
   }
 
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
-    if (*it == client) {
+    if (*it == client || *it == nullptr) {
       continue;
     }
     
@@ -165,7 +165,9 @@ bool Server::removeAllClients() {
   }
 
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
-    (*it)->disconnect();
+    if (*it) {
+      (*it)->disconnect();
+    }
   }
 
   return true;
@@ -283,7 +285,7 @@ bool Server::muteClientForAll(uint16_t gameId, bool muted) {
 
   // calculate for every other client if mute changed
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
-    if (*it == client) {
+    if (*it == client || *it == nullptr) {
       continue;
     }
 
@@ -478,6 +480,10 @@ void Server::abortThreads() {
 
 std::shared_ptr<Client> Server::clientByGameId(uint16_t gameId) const {
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     if ((*it)->gameId() == gameId) {
       return *it;
     }
@@ -488,6 +494,10 @@ std::shared_ptr<Client> Server::clientByGameId(uint16_t gameId) const {
 
 std::shared_ptr<Client> Server::clientByTeamspeakId(uint16_t teamspeakId) const {
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     if ((*it)->teamspeakId() == teamspeakId) {
       return *it;
     }
@@ -498,6 +508,10 @@ std::shared_ptr<Client> Server::clientByTeamspeakId(uint16_t teamspeakId) const 
 
 std::shared_ptr<Client> Server::clientByPeer(ENetPeer *peer) const {
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
+    if (*it == nullptr) {
+      continue;
+    }
+
     if ((*it)->peer() == peer) {
       return *it;
     }
@@ -539,6 +553,11 @@ void Server::onClientDisconnect(ENetEvent &event) {
   // delete client from list
   auto it = _clients.begin();
   while (it != _clients.end()) {
+    if (*it == nullptr) {
+      it++;
+      continue;
+    }
+
     if ((*it)->peer() == event.peer) {
       // send callback
       if (_clientDisconnectedCallback != nullptr) {
