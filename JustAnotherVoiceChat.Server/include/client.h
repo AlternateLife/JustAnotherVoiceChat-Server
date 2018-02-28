@@ -118,12 +118,6 @@ namespace justAnotherVoiceChat {
 
   private:
     void sendControlMessage();
-
-    template <class T>
-    std::string serializePacket(T packet, bool *result);
-    template <class T>
-    T &deserializePacket(ENetPacket *packet, bool *result);
-
     void sendPacket(void *data, size_t length, int channel, bool reliable = true);
   
     bool isRelativeClient(Client *client) const;

@@ -128,10 +128,5 @@ namespace justAnotherVoiceChat {
     void handleHandshake(ENetEvent &event);
     void sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string reason);
     void sendProtocolResponse(ENetPeer *peer, int statusCode);
-
-    template <class T>
-    std::string serializePacket(T packet, bool *result);
-    template <class T>
-    T &deserializePacket(ENetPacket *packet, bool *result);
   };
 }

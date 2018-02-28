@@ -465,57 +465,6 @@ void Client::sendControlMessage() {
   sendPacket((void *)data.c_str(), data.size(), NETWORK_CONTROL_CHANNEL);
 }
 
-template <class T>
-std::string Client::serializePacket(T packet, bool *result) {
-  std::ostringstream os;
-
-  try {
-    cereal::BinaryOutputArchive archive(os);
-    archive(packet);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
-
-    if (result != nullptr) {
-      *result = false;
-    }
-
-    return "";
-  }
-
-  if (result != nullptr) {
-    *result = true;
-  }
-
-  return os.str();
-}
-
-template <class T>
-T &Client::deserializePacket(ENetPacket *packet, bool *result) {
-  std::string data((char *)packet->data, packet->dataLength);
-  std::istringstream is(data);
-
-  T outputPacket;
-
-  try {
-    cereal::BinaryInputArchive archive(is);
-    archive(outputPacket);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
-
-    if (result != nullptr) {
-      *result = false;
-    }
-
-    return outputPacket;
-  }
-
-  if (result != nullptr) {
-    *result = true;
-  }
-
-  return outputPacket;
-}
-
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
   enet_uint32 flags = 0;
 
