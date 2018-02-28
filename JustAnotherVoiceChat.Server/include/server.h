@@ -36,6 +36,7 @@
 #include <linalg.h>
 #include <string>
 #include <mutex>
+#include <memory>
 
 namespace justAnotherVoiceChat {
   typedef void (* ClientCallback_t)(uint16_t);
@@ -52,7 +53,7 @@ namespace justAnotherVoiceChat {
 
     std::thread *_thread;
     std::thread *_clientUpdateThread;
-    std::vector<Client *> _clients;
+    std::vector<std::shared_ptr<Client>> _clients;
     std::mutex _clientsMutex;
 
     ClientConnectingCallback_t _clientConnectingCallback;
@@ -116,9 +117,9 @@ namespace justAnotherVoiceChat {
     void updateClients();
     void abortThreads();
 
-    Client *clientByGameId(uint16_t gameId) const;
-    Client *clientByTeamspeakId(uint16_t teamspeakId) const;
-    Client *clientByPeer(ENetPeer *peer) const;
+    std::shared_ptr<Client> clientByGameId(uint16_t gameId) const;
+    std::shared_ptr<Client> clientByTeamspeakId(uint16_t teamspeakId) const;
+    std::shared_ptr<Client> clientByPeer(ENetPeer *peer) const;
 
     void onClientConnect(ENetEvent &event);
     void onClientDisconnect(ENetEvent &event);

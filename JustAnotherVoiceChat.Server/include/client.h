@@ -34,12 +34,13 @@
 #include <linalg.h>
 #include <vector>
 #include <mutex>
+#include <memory>
 
 namespace justAnotherVoiceChat {
   class JUSTANOTHERVOICECHAT_API Client {
   private:
     typedef struct {
-      Client *client;
+      std::shared_ptr<Client> client;
       linalg::aliases::float3 offset;
     } relativeClient_t;
 
@@ -51,13 +52,13 @@ namespace justAnotherVoiceChat {
     float _rotation;
     bool _positionChanged;
     float _voiceRange;
-    std::vector<Client *> _audibleClients;
-    std::vector<Client *> _addAudibleClients;
-    std::vector<Client *> _removeAudibleClients;
+    std::vector<std::shared_ptr<Client>> _audibleClients;
+    std::vector<std::shared_ptr<Client>> _addAudibleClients;
+    std::vector<std::shared_ptr<Client>> _removeAudibleClients;
 
     std::vector<relativeClient_t> _relativeAudibleClients;
     std::vector<relativeClient_t> _addRelativeAudibleClients;
-    std::vector<Client *> _removeRelativeAudibleClients;
+    std::vector<std::shared_ptr<Client>> _removeRelativeAudibleClients;
 
     bool _talking;
     bool _microphoneMuted;
@@ -65,7 +66,7 @@ namespace justAnotherVoiceChat {
     std::string _nickname;
 
     bool _muted;
-    std::vector<Client *> _mutedClients;
+    std::vector<std::shared_ptr<Client>> _mutedClients;
 
     std::mutex _audibleClientsMutex;
     std::mutex _mutedClientsMutex;
@@ -80,7 +81,7 @@ namespace justAnotherVoiceChat {
     void disconnect();
     bool isConnected() const;
 
-    void cleanupKnownClient(Client *client);
+    void cleanupKnownClient(std::shared_ptr<Client> client);
 
     bool isTalking() const;
     bool hasMicrophoneMuted() const;
@@ -89,16 +90,16 @@ namespace justAnotherVoiceChat {
 
     void setMuted(bool muted);
     bool isMuted() const;
-    void setMutedClient(Client *client, bool muted);
-    bool isMutedClient(Client *client);
+    void setMutedClient(std::shared_ptr<Client> client, bool muted);
+    bool isMutedClient(std::shared_ptr<Client> client);
 
     bool handleHandshake(ENetPacket *packet);
     bool handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged);
 
-    void addAudibleClient(Client *client);
-    void removeAudibleClient(Client *client);
-    void addRelativeAudibleClient(Client *client, linalg::aliases::float3 position);
-    void removeRelativeAudibleClient(Client *client);
+    void addAudibleClient(std::shared_ptr<Client> client);
+    void removeAudibleClient(std::shared_ptr<Client> client);
+    void addRelativeAudibleClient(std::shared_ptr<Client> client, linalg::aliases::float3 position);
+    void removeRelativeAudibleClient(std::shared_ptr<Client> client);
     void removeAllRelativeAudibleClients();
 
     void sendUpdate();
@@ -120,6 +121,6 @@ namespace justAnotherVoiceChat {
     void sendControlMessage();
     void sendPacket(void *data, size_t length, int channel, bool reliable = true);
   
-    bool isRelativeClient(Client *client) const;
+    bool isRelativeClient(std::shared_ptr<Client> client) const;
   };
 }

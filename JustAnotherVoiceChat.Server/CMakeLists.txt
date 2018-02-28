@@ -18,7 +18,7 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if(WIN32)
-  add_definitions(-DNOMINMAX)
+  add_definitions(-DNOMINMAX /wd4251)
 endif(WIN32)
 
 include_directories(include)
