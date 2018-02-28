@@ -43,15 +43,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 
         private FakeVoiceServer _voiceServer;
         
-        private Mock<IVoiceWrapper> _voiceWrapper;
+        private VoiceWrapperEventInvoker _voiceWrapper;
 
         [SetUp]
         public void SetUp()
         {
-            _voiceWrapper = new Mock<IVoiceWrapper>();
-            _voiceWrapper.Setup(e => e.StartNativeServer()).Returns(true);
+            _voiceWrapper = new VoiceWrapperEventInvoker();
+            _voiceWrapper.Mock.Setup(e => e.StartNativeServer()).Returns(true);
             
-            _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), new VoiceServerConfiguration("localhost", 23332, "Identit3y7rrV3RYNiC3MnupTwgeA=", 130, "123"), _voiceWrapper.Object);
+            _voiceServer = new FakeVoiceServer(new FakeVoiceClientFactory(), new VoiceServerConfiguration("localhost", 23332, "Identit3y7rrV3RYNiC3MnupTwgeA=", 130, "123"), _voiceWrapper);
             _voiceServer.Start();
         }
 
@@ -170,6 +170,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         public void MuteForNullThrowsArgumentNullException()
         {
             var client = _voiceServer.PrepareClient(49);
+            _voiceWrapper.InvokeClientConnectedCallback(client.Handle.Identifer);
 
             Assert.Throws<ArgumentNullException>(() => { client.MuteSpeaker(null, true); });
         }
@@ -178,6 +179,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         public void IsMutedForNullThrowsArgumentNullException()
         {
             var client = _voiceServer.PrepareClient(1);
+            _voiceWrapper.InvokeClientConnectedCallback(client.Handle.Identifer);
 
             Assert.Throws<ArgumentNullException>(() => { client.IsSpeakerMuted(null); });
         }
@@ -186,22 +188,24 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         public void MuteForAllTriggersWrapper()
         {
             var client = _voiceServer.PrepareClient(2);
-            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForAll(client, true));
+            _voiceWrapper.InvokeClientConnectedCallback(client.Handle.Identifer);
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.MuteClientForAll(client, true));
 
             client.MuteForAll(true);
 
-            _voiceWrapper.Verify(e => e.MuteClientForAll(client, true), Times.Once);
+            _voiceWrapper.Mock.Verify(e => e.MuteClientForAll(client, true), Times.Once);
         }
 
         [Test]
         public void IsMutedForAllTriggersWrapper()
         {
             var client = _voiceServer.PrepareClient(2);
-            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForAll(client));
+            _voiceWrapper.InvokeClientConnectedCallback(client.Handle.Identifer);
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.IsClientMutedForAll(client));
 
             client.IsMutedForAll();
 
-            _voiceWrapper.Verify(e => e.IsClientMutedForAll(client), Times.Once);
+            _voiceWrapper.Mock.Verify(e => e.IsClientMutedForAll(client), Times.Once);
         }
 
         [Test]
@@ -209,11 +213,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             var listener = _voiceServer.PrepareClient(2);
             var speaker = _voiceServer.PrepareClient(3);
-            _voiceWrapper.Setup(wrapper => wrapper.MuteClientForClient(speaker, listener, true));
+            _voiceWrapper.InvokeClientConnectedCallback(listener.Handle.Identifer);
+            _voiceWrapper.InvokeClientConnectedCallback(speaker.Handle.Identifer);
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.MuteClientForClient(speaker, listener, true));
 
             listener.MuteSpeaker(speaker, true);
 
-            _voiceWrapper.Verify(e => e.MuteClientForClient(speaker, listener, true), Times.Once);
+            _voiceWrapper.Mock.Verify(e => e.MuteClientForClient(speaker, listener, true), Times.Once);
         }
 
         [Test]
@@ -221,11 +227,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         {
             var listener = _voiceServer.PrepareClient(2);
             var speaker = _voiceServer.PrepareClient(3);
-            _voiceWrapper.Setup(wrapper => wrapper.IsClientMutedForClient(speaker, listener));
+            _voiceWrapper.InvokeClientConnectedCallback(listener.Handle.Identifer);
+            _voiceWrapper.InvokeClientConnectedCallback(speaker.Handle.Identifer);
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.IsClientMutedForClient(speaker, listener));
 
             listener.IsSpeakerMuted(speaker);
 
-            _voiceWrapper.Verify(e => e.IsClientMutedForClient(speaker, listener), Times.Once);
+            _voiceWrapper.Mock.Verify(e => e.IsClientMutedForClient(speaker, listener), Times.Once);
         }
 
     }

@@ -89,9 +89,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         }
 
         private void OnClientPrepared(IGtmpVoiceClient client)
-        {
-            _voiceServer.NativeWrapper.SetClientVoiceRange(client, 15);
-            
+        {           
             OnHandshakeShouldResend(client);
         }
 
