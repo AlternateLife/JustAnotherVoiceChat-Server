@@ -414,11 +414,11 @@ void Server::updateClients() {
     // calculate update for clients
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
       // calculate update packet for this client
-      Client *client = *it;
+      auto client = *it;
 
       for (auto clientIt = _clients.begin(); clientIt != _clients.end(); clientIt++) {
         // client to be heard
-        Client *audibleClient = *clientIt;
+        auto audibleClient = *clientIt;
         if (audibleClient == client) {
           continue;
         }
@@ -460,7 +460,6 @@ void Server::abortThreads() {
     if (_thread->joinable()) {
       _thread->join();
     }
-    
 
     delete _thread;
     _thread = nullptr;
@@ -470,14 +469,13 @@ void Server::abortThreads() {
     if (_clientUpdateThread->joinable()) {
       _clientUpdateThread->join();
     }
-    
 
     delete _clientUpdateThread;
     _clientUpdateThread = nullptr;
   }
 }
 
-Client *Server::clientByGameId(uint16_t gameId) const {
+std::shared_ptr<Client> Server::clientByGameId(uint16_t gameId) const {
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->gameId() == gameId) {
       return *it;
@@ -487,7 +485,7 @@ Client *Server::clientByGameId(uint16_t gameId) const {
   return nullptr;
 }
 
-Client *Server::clientByTeamspeakId(uint16_t teamspeakId) const {
+std::shared_ptr<Client> Server::clientByTeamspeakId(uint16_t teamspeakId) const {
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->teamspeakId() == teamspeakId) {
       return *it;
@@ -497,7 +495,7 @@ Client *Server::clientByTeamspeakId(uint16_t teamspeakId) const {
   return nullptr;
 }
 
-Client *Server::clientByPeer(ENetPeer *peer) const {
+std::shared_ptr<Client> Server::clientByPeer(ENetPeer *peer) const {
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
     if ((*it)->peer() == peer) {
       return *it;
@@ -684,7 +682,7 @@ void Server::handleHandshake(ENetEvent &event) {
     // save new client in list
     guard.lock();
 
-    client = new Client(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
+    client = std::make_shared<Client>(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
     _clients.push_back(client);
 
     guard.unlock();

@@ -74,7 +74,7 @@ bool Client::isConnected() const {
   return _peer != nullptr;
 }
 
-void Client::cleanupKnownClient(Client *client) {
+void Client::cleanupKnownClient(std::shared_ptr<Client> client) {
   // remove client reference from muted list
   std::unique_lock<std::mutex> mutedGuard(_mutedClientsMutex);
 
@@ -135,7 +135,7 @@ bool Client::isMuted() const {
   return _muted;
 }
 
-void Client::setMutedClient(Client *client, bool muted) {
+void Client::setMutedClient(std::shared_ptr<Client> client, bool muted) {
   std::lock_guard<std::mutex> guard(_mutedClientsMutex);
 
   if (muted) {
@@ -160,7 +160,7 @@ void Client::setMutedClient(Client *client, bool muted) {
   }
 }
 
-bool Client::isMutedClient(Client *client) {
+bool Client::isMutedClient(std::shared_ptr<Client> client) {
   std::lock_guard<std::mutex> guard(_mutedClientsMutex);
 
   for (auto it = _mutedClients.begin(); it != _mutedClients.end(); it++) {
@@ -201,7 +201,7 @@ bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microp
   return *talkingChanged || *microphoneChanged || *speakersChanged;
 }
 
-void Client::addAudibleClient(Client *client) {
+void Client::addAudibleClient(std::shared_ptr<Client> client) {
   std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
   if (client->isMuted()) {
@@ -227,7 +227,7 @@ void Client::addAudibleClient(Client *client) {
   _addAudibleClients.push_back(client);
 }
 
-void Client::removeAudibleClient(Client *client) {
+void Client::removeAudibleClient(std::shared_ptr<Client> client) {
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
   auto it = _audibleClients.begin();
@@ -240,7 +240,7 @@ void Client::removeAudibleClient(Client *client) {
   }
 }
 
-void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 position) {
+void Client::addRelativeAudibleClient(std::shared_ptr<Client> client, linalg::aliases::float3 position) {
   std::unique_lock<std::mutex> muteGuard(_mutedClientsMutex);
 
   if (client->isMuted()) {
@@ -266,7 +266,7 @@ void Client::addRelativeAudibleClient(Client *client, linalg::aliases::float3 po
   _addRelativeAudibleClients.back().offset = position;
 }
 
-void Client::removeRelativeAudibleClient(Client *client) {
+void Client::removeRelativeAudibleClient(std::shared_ptr<Client> client) {
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
   if (isRelativeClient(client) == false) {
@@ -564,7 +564,7 @@ void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
   enet_peer_send(_peer, (enet_uint8)channel, packet);
 }
 
-bool Client::isRelativeClient(Client *client) const {
+bool Client::isRelativeClient(std::shared_ptr<Client> client) const {
   for (auto it = _relativeAudibleClients.begin(); it != _relativeAudibleClients.end(); it++) {
     if ((*it).client == client) {
       return true;
