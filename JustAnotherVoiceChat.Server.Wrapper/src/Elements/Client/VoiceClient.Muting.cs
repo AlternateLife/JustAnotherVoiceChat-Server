@@ -32,43 +32,41 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
     public partial class VoiceClient<TClient> where TClient : IVoiceClient
     {
-        private bool _lastMuteForAllState;
-
-        private object _lastStateLock = new object();
 
         public bool MuteForAll(bool muted)
         {
-            lock (_lastStateLock)
-            {
-                _lastMuteForAllState = muted;
-            }
-
-            return Server.NativeWrapper.MuteClientForAll(this, muted);
+            return RunWhileConnected(() => Server.NativeWrapper.MuteClientForAll(this, muted));
         }
 
         public bool IsMutedForAll()
         {
-            return Server.NativeWrapper.IsClientMutedForAll(this);
+            return RunWhileConnected(() => Server.NativeWrapper.IsClientMutedForAll(this));
         }
 
         public bool MuteSpeaker(IVoiceClient speaker, bool muted)
         {
-            if (speaker == null)
+            return RunWhileConnected(() =>
             {
-                throw new ArgumentNullException(nameof(speaker));
-            }
+                if (speaker == null)
+                {
+                    throw new ArgumentNullException(nameof(speaker));
+                }
 
-            return Server.NativeWrapper.MuteClientForClient(speaker, this, muted);
+                return Server.NativeWrapper.MuteClientForClient(speaker, this, muted);
+            });
         }
 
         public bool IsSpeakerMuted(IVoiceClient speaker)
         {
-            if (speaker == null)
+            return RunWhileConnected(() =>
             {
-                throw new ArgumentNullException(nameof(speaker));
-            }
+                if (speaker == null)
+                {
+                    throw new ArgumentNullException(nameof(speaker));
+                }
 
-            return Server.NativeWrapper.IsClientMutedForClient(speaker, this);
+                return Server.NativeWrapper.IsClientMutedForClient(speaker, this);
+            });
         }
     }
 }

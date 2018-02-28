@@ -51,17 +51,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
         private void OnClientConnected(TClient client)
         {
-            ExecuteOnMe(client, () => 
-            {
-                Connected = true;
-                bool lastState;
-                lock (_lastStateLock)
-                {
-                    lastState = _lastMuteForAllState;
-                }
-
-                MuteForAll(lastState);
-            });
+            ExecuteOnMe(client, () => { Connected = true; });
         }
 
         private void OnClientDisconnected(TClient client)

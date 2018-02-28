@@ -25,9 +25,11 @@
  * SOFTWARE.
  */
 
+using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
+using System;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 {
@@ -64,6 +66,16 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
         public bool SetNickname(string nickname)
         {
             return Server.NativeWrapper.SetClientNickname(this, nickname);
+        }
+
+        private T RunWhileConnected<T>(Func<T> callback)
+        {
+            if (!Connected)
+            {
+                throw new ClientNotConnectedException(this.Handle);
+            }
+
+            return callback();
         }
 
         public void Dispose()
