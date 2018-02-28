@@ -145,16 +145,9 @@ bool Client::isMutedClient(Client *client) {
 }
 
 bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged) {
-  statusPacket_t statusPacket;
-
-  std::string data((char *)packet->data, packet->dataLength);
-  std::istringstream is(data);
-
-  try {
-    cereal::BinaryInputArchive archive(is);
-    archive(statusPacket);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
+  bool result = false;
+  auto statusPacket = deserializePacket<statusPacket_t>(packet, &result);
+  if (result == false) {
     return false;
   }
 
@@ -334,17 +327,12 @@ void Client::sendUpdate() {
   guard.unlock();
 
   // send update packet
-  std::ostringstream os;
-
-  try {
-    cereal::BinaryOutputArchive archive(os);
-    archive(updatePacket);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
+  bool result = false;
+  auto data = serializePacket<updatePacket_t>(updatePacket, &result);
+  if (result == false) {
     return;
   }
 
-  auto data = os.str();
   sendPacket((void *)data.c_str(), data.size(), NETWORK_UPDATE_CHANNEL);
 
   // clear update lists
@@ -396,17 +384,12 @@ void Client::sendPositions() {
   guard.unlock();
 
   // serialize packet
-  std::ostringstream os;
-
-  try {
-    cereal::BinaryOutputArchive archive(os);
-    archive(packet);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
+  bool result = false;
+  auto data = serializePacket<positionPacket_t>(packet, &result);
+  if (result == false) {
     return;
   }
 
-  auto data = os.str();
   sendPacket((void *)data.c_str(), data.size(), NETWORK_POSITION_CHANNEL, false);
 }
 
@@ -473,18 +456,64 @@ void Client::sendControlMessage() {
   controlPacket.nickname = _nickname;
 
   // send update packet
+  bool result = false;
+  auto data = serializePacket<controlPacket_t>(controlPacket, &result);
+  if (result == false) {
+    return;
+  }
+
+  sendPacket((void *)data.c_str(), data.size(), NETWORK_CONTROL_CHANNEL);
+}
+
+template <class T>
+std::string Client::serializePacket(T packet, bool *result) {
   std::ostringstream os;
 
   try {
     cereal::BinaryOutputArchive archive(os);
-    archive(controlPacket);
+    archive(packet);
   } catch (std::exception &e) {
     logMessage(e.what(), LOG_LEVEL_ERROR);
-    return;
+
+    if (result != nullptr) {
+      *result = false;
+    }
+
+    return "";
   }
 
-  auto data = os.str();
-  sendPacket((void *)data.c_str(), data.size(), NETWORK_CONTROL_CHANNEL);
+  if (result != nullptr) {
+    *result = true;
+  }
+
+  return os.str();
+}
+
+template <class T>
+T &Client::deserializePacket(ENetPacket *packet, bool *result) {
+  std::string data((char *)packet->data, packet->dataLength);
+  std::istringstream is(data);
+
+  T outputPacket;
+
+  try {
+    cereal::BinaryInputArchive archive(is);
+    archive(outputPacket);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+
+    if (result != nullptr) {
+      *result = false;
+    }
+
+    return outputPacket;
+  }
+
+  if (result != nullptr) {
+    *result = true;
+  }
+
+  return outputPacket;
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {

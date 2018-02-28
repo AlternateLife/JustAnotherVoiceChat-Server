@@ -595,16 +595,9 @@ void Server::onClientMessage(ENetEvent &event) {
 }
 
 void Server::handleProtocolMessage(ENetEvent &event) {
-  protocolPacket_t protocolPacket;
-
-  std::string data((char *)event.packet->data, event.packet->dataLength);
-  std::istringstream is(data);
-
-  try {
-    cereal::BinaryInputArchive archive(is);
-    archive(protocolPacket);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
+  bool result = false;
+  protocolPacket_t protocolPacket = deserializePacket<protocolPacket_t>(event.packet, &result);
+  if (result == false) {
     return;
   }
 
@@ -635,16 +628,9 @@ void Server::handleProtocolMessage(ENetEvent &event) {
 }
 
 void Server::handleHandshake(ENetEvent &event) {
-  handshakePacket_t handshakePacket;
-
-  std::string data((char *)event.packet->data, event.packet->dataLength);
-  std::istringstream is(data);
-
-  try {
-    cereal::BinaryInputArchive archive(is);
-    archive(handshakePacket);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
+  bool result = false;
+  handshakePacket_t handshakePacket = deserializePacket<handshakePacket_t>(event.packet, &result);
+  if (result == false) {
     return;
   }
 
@@ -706,18 +692,11 @@ void Server::sendHandshakeResponse(ENetPeer *peer, int statusCode, std::string r
   packet.channelPassword = _teamspeakChannelPassword;
 
   // serialize packet
-  std::ostringstream os;
-
-  try {
-    cereal::BinaryOutputArchive archive(os);
-    archive(packet);
-  } catch (std::exception &e) {
-    logMessage(e.what(), LOG_LEVEL_ERROR);
+  bool result = false;
+  auto data = serializePacket<handshakeResponsePacket_t>(packet, &result);
+  if (result == false) {
     return;
   }
-
-  // send packet
-  auto data = os.str();
 
   ENetPacket *rawPacket = enet_packet_create(data.c_str(), data.size(), ENET_PACKET_FLAG_RELIABLE);
   enet_peer_send(peer, NETWORK_HANDSHAKE_CHANNEL, rawPacket);
@@ -730,6 +709,18 @@ void Server::sendProtocolResponse(ENetPeer *peer, int statusCode) {
   packet.versionMinor = PROTOCOL_VERSION_MINOR;
 
   // serialize packet
+  bool result = false;
+  auto data = serializePacket<protocolResponsePacket_t>(packet, &result);
+  if (result == false) {
+    return;
+  }
+
+  ENetPacket *rawPacket = enet_packet_create(data.c_str(), data.size(), ENET_PACKET_FLAG_RELIABLE);
+  enet_peer_send(peer, NETWORK_PROTOCOL_CHANNEL, rawPacket);
+}
+
+template <class T>
+std::string Server::serializePacket(T packet, bool *result) {
   std::ostringstream os;
 
   try {
@@ -737,12 +728,44 @@ void Server::sendProtocolResponse(ENetPeer *peer, int statusCode) {
     archive(packet);
   } catch (std::exception &e) {
     logMessage(e.what(), LOG_LEVEL_ERROR);
-    return;
+
+    if (result != nullptr) {
+      *result = false;
+    }
+
+    return "";
   }
 
-  // send packet
-  auto data = os.str();
+  if (result != nullptr) {
+    *result = true;
+  }
 
-  ENetPacket *rawPacket = enet_packet_create(data.c_str(), data.size(), ENET_PACKET_FLAG_RELIABLE);
-  enet_peer_send(peer, NETWORK_PROTOCOL_CHANNEL, rawPacket);
+  return os.str();
+}
+
+template <class T>
+T &Server::deserializePacket(ENetPacket *packet, bool *result) {
+  std::string data((char *)packet->data, packet->dataLength);
+  std::istringstream is(data);
+
+  T outputPacket;
+
+  try {
+    cereal::BinaryInputArchive archive(is);
+    archive(outputPacket);
+  } catch (std::exception &e) {
+    logMessage(e.what(), LOG_LEVEL_ERROR);
+
+    if (result != nullptr) {
+      *result = false;
+    }
+
+    return outputPacket;
+  }
+
+  if (result != nullptr) {
+    *result = true;
+  }
+
+  return outputPacket;
 }
