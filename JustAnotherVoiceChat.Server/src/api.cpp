@@ -42,7 +42,11 @@ void JV_UnregisterLogMessageCallback() {
 }
 
 void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t teamspeakChannelId, const char *teamspeakChannelPassword) {
+  logMessage("Creating server", LOG_LEVEL_DEBUG);
+
   if (_server != nullptr) {
+    logMessage("Server already created", LOG_LEVEL_WARNING);
+
     return;
   }
 
@@ -50,7 +54,10 @@ void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t team
 }
 
 void JV_DestroyServer() {
+  logMessage("Destroying server", LOG_LEVEL_DEBUG);
+
   if (_server == nullptr) {
+    logMessage("Server already destroyed", LOG_LEVEL_WARNING);
     return;
   }
 
@@ -59,7 +66,10 @@ void JV_DestroyServer() {
 }
 
 bool JV_StartServer() {
+  logMessage("Starting server", LOG_LEVEL_DEBUG);
+
   if (_server == nullptr) {
+    logMessage("Server not created", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -67,7 +77,10 @@ bool JV_StartServer() {
 }
 
 void JV_StopServer() {
+  logMessage("Stopping server", LOG_LEVEL_DEBUG);
+
   if (_server == nullptr) {
+    logMessage("Server not created", LOG_LEVEL_WARNING);
     return;
   }
 
@@ -207,7 +220,10 @@ void JV_GetClientGameIds(uint16_t *, size_t) {
 }
 
 bool JV_RemoveClient(uint16_t clientId) {
+  logMessage("JV_RemoveClient called", LOG_LEVEL_DEBUG);
+
   if (_server == nullptr || _server->isRunning() == false) {
+    logMessage("JV server is not available", LOG_LEVEL_WARNING);
     return false;
   }
 

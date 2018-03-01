@@ -138,8 +138,10 @@ int Server::numberOfClients() const {
 }
 
 bool Server::removeClient(uint16_t gameId) {
+  logMessage("Locking in removeClient", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
-  
+  logMessage("Locked in removeClient", LOG_LEVEL_DEBUG);
+
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
     logMessage("Client to be removed not found: " + std::to_string(gameId), LOG_LEVEL_WARNING);
@@ -147,7 +149,12 @@ bool Server::removeClient(uint16_t gameId) {
   }
 
   for (auto it = _clients.begin(); it != _clients.end(); it++) {
-    if (*it == client || *it == nullptr) {
+    if (*it == client) {
+      continue;
+    }
+
+    if (*it == nullptr) {
+      logMessage("Nullpointer in client list", LOG_LEVEL_WARNING);
       continue;
     }
     
@@ -177,11 +184,15 @@ bool Server::removeClient(uint16_t gameId) {
     }
   }
 
+  logMessage("Removed client " + std::to_string(gameId), LOG_LEVEL_DEBUG);
+
   return true;
 }
 
 bool Server::removeAllClients() {
+  logMessage("Locking in removeAllClient", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in removeAllClient", LOG_LEVEL_DEBUG);
 
   if (_clients.empty()) {
     return false;
@@ -197,10 +208,13 @@ bool Server::removeAllClients() {
 }
 
 bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation) {
+  logMessage("Locking in setClientPosition", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in setClientPosition", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Unable to find client " + std::to_string(gameId) + " for position", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -210,7 +224,10 @@ bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position
 }
 
 bool Server::setClientPositions(clientPosition_t *positionUpdates, int length) {
+  logMessage("Locking in setClientPositions", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex); 
+  logMessage("Locked in setClientPositions", LOG_LEVEL_DEBUG);
+
   bool success = true;
 
   for (int i = 0; i < length; i++) {
@@ -228,10 +245,13 @@ bool Server::setClientPositions(clientPosition_t *positionUpdates, int length) {
 }
 
 bool Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
+  logMessage("Locking in setClientVoiceRange", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in setClientVoiceRange", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Unable to find client " + std::to_string(gameId) + " for voice range", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -240,10 +260,13 @@ bool Server::setClientVoiceRange(uint16_t gameId, float voiceRange) {
 }
 
 bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
+  logMessage("Locking in setClientNickname", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in setClientNickname", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Unable to find client " + std::to_string(gameId) + " for nickname", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -252,11 +275,14 @@ bool Server::setClientNickname(uint16_t gameId, std::string nickname) {
 }
 
 bool Server::setRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, linalg::aliases::float3 position) {
+  logMessage("Locking in setRelativePositionForClient", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in setRelativePositionForClient", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (client == nullptr || speaker == nullptr) {
+    logMessage("Unable to find client " + std::to_string(listenerId) + " for relative position", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -265,11 +291,14 @@ bool Server::setRelativePositionForClient(uint16_t listenerId, uint16_t speakerI
 }
 
 bool Server::resetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+  logMessage("Locking in resetRelativePositionForClient", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in resetRelativePositionForClient", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (client == nullptr || speaker == nullptr) {
+    logMessage("Unable to find client " + std::to_string(listenerId) + " for relative position reset", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -278,10 +307,13 @@ bool Server::resetRelativePositionForClient(uint16_t listenerId, uint16_t speake
 }
 
 bool Server::resetAllRelativePositions(uint16_t gameId) {
+  logMessage("Locking in resetAllRelativePositions", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in resetAllRelativePositions", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Unable to find client " + std::to_string(gameId) + " for reset all relative positions", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -297,10 +329,13 @@ void Server::set3DSettings(float distanceFactor, float rolloffFactor) {
 }
 
 bool Server::muteClientForAll(uint16_t gameId, bool muted) {
+  logMessage("Locking in muteClientForAll", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in muteClientForAll", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Unable to find client " + std::to_string(gameId) + " for mute client for all", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -327,10 +362,13 @@ bool Server::muteClientForAll(uint16_t gameId, bool muted) {
 }
 
 bool Server::isClientMutedForAll(uint16_t gameId) {
+  logMessage("Locking in isClientMutedForAll", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in isClientMutedForAll", LOG_LEVEL_DEBUG);
 
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Unable to find client " + std::to_string(gameId) + " for is client muted", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -338,11 +376,14 @@ bool Server::isClientMutedForAll(uint16_t gameId) {
 }
 
 bool Server::muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted) {
+  logMessage("Locking in muteClientForClient", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in muteClientForClient", LOG_LEVEL_DEBUG);
 
   auto listener = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (listener == nullptr || speaker == nullptr) {
+    logMessage("Unable to find client " + std::to_string(speakerId) + " for mute client for client", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -360,11 +401,14 @@ bool Server::muteClientForClient(uint16_t speakerId, uint16_t listenerId, bool m
 }
 
 bool Server::isClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
+  logMessage("Locking in isClientMutedForClient", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in isClientMutedForClient", LOG_LEVEL_DEBUG);
 
   auto listener = clientByGameId(listenerId);
   auto speaker = clientByGameId(speakerId);
   if (listener == nullptr || speaker == nullptr) {
+    logMessage("Unable to find client " + std::to_string(speakerId) + " for voice range", LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -402,7 +446,7 @@ void Server::registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t 
 void Server::update() {
   ENetEvent event;
 
-  while (_running) {
+  while (_running && _server != nullptr) {
     int code = enet_host_service(_server, &event, 1);
 
     if (code > 0) {
@@ -426,17 +470,26 @@ void Server::update() {
       logMessage("Network error: " + std::to_string(code), LOG_LEVEL_ERROR);
     }
   }
+
+  logMessage("Update thread stopped", LOG_LEVEL_INFO);
 }
 
 void Server::updateClients() {
   while (_running) {
+    logMessage("Locking in updateClients", LOG_LEVEL_DEBUG);
     std::unique_lock<std::mutex> guard(_clientsMutex);
+    logMessage("Locked in updateClients", LOG_LEVEL_DEBUG);
 
     // calculate update for clients
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
       // calculate update packet for this client
       auto client = *it;
-      if (client == nullptr || client->isConnected() == false) {
+      if (client == nullptr) {
+        continue;
+      }
+
+      if (client->isConnected() == false) {
+        logMessage("Client is not connected but in list", LOG_LEVEL_WARNING);
         continue;
       }
 
@@ -559,7 +612,9 @@ void Server::onClientDisconnect(ENetEvent &event) {
   logMessage(std::string("Client disconnected ") + ip + ":" + std::to_string(event.peer->address.port), LOG_LEVEL_INFO);
 
   // remove client from list
+  logMessage("Locking in onClientDisconnect", LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in onClientDisconnect", LOG_LEVEL_DEBUG);
 
   // remove client in other's references
   auto client = clientByPeer(event.peer);
@@ -571,6 +626,8 @@ void Server::onClientDisconnect(ENetEvent &event) {
 
       (*it)->cleanupKnownClient(client);
     }
+  } else {
+    logMessage("Client not found for peer on disconnect", LOG_LEVEL_DEBUG);
   }
 
   // delete client from list
@@ -582,6 +639,8 @@ void Server::onClientDisconnect(ENetEvent &event) {
     }
 
     if ((*it)->peer() == event.peer) {
+      logMessage("Client found, erasing from list", LOG_LEVEL_DEBUG);
+
       // send callback
       if (_clientDisconnectedCallback != nullptr) {
         _clientDisconnectedCallback((*it)->gameId());
@@ -609,7 +668,9 @@ void Server::onClientMessage(ENetEvent &event) {
   }
 
   // get client for message
+  logMessage("Locking in onClientMessage " + std::to_string(event.channelID), LOG_LEVEL_DEBUG);
   std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in onClientMessage", LOG_LEVEL_DEBUG);
 
   auto client = clientByPeer(event.peer);
   if (client == nullptr) {
@@ -718,7 +779,9 @@ void Server::handleHandshake(ENetEvent &event) {
     sendHandshakeResponse(event.peer, STATUS_CODE_OK, "OK");
   } else {
     // search for already existing client
+    logMessage("Locking in handleHandshake", LOG_LEVEL_DEBUG);
     std::unique_lock<std::mutex> guard(_clientsMutex);
+    logMessage("Locked in handleHandshake", LOG_LEVEL_DEBUG);
 
     auto client = clientByPeer(event.peer);
     if (client != nullptr) {
