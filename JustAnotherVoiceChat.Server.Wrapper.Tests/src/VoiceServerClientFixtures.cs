@@ -162,8 +162,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             
             var fakeClient = new FakeVoiceClient(10, _voiceServer, VoiceHandle.Empty);
             
-            Assert.Throws<InvalidClientException>(() => { _voiceServer.RemoveClient(client); });
-            Assert.Throws<InvalidClientException>(() => { _voiceServer.RemoveClient(fakeClient); });
+            Assert.IsFalse(_voiceServer.RemoveClient(client));
+            Assert.IsFalse(_voiceServer.RemoveClient(fakeClient));
         }
 
         [Test]
