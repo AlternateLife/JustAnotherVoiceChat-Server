@@ -37,6 +37,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         private bool OnClientConnectingFromVoice(ushort handle, string teamspeakId)
         {
+            Log($"OnClientConnectingFromVoice({handle}, {teamspeakId})");
             return RunWhenClientValid(handle, client =>
             {
                 if (client.Connected)
@@ -53,6 +54,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void OnClientConnectedFromVoice(ushort handle)
         {
+            Log($"OnClientConnectedFromVoice({handle})");
             RunWhenClientValid(handle, client =>
             {
                 if (client.Connected)
@@ -66,6 +68,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         private void OnClientRejectedFromVoice(ushort handle, int statusCode)
         {
+            Log($"OnClientRejectedFromVoice({handle}, {statusCode})");
             RunWhenClientValid(handle, client =>
             {
                 if (client.Connected)
@@ -79,6 +82,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void OnClientDisconnectedFromVoice(ushort handle)
         {
+            Log($"OnClientDisconnectedFromVoice({handle})");
             RunWhenClientConnected(handle, client =>
             {
                 InvokeProtectedEvent(() => OnClientDisconnected?.Invoke(client));
@@ -87,6 +91,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void OnClientTalkingStatusChangedFromVoice(ushort handle, bool newStatus)
         {
+            Log($"OnClientTalkingStatusChangedFromVoice({handle}, {newStatus})");
             RunWhenClientConnected(handle, client =>
             {
                 InvokeProtectedEvent(() => OnClientTalkingChanged?.Invoke(client, newStatus));
@@ -95,6 +100,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void OnClientSpeakersMuteChangedFromVoice(ushort handle, bool newStatus)
         {
+            Log($"OnClientSpeakersMuteChangedFromVoice({handle}, {newStatus})");
             RunWhenClientConnected(handle, client =>
             {
                 InvokeProtectedEvent(() => OnClientSpeakersMuteChanged?.Invoke(client, newStatus));
@@ -103,6 +109,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         private void OnClientMicrophoneMuteChangedFromVoice(ushort handle, bool newStatus)
         {
+            Log($"OnClientMicrophoneMuteChangedFromVoice({handle}, {newStatus})");
             RunWhenClientConnected(handle, client =>
             {
                 InvokeProtectedEvent(() => OnClientMicrophoneMuteChanged?.Invoke(client, newStatus));

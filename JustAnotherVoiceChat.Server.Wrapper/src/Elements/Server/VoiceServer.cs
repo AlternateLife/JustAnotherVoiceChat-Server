@@ -26,6 +26,7 @@
  */
 
 using System;
+using System.Linq;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Exceptions;
@@ -109,14 +110,12 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public void Dispose()
         {
-            lock (_voiceHandleGenerationLock)
+            var clients = _clients.Values.ToArray();
+            _clients.Clear();
+            
+            foreach (var client in clients)
             {
-                foreach (var client in _clients.Values)
-                {
-                    client.Dispose();
-                }
-                
-                _clients.Clear();
+                client.Dispose();
             }
             
             DisposeTasks();
