@@ -50,7 +50,7 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
             
             _voiceServer.OnLogMessage += OnLogMessage;
 
-            _voiceServer.OnClientPrepared += OnClientPrepared;
+            _voiceServer.OnClientPrepared += OnHandshakeShouldResend;
             
             _voiceServer.OnClientConnected += OnClientConnected;
             _voiceServer.OnClientRejected += OnClientRejected;
@@ -88,11 +88,6 @@ namespace JustAnotherVoiceChat.Server.GTMP.Resource
         {
             API.consoleOutput($"The voice-connection of {client.Player.name} has been rejected: {statusCode.ToString()}");
             client.Player.kick($"~r~Your voice-connection has been rejected: {statusCode.ToString()}");
-        }
-
-        private void OnClientPrepared(IGtmpVoiceClient client)
-        {           
-            OnHandshakeShouldResend(client);
         }
 
         private void OnHandshakeShouldResend(IGtmpVoiceClient client)

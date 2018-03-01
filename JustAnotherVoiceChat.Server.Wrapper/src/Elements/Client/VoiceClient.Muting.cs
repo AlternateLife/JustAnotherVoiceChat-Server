@@ -35,38 +35,32 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
         public bool MuteForAll(bool muted)
         {
-            return RunWhileConnected(() => Server.NativeWrapper.MuteClientForAll(this, muted));
+            return RunWhenConnected(() => Server.NativeWrapper.MuteClientForAll(this, muted));
         }
 
         public bool IsMutedForAll()
         {
-            return RunWhileConnected(() => Server.NativeWrapper.IsClientMutedForAll(this));
+            return RunWhenConnected(() => Server.NativeWrapper.IsClientMutedForAll(this));
         }
 
         public bool MuteSpeaker(IVoiceClient speaker, bool muted)
         {
-            return RunWhileConnected(() =>
+            if (speaker == null)
             {
-                if (speaker == null)
-                {
-                    throw new ArgumentNullException(nameof(speaker));
-                }
+                throw new ArgumentNullException(nameof(speaker));
+            }
 
-                return Server.NativeWrapper.MuteClientForClient(speaker, this, muted);
-            });
+            return RunWhenConnected(() => Server.NativeWrapper.MuteClientForClient(speaker, this, muted));
         }
 
         public bool IsSpeakerMuted(IVoiceClient speaker)
         {
-            return RunWhileConnected(() =>
+            if (speaker == null)
             {
-                if (speaker == null)
-                {
-                    throw new ArgumentNullException(nameof(speaker));
-                }
+                throw new ArgumentNullException(nameof(speaker));
+            }
 
-                return Server.NativeWrapper.IsClientMutedForClient(speaker, this);
-            });
+            return RunWhenConnected(() => Server.NativeWrapper.IsClientMutedForClient(speaker, this));
         }
     }
 }

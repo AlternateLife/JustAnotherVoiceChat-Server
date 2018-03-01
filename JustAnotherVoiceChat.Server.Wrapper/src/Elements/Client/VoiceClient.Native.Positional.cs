@@ -36,7 +36,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
     {
         public bool SetListeningPosition(Vector3 position, float rotation)
         {
-            return RunWhileConnected(() => Server.NativeWrapper.SetListenerPosition(this, position, rotation));
+            return RunWhenConnected(() => Server.NativeWrapper.SetListenerPosition(this, position, rotation));
         }
 
         public ClientPosition MakeClientPosition(Vector3 position, float rotation)
@@ -52,22 +52,22 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
         public bool SetRelativeSpeakerPosition(IVoiceClient speaker, Vector3 position)
         {
-            return RunWhileConnected(() => Server.NativeWrapper.SetRelativeSpeakerPositionForListener(this, speaker, position));
+            return RunWhenConnected(() => Server.NativeWrapper.SetRelativeSpeakerPositionForListener(this, speaker, position));
         }
         
         public bool ResetRelativeSpeakerPosition(IVoiceClient speaker)
         {
-            return RunWhileConnected(() => Server.NativeWrapper.ResetRelativeSpeakerPositionForListener(this, speaker));
+            return RunWhenConnected(() => Server.NativeWrapper.ResetRelativeSpeakerPositionForListener(this, speaker));
         }
 
         public bool ResetAllRelativeSpeakerPositions()
         {
-            return RunWhileConnected(() => Server.NativeWrapper.ResetAllRelativePositionsForListener(this));
+            return RunWhenConnected(() => Server.NativeWrapper.ResetAllRelativePositionsForListener(this));
         }
         
         public bool SetVoiceRange(float range)
         {
-            return RunWhileConnected(() => Server.NativeWrapper.SetClientVoiceRange(this, range));
+            return RunWhenConnected(() => Server.NativeWrapper.SetClientVoiceRange(this, range));
         }
     }
 }

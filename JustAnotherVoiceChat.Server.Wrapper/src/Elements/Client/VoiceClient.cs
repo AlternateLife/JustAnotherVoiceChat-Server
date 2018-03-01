@@ -68,11 +68,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
             return Server.NativeWrapper.SetClientNickname(this, nickname);
         }
 
-        private T RunWhileConnected<T>(Func<T> callback)
+        private T RunWhenConnected<T>(Func<T> callback)
         {
             if (!Connected)
             {
-                throw new ClientNotConnectedException(this.Handle);
+                throw new ClientNotConnectedException(Handle);
             }
 
             return callback();
