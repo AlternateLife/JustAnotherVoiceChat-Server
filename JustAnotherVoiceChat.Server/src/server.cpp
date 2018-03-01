@@ -142,6 +142,7 @@ bool Server::removeClient(uint16_t gameId) {
   
   auto client = clientByGameId(gameId);
   if (client == nullptr) {
+    logMessage("Client to be removed not found: " + std::to_string(gameId), LOG_LEVEL_WARNING);
     return false;
   }
 
@@ -153,7 +154,29 @@ bool Server::removeClient(uint16_t gameId) {
     (*it)->cleanupKnownClient(client);
   }
 
+  // get client ip
+  char ip[20];
+  enet_address_get_host_ip(&(client->peer()->address), ip, 20);
+
+  logMessage(std::string("Client disconnected ") + ip + ":" + std::to_string(client->peer()->address.port), LOG_LEVEL_INFO);
+
   client->disconnect();
+
+  // delete client from list
+  auto it = _clients.begin();
+  while (it != _clients.end()) {
+    if (*it == client) {
+      // send callback
+      if (_clientDisconnectedCallback != nullptr) {
+        _clientDisconnectedCallback((*it)->gameId());
+      }
+
+      it = _clients.erase(it);
+    } else {
+      it++;
+    }
+  }
+
   return true;
 }
 
@@ -413,7 +436,7 @@ void Server::updateClients() {
     for (auto it = _clients.begin(); it != _clients.end(); it++) {
       // calculate update packet for this client
       auto client = *it;
-      if (client == nullptr) {
+      if (client == nullptr || client->isConnected() == false) {
         continue;
       }
 

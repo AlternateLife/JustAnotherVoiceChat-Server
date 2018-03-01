@@ -71,7 +71,7 @@ void Client::disconnect() {
     return;
   }
 
-  enet_peer_disconnect(_peer, 0);
+  enet_peer_disconnect_now(_peer, 0);
   _peer = nullptr;
 }
 
@@ -577,6 +577,10 @@ void Client::sendControlMessage() {
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
+  if (isConnected() == false) {
+    return;
+  }
+
   enet_uint32 flags = 0;
 
   if (reliable) {
