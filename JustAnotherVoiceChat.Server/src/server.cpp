@@ -169,14 +169,20 @@ bool Server::removeClient(uint16_t gameId) {
 
   client->disconnect();
 
+  logMessage("Removing client from client list", LOG_LEVEL_DEBUG);
+
   // delete client from list
   auto it = _clients.begin();
   while (it != _clients.end()) {
     if (*it == client) {
       // send callback
+      logMessage("Calling disconnected callback", LOG_LEVEL_DEBUG);
+
       if (_clientDisconnectedCallback != nullptr) {
         _clientDisconnectedCallback((*it)->gameId());
       }
+
+      logMessage("Disconnected callback called", LOG_LEVEL_DEBUG);
 
       it = _clients.erase(it);
     } else {
@@ -684,20 +690,30 @@ void Server::onClientMessage(ENetEvent &event) {
       bool microphoneChanged;
       bool speakersChanged;
 
+      logMessage("Handling client status", LOG_LEVEL_DEBUG);
+
       if (client->handleStatus(event.packet, &talkingChanged, &microphoneChanged, &speakersChanged)) {
         // status changed, call callbacks
+        logMessage("Talking callback", LOG_LEVEL_DEBUG);
+
         if (talkingChanged && _clientTalkingChangedCallback != nullptr) {
           _clientTalkingChangedCallback(client->gameId(), client->isTalking());
         }
+
+        logMessage("Mic callback", LOG_LEVEL_DEBUG);
 
         if (microphoneChanged && _clientMicrophoneMuteChangedCallback != nullptr) {
           _clientMicrophoneMuteChangedCallback(client->gameId(), client->hasMicrophoneMuted());
         }
 
+        logMessage("Speaker callback", LOG_LEVEL_DEBUG);
+
         if (speakersChanged && _clientSpeakersMuteChangedCallback != nullptr) {
           _clientSpeakersMuteChangedCallback(client->gameId(), client->hasSpeakersMuted());
         }
       }
+
+      logMessage("Client status handled", LOG_LEVEL_DEBUG);
       break;
 
     default:

@@ -70,6 +70,7 @@ namespace justAnotherVoiceChat {
 
     std::mutex _audibleClientsMutex;
     std::mutex _mutedClientsMutex;
+    std::mutex _peerMutex;
 
   public:
     Client(ENetPeer *peer, uint16_t gameId, uint16_t teamspeakId);
