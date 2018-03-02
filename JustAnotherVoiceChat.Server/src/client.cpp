@@ -67,6 +67,8 @@ uint16_t Client::teamspeakId() const {
 }
 
 void Client::disconnect() {
+  std::lock_guard<std::mutex> guard(_peerMutex);
+
   if (_peer == nullptr) {
     return;
   }
@@ -577,6 +579,8 @@ void Client::sendControlMessage() {
 }
 
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
+  std::lock_guard<std::mutex> guard(_peerMutex);
+
   if (isConnected() == false) {
     return;
   }
