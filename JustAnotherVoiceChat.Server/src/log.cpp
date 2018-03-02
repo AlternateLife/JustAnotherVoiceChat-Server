@@ -29,8 +29,24 @@
 
 static logMessageCallback_t _logMessageCallback = nullptr;
 
+int _logLevel = LOG_LEVEL_INFO;
+
+void setLogLevel(int logLevel) {
+    _logLevel = level;
+
+    if (_logLevel > LOG_LEVEL_TRACE) {
+        _logLevel = LOG_LEVEL_TRACE;
+    } else if (_logLevel < LOG_LEVEL_ERROR) {
+        _logLevel = LOG_LEVEL_ERROR;
+    }
+}
+
 void logMessage(std::string message, int level) {
     if (_logMessageCallback == nullptr) {
+        return;
+    }
+
+    if (level > _logLevel) {
         return;
     }
 

@@ -58,6 +58,11 @@ typedef void (* JV_ClientStatusCallback_t)(uint16_t, bool);
 typedef void (* JV_ClientRejectedCallback_t)(uint16_t, int);
 
 /**
+ * 
+ */
+void JUSTANOTHERVOICECHAT_API JV_SetLogLevel(int logLevel);
+
+/**
  *
  */
 void JUSTANOTHERVOICECHAT_API JV_RegisterLogMessageCallback(logMessageCallback_t callback);
