@@ -29,9 +29,9 @@
 
 #include "server.h"
 
-#include <iostream>
+#include <memory>
 
-static justAnotherVoiceChat::Server *_server = nullptr;
+static std::shared_ptr<justAnotherVoiceChat::Server> _server = nullptr;
 
 void JV_SetLogLevel(int logLevel) {
   setLogLevel(logLevel);
@@ -54,7 +54,7 @@ void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t team
     return;
   }
 
-  _server = new justAnotherVoiceChat::Server(port, std::string(teamspeakServerId), teamspeakChannelId, std::string(teamspeakChannelPassword));
+  _server = std::make_shared<justAnotherVoiceChat::Server>(port, std::string(teamspeakServerId), teamspeakChannelId, std::string(teamspeakChannelPassword));
 }
 
 void JV_DestroyServer() {
@@ -65,7 +65,6 @@ void JV_DestroyServer() {
     return;
   }
 
-  delete _server;
   _server = nullptr;
 }
 
@@ -224,7 +223,7 @@ void JV_GetClientGameIds(uint16_t *, size_t) {
 }
 
 bool JV_RemoveClient(uint16_t clientId) {
-  logMessage("JV_RemoveClient called", LOG_LEVEL_DEBUG);
+  logMessage("JV_RemoveClient called", LOG_LEVEL_TRACE);
 
   if (_server == nullptr || _server->isRunning() == false) {
     logMessage("JV server is not available", LOG_LEVEL_WARNING);
