@@ -33,6 +33,10 @@
 
 static justAnotherVoiceChat::Server *_server = nullptr;
 
+void JV_SetLogLevel(int logLevel) {
+  setLogLevel(logLevel);
+}
+
 void JV_RegisterLogMessageCallback(logMessageCallback_t callback) {
   setLogMessageCallback(callback);
 }
