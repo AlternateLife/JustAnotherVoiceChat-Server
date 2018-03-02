@@ -72,7 +72,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
         {
             if (!Connected)
             {
-                throw new ClientNotConnectedException(Handle);
+                return default(T);
             }
 
             return callback();
