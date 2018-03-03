@@ -99,6 +99,42 @@ void Client::cleanupKnownClient(std::shared_ptr<Client> client) {
   // remove client reference from audible lists
   std::lock_guard<std::mutex> guard(_audibleClientsMutex);
 
+  auto addAudibleIt = _addAudibleClients.begin();
+  while (addAudibleIt != _addAudibleClients.end()) {
+    if (*addAudibleIt == client) {
+      addAudibleIt = _addAudibleClients.erase(addAudibleIt);
+    } else {
+      addAudibleIt++;
+    }
+  }
+
+  auto removeAudibleIt = _removeAudibleClients.begin();
+  while (removeAudibleIt != _removeAudibleClients.end()) {
+    if (*removeAudibleIt == client) {
+      removeAudibleIt = _removeAudibleClients.erase(removeAudibleIt);
+    } else {
+      removeAudibleIt++;
+    }
+  }
+
+  auto addRelativeAudibleIt = _addRelativeAudibleClients.begin();
+  while (addRelativeAudibleIt != _addRelativeAudibleClients.end()) {
+    if (*addRelativeAudibleIt == client) {
+      addRelativeAudibleIt = _addRelativeAudibleClients.erase(addRelativeAudibleIt);
+    } else {
+      addRelativeAudibleIt++;
+    }
+  }
+
+  auto removeRelativeAudibleIt = _removeRelativeAudibleClients.begin();
+  while (removeRelativeAudibleIt != _removeRelativeAudibleClients.end()) {
+    if (*removeRelativeAudibleIt == client) {
+      removeRelativeAudibleIt = _removeRelativeAudibleClients.erase(removeRelativeAudibleIt);
+    } else {
+      removeRelativeAudibleIt++;
+    }
+  }
+
   auto audibleIt = _audibleClients.begin();
   while (audibleIt != _audibleClients.end()) {
     if (*audibleIt == client) {
@@ -191,13 +227,13 @@ bool Client::isMutedClient(std::shared_ptr<Client> client) {
       return true;
     }
   }
-
+    
   return false;
 }
 
 bool Client::handleStatus(ENetPacket *packet, bool *talkingChanged, bool *microphoneChanged, bool *speakersChanged) {
   statusPacket_t statusPacket;
-
+  
   std::string data((char *)packet->data, packet->dataLength);
   std::istringstream is(data);
 
