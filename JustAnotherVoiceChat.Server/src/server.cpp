@@ -162,10 +162,7 @@ bool Server::removeClient(uint16_t gameId) {
   }
 
   // get client ip
-  char ip[20];
-  enet_address_get_host_ip(&(client->peer()->address), ip, 20);
-
-  logMessage(std::string("Client disconnected ") + ip + ":" + std::to_string(client->peer()->address.port), LOG_LEVEL_INFO);
+  logMessage("Client disconnected " + client->endpoint(), LOG_LEVEL_INFO);
 
   client->disconnect();
 
@@ -594,7 +591,7 @@ std::shared_ptr<Client> Server::clientByPeer(ENetPeer *peer) const {
       continue;
     }
 
-    if ((*it)->peer() == peer) {
+    if ((*it)->isPeer(peer)) {
       return *it;
     }
   }
@@ -644,7 +641,7 @@ void Server::onClientDisconnect(ENetEvent &event) {
       continue;
     }
 
-    if ((*it)->peer() == event.peer) {
+    if ((*it)->isPeer(event.peer)) {
       // send callback
       if (_clientDisconnectedCallback != nullptr) {
         logMessage("Calling disconnected callback", LOG_LEVEL_TRACE);

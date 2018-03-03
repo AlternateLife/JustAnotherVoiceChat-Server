@@ -130,8 +130,24 @@ bool Client::hasSpeakersMuted() const {
   return _speakersMuted;
 }
 
-ENetPeer *Client::peer() const {
-  return _peer;
+std::string Client::endpoint() {
+  std::lock_guard<std::mutex> guard(_peerMutex);
+
+  if (_peer == nullptr) {
+    return "";
+  }
+
+  // get ip and port from peer
+  char ip[20];
+  enet_address_get_host_ip(&(_peer->address), ip, 20);
+
+  return std::string(ip) + ":" + std::to_string(_peer->address.port);
+}
+
+bool Client::isPeer(ENetPeer *peer) {
+  std::lock_guard<std::mutex> guard(_peerMutex);
+
+  return _peer == peer;
 }
 
 void Client::setMuted(bool muted) {
