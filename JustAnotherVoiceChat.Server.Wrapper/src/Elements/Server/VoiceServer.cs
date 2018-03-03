@@ -117,6 +117,15 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public void SetLogLevel(LogLevel logLevel)
         {
+            if (logLevel > LogLevel.Trace)
+            {
+                logLevel = LogLevel.Trace;
+            } 
+            else if (logLevel < LogLevel.Error)
+            {
+                logLevel = LogLevel.Error;
+            }
+            
             _minimumLogLevel = logLevel;
             NativeWrapper.SetLogLevel(logLevel);
         }
