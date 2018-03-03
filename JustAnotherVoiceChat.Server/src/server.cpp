@@ -175,7 +175,7 @@ bool Server::removeClient(uint16_t gameId) {
       // send callback
       if (_clientDisconnectedCallback != nullptr) {
         logMessage("Calling disconnected callback", LOG_LEVEL_TRACE);
-        _clientDisconnectedCallback((*it)->gameId());
+        _clientDisconnectedCallback(client->gameId());
         logMessage("Disconnected callback called", LOG_LEVEL_TRACE);
       }
 
@@ -205,6 +205,7 @@ bool Server::removeAllClients() {
     }
   }
 
+  _clients.clear();
   return true;
 }
 
@@ -243,7 +244,6 @@ bool Server::setClientPositions(clientPosition_t *positionUpdates, int length) {
   }
 
   logMessage("Positions updated", LOG_LEVEL_TRACE);
-
   return success;
 }
 
