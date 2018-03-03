@@ -597,7 +597,7 @@ void Client::sendControlMessage() {
 void Client::sendPacket(void *data, size_t length, int channel, bool reliable) {
   std::lock_guard<std::mutex> guard(_peerMutex);
 
-  if (isConnected() == false) {
+  if (_peer == nullptr) {
     return;
   }
 

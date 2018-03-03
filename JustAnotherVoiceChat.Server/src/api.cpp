@@ -30,8 +30,10 @@
 #include "server.h"
 
 #include <memory>
+#include <mutex>
 
 static std::shared_ptr<justAnotherVoiceChat::Server> _server = nullptr;
+static std::mutex _serverMutex;
 
 void JV_SetLogLevel(int logLevel) {
   setLogLevel(logLevel);
@@ -48,6 +50,7 @@ void JV_UnregisterLogMessageCallback() {
 void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t teamspeakChannelId, const char *teamspeakChannelPassword) {
   logMessage("Creating server", LOG_LEVEL_DEBUG);
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server != nullptr) {
     logMessage("Server already created", LOG_LEVEL_WARNING);
 
@@ -60,6 +63,7 @@ void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t team
 void JV_DestroyServer() {
   logMessage("Destroying server", LOG_LEVEL_DEBUG);
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     logMessage("Server already destroyed", LOG_LEVEL_WARNING);
     return;
@@ -71,6 +75,7 @@ void JV_DestroyServer() {
 bool JV_StartServer() {
   logMessage("Starting server", LOG_LEVEL_DEBUG);
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     logMessage("Server not created", LOG_LEVEL_WARNING);
     return false;
@@ -82,6 +87,7 @@ bool JV_StartServer() {
 void JV_StopServer() {
   logMessage("Stopping server", LOG_LEVEL_DEBUG);
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     logMessage("Server not created", LOG_LEVEL_WARNING);
     return;
@@ -91,6 +97,7 @@ void JV_StopServer() {
 }
 
 bool JV_IsServerRunning() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return false;
   }
@@ -99,6 +106,7 @@ bool JV_IsServerRunning() {
 }
 
 void JV_RegisterClientConnectingCallback(JV_ClientConnectingCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -107,6 +115,7 @@ void JV_RegisterClientConnectingCallback(JV_ClientConnectingCallback_t callback)
 }
 
 void JV_UnregisterClientConnectingCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -115,6 +124,7 @@ void JV_UnregisterClientConnectingCallback() {
 }
 
 void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -123,6 +133,7 @@ void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
 }
 
 void JV_UnregisterClientConnectedCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -131,6 +142,7 @@ void JV_UnregisterClientConnectedCallback() {
 }
 
 void JV_RegisterClientRejectedCallback(JV_ClientRejectedCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -139,6 +151,7 @@ void JV_RegisterClientRejectedCallback(JV_ClientRejectedCallback_t callback) {
 }
 
 void JV_UnregisterClientRejectedCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -147,6 +160,7 @@ void JV_UnregisterClientRejectedCallback() {
 }
 
 void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -155,6 +169,7 @@ void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
 }
 
 void JV_UnregisterClientDisconnectedCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -163,6 +178,7 @@ void JV_UnregisterClientDisconnectedCallback() {
 }
 
 void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -171,6 +187,7 @@ void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback)
 }
 
 void JV_UnregisterClientTalkingChangedCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -179,6 +196,7 @@ void JV_UnregisterClientTalkingChangedCallback() {
 }
 
 void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -187,6 +205,7 @@ void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t call
 }
 
 void JV_UnregisterClientSpeakersMuteChangedCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -195,6 +214,7 @@ void JV_UnregisterClientSpeakersMuteChangedCallback() {
 }
 
 void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t callback) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -203,6 +223,7 @@ void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t ca
 }
 
 void JV_UnregisterClientMicrophoneMuteChangedCallback() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -211,6 +232,7 @@ void JV_UnregisterClientMicrophoneMuteChangedCallback() {
 }
 
 int JV_GetNumberOfClients() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return 0;
   }
@@ -225,6 +247,7 @@ void JV_GetClientGameIds(uint16_t *, size_t) {
 bool JV_RemoveClient(uint16_t clientId) {
   logMessage("JV_RemoveClient called", LOG_LEVEL_TRACE);
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     logMessage("JV server is not available", LOG_LEVEL_WARNING);
     return false;
@@ -234,6 +257,7 @@ bool JV_RemoveClient(uint16_t clientId) {
 }
 
 void JV_RemoveAllClients() {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return;
   }
@@ -242,6 +266,7 @@ void JV_RemoveAllClients() {
 }
 
 bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -250,6 +275,7 @@ bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float ro
 }
 
 bool JV_SetClientPositions(clientPosition_t *positionUpdates, int length) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -258,6 +284,7 @@ bool JV_SetClientPositions(clientPosition_t *positionUpdates, int length) {
 }
 
 bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -266,6 +293,7 @@ bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
 }
 
 bool JV_SetClientNickname(uint16_t clientId, const char *nickname) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -274,6 +302,7 @@ bool JV_SetClientNickname(uint16_t clientId, const char *nickname) {
 }
 
 void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr) {
     return;
   }
@@ -282,6 +311,7 @@ void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
 }
 
 bool JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -290,6 +320,7 @@ bool JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, fl
 }
 
 bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -298,6 +329,7 @@ bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) 
 }
 
 bool JV_ResetAllRelativePositions(uint16_t clientId) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -306,6 +338,7 @@ bool JV_ResetAllRelativePositions(uint16_t clientId) {
 }
 
 bool JV_MuteClientForAll(uint16_t clientId, bool muted) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -314,6 +347,7 @@ bool JV_MuteClientForAll(uint16_t clientId, bool muted) {
 }
 
 bool JV_IsClientMutedForAll(uint16_t clientId) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -322,6 +356,7 @@ bool JV_IsClientMutedForAll(uint16_t clientId) {
 }
 
 bool JV_MuteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
@@ -330,6 +365,7 @@ bool JV_MuteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted)
 }
 
 bool JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server == nullptr || _server->isRunning() == false) {
     return false;
   }
