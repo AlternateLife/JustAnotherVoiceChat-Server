@@ -58,5 +58,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         {
             NativeLibary.JV_Set3DSettings(distanceFactor, rolloffFactor);
         }
+
+        public void SetLogLevel(int logLevel)
+        {
+            NativeLibary.JV_SetLogLevel(logLevel);
+        }
     }
 }

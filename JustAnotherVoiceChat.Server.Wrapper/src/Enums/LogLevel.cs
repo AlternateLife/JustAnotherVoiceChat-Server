@@ -32,6 +32,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Enums
         Error,
         Warning,
         Info,
-        Debug
+        Debug,
+        Trace
     }
 }

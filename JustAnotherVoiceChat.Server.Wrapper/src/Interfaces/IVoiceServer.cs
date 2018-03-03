@@ -59,6 +59,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         void Log(LogLevel logLevel, string message);
         void Log(string message);
+        void SetLogLevel(int logLevel);
 
         TClient GetVoiceClient(VoiceHandle handle);
         TClient GetVoiceClient(ushort handle);

@@ -29,7 +29,7 @@
 
 static logMessageCallback_t _logMessageCallback = nullptr;
 
-int _logLevel = LOG_LEVEL_TRACE;
+int _logLevel = LOG_LEVEL_INFO;
 
 void setLogLevel(int logLevel) {
     _logLevel = logLevel;
