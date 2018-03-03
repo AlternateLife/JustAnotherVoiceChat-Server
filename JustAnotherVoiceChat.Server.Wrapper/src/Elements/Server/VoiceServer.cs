@@ -43,6 +43,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         
         public bool Started { get; private set; }
 
+        private LogLevel _minimumLogLevel = LogLevel.Info;
+
         protected VoiceServer(IVoiceClientFactory<TClient, TIdentifier> factory, VoiceServerConfiguration configuration) : this(factory, configuration, JustAnotherVoiceChat.GetVoiceWrapper())
         {
             
@@ -95,6 +97,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
         {
             try
             {
+                if (logLevel > _minimumLogLevel)
+                {
+                    return;
+                }
+                
                 OnLogMessage?.Invoke(message, logLevel);
             }
             catch
@@ -110,6 +117,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 
         public void SetLogLevel(LogLevel logLevel)
         {
+            _minimumLogLevel = logLevel;
             NativeWrapper.SetLogLevel(logLevel);
         }
 
