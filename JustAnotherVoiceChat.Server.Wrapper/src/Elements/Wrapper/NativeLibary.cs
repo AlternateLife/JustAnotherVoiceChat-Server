@@ -137,8 +137,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_UnregisterClientMicrophoneMuteChangedCallback();
-        
+
         // LogMessage
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        internal static extern void JV_SetLogLevel(int logLevel);
         
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_RegisterLogMessageCallback([MarshalAs(UnmanagedType.FunctionPtr)] NativeDelegates.LogMessageCallback callback);

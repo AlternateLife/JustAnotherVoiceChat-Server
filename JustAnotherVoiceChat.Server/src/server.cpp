@@ -245,6 +245,8 @@ bool Server::setClientPositions(clientPosition_t *positionUpdates, int length) {
     client->setRotation(positionUpdates[i].rotation);
   }
 
+  logMessage("Positions updated", LOG_LEVEL_TRACE);
+
   return success;
 }
 

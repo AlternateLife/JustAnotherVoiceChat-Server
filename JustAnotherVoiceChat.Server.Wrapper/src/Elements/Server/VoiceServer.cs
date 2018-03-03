@@ -108,6 +108,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             Log(LogLevel.Info, message);
         }
 
+        public void SetLogLevel(int logLevel)
+        {
+            NativeWrapper.SetLogLevel(logLevel);
+        }
+
         public void Dispose()
         {
             var clients = _clients.Values.ToArray();

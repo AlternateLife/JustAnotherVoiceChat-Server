@@ -44,6 +44,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         bool SetClientNickname(IVoiceClient client, string nickname);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
+        void SetLogLevel(int logLevel);
 
         void UnregisterClientConnectedCallback();
         void UnregisterClientConnectingCallback();
