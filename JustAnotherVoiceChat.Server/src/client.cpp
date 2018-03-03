@@ -119,7 +119,7 @@ void Client::cleanupKnownClient(std::shared_ptr<Client> client) {
 
   auto addRelativeAudibleIt = _addRelativeAudibleClients.begin();
   while (addRelativeAudibleIt != _addRelativeAudibleClients.end()) {
-    if (*addRelativeAudibleIt == client) {
+    if (*addRelativeAudibleIt.client == client) {
       addRelativeAudibleIt = _addRelativeAudibleClients.erase(addRelativeAudibleIt);
     } else {
       addRelativeAudibleIt++;
@@ -128,7 +128,7 @@ void Client::cleanupKnownClient(std::shared_ptr<Client> client) {
 
   auto removeRelativeAudibleIt = _removeRelativeAudibleClients.begin();
   while (removeRelativeAudibleIt != _removeRelativeAudibleClients.end()) {
-    if (*removeRelativeAudibleIt == client) {
+    if (*removeRelativeAudibleIt.client == client) {
       removeRelativeAudibleIt = _removeRelativeAudibleClients.erase(removeRelativeAudibleIt);
     } else {
       removeRelativeAudibleIt++;
