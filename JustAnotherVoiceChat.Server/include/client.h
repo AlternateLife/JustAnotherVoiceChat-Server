@@ -87,7 +87,8 @@ namespace justAnotherVoiceChat {
     bool isTalking() const;
     bool hasMicrophoneMuted() const;
     bool hasSpeakersMuted() const;
-    ENetPeer *peer() const;
+    std::string endpoint();
+    bool isPeer(ENetPeer *peer);
 
     void setMuted(bool muted);
     bool isMuted() const;
