@@ -1,6 +1,6 @@
 # Setup base project
 cmake_minimum_required(VERSION 3.5)
-project(JustAnotherVoiceChat VERSION 1.0.0 LANGUAGES CXX)
+project(JustAnotherVoiceChat VERSION 0.3.4 LANGUAGES CXX)
 
 # Make sure to install libraries into correct locations
 include(GNUInstallDirs)
