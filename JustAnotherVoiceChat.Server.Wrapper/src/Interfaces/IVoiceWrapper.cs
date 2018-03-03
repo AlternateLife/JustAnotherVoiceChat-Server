@@ -28,6 +28,7 @@
 using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
 
@@ -44,7 +45,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
         bool SetClientNickname(IVoiceClient client, string nickname);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
-        void SetLogLevel(int logLevel);
+        void SetLogLevel(LogLevel logLevel);
 
         void UnregisterClientConnectedCallback();
         void UnregisterClientConnectingCallback();

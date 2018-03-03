@@ -28,6 +28,7 @@
 using System.Collections.Generic;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 using JustAnotherVoiceChat.Server.Wrapper.Math;
 using JustAnotherVoiceChat.Server.Wrapper.Structs;
@@ -252,6 +253,11 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         public bool IsClientMutedForClient(IVoiceClient speaker, IVoiceClient listener)
         {
             return Mock.Object.IsClientMutedForClient(speaker, listener);
+        }
+
+        public void SetLogLevel(LogLevel logLevel)
+        {
+            Mock.Object.SetLogLevel(logLevel);
         }
     }
 }

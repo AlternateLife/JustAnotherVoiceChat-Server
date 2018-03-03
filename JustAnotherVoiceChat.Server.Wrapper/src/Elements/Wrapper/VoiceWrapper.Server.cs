@@ -27,6 +27,7 @@
 
 using System.Security;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
+using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
 
 namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
@@ -59,9 +60,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
             NativeLibary.JV_Set3DSettings(distanceFactor, rolloffFactor);
         }
 
-        public void SetLogLevel(int logLevel)
+        public void SetLogLevel(LogLevel logLevel)
         {
-            NativeLibary.JV_SetLogLevel(logLevel);
+            NativeLibary.JV_SetLogLevel((int) logLevel);
         }
     }
 }
