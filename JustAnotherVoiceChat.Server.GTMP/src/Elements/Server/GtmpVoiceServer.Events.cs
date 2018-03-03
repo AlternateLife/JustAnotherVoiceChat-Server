@@ -57,6 +57,9 @@ namespace JustAnotherVoiceChat.Server.GTMP.Elements.Server
             LogCat logCat;
             switch (logLevel)
             {
+                case LogLevel.Trace:
+                    logCat = LogCat.Trace;
+                    break;
                 case LogLevel.Debug:
                     logCat = LogCat.Debug;
                     break;
