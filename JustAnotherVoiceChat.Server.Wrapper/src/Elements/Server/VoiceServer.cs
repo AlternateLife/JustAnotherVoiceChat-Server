@@ -108,7 +108,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             Log(LogLevel.Info, message);
         }
 
-        public void SetLogLevel(int logLevel)
+        public void SetLogLevel(LogLevel logLevel)
         {
             NativeWrapper.SetLogLevel(logLevel);
         }
