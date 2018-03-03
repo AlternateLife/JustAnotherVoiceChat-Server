@@ -8,11 +8,13 @@
     <Version>$(VoiceChatVersion)</Version>
     <LangVersion>7</LangVersion>
     <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
+    <Title>JustAnotherVoiceChat-Server .NET Standard Wrapper</Title>
     <Description>JustAnotherVoiceChat-Server is the control unit of the JustAnotherVoiceChat TeamSpeak3-Plugin. It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server.</Description>
     <Copyright>2018 JustAnotherVoiceChat</Copyright>
     <Company>JustAnotherVoiceChat</Company>
     <PackageLicenseUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/AlternateLife/JustAnotherVoiceChat-Server/master/docs/images/JAVIC_Logo_Standalone_64px.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Authors>JustAnotherVoiceChat contributors</Authors>
