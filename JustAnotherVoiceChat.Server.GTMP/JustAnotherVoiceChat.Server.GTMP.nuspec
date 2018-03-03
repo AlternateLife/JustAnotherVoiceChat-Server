@@ -3,10 +3,11 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>JustAnotherVoiceChat-Server GT-MP Integration</title>
     <authors>JustAnotherVoiceChat contributors</authors>
     <owners>JustAnotherVoiceChat contributors</owners>
     <licenseUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server/blob/master/LICENSE</licenseUrl>
+    <iconUrl>https://raw.githubusercontent.com/AlternateLife/JustAnotherVoiceChat-Server/master/docs/images/JAVIC_Logo_Standalone_64px.png</iconUrl>
     <projectUrl>https://github.com/AlternateLife/JustAnotherVoiceChat-Server</projectUrl>
     <description>JustAnotherVoiceChat.Server.GTMP is the integration of the JustanotherVoiceChat.Server into GT-MP</description>
     <copyright>2018 JustAnotherVoiceChat</copyright>
