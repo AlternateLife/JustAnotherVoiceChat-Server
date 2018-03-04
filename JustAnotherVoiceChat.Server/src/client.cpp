@@ -128,7 +128,7 @@ void Client::cleanupKnownClient(std::shared_ptr<Client> client) {
 
   auto removeRelativeAudibleIt = _removeRelativeAudibleClients.begin();
   while (removeRelativeAudibleIt != _removeRelativeAudibleClients.end()) {
-    if ((*removeRelativeAudibleIt).client == client) {
+    if (*removeRelativeAudibleIt == client) {
       removeRelativeAudibleIt = _removeRelativeAudibleClients.erase(removeRelativeAudibleIt);
     } else {
       removeRelativeAudibleIt++;
