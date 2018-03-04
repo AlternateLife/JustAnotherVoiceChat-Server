@@ -372,3 +372,12 @@ bool JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
 
   return _server->isClientMutedForClient(speakerId, listenerId);
 }
+
+bool JV_IsClientConnected(uint16_t gameId) {
+  std::lock_guard<std::mutex> guard(_serverMutex);
+  if (_server == nullptr || _server->isRunning() == false) {
+    return false;
+  }
+
+  return _server->isClientConnected(gameId);
+}
