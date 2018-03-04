@@ -209,6 +209,20 @@ bool Server::removeAllClients() {
   return true;
 }
 
+bool Server::isClientConnected(uint16_t gameId) {
+  logMessage("Locking in isClientConnected", LOG_LEVEL_TRACE);
+  std::lock_guard<std::mutex> guard(_clientsMutex);
+  logMessage("Locked in isClientConnected", LOG_LEVEL_TRACE);
+
+  for (auto it = _clients.begin(); it != _clients.end(); it++) {
+    if ((*it)->gameId() == gameId) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 bool Server::setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation) {
   logMessage("Locking in setClientPosition", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_clientsMutex);

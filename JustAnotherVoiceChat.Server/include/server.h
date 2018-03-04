@@ -88,6 +88,7 @@ namespace justAnotherVoiceChat {
     int numberOfClients() const;
     bool removeClient(uint16_t gameId);
     bool removeAllClients();
+    bool isClientConnected(uint16_t gameId);
 
     bool setClientVoiceRange(uint16_t gameId, float voiceRange);
     bool setClientPosition(uint16_t gameId, linalg::aliases::float3 position, float rotation);
