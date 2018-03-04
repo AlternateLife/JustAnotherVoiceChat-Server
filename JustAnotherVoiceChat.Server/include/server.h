@@ -78,7 +78,7 @@ namespace justAnotherVoiceChat {
 
     bool create();
     void close();
-    bool isRunning() const;
+    bool isRunning();
 
     std::string teamspeakServerId() const;
     uint64_t teamspeakChannelId() const;

@@ -111,7 +111,7 @@ void Server::close() {
   logMessage("Voice server closed", LOG_LEVEL_INFO);
 }
 
-bool Server::isRunning() const {
+bool Server::isRunning() {
   std::lock_guard<std::mutex> guard(_serverMutex);
   return (_server != nullptr && _running);
 }
