@@ -55,6 +55,7 @@ namespace justAnotherVoiceChat {
     std::shared_ptr<std::thread> _clientUpdateThread;
     std::vector<std::shared_ptr<Client>> _clients;
     std::mutex _clientsMutex;
+    std::mutex _serverMutex;
 
     ClientConnectingCallback_t _clientConnectingCallback;
     ClientCallback_t _clientConnectedCallback;

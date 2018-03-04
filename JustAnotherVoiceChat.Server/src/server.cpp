@@ -72,6 +72,7 @@ bool Server::create() {
     return false;
   }
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server != nullptr) {
     return false;
   }
@@ -101,6 +102,7 @@ void Server::close() {
 
   abortThreads();
 
+  std::lock_guard<std::mutex> guard(_serverMutex);
   if (_server != nullptr) {
     enet_host_destroy(_server);
     _server = nullptr;
@@ -110,6 +112,7 @@ void Server::close() {
 }
 
 bool Server::isRunning() const {
+  std::lock_guard<std::mutex> guard(_serverMutex);
   return (_server != nullptr && _running);
 }
 
@@ -463,7 +466,12 @@ void Server::registerClientMicrophoneMuteChangedCallback(ClientStatusCallback_t 
 void Server::update() {
   ENetEvent event;
 
-  while (_running && _server != nullptr) {
+  while (_running) {
+    std::lock_guard<std::mutex> guard(_serverMutex);
+    if (_server == nullptr) {
+      return;
+    }
+
     int code = enet_host_service(_server, &event, 1);
 
     if (code > 0) {
