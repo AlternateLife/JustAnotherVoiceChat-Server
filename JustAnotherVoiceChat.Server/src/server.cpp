@@ -467,7 +467,9 @@ void Server::update() {
   ENetEvent event;
 
   while (_running) {
+    logMessage("Locking in update", LOG_LEVEL_TRACE);
     std::lock_guard<std::mutex> guard(_serverMutex);
+    logMessage("Locked in update", LOG_LEVEL_TRACE);
     if (_server == nullptr) {
       return;
     }
