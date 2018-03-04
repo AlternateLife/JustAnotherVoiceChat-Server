@@ -91,8 +91,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void ClientMuteNativeChangesWillSetClientProperties()
         {
-            _voiceWrapper.InvokeClientConnectedCallback(1);
-            
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.IsClientConnected(_voiceClient)).Returns(true);
+
             Assert.IsTrue(_voiceClient.Microphone);
             Assert.IsTrue(_voiceClient.Speakers);
             
@@ -124,20 +124,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         }
 
         [Test]
-        public void ClientConnectedWillChangeClientProperty()
-        {
-            Assert.IsFalse(_voiceClient.Connected);
-            
-            _voiceWrapper.InvokeClientConnectedCallback(1);
-            
-            Assert.IsTrue(_voiceClient.Connected);
-            
-            _voiceWrapper.InvokeClientDisconnectedCallback(1);
-            
-            Assert.IsFalse(_voiceClient.Connected);
-        }
-
-        [Test]
         public void ServerWillRejectNotPreparedClient()
         {
             var resultNotPrepared = _voiceWrapper.InvokeClientConnectingCallback(2, "identity=");
@@ -152,42 +138,9 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         }
 
         [Test]
-        public void ClientConnectWillOnlyInvokeOnNotConnectedClients()
-        {
-            _voiceWrapper.InvokeClientConnectingCallback(1, "jsdfjsd1");
-            _voiceWrapper.InvokeClientConnectingCallback(2, "jsdfjsd2");
-            _voiceWrapper.InvokeClientConnectingCallback(3, "jsdfjsd3");
-            _voiceWrapper.InvokeClientConnectingCallback(1, "jsdfjsd4");
-            
-            _voiceWrapper.InvokeClientConnectedCallback(1);
-            _voiceWrapper.InvokeClientConnectedCallback(2);
-            _voiceWrapper.InvokeClientConnectedCallback(3);
-            _voiceWrapper.InvokeClientConnectedCallback(1);
-            
-            Assert.AreEqual(2, _clientConnectingInvokes);
-            Assert.AreEqual(1, _clientConnectedInvokes);
-        }
-
-        [Test]
-        public void ClientDisconnectedWillOnlyInvokeOnConnectedClients()
-        {
-            _voiceWrapper.InvokeClientConnectedCallback(1);
-            
-            _voiceWrapper.InvokeClientDisconnectedCallback(1);
-            _voiceWrapper.InvokeClientDisconnectedCallback(1);
-            _voiceWrapper.InvokeClientDisconnectedCallback(1);
-            
-            _voiceWrapper.InvokeClientConnectedCallback(2);
-            
-            _voiceWrapper.InvokeClientDisconnectedCallback(2);
-            
-            Assert.AreEqual(1, _clientDisconnectedInvokes);
-        }
-
-        [Test]
         public void MicrophoneChangesAreOnlyTriggeredWhenPlayerIsConnected()
         {
-            _voiceWrapper.InvokeClientConnectedCallback(1);
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.IsClientConnected(_voiceClient)).Returns(true);
             
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(1, true);
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(2, true);
@@ -206,8 +159,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
         [Test]
         public void ServerSendsClientTalkingChangedtoConnectedClients()
         {
-            _voiceWrapper.InvokeClientConnectedCallback(1);
-            
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.IsClientConnected(_voiceClient)).Returns(true);
+
             _voiceWrapper.InvokeClientTalkingChangedCallback(1, true);
             _voiceWrapper.InvokeClientTalkingChangedCallback(1, false);
             
@@ -267,8 +220,8 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
 
             validInvokes = 0;
             invalidInvokes = 0;
-            
-            _voiceWrapper.InvokeClientConnectedCallback(1);
+
+            _voiceWrapper.Mock.Setup(wrapper => wrapper.IsClientConnected(_voiceClient)).Returns(true);
 
             _voiceServer.RunWhenClientConnected(1, client =>
             {

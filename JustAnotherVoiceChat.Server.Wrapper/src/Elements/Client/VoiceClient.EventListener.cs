@@ -35,28 +35,14 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Client
 
         private void AttachToStatusChangeEvents()
         {
-            Server.OnClientConnected += OnClientConnected;
-            Server.OnClientDisconnected += OnClientDisconnected;
             Server.OnClientMicrophoneMuteChanged += OnClientMicrophoneChanged;
             Server.OnClientSpeakersMuteChanged += OnClientSpeakersMuteChanged;
         }
 
         private void DetachFromStatusChangeEvents()
         {
-            Server.OnClientConnected -= OnClientConnected;
-            Server.OnClientDisconnected -= OnClientDisconnected;
             Server.OnClientMicrophoneMuteChanged -= OnClientMicrophoneChanged;
             Server.OnClientSpeakersMuteChanged -= OnClientSpeakersMuteChanged;
-        }
-
-        private void OnClientConnected(TClient client)
-        {
-            ExecuteOnMe(client, () => { Connected = true; });
-        }
-
-        private void OnClientDisconnected(TClient client)
-        {
-            ExecuteOnMe(client, () => { Connected = false; });
         }
 
         private void OnClientSpeakersMuteChanged(TClient client, bool isMuted)

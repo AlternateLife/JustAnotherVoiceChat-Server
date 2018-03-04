@@ -247,6 +247,11 @@ bool JUSTANOTHERVOICECHAT_API JV_MuteClientForClient(uint16_t speakerId, uint16_
  */
 bool JUSTANOTHERVOICECHAT_API JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId);
 
+/**
+ * 
+ */
+bool JUSTANOTHERVOICECHAT_API JV_IsClientConnected(uint16_t clientId);
+
 #ifdef __cplusplus
 }
 #endif

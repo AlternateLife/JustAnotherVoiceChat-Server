@@ -45,5 +45,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         {
             return NativeLibary.JV_SetClientVoiceRange(client.Handle.Identifer, voiceRange);
         }
+
+        public bool IsClientConnected(IVoiceClient client)
+        {
+            return NativeLibary.JV_IsClientConnected(client.Handle.Identifer);
+        }
     }
 }

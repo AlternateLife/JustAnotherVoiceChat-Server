@@ -77,6 +77,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
 
         [DllImport(JustAnotherVoiceChatLibrary)]
         internal static extern void JV_Set3DSettings(float distanceFactor, float rolloffFactor);
+
+        [DllImport(JustAnotherVoiceChatLibrary)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        internal static extern bool JV_IsClientConnected(ushort handle);
         
         /**
          * Events
@@ -196,8 +200,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Wrapper
         [DllImport(JustAnotherVoiceChatLibrary)]
         [return: MarshalAs(UnmanagedType.I1)]
         internal static extern bool JV_IsClientMutedForClient(ushort speakerId, ushort listenerId);
-
-
 
     }
 }
