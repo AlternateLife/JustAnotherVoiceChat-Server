@@ -259,5 +259,10 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         {
             Mock.Object.SetLogLevel(logLevel);
         }
+
+        public bool IsClientConnected(IVoiceClient client)
+        {
+            return Mock.Object.IsClientConnected(client);
+        }
     }
 }

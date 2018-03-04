@@ -43,6 +43,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Interfaces
 
         bool RemoveClient(IVoiceClient client);
         bool SetClientNickname(IVoiceClient client, string nickname);
+        bool IsClientConnected(IVoiceClient client);
         
         void Set3DSettings(float distanceFactor, float rolloffFactor);
         void SetLogLevel(LogLevel logLevel);
