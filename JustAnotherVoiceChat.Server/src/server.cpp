@@ -33,7 +33,7 @@
 
 #include "../thirdparty/JustAnotherVoiceChat/include/protocol.h"
 
-#include <iostream>
+#include <future>
 
 using namespace justAnotherVoiceChat;
 
@@ -178,7 +178,7 @@ bool Server::removeClient(uint16_t gameId) {
       // send callback
       if (_clientDisconnectedCallback != nullptr) {
         logMessage("Calling disconnected callback", LOG_LEVEL_TRACE);
-        _clientDisconnectedCallback(client->gameId());
+        std::async(_clientDisconnectedCallback, client->gameId());
         logMessage("Disconnected callback called", LOG_LEVEL_TRACE);
       }
 
@@ -667,7 +667,7 @@ void Server::onClientDisconnect(ENetEvent &event) {
       // send callback
       if (_clientDisconnectedCallback != nullptr) {
         logMessage("Calling disconnected callback", LOG_LEVEL_TRACE);
-        _clientDisconnectedCallback((*it)->gameId());
+        std::async(_clientDisconnectedCallback, (*it)->gameId());
         logMessage("Disconnected callback called", LOG_LEVEL_TRACE);
       }
 
@@ -715,19 +715,19 @@ void Server::onClientMessage(ENetEvent &event) {
         // status changed, call callbacks
         if (talkingChanged && _clientTalkingChangedCallback != nullptr) {
           logMessage("Calling talking callback", LOG_LEVEL_TRACE);
-          _clientTalkingChangedCallback(client->gameId(), client->isTalking());
+          std::async(_clientTalkingChangedCallback, client->gameId(), client->isTalking());
           logMessage("Talking callback called", LOG_LEVEL_TRACE);
         }
 
         if (microphoneChanged && _clientMicrophoneMuteChangedCallback != nullptr) {
           logMessage("Calling mic callback", LOG_LEVEL_TRACE);
-          _clientMicrophoneMuteChangedCallback(client->gameId(), client->hasMicrophoneMuted());
+          std::async(_clientMicrophoneMuteChangedCallback, client->gameId(), client->hasMicrophoneMuted());
           logMessage("Mic callback called", LOG_LEVEL_TRACE);
         }
 
         if (speakersChanged && _clientSpeakersMuteChangedCallback != nullptr) {
           logMessage("Calling speaker callback", LOG_LEVEL_TRACE);
-          _clientSpeakersMuteChangedCallback(client->gameId(), client->hasSpeakersMuted());
+          std::async(_clientSpeakersMuteChangedCallback, client->gameId(), client->hasSpeakersMuted());
           logMessage("Speaker callback called", LOG_LEVEL_TRACE);
         }
       }
@@ -802,7 +802,7 @@ void Server::handleHandshake(ENetEvent &event) {
 
     if (_clientRejectedCallback != nullptr) {
       logMessage("Calling rejected callback", LOG_LEVEL_TRACE);
-      _clientRejectedCallback(handshakePacket.gameId, handshakePacket.statusCode);
+      std::async(_clientRejectedCallback, handshakePacket.gameId, handshakePacket.statusCode);
       logMessage("Rejected callback called", LOG_LEVEL_TRACE);
     }
     return;
@@ -814,9 +814,9 @@ void Server::handleHandshake(ENetEvent &event) {
     sendHandshakeResponse(event.peer, STATUS_CODE_OK, "OK");
   } else {
     // search for already existing client
-    logMessage("Locking in handleHandshake", LOG_LEVEL_DEBUG);
+    logMessage("Locking in handleHandshake", LOG_LEVEL_TRACE);
     std::unique_lock<std::mutex> guard(_clientsMutex);
-    logMessage("Locked in handleHandshake", LOG_LEVEL_DEBUG);
+    logMessage("Locked in handleHandshake", LOG_LEVEL_TRACE);
 
     auto client = clientByPeer(event.peer);
     if (client != nullptr) {
@@ -827,14 +827,19 @@ void Server::handleHandshake(ENetEvent &event) {
     guard.unlock();
 
     logMessage("Calling connecting callback", LOG_LEVEL_TRACE);
-    if (_clientConnectingCallback != nullptr && _clientConnectingCallback(handshakePacket.gameId, handshakePacket.teamspeakClientUniqueIdentity.c_str()) == false) {
-      enet_peer_disconnect(event.peer, DISCONNECT_STATUS_REJECTED);
-      return;
+    if (_clientConnectingCallback != nullptr) {
+      std::future<bool> result = std::async(_clientConnectingCallback, handshakePacket.gameId, handshakePacket.teamspeakClientUniqueIdentity.c_str());
+      if (result.get() == false) {
+        enet_peer_disconnect(event.peer, DISCONNECT_STATUS_REJECTED);
+        return;
+      }
     }
     logMessage("Connecting callback called", LOG_LEVEL_TRACE);
 
     // save new client in list
+    logMessage("Locking in handleHandshake", LOG_LEVEL_TRACE);
     guard.lock();
+    logMessage("Locked in handleHandshake", LOG_LEVEL_TRACE);
 
     client = std::make_shared<Client>(event.peer, handshakePacket.gameId, handshakePacket.teamspeakId);
     _clients.push_back(client);
@@ -843,7 +848,7 @@ void Server::handleHandshake(ENetEvent &event) {
 
     if (_clientConnectedCallback != nullptr) {
       logMessage("Calling connected callback", LOG_LEVEL_TRACE);
-      _clientConnectedCallback(handshakePacket.gameId);
+      std::async(_clientConnectedCallback, handshakePacket.gameId);
       logMessage("Connecting callback called", LOG_LEVEL_TRACE);
     }
 
