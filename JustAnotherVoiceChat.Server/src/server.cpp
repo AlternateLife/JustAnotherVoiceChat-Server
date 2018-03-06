@@ -112,7 +112,9 @@ void Server::close() {
 }
 
 bool Server::isRunning() {
+  logMessage("Locking in isRunning", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked in isRunning", LOG_LEVEL_TRACE);
   return (_server != nullptr && _running);
 }
 
@@ -467,12 +469,14 @@ void Server::update() {
   ENetEvent event;
 
   while (_running) {
-    std::lock_guard<std::mutex> guard(_serverMutex);
+    std::unique_lock<std::mutex> guard(_serverMutex);
     if (_server == nullptr) {
       return;
     }
 
     int code = enet_host_service(_server, &event, 1);
+
+    guard.unlock();
 
     if (code > 0) {
       switch (event.type) {
@@ -501,9 +505,9 @@ void Server::update() {
 
 void Server::updateClients() {
   while (_running) {
-    logMessage("Locking in updateClients", LOG_LEVEL_TRACE);
+    // logMessage("Locking in updateClients", LOG_LEVEL_TRACE);
     std::unique_lock<std::mutex> guard(_clientsMutex);
-    logMessage("Locked in updateClients", LOG_LEVEL_TRACE);
+    // logMessage("Locked in updateClients", LOG_LEVEL_TRACE);
 
     // calculate update for clients
     for (auto it = _clients.begin(); it != _clients.end(); it++) {

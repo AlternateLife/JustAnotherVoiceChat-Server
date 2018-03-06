@@ -50,7 +50,9 @@ void JV_UnregisterLogMessageCallback() {
 void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t teamspeakChannelId, const char *teamspeakChannelPassword) {
   logMessage("Creating server", LOG_LEVEL_DEBUG);
 
+  logMessage("Locking api server in JV_CreateServer", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_CreateServer", LOG_LEVEL_TRACE);
   if (_server != nullptr) {
     logMessage("Server already created", LOG_LEVEL_WARNING);
 
@@ -63,7 +65,9 @@ void JV_CreateServer(uint16_t port, const char *teamspeakServerId, uint64_t team
 void JV_DestroyServer() {
   logMessage("Destroying server", LOG_LEVEL_DEBUG);
 
+  logMessage("Locking api server  in JV_DestroyServer", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_DestroyServer", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     logMessage("Server already destroyed", LOG_LEVEL_WARNING);
     return;
@@ -75,7 +79,9 @@ void JV_DestroyServer() {
 bool JV_StartServer() {
   logMessage("Starting server", LOG_LEVEL_DEBUG);
 
+  logMessage("Locking api server in JV_StartServer", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_StartServer", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     logMessage("Server not created", LOG_LEVEL_WARNING);
     return false;
@@ -87,7 +93,9 @@ bool JV_StartServer() {
 void JV_StopServer() {
   logMessage("Stopping server", LOG_LEVEL_DEBUG);
 
+  logMessage("Locking api server in JV_StopServer", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_StopServer", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     logMessage("Server not created", LOG_LEVEL_WARNING);
     return;
@@ -97,7 +105,9 @@ void JV_StopServer() {
 }
 
 bool JV_IsServerRunning() {
+  logMessage("Locking api server in JV_IsServerRunning", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_IsServerRunning", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return false;
   }
@@ -106,7 +116,9 @@ bool JV_IsServerRunning() {
 }
 
 void JV_RegisterClientConnectingCallback(JV_ClientConnectingCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientConnectingCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientConnectingCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -115,7 +127,9 @@ void JV_RegisterClientConnectingCallback(JV_ClientConnectingCallback_t callback)
 }
 
 void JV_UnregisterClientConnectingCallback() {
+  logMessage("Locking api server in JV_UnregisterClientConnectingCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_UnregisterClientConnectingCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -124,7 +138,9 @@ void JV_UnregisterClientConnectingCallback() {
 }
 
 void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientConnectedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientConnectedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -133,7 +149,9 @@ void JV_RegisterClientConnectedCallback(JV_ClientCallback_t callback) {
 }
 
 void JV_UnregisterClientConnectedCallback() {
+  logMessage("Locking api server in JV_UnregisterClientConnectedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_UnregisterClientConnectedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -142,7 +160,9 @@ void JV_UnregisterClientConnectedCallback() {
 }
 
 void JV_RegisterClientRejectedCallback(JV_ClientRejectedCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientRejectedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientRejectedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -151,7 +171,9 @@ void JV_RegisterClientRejectedCallback(JV_ClientRejectedCallback_t callback) {
 }
 
 void JV_UnregisterClientRejectedCallback() {
+  logMessage("Locking api server in JV_UnregisterClientRejectedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locking api server in JV_UnregisterClientRejectedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -160,7 +182,9 @@ void JV_UnregisterClientRejectedCallback() {
 }
 
 void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientDisconnectedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientDisconnectedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -169,7 +193,9 @@ void JV_RegisterClientDisconnectedCallback(JV_ClientCallback_t callback) {
 }
 
 void JV_UnregisterClientDisconnectedCallback() {
+  logMessage("Locking api server in JV_UnregisterClientDisconnectedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_UnregisterClientDisconnectedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -178,7 +204,9 @@ void JV_UnregisterClientDisconnectedCallback() {
 }
 
 void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientTalkingChangedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientTalkingChangedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -187,7 +215,9 @@ void JV_RegisterClientTalkingChangedCallback(JV_ClientStatusCallback_t callback)
 }
 
 void JV_UnregisterClientTalkingChangedCallback() {
+  logMessage("Locking api server in JV_RegisterClientTalkingChangedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_UnregisterClientTalkingChangedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -196,7 +226,9 @@ void JV_UnregisterClientTalkingChangedCallback() {
 }
 
 void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientSpeakersMuteChangedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientSpeakersMuteChangedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -205,7 +237,9 @@ void JV_RegisterClientSpeakersMuteChangedCallback(JV_ClientStatusCallback_t call
 }
 
 void JV_UnregisterClientSpeakersMuteChangedCallback() {
+  logMessage("Locking api server in JV_UnregisterClientSpeakersMuteChangedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_UnregisterClientSpeakersMuteChangedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -214,7 +248,9 @@ void JV_UnregisterClientSpeakersMuteChangedCallback() {
 }
 
 void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t callback) {
+  logMessage("Locking api server in JV_RegisterClientMicrophoneMuteChangedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_RegisterClientMicrophoneMuteChangedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -223,7 +259,9 @@ void JV_RegisterClientMicrophoneMuteChangedCallback(JV_ClientStatusCallback_t ca
 }
 
 void JV_UnregisterClientMicrophoneMuteChangedCallback() {
+  logMessage("Locking api server in JV_UnregisterClientMicrophoneMuteChangedCallback", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_UnregisterClientMicrophoneMuteChangedCallback", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -232,8 +270,10 @@ void JV_UnregisterClientMicrophoneMuteChangedCallback() {
 }
 
 int JV_GetNumberOfClients() {
+  logMessage("Locking api server in JV_GetNumberOfClients", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_GetNumberOfClients", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return 0;
   }
 
@@ -245,10 +285,10 @@ void JV_GetClientGameIds(uint16_t *, size_t) {
 }
 
 bool JV_RemoveClient(uint16_t clientId) {
-  logMessage("JV_RemoveClient called", LOG_LEVEL_TRACE);
-
+  logMessage("Locking api server in JV_RemoveClient", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_RemoveClient", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     logMessage("JV server is not available", LOG_LEVEL_WARNING);
     return false;
   }
@@ -257,8 +297,10 @@ bool JV_RemoveClient(uint16_t clientId) {
 }
 
 void JV_RemoveAllClients() {
+  logMessage("Locking api server in JV_RemoveAllClients", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_RemoveAllClients", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return;
   }
 
@@ -266,8 +308,10 @@ void JV_RemoveAllClients() {
 }
 
 bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float rotation) {
+  logMessage("Locking api server in JV_SetClientPosition", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_SetClientPosition", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -275,8 +319,10 @@ bool JV_SetClientPosition(uint16_t clientId, float x, float y, float z, float ro
 }
 
 bool JV_SetClientPositions(clientPosition_t *positionUpdates, int length) {
+  logMessage("Locking api server in JV_SetClientPositions", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_SetClientPositions", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -284,8 +330,10 @@ bool JV_SetClientPositions(clientPosition_t *positionUpdates, int length) {
 }
 
 bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
+  logMessage("Locking api server in JV_SetClientVoiceRange", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_SetClientVoiceRange", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -293,8 +341,10 @@ bool JV_SetClientVoiceRange(uint16_t clientId, float voiceRange) {
 }
 
 bool JV_SetClientNickname(uint16_t clientId, const char *nickname) {
+  logMessage("Locking api server in JV_SetClientNickname", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_SetClientNickname", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -302,7 +352,9 @@ bool JV_SetClientNickname(uint16_t clientId, const char *nickname) {
 }
 
 void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
+  logMessage("Locking api server in JV_Set3DSettings", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
+  logMessage("Locked api server in JV_Set3DSettings", LOG_LEVEL_TRACE);
   if (_server == nullptr) {
     return;
   }
@@ -311,8 +363,10 @@ void JV_Set3DSettings(float distanceFactor, float rolloffFactor) {
 }
 
 bool JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, float x, float y, float z) {
+  logMessage("Locking api server in JV_SetRelativePositionForClient", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_SetRelativePositionForClient", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -320,8 +374,10 @@ bool JV_SetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId, fl
 }
 
 bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) {
+  logMessage("Locking api server in JV_ResetRelativePositionForClient", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_ResetRelativePositionForClient", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -329,8 +385,10 @@ bool JV_ResetRelativePositionForClient(uint16_t listenerId, uint16_t speakerId) 
 }
 
 bool JV_ResetAllRelativePositions(uint16_t clientId) {
+  logMessage("Locking api server in JV_ResetAllRelativePositions", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_ResetAllRelativePositions", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -338,8 +396,10 @@ bool JV_ResetAllRelativePositions(uint16_t clientId) {
 }
 
 bool JV_MuteClientForAll(uint16_t clientId, bool muted) {
+  logMessage("Locking api server in JV_MuteClientForAll", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_MuteClientForAll", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -347,8 +407,10 @@ bool JV_MuteClientForAll(uint16_t clientId, bool muted) {
 }
 
 bool JV_IsClientMutedForAll(uint16_t clientId) {
+  logMessage("Locking api server in JV_MuteClientForAll", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_MuteClientForAll", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -356,8 +418,10 @@ bool JV_IsClientMutedForAll(uint16_t clientId) {
 }
 
 bool JV_MuteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted) {
+  logMessage("Locking api server in JV_MuteClientForClient", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_MuteClientForClient", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -365,8 +429,10 @@ bool JV_MuteClientForClient(uint16_t speakerId, uint16_t listenerId, bool muted)
 }
 
 bool JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
+  logMessage("Locking api server in JV_IsClientMutedForClient", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_IsClientMutedForClient", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
@@ -374,8 +440,10 @@ bool JV_IsClientMutedForClient(uint16_t speakerId, uint16_t listenerId) {
 }
 
 bool JV_IsClientConnected(uint16_t gameId) {
+  logMessage("Locking api server in JV_IsClientConnected", LOG_LEVEL_TRACE);
   std::lock_guard<std::mutex> guard(_serverMutex);
-  if (_server == nullptr || _server->isRunning() == false) {
+  logMessage("Locked api server in JV_IsClientConnected", LOG_LEVEL_TRACE);
+  if (_server == nullptr) {
     return false;
   }
 
