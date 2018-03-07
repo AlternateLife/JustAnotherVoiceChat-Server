@@ -6,6 +6,10 @@
 
 JustAnotherVoiceChat-Server is the control unit of the [JustAnotherVoiceChat TeamSpeak3-Plugin](https://github.com/AlternateLife/JustAnotherVoiceChat). It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server. The initial version is built for [GT-MP](http://gt-mp.net) but it can be used for any other games or mods, too.
 
+Feel free to join our Discord Server if you have any further questions.
+
+[![JAVIC Discord](https://discordapp.com/api/guilds/401509555684769802/embed.png?style=banner2)](https://discord.gg/uAVhvBT)
+
 ## Projects
 
 | Project                                   | Description                                                          |
