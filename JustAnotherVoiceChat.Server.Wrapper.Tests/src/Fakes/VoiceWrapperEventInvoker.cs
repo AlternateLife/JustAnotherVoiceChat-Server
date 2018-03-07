@@ -39,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
     public class VoiceWrapperEventInvoker : IVoiceWrapper
     {
-        private const int TASK_WAIT_TIME = 5;
+        private const int _taskWaitTime = 5;
         public readonly Mock<IVoiceWrapper> Mock = new Mock<IVoiceWrapper>();
         
         private NativeDelegates.ClientConnectingCallback _clientConnecting;
@@ -59,43 +59,43 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         public void InvokeClientConnectedCallback(ushort handle)
         {
             _clientConnected(handle);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
 
         public void InvokeClientRejectedCallback(ushort handle, int statusCode)
         {
             _clientRejected(handle, statusCode);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
 
         public void InvokeClientDisconnectedCallback(ushort handle)
         {
             _clientDisconnected(handle);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
 
         public void InvokeClientTalkingChangedCallback(ushort handle, bool newStatus)
         {
             _clientTalkingChanged(handle, newStatus);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
 
         public void InvokeClientSpeakersMuteChangedCallback(ushort handle, bool newStatus)
         {
             _clientSpeakersMuteChanged(handle, newStatus);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
 
         public void InvokeClientMicrophoneMuteChangedCallback(ushort handle, bool newStatus)
         {
             _clientMicrophoneMuteChanged(handle, newStatus);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
 
         public void InvokeLogMessageCallback(string message, int logLevel)
         {
             _logMessage(message, logLevel);
-            Task.Delay(TASK_WAIT_TIME).Wait();
+            Task.Delay(_taskWaitTime).Wait();
         }
         
         public void RegisterClientConnectingCallback(NativeDelegates.ClientConnectingCallback callback)
