@@ -26,6 +26,7 @@
  */
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
@@ -38,7 +39,7 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
 {
     public class VoiceWrapperEventInvoker : IVoiceWrapper
     {
-
+        private const int TASK_WAIT_TIME = 5;
         public readonly Mock<IVoiceWrapper> Mock = new Mock<IVoiceWrapper>();
         
         private NativeDelegates.ClientConnectingCallback _clientConnecting;
@@ -58,36 +59,43 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes
         public void InvokeClientConnectedCallback(ushort handle)
         {
             _clientConnected(handle);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
 
         public void InvokeClientRejectedCallback(ushort handle, int statusCode)
         {
             _clientRejected(handle, statusCode);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
 
         public void InvokeClientDisconnectedCallback(ushort handle)
         {
             _clientDisconnected(handle);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
 
         public void InvokeClientTalkingChangedCallback(ushort handle, bool newStatus)
         {
             _clientTalkingChanged(handle, newStatus);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
 
         public void InvokeClientSpeakersMuteChangedCallback(ushort handle, bool newStatus)
         {
             _clientSpeakersMuteChanged(handle, newStatus);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
 
         public void InvokeClientMicrophoneMuteChangedCallback(ushort handle, bool newStatus)
         {
             _clientMicrophoneMuteChanged(handle, newStatus);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
 
         public void InvokeLogMessageCallback(string message, int logLevel)
         {
             _logMessage(message, logLevel);
+            Task.Delay(TASK_WAIT_TIME).Wait();
         }
         
         public void RegisterClientConnectingCallback(NativeDelegates.ClientConnectingCallback callback)
