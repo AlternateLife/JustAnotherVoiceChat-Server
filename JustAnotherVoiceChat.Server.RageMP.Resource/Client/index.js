@@ -59,7 +59,7 @@ class VoiceScript {
         mp.gui.chat.push("ROTATION: " + mp.game.cam.getGameplayCamRot(0).z + " -> " + rotation);
         
         this.oldRotation = rotation;
-        mp.events.call("updateRotation", [rotation]);
+        mp.events.callRemote("updateRotation", rotation);
     }
 
     dispose() {
