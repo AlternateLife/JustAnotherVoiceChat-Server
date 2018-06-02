@@ -25,7 +25,6 @@
  * SOFTWARE.
  */
 
-using System;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -34,7 +33,6 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
 {
     public partial class VoiceServer<TClient, TIdentifier> where TClient : IVoiceClient
     {
-        
         private bool OnClientConnectingFromVoice(ushort handle, string teamspeakId)
         {
             Log(LogLevel.Trace, $"OnClientConnectingFromVoice({handle}, {teamspeakId})");
@@ -47,115 +45,63 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
             });
         }
 
-        private void OnClientConnectedFromVoice(ushort handle)
+        private async void OnClientConnectedFromVoice(ushort handle)
         {
             Log(LogLevel.Trace, $"OnClientConnectedFromVoice({handle})");
-            RunWhenClientValid(handle, client =>
+            await RunWhenClientValidAsync(handle, async client =>
             {
-                InvokeProtectedEvent(() => OnClientConnected?.Invoke(client));
+                await InvokeProtectedEventAsync(() => OnClientConnected?.Invoke(client));
             });
         }
         
-        private void OnClientRejectedFromVoice(ushort handle, int statusCode)
+        private async void OnClientRejectedFromVoice(ushort handle, int statusCode)
         {
             Log(LogLevel.Trace, $"OnClientRejectedFromVoice({handle}, {statusCode})");
-            RunWhenClientValid(handle, client =>
+            await RunWhenClientValidAsync(handle, async client =>
             {                
-                InvokeProtectedEvent(() => OnClientRejected?.Invoke(client, (StatusCode) statusCode));
+                await InvokeProtectedEventAsync(() => OnClientRejected?.Invoke(client, (StatusCode) statusCode));
             });
         }
 
-        private void OnClientDisconnectedFromVoice(ushort handle)
+        private async void OnClientDisconnectedFromVoice(ushort handle)
         {
             Log(LogLevel.Trace, $"OnClientDisconnectedFromVoice({handle})");
-            RunWhenClientValid(handle, client =>
+            await RunWhenClientValidAsync(handle, async client =>
             {
-                InvokeProtectedEvent(() => OnClientDisconnected?.Invoke(client));
+                await InvokeProtectedEventAsync(() => OnClientDisconnected?.Invoke(client));
             });
         }
 
-        private void OnClientTalkingStatusChangedFromVoice(ushort handle, bool newStatus)
+        private async void OnClientTalkingStatusChangedFromVoice(ushort handle, bool newStatus)
         {
             Log(LogLevel.Trace, $"OnClientTalkingStatusChangedFromVoice({handle}, {newStatus})");
-            RunWhenClientValid(handle, client =>
+            await RunWhenClientValidAsync(handle, async client =>
             {
-                InvokeProtectedEvent(() => OnClientTalkingChanged?.Invoke(client, newStatus));
+                await InvokeProtectedEventAsync(() => OnClientTalkingChanged?.Invoke(client, newStatus));
             });
         }
 
-        private void OnClientSpeakersMuteChangedFromVoice(ushort handle, bool newStatus)
+        private async void OnClientSpeakersMuteChangedFromVoice(ushort handle, bool newStatus)
         {
             Log(LogLevel.Trace, $"OnClientSpeakersMuteChangedFromVoice({handle}, {newStatus})");
-            RunWhenClientValid(handle, client =>
+            await RunWhenClientValidAsync(handle, async client =>
             {
-                InvokeProtectedEvent(() => OnClientSpeakersMuteChanged?.Invoke(client, newStatus));
+                await InvokeProtectedEventAsync(() => OnClientSpeakersMuteChanged?.Invoke(client, newStatus));
             });
         }
 
-        private void OnClientMicrophoneMuteChangedFromVoice(ushort handle, bool newStatus)
+        private async void OnClientMicrophoneMuteChangedFromVoice(ushort handle, bool newStatus)
         {
             Log(LogLevel.Trace, $"OnClientMicrophoneMuteChangedFromVoice({handle}, {newStatus})");
-            RunWhenClientValid(handle, client =>
+            await RunWhenClientValidAsync(handle, async client =>
             {
-                InvokeProtectedEvent(() => OnClientMicrophoneMuteChanged?.Invoke(client, newStatus));
+                await InvokeProtectedEventAsync(() => OnClientMicrophoneMuteChanged?.Invoke(client, newStatus));
             });
         }
 
-        private void OnLogMessageFromVoice(string message, int loglevel)
+        private async void OnLogMessageFromVoice(string message, int loglevel)
         {
-            Log((LogLevel) loglevel, message);
-        }
-        
-        
-        
-        internal T RunWhenClientValid<T>(ushort handle, Func<TClient, T> callback)
-        {
-            var client = GetVoiceClient(handle);
-            
-            if (client == null)
-            {
-                return default(T);
-            }
-
-            return callback(client);
-        }
-
-        internal void RunWhenClientValid(ushort handle, Action<TClient> callback)
-        {
-            var client = GetVoiceClient(handle);
-
-            if (client == null)
-            {
-                return;
-            }
-            
-            callback(client);
-        }
-        
-        internal T RunWhenClientConnected<T>(ushort handle, Func<TClient, T> callback)
-        {
-            return RunWhenClientValid(handle, client =>
-            {
-                if (!client.Connected)
-                {
-                    return default(T);
-                }
-
-                return callback(client);
-            });
-        }
-
-        internal void RunWhenClientConnected(ushort handle, Action<TClient> callback)
-        {
-            RunWhenClientValid(handle, client =>
-            {
-                if (!client.Connected)
-                {
-                    return;
-                }
-
-                callback(client);
-            });
+            await InvokeProtectedEventAsync(() => Log((LogLevel) loglevel, message));
         }
     }
 }

@@ -26,6 +26,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using JustAnotherVoiceChat.Server.Wrapper.Delegates;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Interfaces;
@@ -78,6 +79,17 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Elements.Server
                 Log(LogLevel.Error, $"An error occured inside eventhandler: {e}");
             }
         }
-        
+
+        internal async Task InvokeProtectedEventAsync(Action callback)
+        {
+            try
+            {
+                await Task.Run(callback).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Log(LogLevel.Error, $"An error occured inside eventhandler: {e}");
+            }
+        }
     }
 }

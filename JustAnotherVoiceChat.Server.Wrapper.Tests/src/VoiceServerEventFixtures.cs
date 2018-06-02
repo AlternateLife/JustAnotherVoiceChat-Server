@@ -26,6 +26,7 @@
  */
 
 using System;
+using System.Threading.Tasks;
 using JustAnotherVoiceChat.Server.Wrapper.Elements.Models;
 using JustAnotherVoiceChat.Server.Wrapper.Enums;
 using JustAnotherVoiceChat.Server.Wrapper.Tests.Fakes;
@@ -98,13 +99,13 @@ namespace JustAnotherVoiceChat.Server.Wrapper.Tests
             
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(1, true);
             _voiceWrapper.InvokeClientSpeakersMuteChangedCallback(1, true);
-            
+
             Assert.IsFalse(_voiceClient.Microphone);
             Assert.IsFalse(_voiceClient.Speakers);
             
             _voiceWrapper.InvokeClientMicrophoneMuteChangedCallback(1, false);
             _voiceWrapper.InvokeClientSpeakersMuteChangedCallback(1, false);
-            
+
             Assert.IsTrue(_voiceClient.Microphone);
             Assert.IsTrue(_voiceClient.Speakers);
             
