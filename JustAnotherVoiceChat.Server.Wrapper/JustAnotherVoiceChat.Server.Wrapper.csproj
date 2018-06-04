@@ -7,7 +7,6 @@
     <FileVersion>$(VoiceChatVersion)</FileVersion>
     <Version>$(VoiceChatVersion)</Version>
     <LangVersion>7</LangVersion>
-    <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
     <Title>JustAnotherVoiceChat-Server .NET Standard Wrapper</Title>
     <Description>JustAnotherVoiceChat-Server is the control unit of the JustAnotherVoiceChat TeamSpeak3-Plugin. It uses a dedicated TeamSpeak3-Server to communicate with other players on any .NET based multiplayer-server.</Description>
     <Copyright>2018 JustAnotherVoiceChat</Copyright>
@@ -20,28 +19,14 @@
     <Authors>JustAnotherVoiceChat contributors</Authors>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
-    <WarningLevel>0</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\Debug\Linux\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LINUX;NETSTANDARD1_2</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Windows|AnyCPU'">
-    <OutputPath>bin\Debug\Windows\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_2</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Windows|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug GTMP|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\Release\Windows\</OutputPath>
-    <DefineConstants>TRACE;NETSTANDARD1_2</DefineConstants>
-    <Optimize>true</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Linux|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>bin\Release\Linux\</OutputPath>
-    <DefineConstants>TRACE;LINUX;NETSTANDARD1_2</DefineConstants>
-    <Optimize>true</Optimize>
   </PropertyGroup>
   <!-- LINUX NATIVE LIBRARY -->
   <Target Name="Clean" Condition="'$(Configuration)' == 'Debug Linux' Or '$(Configuration)' == 'Release Linux'">
