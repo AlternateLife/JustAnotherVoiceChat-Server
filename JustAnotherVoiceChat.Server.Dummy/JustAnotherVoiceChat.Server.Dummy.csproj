@@ -6,7 +6,15 @@
     <LangVersion>7</LangVersion>
     <IsPackable>false</IsPackable>
     <Configurations>Debug Linux;Debug Windows;Release Linux;Release Windows</Configurations>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Linux|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;LINUX;NETCOREAPP2_0;NETCOREAPP2_0</DefineConstants>
     <OutputPath>bin\Debug\Linux\</OutputPath>
